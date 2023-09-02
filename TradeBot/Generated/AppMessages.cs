@@ -59,6 +59,12 @@ namespace TradeBot.Generated
         [JsonProperty("listPositions")]
         public IList<string> ListPositions { get; set; }
 
+        [JsonProperty("setRisk")]
+        public IList<string> SetRisk { get; set; }
+
+        [JsonProperty("setEquity")]
+        public IList<string> SetEquity { get; set; }
+
         [JsonProperty("loadState")]
         public IList<string> LoadState { get; set; }
 

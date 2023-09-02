@@ -58,6 +58,10 @@ namespace TradeBot
             addMenuOption(entries.ListPositions, controller.ListPositionsCommand);
             addMenuOptionDivider();
 
+            addMenuOption(entries.SetRisk, controller.SetRisk);
+            addMenuOption(entries.SetEquity, controller.SetEquity);
+            addMenuOptionDivider();
+
             addMenuOption(entries.LoadState, controller.LoadStateCommand);
             addMenuOption(entries.SaveState, controller.SaveStateCommand);
             addMenuOptionDivider();

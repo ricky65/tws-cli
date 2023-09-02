@@ -38,6 +38,10 @@
 
     "listPositions": [ "a", "List positions" ],
 
+    "setRisk": [ "risk", "Modify Risk Per Trade Percentage. Default: 1.25%" ],
+    "setEquity": [ "equity", "Modify Equity (N% of Equity is Risk Per Trade) Default: Available Funds of account" ],
+
+
     "loadState": [ "l", "Load default state" ],
     "saveState": [ "p", "Save current state as default state" ],
 

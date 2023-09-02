@@ -159,7 +159,6 @@ namespace TradeBot
         public Task BuyCommand(string[] args)
         {
             double sellStopPrice = Double.Parse(args[0]);
-            //Rick TODO - check sell stop price is valid
 
             if (Validation.TickerSet(service)
                 && Validation.SharesSet(Shares)
@@ -206,7 +205,6 @@ namespace TradeBot
         public Task SellCommand(string[] args)
         {
             double sellStopPrice = Double.Parse(args[0]);
-            //Rick TODO - check sell stop price is valid
 
             if (Validation.TickerSet(service)
                 && Validation.SharesSet(Shares)
@@ -255,6 +253,49 @@ namespace TradeBot
                     IO.ShowMessage(position.ToString());
                 }
             }
+        }
+
+        public Task SetRisk(string[] args)
+        {
+            double newRisk = 0.0;
+            bool canConvert = double.TryParse(args[0], out newRisk);
+
+            if (canConvert == true)
+            {
+                if (newRisk > 0.1 && newRisk <= 3.0)
+                {
+                    service.riskPercent = newRisk;
+                    IO.ShowMessage("Set Risk Per Trade to {0}%", newRisk);
+                }
+                else
+                {
+                    IO.ShowMessage("Risk Per Trade must be be between 0.1% and 3%");
+                }
+            }
+            else
+            {
+                IO.ShowMessage("Set Risk: {0} is not valid", args[0]);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        public Task SetEquity(string[] args)
+        {
+            double newEquity = 0.0;
+            bool canConvert = double.TryParse(args[0], out newEquity);
+
+            if (canConvert == true)
+            { 
+                service.totalEquity = newEquity;
+                IO.ShowMessage("Set Equity to {0}", newEquity.ToCurrencyString());
+            }
+            else
+            {
+                IO.ShowMessage("Set Equity: {0} is not valid", args[0]);
+            }           
+
+            return Task.CompletedTask;
         }
 
         public Task LoadStateCommand(string[] args)
