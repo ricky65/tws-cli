@@ -15,6 +15,10 @@ namespace TradeBot.Generated
         [JsonProperty("setTickerSymbol")]
         public IList<string> SetTickerSymbol { get; set; }
 
+        //Rick
+        [JsonProperty("setCFDTickerSymbol")]
+        public IList<string> SetCFDTickerSymbol { get; set; }
+
         [JsonProperty("setSharesFromCash")]
         public IList<string> SetSharesFromCash { get; set; }
 
@@ -27,6 +31,14 @@ namespace TradeBot.Generated
         [JsonProperty("buy")]
         public IList<string> Buy { get; set; }
 
+        [JsonProperty("buystop")]
+        //Rick
+        public IList<string> BuyStop { get; set; }
+
+        [JsonProperty("sellstop")]
+        //Rick
+        public IList<string> SellStop { get; set; }
+
         [JsonProperty("sell")]
         public IList<string> Sell { get; set; }
 
@@ -35,6 +47,14 @@ namespace TradeBot.Generated
 
         [JsonProperty("closePosition")]
         public IList<string> ClosePosition { get; set; }
+
+        //Rick
+        [JsonProperty("closeHalfPosition")]
+        public IList<string> CloseHalfPosition { get; set; }
+        [JsonProperty("closeThirdPosition")]
+        public IList<string> CloseThirdPosition { get; set; }
+        [JsonProperty("closeTwoThirdsPosition")]
+        public IList<string> CloseTwoThirdsPosition { get; set; }
 
         [JsonProperty("listPositions")]
         public IList<string> ListPositions { get; set; }

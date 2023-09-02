@@ -32,6 +32,7 @@ namespace TradeBot
             MenuOptionEntries entries = Messages.MenuOptionEntries;
 
             addMenuOption(entries.SetTickerSymbol, controller.PromptForTickerSymbolCommand);
+            addMenuOption(entries.SetCFDTickerSymbol, controller.PromptForCFDtickerSymbolCommand);
             addMenuOptionDivider();
 
             addMenuOption(entries.SetSharesFromCash, controller.PromptForCashCommand);
@@ -40,9 +41,18 @@ namespace TradeBot
             addMenuOptionDivider();
 
             addMenuOption(entries.Buy, controller.BuyCommand);
+
+            //Rick
+            addMenuOption(entries.BuyStop, controller.BuyStopCommand);
+            addMenuOption(entries.SellStop, controller.SellStopCommand);
+
             addMenuOption(entries.Sell, controller.SellCommand);
             addMenuOption(entries.ReversePosition, controller.ReversePositionCommand);
             addMenuOption(entries.ClosePosition, controller.ClosePositionCommand);
+            //Rick
+            addMenuOption(entries.CloseHalfPosition, controller.CloseHalfPositionCommand);
+            addMenuOption(entries.CloseThirdPosition, controller.CloseThirdPositionCommand);
+            addMenuOption(entries.CloseTwoThirdsPosition, controller.CloseTwoThirdsPositionCommand);
             addMenuOptionDivider();
 
             addMenuOption(entries.ListPositions, controller.ListPositionsCommand);

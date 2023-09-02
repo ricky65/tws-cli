@@ -2,8 +2,11 @@ using IBApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using TradeBot.Events;
+using TradeBot.Extensions;
+using TradeBot.Gui;
 using TradeBot.TwsAbstractions;
 using TradeBot.Utils;
 
@@ -22,6 +25,19 @@ namespace TradeBot
         private TickData tickData;
 
         private int nextValidOrderId;
+
+        //Rick - Calculate N% risk of totalEquity
+        private double totalEquity = 5_500;
+        private double riskPercent = 1.25;
+
+
+        //Offsets in cents for order types
+        private double limitOffset = 0.03;
+        private double buyStopOffset = 0.11;
+        private double sellStopOffset = 0.11;
+
+        //maps an Account to Available Funds in account
+        Dictionary<string, double> accountAvailableFunds = new Dictionary<string, double>();
 
         public TradeService(int clientId)
         {
@@ -45,6 +61,8 @@ namespace TradeBot
             UpdatePortfolio += OnUpdatePortfolio;
             AccountDownloadEnd += OnAccountDownloadEnd;
             CommissionReport += OnCommissionReport;
+            AccountSummary += OnAccountSummary;//Rick
+            AccountSummaryEnd += OnAccountSummaryEnd;//Rick
         }
 
         #region Events
@@ -108,6 +126,20 @@ namespace TradeBot
             }
         }
 
+        //Rick
+        private bool _useCFD = false;
+        public bool UseCFD
+        {
+            get
+            {
+                return _useCFD;
+            }
+            set
+            {
+                _useCFD = value;
+            }
+        }
+
         public bool HasTickerSymbol
         {
             get
@@ -162,37 +194,225 @@ namespace TradeBot
             IsConnected = false;
         }
 
-        public void PlaceBuyLimitOrder(double quantity, int tickType = TickType.ASK)
+        public void PlaceBuyLimitOrder(double quantity, int tickType, double sellStopPrice)
         {
-            PlaceLimitOrder(OrderActions.BUY, quantity, tickType);
+            PlaceLimitOrder(OrderActions.BUY, quantity, tickType, sellStopPrice);
         }
 
-        public void PlaceSellLimitOrder(double quantity, int tickType = TickType.BID)
+        //Rick: 
+        public void PlaceBuyStopLimitOrder(double quantity, int tickType, double buyStopPrice, double sellStopPrice)
         {
-            PlaceLimitOrder(OrderActions.SELL, quantity, tickType);
+            PlaceBuyStopLimitOrder(OrderActions.BUY, quantity, tickType, buyStopPrice, sellStopPrice);
         }
 
-        public void PlaceLimitOrder(OrderActions action, double quantity, int tickType)
+        //Rick:
+        public void PlaceSellStopLimitOrder(double quantity, int tickType, double sellStopPrice, double buyStopPrice)
+        {
+            PlaceSellStopLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, buyStopPrice);
+        }
+
+        public void PlaceSellLimitOrder(double quantity, int tickType, double sellStopPrice)
+        {
+            PlaceLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice);
+        }
+
+        public void PlaceLimitOrder(OrderActions action, double quantity, int tickType, double stopPrice)
         {
             double? price = GetTick(tickType);
+            //Rick: Have +/- 3 cent offset
+            if (action == OrderActions.BUY)
+            {
+                price += limitOffset;
+
+                if (!(stopPrice < price))
+                {
+                    IO.ShowMessage("LONG Stop: Sell Stop must be less than ASK + 3 cents");
+                    return;
+            }
+            }
+            else if (action == OrderActions.SELL)
+            {
+                price -= limitOffset;
+
+                if (!(stopPrice > price))
+                {
+                    IO.ShowMessage("SHORT Stop: Buy Stop must be greater than BID - 3 cents");
+                    return;
+            }
+            }
+
             if (!price.HasValue)
             {
                 return;
             }
 
-            PlaceLimitOrder(action, quantity, price.Value);
+            PlaceLimitOrder(action, quantity, price.Value, stopPrice);
         }
 
-        public void PlaceLimitOrder(OrderActions action, double quantity, double price)
+        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double stopPrice)
         {
             if (tickerContract == null || price <= 0)
             {
                 return;
             }
 
-            Order order = OrderFactory.CreateLimitOrder(action, quantity, price);
+            //Rick: Calculate number of shares to buy risking N% of account
+            double currentPriceStopLossDiff = Math.Abs(price - stopPrice);
+            double riskAmount = riskPercent * totalEquity / 100.00;
+            double numShares = Math.Floor(riskAmount / currentPriceStopLossDiff);
+            double dollarAmount = numShares * price;
+            double percentageOfTotalEquity = dollarAmount / totalEquity * 100.00;
+
+            var riskStr = String.Format("{0} Limit {1} - Price {2} - Stop {3} - Risk: {4}% (${5}) - {6} shares (Half: {7}) (${8}) ({9:0.00}% of ${10})",
+                 tickerContract.Symbol, action.ToString(), price, stopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+            IO.ShowMessage(riskStr);
+
+            //rick - use cfd if possible
+            if (UseCFD)
+            {
+                tickerContract.SecType = SecurityTypes.CFD.ToString();
+            }
+
+            //parent order
+            Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, price, false);//Rick: Was user set quantity before
+            parentOrder.Account = TradedAccount;
+            parentOrder.OrderId = nextValidOrderId;
+            clientSocket.placeOrder(nextValidOrderId++, tickerContract, parentOrder);
+
+            //child stop order
+            OrderActions stopAction = action == OrderActions.BUY ? OrderActions.SELL : OrderActions.BUY;
+            Order sellStopChildOrder = OrderFactory.CreateStopOrder(stopAction, numShares, stopPrice);//Rick: Was user set quantity before
+            sellStopChildOrder.Account = TradedAccount;
+            sellStopChildOrder.ParentId = parentOrder.OrderId;
+            sellStopChildOrder.OrderId = nextValidOrderId;
+            clientSocket.placeOrder(nextValidOrderId++, tickerContract, sellStopChildOrder);
+        }
+
+        public void PlaceCloseLimitOrder(OrderActions action, double quantity, int tickType)
+        {
+            double? price = GetTick(tickType);
+
+            if (tickerContract == null || !price.HasValue)
+            {
+                return;
+            }
+
+            //Rick: Have +/- 3 cent offset
+            if (action == OrderActions.BUY)
+            {
+                price += limitOffset;               
+            }
+            else if (action == OrderActions.SELL)
+            {
+                price -= limitOffset;             
+            }
+
+            //rick - if we're closing a cfd position make sure SecType is CFD
+            if (UseCFD)
+            {
+                tickerContract.SecType = SecurityTypes.CFD.ToString();
+            }
+
+            Order order = OrderFactory.CreateLimitOrder(action, quantity, price.Value, true);
             order.Account = TradedAccount;
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, order);
+        }
+
+
+        //Rick
+        public void PlaceBuyStopLimitOrder(OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice)
+        {
+            if (tickerContract == null || buyStopPrice <= 0)
+        {
+                return;
+            }
+
+            if (!(sellStopPrice < buyStopPrice))
+            {
+                IO.ShowMessage("LONG Stop Limit: Sell Stop must be less than Buy Stop");
+                return;
+            }
+
+            //Rick: Calculate number of shares to buy risking N% of account
+            double currentPriceStopLossDiff = Math.Abs(buyStopPrice - sellStopPrice);
+            double riskAmount = riskPercent * totalEquity / 100.00;
+            double numShares = Math.Floor(riskAmount / currentPriceStopLossDiff);
+            double dollarAmount = numShares * buyStopPrice;
+            double percentageOfTotalEquity = dollarAmount / totalEquity * 100.00;
+
+            var riskStr = String.Format("{0} BUY Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7}) ({8:0.00}% of ${9})",
+                 tickerContract.Symbol, buyStopPrice, sellStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+            IO.ShowMessage(riskStr);
+
+            //rick - use cfd if possible
+            if (UseCFD)
+            {
+                tickerContract.SecType = SecurityTypes.CFD.ToString();
+            }
+
+            //Rick: Buy Stop Limit is StopPrice + 11 cents
+            double limitPrce = buyStopPrice + buyStopOffset;
+
+            //Rick: Create parent order
+            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, buyStopPrice);
+            parentOrder.Account = TradedAccount;
+            parentOrder.OrderId = nextValidOrderId;
+            clientSocket.placeOrder(nextValidOrderId++, tickerContract, parentOrder);
+
+            //Rick: Create child stop order
+            Order sellStopChildOrder = OrderFactory.CreateStopOrder(OrderActions.SELL, numShares, sellStopPrice);
+            sellStopChildOrder.Account = TradedAccount;
+            sellStopChildOrder.ParentId = parentOrder.OrderId;
+            sellStopChildOrder.OrderId = nextValidOrderId;
+            clientSocket.placeOrder(nextValidOrderId++, tickerContract, sellStopChildOrder);
+        }
+
+        //Rick
+        public void PlaceSellStopLimitOrder(OrderActions action, double quantity, int tickType, double sellStopPrice, double buyStopPrice)
+        {
+            if (tickerContract == null || buyStopPrice <= 0)
+            {
+                return;
+            }
+
+            if (!(buyStopPrice > sellStopPrice)) 
+            {
+                IO.ShowMessage("SHORT Stop Limit: Buy Stop must be greater than Sell Stop");
+                return;
+            }
+
+            //Rick: Calculate number of shares to buy risking N% of account
+            double currentPriceStopLossDiff = Math.Abs(buyStopPrice - sellStopPrice);
+            double riskAmount = riskPercent * totalEquity / 100.00;
+            double numShares = Math.Floor(riskAmount / currentPriceStopLossDiff);
+            double dollarAmount = numShares * buyStopPrice;
+            double percentageOfTotalEquity = dollarAmount / totalEquity * 100.00;
+
+            var riskStr = String.Format("{0} SELL Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7}) ({8:0.00}% of ${9})",
+                 tickerContract.Symbol, sellStopPrice, buyStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+            IO.ShowMessage(riskStr);
+
+            //rick - use cfd if possible
+            if (UseCFD)
+            {
+                tickerContract.SecType = SecurityTypes.CFD.ToString();
+            }
+
+            //Rick: Selll Stop Limit is StopPrice - 11 cents
+            double limitPrce = sellStopPrice - sellStopOffset;
+
+            //Rick: Create parent order
+            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, sellStopPrice);
+            parentOrder.Account = TradedAccount;
+            parentOrder.OrderId = nextValidOrderId;
+            clientSocket.placeOrder(nextValidOrderId++, tickerContract, parentOrder);
+
+            //Rick: Create child stop order
+            Order sellStopChildOrder = OrderFactory.CreateStopOrder(OrderActions.BUY, numShares, buyStopPrice);
+            sellStopChildOrder.Account = TradedAccount;
+            sellStopChildOrder.ParentId = parentOrder.OrderId;
+            sellStopChildOrder.OrderId = nextValidOrderId;
+            clientSocket.placeOrder(nextValidOrderId++, tickerContract, sellStopChildOrder);
         }
 
         public async Task<Position> RequestCurrentPositionAsync()
@@ -283,6 +503,7 @@ namespace TradeBot
             return tcs.Task;
         }
 
+        //Rick: returns bid/ask depending on tickType
         public double? GetTick(int tickType)
         {
             return tickData?.Get(tickType);
@@ -383,6 +604,16 @@ namespace TradeBot
                 .Split(new string[] { "," }, StringSplitOptions.None)
                 .Select(s => s.Trim())
                 .ToArray();
+
+            //Rick: Print accounts found
+            IO.ShowMessage("Accounts found:");
+            foreach (var acct in Accounts)
+            {
+                IO.ShowMessage(acct);
+            }
+
+            //Rick: Get Available Funds for all accounts - make the account with the largest amount our traded account - use Available Funds value as our totalEquity to calculate risk % per trade
+            clientSocket.reqAccountSummary(359832, "All", AccountSummaryTags.AvailableFunds);
         }
 
         private void OnNextValidId(int orderId)
@@ -432,6 +663,25 @@ namespace TradeBot
         {
             CommissionReports.Add(report);
             PropertyChanged.RaiseEvent(CommissionReports, nameof(CommissionReports));
+        }
+
+        private void OnAccountSummary(int reqId, string account, string tag, string value, string currency)
+        {
+            IO.ShowMessage("Acct Summary. ReqId: " + reqId + ", Acct: " + account + ", Tag: " + tag + ", Value: " + value + ", Currency: " + currency);
+
+            accountAvailableFunds[account] = (double)value.ToDouble();
+        }
+
+        public void OnAccountSummaryEnd(int reqId)
+        {
+            IO.ShowMessage("AccountSummaryEnd. Req Id: " + reqId + "\n");
+
+            //Rick: cancel the account summary request otherwise it updates every 3 minutes
+            clientSocket.cancelAccountSummary(reqId);
+
+            //Get account with maximum Available Funds
+            var maxAvailableFundsAccount = accountAvailableFunds.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+
         }
         #endregion
     }

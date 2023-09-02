@@ -90,6 +90,22 @@ namespace TradeBot
 
             if (Validation.NotNullOrWhiteSpace(tickerSymbol))
             {
+                service.UseCFD = false;
+
+                service.TickerSymbol = tickerSymbol;
+                await SetInitialSharesAsync();
+            }
+        }
+
+        //Rick - we need to treat a CFD as a regular stock ticker until just before we place order so we can get prices
+        public async Task PromptForCFDtickerSymbolCommand(string[] args)
+        {
+            string tickerSymbol = IO.PromptForInputIfNecessary(args, 0, Messages.SelectTickerPrompt);
+
+            if (Validation.NotNullOrWhiteSpace(tickerSymbol))
+            {
+                service.UseCFD = true;
+
                 service.TickerSymbol = tickerSymbol;
                 await SetInitialSharesAsync();
             }
@@ -142,11 +158,46 @@ namespace TradeBot
 
         public Task BuyCommand(string[] args)
         {
+            double sellStopPrice = Double.Parse(args[0]);
+            //Rick TODO - check sell stop price is valid
+
             if (Validation.TickerSet(service)
                 && Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
-                service.PlaceBuyLimitOrder(Shares);
+                service.PlaceBuyLimitOrder(Shares, TickType.ASK, sellStopPrice);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        //rick
+        public Task BuyStopCommand(string[] args)
+        {
+
+            double buyStopPrice = Double.Parse(args[0]);
+            double sellStopPrice = Double.Parse(args[1]);
+            if (Validation.TickerSet(service)
+                && Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(service, COMMON_TICKS))
+            {
+                service.PlaceBuyStopLimitOrder(Shares, TickType.ASK, buyStopPrice, sellStopPrice);
+            }
+
+            return Task.CompletedTask;
+        }
+
+        //rick
+        public Task SellStopCommand(string[] args)
+        {
+
+            double sellStopPrice = Double.Parse(args[0]);
+            double buyStopPrice = Double.Parse(args[1]);
+            if (Validation.TickerSet(service)
+                && Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(service, COMMON_TICKS))
+            {
+                service.PlaceSellStopLimitOrder(Shares, TickType.BID, sellStopPrice, buyStopPrice);
             }
 
             return Task.CompletedTask;
@@ -154,11 +205,14 @@ namespace TradeBot
 
         public Task SellCommand(string[] args)
         {
+            double sellStopPrice = Double.Parse(args[0]);
+            //Rick TODO - check sell stop price is valid
+
             if (Validation.TickerSet(service)
                 && Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
-                service.PlaceSellLimitOrder(Shares);
+                service.PlaceSellLimitOrder(Shares, TickType.BID, sellStopPrice);
             }
 
             return Task.CompletedTask;
@@ -172,6 +226,21 @@ namespace TradeBot
         public async Task ClosePositionCommand(string[] args)
         {
             await ScalePositionAsync(-1);
+        }
+
+        public async Task CloseHalfPositionCommand(string[] args)
+        {
+            await ScalePositionAsync(-0.5);
+        }
+
+        public async Task CloseThirdPositionCommand(string[] args)
+        {
+            await ScalePositionAsync(-0.33);
+        }
+
+        public async Task CloseTwoThirdsPositionCommand(string[] args)
+        {
+            await ScalePositionAsync(-0.67);
         }
 
         public async Task ListPositionsCommand(string[] args)
@@ -194,7 +263,7 @@ namespace TradeBot
 
             service.TickerSymbol = state.TickerSymbol;
             Cash = state.Cash ?? 0;
-            Shares = state.Shares ?? 0;
+            Shares = state.Shares ?? 10;
 
             IO.ShowMessage(Messages.LoadedStateFormat, PropertyFiles.STATE_FILE);
 
@@ -234,7 +303,7 @@ namespace TradeBot
         private void SetPosition(Position position)
         {
             service.TickerSymbol = position?.Symbol ?? null;
-            Shares = position?.PositionSize ?? 0;
+            Shares = position?.PositionSize ?? 10;
         }
 
         private async Task SetInitialSharesAsync()
@@ -296,11 +365,11 @@ namespace TradeBot
 
                 if (orderDelta > 0)
                 {
-                    service.PlaceBuyLimitOrder(orderQuantity);
+                    service.PlaceCloseLimitOrder(OrderActions.BUY, orderQuantity, TickType.ASK);
                 }
                 else if (orderDelta < 0)
                 {
-                    service.PlaceSellLimitOrder(orderQuantity);
+                    service.PlaceCloseLimitOrder(OrderActions.SELL, orderQuantity, TickType.BID);
                 }
             }
         }
@@ -355,12 +424,14 @@ namespace TradeBot
             }
         }
 
+        //Rick: The accounts received from IBApi.EWrapper.managedAccounts
         private async void OnAccountsChanged(PropertyChangedEventArgs eventArgs)
         {
             string[] accounts = service.Accounts;
             if (accounts != null && accounts.Length > 0)
             {
-                string tradedAccount = accounts[0];
+                //Rick: TODO: Use Account summary to get AvaialbleFunds from each account and choose account with highest amount - may have to move code below to end of accountSummary
+                string tradedAccount = accounts[0];//Rick: Temp Hack to get the traded account with the money
                 service.TradedAccount = tradedAccount;
 
                 Position largestPosition = await service.RequestLargestPosition();
@@ -449,7 +520,7 @@ namespace TradeBot
             switch (errorCode)
             {
                 case ErrorCodes.TICKER_NOT_FOUND:
-                    Shares = 0;
+                    Shares = 10;
                     break;
             }
         }

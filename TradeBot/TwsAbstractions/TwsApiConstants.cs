@@ -4,6 +4,8 @@
     {
         // Stock
         STK,
+        // CFD Rick
+        CFD,
         // Option
         OPT,
         // Future
@@ -29,7 +31,10 @@
         // Limit
         LMT,
         // Market
-        MKT
+        MKT,
+        //Rick - For Stop Limit we just use the string as has space
+        
+
     }
 
     public enum TimeInForce
