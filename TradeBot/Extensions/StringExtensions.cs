@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -23,7 +24,7 @@ namespace TradeBot.Extensions
 
         public static string ToCurrencyString(this double currencyValue)
         {
-            return string.Format("{0:C}", currencyValue);
+            return currencyValue.ToString("C", CultureInfo.GetCultureInfo("en-US"));
         }
 
         public static string ToPrettyString(this object obj, int maxIndentLevel = 99, int indentLevel = 0)
