@@ -435,11 +435,11 @@ namespace TradeBot
             // Warn about multiple accounts
             if (service.Accounts.Length > 1)
             {
-                IO.ShowMessage(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.totalEquity);                
+                IO.ShowMessage(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.totalEquity.ToCurrencyString());                
             }
             else
             {
-                IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.totalEquity);
+                IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.totalEquity.ToCurrencyString());
             }
             
             IO.ShowMessage(LogLevel.Warn, "Using " + service.totalEquity.ToCurrencyString() + " as Account Size with " + service.riskPercent + "% Risk Per Trade");
