@@ -27,8 +27,8 @@ namespace TradeBot
         private int nextValidOrderId;
 
         //Rick - Calculate N% risk of totalEquity
-        private double totalEquity = 5_500;
-        private double riskPercent = 1.25;
+        public double totalEquity = 5_500;
+        public double riskPercent = 1.25;
 
 
         //Offsets in cents for order types
@@ -97,6 +97,19 @@ namespace TradeBot
             private set
             {
                 PropertyChanged.SetPropertyAndRaiseEvent(ref _accounts, value);
+            }
+        }
+
+        private string _maxAvailableFundsAccount;
+        public string MaxAvailableFundsAccount
+        {
+            get
+            {
+                return _maxAvailableFundsAccount;
+            }
+            private set
+            {
+                PropertyChanged.SetPropertyAndRaiseEvent(ref _maxAvailableFundsAccount, value);
             }
         }
 
@@ -665,6 +678,7 @@ namespace TradeBot
             PropertyChanged.RaiseEvent(CommissionReports, nameof(CommissionReports));
         }
 
+        //Rick: Use Account summary to get AvailableFunds from each account and choose account with highest amount
         private void OnAccountSummary(int reqId, string account, string tag, string value, string currency)
         {
             IO.ShowMessage("Acct Summary. ReqId: " + reqId + ", Acct: " + account + ", Tag: " + tag + ", Value: " + value + ", Currency: " + currency);
@@ -679,9 +693,10 @@ namespace TradeBot
             //Rick: cancel the account summary request otherwise it updates every 3 minutes
             clientSocket.cancelAccountSummary(reqId);
 
-            //Get account with maximum Available Funds
-            var maxAvailableFundsAccount = accountAvailableFunds.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-
+            //Find account with maximum Available Funds
+            var largestAcc = accountAvailableFunds.Aggregate((l, r) => l.Value > r.Value ? l : r);
+            totalEquity = largestAcc.Value; //Make Total Equity Available Funds
+            MaxAvailableFundsAccount = largestAcc.Key;            
         }
         #endregion
     }

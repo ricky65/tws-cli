@@ -144,6 +144,9 @@ namespace TradeBot.Generated
         [JsonProperty("multipleAccountsWarningFormat")]
         public string MultipleAccountsWarningFormat { get; set; }
 
+        [JsonProperty("singleAccountFoundFormat")]
+        public string SingleAccountFoundFormat { get; set; }
+
         [JsonProperty("accountTypeLive")]
         public string AccountTypeLive { get; set; }
 

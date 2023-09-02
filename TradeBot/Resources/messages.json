@@ -50,7 +50,8 @@
   "welcomeMessage": "Welcome to TradeBot. Enter '?' to show the menu.",
   "twsConnected": "Connection to TWS established",
   "twsDisconnected": "Connection to TWS closed",
-  "multipleAccountsWarningFormat": "Multiple accounts found. Only {0} will be traded.",
+  "multipleAccountsWarningFormat": "Multiple accounts found so account with highest Available Funds selected: {0} with {1} Available Funds.",
+  "singleAccountFoundFormat": "Account found: {0} with {1} Available Funds.",
 
   "accountTypeLive": "Live Trading",
   "accountTypePaper": "Paper Trading",

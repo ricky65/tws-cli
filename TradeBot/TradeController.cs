@@ -390,7 +390,7 @@ namespace TradeBot
                 case nameof(service.IsConnected):
                     OnIsConnectedChanged(eventArgs);
                     break;
-                case nameof(service.Accounts):
+                case nameof(service.MaxAvailableFundsAccount): //Rick: formerly nameof(service.Accounts):
                     OnAccountsChanged(eventArgs);
                     break;
                 case nameof(service.TickerSymbol):
@@ -424,35 +424,36 @@ namespace TradeBot
             }
         }
 
-        //Rick: The accounts received from IBApi.EWrapper.managedAccounts
+        //Rick: Called after AccountSummary has found the account with the highest Available Funds
         private async void OnAccountsChanged(PropertyChangedEventArgs eventArgs)
         {
-            string[] accounts = service.Accounts;
-            if (accounts != null && accounts.Length > 0)
+            service.TradedAccount = service.MaxAvailableFundsAccount;
+
+            Position largestPosition = await service.RequestLargestPosition();
+            SetPosition(largestPosition);
+
+            // Warn about multiple accounts
+            if (service.Accounts.Length > 1)
             {
-                //Rick: TODO: Use Account summary to get AvaialbleFunds from each account and choose account with highest amount - may have to move code below to end of accountSummary
-                string tradedAccount = accounts[0];//Rick: Temp Hack to get the traded account with the money
-                service.TradedAccount = tradedAccount;
-
-                Position largestPosition = await service.RequestLargestPosition();
-                SetPosition(largestPosition);
-
-                // Warn about multiple accounts
-                if (accounts.Length > 1)
-                {
-                    IO.ShowMessage(LogLevel.Error, Messages.MultipleAccountsWarningFormat, tradedAccount);
-                }
-
-                // Show account type message
-                if (tradedAccount.StartsWith(Messages.PaperAccountPrefix, StringComparison.InvariantCulture))
-                {
-                    IO.ShowMessage(LogLevel.Warn, Messages.AccountTypePaper);
-                }
-                else
-                {
-                    IO.ShowMessage(LogLevel.Error, Messages.AccountTypeLive);
-                }
+                IO.ShowMessage(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.totalEquity);                
             }
+            else
+            {
+                IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.totalEquity);
+            }
+            
+            IO.ShowMessage(LogLevel.Warn, "Using " + service.totalEquity.ToCurrencyString() + " as Account Size with " + service.riskPercent + "% Risk Per Trade");
+
+            // Show account type message
+            if (service.TradedAccount.StartsWith(Messages.PaperAccountPrefix, StringComparison.InvariantCulture))
+            {
+                IO.ShowMessage(LogLevel.Warn, Messages.AccountTypePaper);
+            }
+            else
+            {
+                IO.ShowMessage(LogLevel.Warn, Messages.AccountTypeLive);
+            }
+
         }
 
         private void OnTickerSymbolChanged(PropertyChangedEventArgs eventArgs)
