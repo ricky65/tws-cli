@@ -20,7 +20,7 @@
   "menuOptionEntries": {
 
     "setTickerSymbol": [ "f", "Set stock ticker symbol to trade" ],
-    "setCFDTickerSymbol": [ "cf", "Rick Set CFD ticker symbol to trade" ],
+    "setCFDTickerSymbol": [ "cf", "Set CFD ticker symbol to trade" ],
 
     "setSharesFromCash": [ "m", "Set shares to trade based on a cash value and the current share price" ],
     "setShares": [ "j", "Set shares to trade to a fixed value" ],
@@ -31,7 +31,7 @@
     "buystop": [ "bs", "[buyStopPrice] [sellStopPrice] Rick: Place LONG Buy Stop order at buyStopPrice +11 cents with attached Stop Loss" ],
     "sellstop": [ "ss", "[sellStopPrice] [buyStopPrice] Rick: Place SHORT Sell Stop order at sellStopPrice -11 cents with attached Stop Loss" ],
     "reversePosition": [ "r", "Place limit order to Reverse position" ],
-    "closePosition": [ "c", "Place limit order to Close position" ],
+    "closePosition": [ "c", "Place limit order to Close 100% of position" ],
     "closeHalfPosition": [ "cs", "Place limit order to Close 50% of position" ],
     "closeThirdPosition": [ "ct", "Place limit order to Close 33% of position" ],
     "closeTwoThirdsPosition": [ "ctt", "Place limit order to Close 67% of position" ],
