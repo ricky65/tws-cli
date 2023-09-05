@@ -276,6 +276,12 @@ namespace TradeBot
             double dollarAmount = numShares * price;
             double percentageOfTotalEquity = dollarAmount / totalEquity * 100.00;
 
+            //Rick: likely 5* Phase 2/3 clinical trial - no margin for Biotechs on my IBKR account so just use max account size in this case
+            if (riskPercent >= 2.5 && percentageOfTotalEquity > 100.00)
+            {
+                numShares = Math.Floor(totalEquity / price);
+            }
+
             var riskStr = String.Format("{0} Limit {1} - Price {2} - Stop {3} - Risk: {4}% (${5}) - {6} shares (Half: {7}) (${8}) ({9:0.00}% of ${10})",
                  tickerContract.Symbol, action.ToString(), price, stopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
             IO.ShowMessage(riskStr);
@@ -352,6 +358,12 @@ namespace TradeBot
             double numShares = Math.Floor(riskAmount / currentPriceStopLossDiff);
             double dollarAmount = numShares * buyStopPrice;
             double percentageOfTotalEquity = dollarAmount / totalEquity * 100.00;
+
+            //Rick: likely 5* Phase 2/3 clinical trial - no margin for Biotechs on my IBKR account so just use max account size in this case
+            if (riskPercent >= 2.5 && percentageOfTotalEquity > 100.00)
+            {
+                numShares = Math.Floor(totalEquity / (buyStopPrice + 0.05));
+            }
 
             var riskStr = String.Format("{0} BUY Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7}) ({8:0.00}% of ${9})",
                  tickerContract.Symbol, buyStopPrice, sellStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
