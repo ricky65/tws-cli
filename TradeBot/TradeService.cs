@@ -626,7 +626,7 @@ namespace TradeBot
             }
 
             //Rick: Get Available Funds for all accounts - make the account with the largest amount our traded account - use Available Funds value as our totalEquity to calculate risk % per trade
-            clientSocket.reqAccountSummary(359832, "All", AccountSummaryTags.AvailableFunds);
+            clientSocket.reqAccountSummary(NumberGenerator.NextRandomInt(), "All", AccountSummaryTags.AvailableFunds);
         }
 
         private void OnNextValidId(int orderId)
