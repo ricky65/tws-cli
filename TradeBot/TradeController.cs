@@ -241,6 +241,21 @@ namespace TradeBot
             await ScalePositionAsync(-0.67);
         }
 
+        public async Task LimitTakeProfitHalfCommand(string[] args)
+        {
+            double limitPrice = 0.0;
+            bool canConvert = double.TryParse(args[0], out limitPrice);
+
+            if (canConvert)
+            {
+                await LimitTakeProfitHalf(limitPrice);
+            }
+            else
+            {
+                return;
+            }           
+        }
+
         public async Task ListPositionsCommand(string[] args)
         {
             IEnumerable<Position> positions = await service
@@ -411,6 +426,27 @@ namespace TradeBot
                 else if (orderDelta < 0)
                 {
                     service.PlaceCloseLimitOrder(OrderActions.SELL, orderQuantity, TickType.BID);
+                }
+            }
+        }
+
+        private async Task LimitTakeProfitHalf(double limitPrice)
+        {
+            Position position = await service.RequestCurrentPositionAsync();
+            if (Validation.TickerSet(service)
+                && Validation.PositionExists(position)
+                && Validation.TickDataAvailable(service, COMMON_TICKS))
+            {
+                int orderDelta = (int)Math.Round(position.PositionSize * 0.5);
+                int orderQuantity = Math.Abs(orderDelta);
+
+                if (orderDelta > 0)
+                {
+                    service.PlaceTakeProfitLimitOrder(OrderActions.SELL, orderQuantity, limitPrice);
+                }
+                else if (orderDelta < 0)
+                {
+                    service.PlaceTakeProfitLimitOrder(OrderActions.BUY, orderQuantity, limitPrice);
                 }
             }
         }

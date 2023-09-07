@@ -337,6 +337,24 @@ namespace TradeBot
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, order);
         }
 
+        public void PlaceTakeProfitLimitOrder(OrderActions action, double quantity, double limitPrice)
+        {
+            if (tickerContract == null)
+            {
+                return;
+            } 
+
+            //rick - if we're closing a cfd position make sure SecType is CFD
+            if (UseCFD)
+            {
+                tickerContract.SecType = SecurityTypes.CFD.ToString();
+            }
+
+            Order order = OrderFactory.CreateLimitOrder(action, quantity, limitPrice, true);
+            order.Account = TradedAccount;
+            clientSocket.placeOrder(nextValidOrderId++, tickerContract, order);
+        }
+
 
         //Rick
         public void PlaceBuyStopLimitOrder(OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice)

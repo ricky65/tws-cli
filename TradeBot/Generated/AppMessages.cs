@@ -56,6 +56,10 @@ namespace TradeBot.Generated
         [JsonProperty("closeTwoThirdsPosition")]
         public IList<string> CloseTwoThirdsPosition { get; set; }
 
+        //rick
+        [JsonProperty("limitTakeProfitHalf")]
+        public IList<string> LimitTakeProfitHalf { get; set; }
+
         [JsonProperty("listPositions")]
         public IList<string> ListPositions { get; set; }
 

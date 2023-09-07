@@ -28,13 +28,14 @@
 
     "buy": [ "b", "[sellStopPrice] Place limit order to Buy at Ask +3 cents with attached Stop Loss" ],
     "sell": [ "s", "[buyStopPrice] Place limit order to Sell at Bid -3 cents with attached Stop Loss" ],
-    "buystop": [ "bs", "[buyStopPrice] [sellStopPrice] Rick: Place LONG Buy Stop order at buyStopPrice +11 cents with attached Stop Loss" ],
-    "sellstop": [ "ss", "[sellStopPrice] [buyStopPrice] Rick: Place SHORT Sell Stop order at sellStopPrice -11 cents with attached Stop Loss" ],
+    "buystop": [ "bs", "[buyStopPrice] [sellStopPrice] Rick: Place LONG Buy Stop Limit order at buyStopPrice +11 cents Limit with attached Stop Loss" ],
+    "sellstop": [ "ss", "[sellStopPrice] [buyStopPrice] Rick: Place SHORT Sell Stop Limit order at sellStopPrice -11 cents Limit with attached Stop Loss" ],
     "reversePosition": [ "r", "Place limit order to Reverse position" ],
     "closePosition": [ "c", "Place limit order to Close 100% of position" ],
     "closeHalfPosition": [ "cs", "Place limit order to Close 50% of position" ],
     "closeThirdPosition": [ "ct", "Place limit order to Close 33% of position" ],
     "closeTwoThirdsPosition": [ "ctt", "Place limit order to Close 67% of position" ],
+    "limitTakeProfitHalf": [ "tph", "[limitPrice] Place Limit Order to Take Profit on 50% of position" ],
 
     "listPositions": [ "a", "List positions" ],
 
