@@ -39,6 +39,8 @@ namespace TradeBot
         //maps an Account to Available Funds in account
         Dictionary<string, double> accountAvailableFunds = new Dictionary<string, double>();
 
+        //Rick - number of orders cancelled, so we can jump to a fresh order id when required
+        private int canceledOrderCount = 0;
         public TradeService(int clientId)
         {
             ClientId = clientId;
@@ -295,7 +297,7 @@ namespace TradeBot
             //parent order
             Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, price, false);//Rick: Was user set quantity before
             parentOrder.Account = TradedAccount;
-            parentOrder.OrderId = nextValidOrderId;
+            parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, parentOrder);
 
             //child stop order
@@ -303,7 +305,7 @@ namespace TradeBot
             Order sellStopChildOrder = OrderFactory.CreateStopOrder(stopAction, numShares, stopPrice);//Rick: Was user set quantity before
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
-            sellStopChildOrder.OrderId = nextValidOrderId;
+            sellStopChildOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, sellStopChildOrder);
         }
 
@@ -334,6 +336,7 @@ namespace TradeBot
 
             Order order = OrderFactory.CreateLimitOrder(action, quantity, price.Value, true);
             order.Account = TradedAccount;
+            order.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, order);
         }
 
@@ -352,6 +355,7 @@ namespace TradeBot
 
             Order order = OrderFactory.CreateLimitOrder(action, quantity, limitPrice, true);
             order.Account = TradedAccount;
+            order.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, order);
         }
 
@@ -399,14 +403,14 @@ namespace TradeBot
             //Rick: Create parent order
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, buyStopPrice);
             parentOrder.Account = TradedAccount;
-            parentOrder.OrderId = nextValidOrderId;
+            parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, parentOrder);
 
             //Rick: Create child stop order
             Order sellStopChildOrder = OrderFactory.CreateStopOrder(OrderActions.SELL, numShares, sellStopPrice);
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
-            sellStopChildOrder.OrderId = nextValidOrderId;
+            sellStopChildOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, sellStopChildOrder);
         }
 
@@ -447,15 +451,34 @@ namespace TradeBot
             //Rick: Create parent order
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, sellStopPrice);
             parentOrder.Account = TradedAccount;
-            parentOrder.OrderId = nextValidOrderId;
+            parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, parentOrder);
 
             //Rick: Create child stop order
             Order sellStopChildOrder = OrderFactory.CreateStopOrder(OrderActions.BUY, numShares, buyStopPrice);
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
-            sellStopChildOrder.OrderId = nextValidOrderId;
+            sellStopChildOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, tickerContract, sellStopChildOrder);
+        }
+
+        public void CancelLastOrder()
+        {
+           CancelOrder(--nextValidOrderId);
+            ++canceledOrderCount;
+        }
+
+        public void CancelOrder(int orderId)
+        {
+            clientSocket.cancelOrder(orderId);
+        }
+
+        //Rick: jump to a fresh order id when required
+        public int GetNextValidOrderId()
+        {
+            nextValidOrderId += canceledOrderCount;
+            canceledOrderCount = 0;
+            return nextValidOrderId;
         }
 
         public async Task<Position> RequestCurrentPositionAsync()
@@ -483,6 +506,8 @@ namespace TradeBot
             await accountDownloadEndTCS.Task;
             return portfolio;
         }
+
+        //Rick TODO: Request Live Orders
 
         public bool HasTicks(params int[] tickTypes)
         {

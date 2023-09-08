@@ -465,6 +465,13 @@ namespace TradeBot
                 }
             }
         }
+
+        public Task CancelLastOrderCommand(string[] args)
+        {
+            service.CancelLastOrder();
+            return Task.CompletedTask;
+        }
+
         #endregion
 
         #region Event handlers

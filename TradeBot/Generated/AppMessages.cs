@@ -63,6 +63,9 @@ namespace TradeBot.Generated
         [JsonProperty("limitTakeProfitThird")]
         public IList<string> LimitTakeProfitThird { get; set; }
 
+        [JsonProperty("cancelLastOrder")]
+        public IList<string> CancelLastOrder { get; set; }
+
         [JsonProperty("listPositions")]
         public IList<string> ListPositions { get; set; }
 
