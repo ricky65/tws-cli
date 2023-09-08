@@ -248,7 +248,22 @@ namespace TradeBot
 
             if (canConvert)
             {
-                await LimitTakeProfitHalf(limitPrice);
+                await LimitTakeProfitAsync(0.5, limitPrice);
+            }
+            else
+            {
+                return;
+            }           
+        }
+
+        public async Task LimitTakeProfitThirdCommand(string[] args)
+        {
+            double limitPrice = 0.0;
+            bool canConvert = double.TryParse(args[0], out limitPrice);
+
+            if (canConvert)
+            {
+                await LimitTakeProfitAsync(0.33, limitPrice);
             }
             else
             {
@@ -430,14 +445,14 @@ namespace TradeBot
             }
         }
 
-        private async Task LimitTakeProfitHalf(double limitPrice)
+        private async Task LimitTakeProfitAsync(double percent, double limitPrice)
         {
             Position position = await service.RequestCurrentPositionAsync();
             if (Validation.TickerSet(service)
                 && Validation.PositionExists(position)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
-                int orderDelta = (int)Math.Round(position.PositionSize * 0.5);
+                int orderDelta = (int)Math.Round(position.PositionSize * percent);
                 int orderQuantity = Math.Abs(orderDelta);
 
                 if (orderDelta > 0)
