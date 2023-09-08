@@ -60,6 +60,7 @@ namespace TradeBot
             bool hasTickerSymbol = service.HasTickerSymbol;
             string tickerSymbol = service.TickerSymbol;
             string tickerDisplayValue = hasTickerSymbol ? tickerSymbol : Messages.TitleUnavailable;
+            infoStrings.Add(string.Format(Messages.TitleRiskPerTrade, service.riskPercent));
             infoStrings.Add(string.Format(Messages.TitleTickerSymbol, tickerDisplayValue));
 
             infoStrings.Add(string.Format(Messages.TitleShares, controller.Shares));

@@ -91,6 +91,9 @@ namespace TradeBot.Generated
         [JsonProperty("appName")]
         public string AppName { get; set; }
 
+        [JsonProperty("titleRiskPerTrade")]
+        public string TitleRiskPerTrade { get; set; }
+
         [JsonProperty("titleTickerSymbol")]
         public string TitleTickerSymbol { get; set; }
 

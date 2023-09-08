@@ -1,6 +1,7 @@
 ﻿{
   "appName": "",
 
+  "titleRiskPerTrade": "Risk: {0}%",
   "titleTickerSymbol": "Symbol: {0}",
   "titleShares": "Shares: {0}",
   "titlePositionSize": "Pos: {0}",

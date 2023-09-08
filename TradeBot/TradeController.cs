@@ -268,7 +268,7 @@ namespace TradeBot
             else
             {
                 return;
-            }           
+            }
         }
 
         public async Task ListPositionsCommand(string[] args)
