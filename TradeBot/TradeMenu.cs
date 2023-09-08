@@ -56,6 +56,7 @@ namespace TradeBot
             addMenuOptionDivider();
             //Rick
             addMenuOption(entries.LimitTakeProfitHalf, controller.LimitTakeProfitHalfCommand);
+            addMenuOption(entries.LimitTakeProfitThird, controller.LimitTakeProfitThirdCommand);
             addMenuOptionDivider();
 
             addMenuOption(entries.ListPositions, controller.ListPositionsCommand);

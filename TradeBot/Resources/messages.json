@@ -36,6 +36,7 @@
     "closeThirdPosition": [ "ct", "Place limit order to Close 33% of position" ],
     "closeTwoThirdsPosition": [ "ctt", "Place limit order to Close 67% of position" ],
     "limitTakeProfitHalf": [ "tph", "[limitPrice] Place Limit Order to Take Profit on 50% of position" ],
+    "limitTakeProfitThird": [ "tpt", "[limitPrice] Place Limit Order to Take Profit on 33% of position" ],
 
     "listPositions": [ "a", "List positions" ],
 
