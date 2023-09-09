@@ -738,7 +738,7 @@ namespace TradeBot
         {
             IO.ShowMessage("Acct Summary. ReqId: " + reqId + ", Acct: " + account + ", Tag: " + tag + ", Value: " + value + ", Currency: " + currency);
 
-            accountAvailableFunds[account] = (double)value.ToDouble();
+            accountAvailableFunds[account] = double.Parse(value);
         }
 
         public void OnAccountSummaryEnd(int reqId)
