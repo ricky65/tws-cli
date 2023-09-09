@@ -46,7 +46,7 @@ namespace TradeBot.Extensions
 
         public static string ToPrettyString(this IEnumerable<KeyValuePair<string, object>> keyValuePairs, int indentLevel = 0, int maxIndentLevel = 9)
         {
-            if (keyValuePairs.Count() == 0)
+            if (!keyValuePairs.Any())
             {
                 return "{}";
             }
@@ -73,7 +73,7 @@ namespace TradeBot.Extensions
             StringBuilder builder = new StringBuilder();
             // Don't indent the opening curly brace. Assume it will be inine.
             // e.g. contract: {
-            builder.Append("{");
+            builder.Append('{');
             foreach (var pair in keyValuePairs)
             {
                 builder
@@ -86,7 +86,7 @@ namespace TradeBot.Extensions
             builder
                 .AppendLine()
                 .Append(indentString)
-                .Append("}");
+                .Append('}');
             return builder.ToString();
         }
 
