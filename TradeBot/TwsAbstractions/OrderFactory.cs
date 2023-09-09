@@ -30,7 +30,7 @@ namespace TradeBot.TwsAbstractions
                 OrderType = "STP LMT",
                 Tif = TimeInForce.DAY.ToString(),
                 Transmit = false, //Rick: only last child in the bracket has Transmit = true
-                TriggerMethod = 7, //Rick: 7 is last or bid/ask
+                TriggerMethod = (int)TriggerMethod.Last, 
                 OutsideRth = false               
             };
         }
@@ -45,7 +45,7 @@ namespace TradeBot.TwsAbstractions
                 OrderType = "STP",
                 Tif = TimeInForce.DAY.ToString(),
                 Transmit = true, //Rick: only last child in the bracket has Transmit = true
-                TriggerMethod = 7, //Rick: 7 is last or bid/ask
+                TriggerMethod = (int)TriggerMethod.Last, 
                 OutsideRth = false
             };
         }
