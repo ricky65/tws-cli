@@ -26,11 +26,6 @@ namespace TradeBot
 
         private int nextValidOrderId;
 
-        //Rick - Calculate N% risk of totalEquity
-        public double totalEquity = 5_500;
-        public double riskPercent = 1.25;
-
-
         //Offsets in cents for order types
         private double limitOffset = 0.03;
         private double buyStopOffset = 0.11;
@@ -74,6 +69,13 @@ namespace TradeBot
         #endregion
 
         #region Properties
+
+        private double totalEquity = 5_500;
+        public double TotalEquity { get => totalEquity; set => totalEquity = value; }
+        
+        private double riskPercent = 1.25;
+        public double RiskPercent { get => riskPercent; set => riskPercent = value; }
+
         public int ClientId { get; }
 
         private bool _isConnected;

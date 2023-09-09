@@ -294,7 +294,7 @@ namespace TradeBot
             {
                 if (newRisk > 0.1 && newRisk <= 3.0)
                 {
-                    service.riskPercent = newRisk;
+                    service.RiskPercent = newRisk;
                     IO.ShowMessage("Set Risk Per Trade to {0}%", newRisk);
                 }
                 else
@@ -317,7 +317,7 @@ namespace TradeBot
 
             if (canConvert == true)
             { 
-                service.totalEquity = newEquity;
+                service.TotalEquity = newEquity;
                 IO.ShowMessage("Set Equity to {0}", newEquity.ToCurrencyString());
             }
             else
@@ -534,14 +534,14 @@ namespace TradeBot
             // Warn about multiple accounts
             if (service.Accounts.Length > 1)
             {
-                IO.ShowMessage(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.totalEquity.ToCurrencyString());                
+                IO.ShowMessage(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());                
             }
             else
             {
-                IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.totalEquity.ToCurrencyString());
+                IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());
             }
             
-            IO.ShowMessage(LogLevel.Warn, "Using " + service.totalEquity.ToCurrencyString() + " as Account Size with " + service.riskPercent + "% Risk Per Trade");
+            IO.ShowMessage(LogLevel.Warn, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size with " + service.RiskPercent + "% Risk Per Trade");
 
             // Show account type message
             if (service.TradedAccount.StartsWith(Messages.PaperAccountPrefix, StringComparison.InvariantCulture))
