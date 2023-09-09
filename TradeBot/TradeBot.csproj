@@ -90,7 +90,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="NLog" Version="5.2.4" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Xamasoft.JsonClassGenerator" Version="1.1.18" />
   </ItemGroup>
   <ItemGroup>
