@@ -3,11 +3,11 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>IBApi</RootNamespace>
-    <RuntimeIdentifier>win</RuntimeIdentifier>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />

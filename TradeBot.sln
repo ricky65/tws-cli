@@ -2,32 +2,45 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeBot", "TradeBot\TradeBot.csproj", "{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradeBot", "TradeBot\TradeBot.csproj", "{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203} = {8EDE0744-96C2-40B0-A8DC-37DF79370203}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharpAPI", "TWS API\source\CSharpClient\client\CSharpAPI.csproj", "{8EDE0744-96C2-40B0-A8DC-37DF79370203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Debug|Any CPU.ActiveCfg = Debug|x64
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Debug|Any CPU.Build.0 = Debug|x64
+		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Debug|x64.ActiveCfg = Debug|x64
+		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Debug|x64.Build.0 = Debug|x64
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Debug|x86.Build.0 = Debug|Any CPU
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Release|Any CPU.ActiveCfg = Release|x64
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Release|Any CPU.Build.0 = Release|x64
+		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Release|x64.ActiveCfg = Release|x64
+		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Release|x64.Build.0 = Release|x64
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Release|x86.ActiveCfg = Release|Any CPU
 		{08CE8BFB-F24D-40FB-BA75-1513BFFCE647}.Release|x86.Build.0 = Release|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.Build.0 = Debug|x64
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x64.ActiveCfg = Debug|x64
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x64.Build.0 = Debug|x64
 		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x86.Build.0 = Debug|Any CPU
 		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x64.ActiveCfg = Release|x64
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x64.Build.0 = Release|x64
 		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x86.ActiveCfg = Release|Any CPU
 		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
