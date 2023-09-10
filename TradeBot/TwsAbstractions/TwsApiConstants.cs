@@ -25,16 +25,23 @@
     }
 
     // Additional order types are documented here:
-    // https://www.interactivebrokers.com/en/software/api/apiguide/tables/supported_order_types.htm
-    public enum OrderTypes
+    // https://interactivebrokers.github.io/tws-api/available_orders.html
+    public static class OrderTypes
     {
         // Limit
-        LMT,
+        public const string Limit = "LMT";
         // Market
-        MKT,
-        //Rick - For Stop Limit we just use the string as has space
-        
-
+        public const string Market = "MKT";
+        // Stop
+        public const string Stop = "STP";
+        // Stop Limit
+        public const string StopLimit = "STP LMT";
+        // Trailing Stop
+        public const string TrailingStop = "TRAIL";
+        // Trailing Stop Limit
+        public const string TrailingStopLimit = "TRAIL LIMIT";
+        // MidPrice
+        public const string MidPrice = "MIDPRICE";
     }
 
     public enum TimeInForce
