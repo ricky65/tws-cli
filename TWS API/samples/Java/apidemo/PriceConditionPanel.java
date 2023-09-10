@@ -1,14 +1,16 @@
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package apidemo;
 
 import com.ib.client.ContractLookuper;
-import com.ib.client.OrderCondition;
 import com.ib.client.PriceCondition;
 
 import apidemo.util.TCombo;
 
 public class PriceConditionPanel extends ContractConditionPanel<PriceCondition> {
 
-	static enum Method {
+	enum Method {
 		Default(0),
 		DoubleBidAsk(1),
 		Last(2),
@@ -46,9 +48,9 @@ public class PriceConditionPanel extends ContractConditionPanel<PriceCondition> 
 		}
 	}
 	
-	final private TCombo<Method> m_method = new TCombo<Method>(Method.values()); 
+	final private TCombo<Method> m_method = new TCombo<>(Method.values());
 
-	public PriceConditionPanel(PriceCondition condition, ContractLookuper lookuper) {
+	PriceConditionPanel(PriceCondition condition, ContractLookuper lookuper) {
 		super(condition, lookuper);
 		
 		m_method.setSelectedItem(Method.fromInt(condition().triggerMethod()));
@@ -60,7 +62,7 @@ public class PriceConditionPanel extends ContractConditionPanel<PriceCondition> 
 	}
 	
 	@Override
-	public OrderCondition onOK() {
+	public PriceCondition onOK() {
 		super.onOK();
 		condition().price(m_value.getDouble());
 		condition().triggerMethod(m_method.getSelectedItem().value());

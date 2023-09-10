@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
-namespace IBSampleApp.ui
+using System.Collections.Generic;
+
+namespace IBSampleApp.messages
 {
-    class SecurityDefinitionOptionParameterMessage : IBMessage
+    class SecurityDefinitionOptionParameterMessage
     {
         public int ReqId { get; private set; }
         public string Exchange { get; private set; }
@@ -17,14 +17,13 @@ namespace IBSampleApp.ui
 
         public SecurityDefinitionOptionParameterMessage(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, HashSet<string> expirations, HashSet<double> strikes)
         {
-            this.Type = MessageType.SecurityDefinitionOptionParameter;
-            this.ReqId = reqId;
-            this.Exchange = exchange;
-            this.UnderlyingConId = underlyingConId;
-            this.TradingClass = tradingClass;
-            this.Multiplier = multiplier;
-            this.Expirations = expirations;
-            this.Strikes = strikes;
+            ReqId = reqId;
+            Exchange = exchange;
+            UnderlyingConId = underlyingConId;
+            TradingClass = tradingClass;
+            Multiplier = multiplier;
+            Expirations = expirations;
+            Strikes = strikes;
         }
     }
 }

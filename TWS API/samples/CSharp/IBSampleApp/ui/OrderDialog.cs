@@ -1,13 +1,8 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using IBApi;
 using IBSampleApp.ui;
@@ -16,11 +11,12 @@ using IBSampleApp.types;
 
 namespace IBSampleApp
 {
-    public partial class OrderDialog : Form
+    partial class OrderDialog : Form
     {
         private MarginDialog marginDialog;
         private OrderManager orderManager;
         private int orderId;
+        private int parentOrderId;
         private BindingSource orderBindingSource = new BindingSource();
 
         public OrderDialog(OrderManager orderManager)
@@ -88,7 +84,7 @@ namespace IBSampleApp
             orderManager.PlaceOrder(contract, order);
             if (orderId != 0)
                 orderId = 0;
-            this.Visible = false;
+            Visible = false;
         }
 
         private void checkMarginButton_Click(object sender, EventArgs e)
@@ -99,40 +95,22 @@ namespace IBSampleApp
             orderManager.PlaceOrder(contract, order);
         }
 
-        public void HandleIncomingMessage(IBMessage message)
-        {
-            ProcessMessage(message);
-        }
-
-        private void ProcessMessage(IBMessage message)
-        {
-            switch (message.Type)
-            {
-                case MessageType.OpenOrder:
-                    HandleOpenOrder((OpenOrderMessage)message);
-                    break;
-                case MessageType.SoftDollarTiers:
-                    HandleSoftDollarTiers((SoftDollarTiersMessage)message);
-                    break;
-            }
-        }
-
-        private void HandleSoftDollarTiers(SoftDollarTiersMessage softDollarTiersMessage)
+        public void HandleSoftDollarTiers(SoftDollarTiersMessage softDollarTiersMessage)
         {
             softDollarTier.Items.AddRange(softDollarTiersMessage.Tiers);
         }
 
-        private void HandleOpenOrder(OpenOrderMessage openOrderMessage)
+        public void HandleOpenOrder(OpenOrderMessage openOrderMessage)
         {
             if (openOrderMessage.Order.WhatIf)
-                this.marginDialog.UpdateMarginInformation(openOrderMessage.OrderState);
+                marginDialog.UpdateMarginInformation(openOrderMessage.OrderState);
         }
 
         private void closeOrderDialogButton_Click(object sender, EventArgs e)
         {
             if (orderId != 0)
                 orderId = 0;
-            this.Visible = false;
+            Visible = false;
         }
 
         private void AlgoStrategy_SelectedIndexChanged(object sender, EventArgs e)
@@ -192,7 +170,7 @@ namespace IBSampleApp
             contract.Exchange = contractExchange.Text;
             contract.LastTradeDateOrContractMonth = contractLastTradeDateOrContractMonth.Text;
             if (!contractStrike.Text.Equals(""))
-                contract.Strike = Double.Parse(contractStrike.Text);
+                contract.Strike = double.Parse(contractStrike.Text);
             if (!contractRight.Text.Equals("") || !contractRight.Text.Equals("None"))
                 contract.Right = (string)((IBType)contractRight.SelectedItem).Value;
             contract.LocalSymbol = contractLocalSymbol.Text;
@@ -217,19 +195,25 @@ namespace IBSampleApp
             Order order = new Order();
             if (orderId != 0)
                 order.OrderId = orderId;
+            if (parentOrderId != 0)
+                order.ParentId = parentOrderId;
             order.Action = action.Text;
             order.OrderType = orderType.Text;
             if (!lmtPrice.Text.Equals(""))
-                order.LmtPrice = Double.Parse(lmtPrice.Text);
+                order.LmtPrice = double.Parse(lmtPrice.Text);
             if (!quantity.Text.Equals(""))
-                order.TotalQuantity = Double.Parse(quantity.Text);
+                order.TotalQuantity = double.Parse(quantity.Text);
             order.Account = account.Text;
             order.ModelCode = modelCode.Text;
             order.Tif = timeInForce.Text;
             if (!auxPrice.Text.Equals(""))
-                order.AuxPrice = Double.Parse(auxPrice.Text);
+                order.AuxPrice = double.Parse(auxPrice.Text);
             if (!displaySize.Text.Equals(""))
-                order.DisplaySize = Int32.Parse(displaySize.Text);
+                order.DisplaySize = int.Parse(displaySize.Text);
+            if (!cashQty.Text.Equals(""))
+                order.CashQty = double.Parse(cashQty.Text);
+
+            order.UsePriceMgmtAlgo = usePriceMgmtAlgo.CheckState == CheckState.Indeterminate ? null : (bool?)usePriceMgmtAlgo.Checked;
 
             FillExtendedOrderAttributes(order);
             FillAdvisorAttributes(order);
@@ -304,22 +288,24 @@ namespace IBSampleApp
         {
             order.OrderRef = orderReference.Text;
             if (!minQty.Text.Equals(""))
-                order.MinQty = Int32.Parse(minQty.Text);
+                order.MinQty = int.Parse(minQty.Text);
             order.GoodAfterTime = goodAfter.Text;
             order.GoodTillDate = goodUntil.Text;
             order.Rule80A = (string)((IBType)rule80A.SelectedItem).Value;
             order.TriggerMethod = (int)((IBType)triggerMethod.SelectedItem).Value;
 
             if (!percentOffset.Text.Equals(""))
-                order.PercentOffset = Double.Parse(percentOffset.Text);
+                order.PercentOffset = double.Parse(percentOffset.Text);
             if (!trailStopPrice.Text.Equals(""))
-                order.TrailStopPrice = Double.Parse(trailStopPrice.Text);
+                order.TrailStopPrice = double.Parse(trailStopPrice.Text);
             if (!trailingPercent.Text.Equals(""))
-                order.TrailingPercent = Double.Parse(trailingPercent.Text);
+                order.TrailingPercent = double.Parse(trailingPercent.Text);
             if (!discretionaryAmount.Text.Equals(""))
-                order.DiscretionaryAmt = Int32.Parse(discretionaryAmount.Text);
-            if (!nbboPriceCap.Text.Equals(""))
-                order.NbboPriceCap = Double.Parse(nbboPriceCap.Text);
+                order.DiscretionaryAmt = int.Parse(discretionaryAmount.Text);
+            if (!duration.Text.Equals(""))
+                order.Duration = int.Parse(duration.Text);
+            if (!postToAts.Text.Equals(""))
+                order.PostToAts = int.Parse(postToAts.Text);
 
             order.OcaGroup = ocaGroup.Text;
             order.OcaType = (int)((IBType)ocaType.SelectedItem).Value;
@@ -333,17 +319,23 @@ namespace IBSampleApp
             order.OutsideRth = outsideRTH.Checked;
             order.AllOrNone = allOrNone.Checked;
             order.OverridePercentageConstraints = overrideConstraints.Checked;
-            order.ETradeOnly = eTrade.Checked;
-            order.FirmQuoteOnly = firmQuote.Checked;
             order.OptOutSmartRouting = optOutSmart.Checked;
             order.Transmit = transmit.Checked;
             order.Tier = softDollarTier.SelectedItem as SoftDollarTier ?? new SoftDollarTier("", "", "");
+            order.Mifid2DecisionMaker = mifid2DecisionMaker.Text;
+            order.Mifid2DecisionAlgo = mifid2DecisionAlgo.Text;
+            order.Mifid2ExecutionTrader = mifid2ExecutionTrader.Text;
+            order.Mifid2ExecutionAlgo = mifid2ExecutionAlgo.Text;
+            order.DontUseAutoPriceForHedge = dontUseAutoPriceForHedge.Checked;
+            order.IsOmsContainer = omsContainer.Checked;
+            order.DiscretionaryUpToLimitPrice = relativeDiscretionary.Checked;
+            order.AutoCancelParent = autoCancelParent.Checked;
         }
 
         private void FillVolatilityAttributes(Order order)
         {
             if (!volatility.Text.Equals(""))
-                order.Volatility = Double.Parse(volatility.Text);
+                order.Volatility = double.Parse(volatility.Text);
             order.VolatilityType = (int)((IBType)volatilityType.SelectedItem).Value;
             if (continuousUpdate.Checked)
                 order.ContinuousUpdate = 1;
@@ -355,13 +347,13 @@ namespace IBSampleApp
                 order.DeltaNeutralOrderType = deltaNeutralOrderType.Text;
 
             if (!deltaNeutralAuxPrice.Text.Equals(""))
-                order.DeltaNeutralAuxPrice = Double.Parse(deltaNeutralAuxPrice.Text);
+                order.DeltaNeutralAuxPrice = double.Parse(deltaNeutralAuxPrice.Text);
             if (!deltaNeutralConId.Text.Equals(""))
-                order.DeltaNeutralConId = Int32.Parse(deltaNeutralConId.Text);
+                order.DeltaNeutralConId = int.Parse(deltaNeutralConId.Text);
             if (!stockRangeLower.Text.Equals(""))
-                order.StockRangeLower = Double.Parse(stockRangeLower.Text);
+                order.StockRangeLower = double.Parse(stockRangeLower.Text);
             if (!stockRangeUpper.Text.Equals(""))
-                order.StockRangeUpper = Double.Parse(stockRangeUpper.Text);
+                order.StockRangeUpper = double.Parse(stockRangeUpper.Text);
         }
 
         private void FillAdvisorAttributes(Order order)
@@ -375,21 +367,21 @@ namespace IBSampleApp
         private void FillScaleAttributes(Order order)
         {
             if (!initialLevelSize.Text.Equals(""))
-                order.ScaleInitLevelSize = Int32.Parse(initialLevelSize.Text);
+                order.ScaleInitLevelSize = int.Parse(initialLevelSize.Text);
             if (!subsequentLevelSize.Text.Equals(""))
-                order.ScaleSubsLevelSize = Int32.Parse(subsequentLevelSize.Text);
+                order.ScaleSubsLevelSize = int.Parse(subsequentLevelSize.Text);
             if (!priceIncrement.Text.Equals(""))
-                order.ScalePriceIncrement = Double.Parse(priceIncrement.Text);
+                order.ScalePriceIncrement = double.Parse(priceIncrement.Text);
             if (!priceAdjustValue.Text.Equals(""))
-                order.ScalePriceAdjustValue = Double.Parse(priceAdjustValue.Text);
+                order.ScalePriceAdjustValue = double.Parse(priceAdjustValue.Text);
             if (!priceAdjustInterval.Text.Equals(""))
-                order.ScalePriceAdjustInterval = Int32.Parse(priceAdjustInterval.Text);
+                order.ScalePriceAdjustInterval = int.Parse(priceAdjustInterval.Text);
             if (!profitOffset.Text.Equals(""))
-                order.ScaleProfitOffset = Double.Parse(profitOffset.Text);
+                order.ScaleProfitOffset = double.Parse(profitOffset.Text);
             if (!initialPosition.Text.Equals(""))
-                order.ScaleInitPosition = Int32.Parse(initialPosition.Text);
+                order.ScaleInitPosition = int.Parse(initialPosition.Text);
             if (!initialFillQuantity.Text.Equals(""))
-                order.ScaleInitFillQty = Int32.Parse(initialFillQuantity.Text);
+                order.ScaleInitFillQty = int.Parse(initialFillQuantity.Text);
 
             order.ScaleAutoReset = autoReset.Checked;
             order.ScaleRandomPercent = randomiseSize.Checked;
@@ -456,6 +448,13 @@ namespace IBSampleApp
             timeInForce.Text = order.Tif;
             auxPrice.Text = doubleToStr(order.AuxPrice);
             displaySize.Text = order.DisplaySize.ToString();
+            cashQty.Text = doubleToStr(order.CashQty);
+            dontUseAutoPriceForHedge.Checked = order.DontUseAutoPriceForHedge;
+            usePriceMgmtAlgo.CheckState = order.UsePriceMgmtAlgo.HasValue 
+                ? order.UsePriceMgmtAlgo.Value ? CheckState.Checked : CheckState.Unchecked 
+                : CheckState.Indeterminate;
+            duration.Text = order.Duration.ToString();
+            postToAts.Text = order.PostToAts.ToString();
 
             //order = GetExtendedOrderAttributes(order);
             //order = GetAdvisorAttributes(order);
@@ -487,6 +486,16 @@ namespace IBSampleApp
             orderBindingSource.DataSource = order.Conditions;
             ignoreRth.Checked = order.ConditionsIgnoreRth;
             cancelOrder.SelectedIndex = order.ConditionsCancelOrder ? 1 : 0;
+        }
+
+        public void SetParentOrderId(int id)
+        {
+            parentOrderId = id;
+        }
+
+        public void SetOrderId(int id)
+        {
+            orderId = id;
         }
 
         string doubleToStr(double val)
@@ -544,7 +553,7 @@ namespace IBSampleApp
             rule80A.Items.AddRange(Rule80A.GetAll());
             rule80A.SelectedIndex = 0;
 
-            triggerMethod.Items.AddRange(IBSampleApp.types.TriggerMethod.GetAll());
+            triggerMethod.Items.AddRange(types.TriggerMethod.GetAll());
             triggerMethod.SelectedIndex = 0;
 
             faMethod.Items.AddRange(FaMethod.GetAll());
@@ -572,7 +581,7 @@ namespace IBSampleApp
             cbAdjustedTrailingAmntUnit.SelectedIndex = 0;
         }
 
-        int reqId = 0;
+        int reqId;
 
         protected override void OnActivated(EventArgs e)
         {

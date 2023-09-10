@@ -1,3 +1,6 @@
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package com.ib.client;
 
 import java.io.IOException;
@@ -55,16 +58,15 @@ public class PriceCondition extends ContractCondition {
 	}
 
 	@Override
-	public void readExternal(ObjectInput in) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(in);
+	public void readFrom(ObjectInput in) throws IOException {
+		super.readFrom(in);
 		
 		m_triggerMethod = in.readInt();
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		super.writeExternal(out);
+	public void writeTo(ObjectOutput out) throws IOException {
+		super.writeTo(out);
 		out.writeInt(m_triggerMethod);
 	}
 	

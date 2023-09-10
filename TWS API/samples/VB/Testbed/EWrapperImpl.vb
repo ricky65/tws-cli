@@ -1,4 +1,8 @@
-﻿Imports IBApi
+﻿' Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
+
+Imports IBApi
+Imports System.Text
 
 Namespace Samples
 
@@ -18,6 +22,17 @@ Namespace Samples
             socketClient = New EClientSocket(Me, eReaderSignal)
         End Sub
         '! [socket_init]
+
+        Private _bboExchange As String
+
+        Public Property BboExchange As String
+            Get
+                Return _bboExchange
+            End Get
+            Private Set(value As String)
+                _bboExchange = value
+            End Set
+        End Property
 
         Function serverVersion() As Integer
             serverVersion = socketClient.ServerVersion
@@ -56,7 +71,9 @@ Namespace Samples
 
         '! [bondcontractdetails]
         Public Sub bondContractDetails(reqId As Integer, contract As IBApi.ContractDetails) Implements IBApi.EWrapper.bondContractDetails
-            Console.WriteLine("BondContractDetails - ReqId [" & reqId & "] Contract [" & contract.Summary.Symbol & ", " & contract.Summary.Currency & "]")
+            Console.WriteLine("BondContractDetails begin. ReqId: " & reqId)
+            printBondContractDetailsMsg(contract)
+            Console.WriteLine("BondContractDetails end. ReqId: " & reqId)
         End Sub
         '! [bondcontractdetails]
 
@@ -80,9 +97,103 @@ Namespace Samples
 
         '! [contractdetails]
         Public Sub contractDetails(reqId As Integer, contractDetails As IBApi.ContractDetails) Implements IBApi.EWrapper.contractDetails
-            Console.WriteLine("ContractDetails - ReqId [" & reqId & "] ContractDetails [" & contractDetails.Summary.Symbol & "]")
+            Console.WriteLine("ContractDetails begin. ReqId: " & reqId)
+            printContractMsg(contractDetails.Contract)
+            printContractDetailsMsg(contractDetails)
+            Console.WriteLine("ContractDetails end. ReqId: " & reqId)
         End Sub
         '! [contractdetails]
+
+        Public Sub printContractMsg(contract As IBApi.Contract)
+            Console.WriteLine(vbTab & "ConId: " & contract.ConId)
+            Console.WriteLine(vbTab & "Symbol: " & contract.Symbol)
+            Console.WriteLine(vbTab & "SecType: " & contract.SecType)
+            Console.WriteLine(vbTab & "LastTradeDateOrContractMonth: " & contract.LastTradeDateOrContractMonth)
+            Console.WriteLine(vbTab & "Strike: " & contract.Strike)
+            Console.WriteLine(vbTab & "Right: " & contract.Right)
+            Console.WriteLine(vbTab & "Multiplier: " & contract.Multiplier)
+            Console.WriteLine(vbTab & "Exchange: " & contract.Exchange)
+            Console.WriteLine(vbTab & "PrimaryExchange: " & contract.PrimaryExch)
+            Console.WriteLine(vbTab & "Currency: " & contract.Currency)
+            Console.WriteLine(vbTab & "LocalSymbol: " & contract.LocalSymbol)
+            Console.WriteLine(vbTab & "TradingClass: " & contract.TradingClass)
+        End Sub
+
+        Public Sub printContractDetailsMsg(contractDetails As IBApi.ContractDetails)
+            Console.WriteLine(vbTab & "MarketName: " & contractDetails.MarketName)
+            Console.WriteLine(vbTab & "MinTick: " & contractDetails.MinTick)
+            Console.WriteLine(vbTab & "PriceMagnifier: " & contractDetails.PriceMagnifier)
+            Console.WriteLine(vbTab & "OrderTypes: " & contractDetails.OrderTypes)
+            Console.WriteLine(vbTab & "ValidExchanges: " & contractDetails.ValidExchanges)
+            Console.WriteLine(vbTab & "UnderConId: " & contractDetails.UnderConId)
+            Console.WriteLine(vbTab & "LongName: " & contractDetails.LongName)
+            Console.WriteLine(vbTab & "ContractMonth: " & contractDetails.ContractMonth)
+            Console.WriteLine(vbTab & "Indystry: " & contractDetails.Industry)
+            Console.WriteLine(vbTab & "Category: " & contractDetails.Category)
+            Console.WriteLine(vbTab & "SubCategory: " & contractDetails.Subcategory)
+            Console.WriteLine(vbTab & "TimeZoneId: " & contractDetails.TimeZoneId)
+            Console.WriteLine(vbTab & "TradingHours: " & contractDetails.TradingHours)
+            Console.WriteLine(vbTab & "LiquidHours: " & contractDetails.LiquidHours)
+            Console.WriteLine(vbTab & "EvRule: " & contractDetails.EvRule)
+            Console.WriteLine(vbTab & "EvMultiplier: " & contractDetails.EvMultiplier)
+            Console.WriteLine(vbTab & "MdSizeMultiplier: " & contractDetails.MdSizeMultiplier)
+            Console.WriteLine(vbTab & "AggGroup: " & contractDetails.AggGroup)
+            Console.WriteLine(vbTab & "UnderSymbol: " & contractDetails.UnderSymbol)
+            Console.WriteLine(vbTab & "UnderSecType: " & contractDetails.UnderSecType)
+            Console.WriteLine(vbTab & "MarketRuleIds: " & contractDetails.MarketRuleIds)
+            Console.WriteLine(vbTab & "RealExpirationDate: " & contractDetails.RealExpirationDate)
+            Console.WriteLine(vbTab & "LastTradeTime: " & contractDetails.LastTradeTime)
+            Console.WriteLine(vbTab & "StockType: " & contractDetails.StockType)
+            printContractDetailsSecIdList(contractDetails.SecIdList)
+        End Sub
+
+        Public Sub printContractDetailsSecIdList(secIdList As List(Of IBApi.TagValue))
+            If Not secIdList Is Nothing Then
+                Console.Write(vbTab & "SecIdList: {")
+                For Each tagValue In secIdList
+                    Console.Write(tagValue.Tag & "=" & tagValue.Value & ";")
+                Next
+                Console.WriteLine("}")
+            End If
+        End Sub
+
+        Public Sub printBondContractDetailsMsg(contractDetails As IBApi.ContractDetails)
+            Console.WriteLine(vbTab & "Symbol: " & contractDetails.Contract.Symbol)
+            Console.WriteLine(vbTab & "SecType: " & contractDetails.Contract.SecType)
+            Console.WriteLine(vbTab & "Cusip: " & contractDetails.Cusip)
+            Console.WriteLine(vbTab & "Coupon: " & contractDetails.Coupon)
+            Console.WriteLine(vbTab & "Maturity: " & contractDetails.Maturity)
+            Console.WriteLine(vbTab & "IssueDate: " & contractDetails.IssueDate)
+            Console.WriteLine(vbTab & "Ratings: " & contractDetails.Ratings)
+            Console.WriteLine(vbTab & "BondType: " & contractDetails.BondType)
+            Console.WriteLine(vbTab & "CouponType: " & contractDetails.CouponType)
+            Console.WriteLine(vbTab & "Convertible: " & contractDetails.Convertible)
+            Console.WriteLine(vbTab & "Callable: " & contractDetails.Callable)
+            Console.WriteLine(vbTab & "Putable: " & contractDetails.Putable)
+            Console.WriteLine(vbTab & "DescAppend: " & contractDetails.DescAppend)
+            Console.WriteLine(vbTab & "Exchange: " & contractDetails.Contract.Exchange)
+            Console.WriteLine(vbTab & "Currency: " & contractDetails.Contract.Currency)
+            Console.WriteLine(vbTab & "MarketName: " & contractDetails.MarketName)
+            Console.WriteLine(vbTab & "TradingClass: " & contractDetails.Contract.TradingClass)
+            Console.WriteLine(vbTab & "ConId: " & contractDetails.Contract.ConId)
+            Console.WriteLine(vbTab & "MinTick: " & contractDetails.MinTick)
+            Console.WriteLine(vbTab & "MdSizeMultiplier: " & contractDetails.MdSizeMultiplier)
+            Console.WriteLine(vbTab & "OrderTypes: " & contractDetails.OrderTypes)
+            Console.WriteLine(vbTab & "ValidExchanges: " & contractDetails.ValidExchanges)
+            Console.WriteLine(vbTab & "NextOptionDate: " & contractDetails.NextOptionDate)
+            Console.WriteLine(vbTab & "NextOptionType: " & contractDetails.NextOptionType)
+            Console.WriteLine(vbTab & "NextOptionPartial: " & contractDetails.NextOptionPartial)
+            Console.WriteLine(vbTab & "Notes: " & contractDetails.Notes)
+            Console.WriteLine(vbTab & "Long Name: " & contractDetails.LongName)
+            Console.WriteLine(vbTab & "EvRule: " & contractDetails.EvRule)
+            Console.WriteLine(vbTab & "EvMultiplier: " & contractDetails.EvMultiplier)
+            Console.WriteLine(vbTab & "AggGroup: " & contractDetails.AggGroup)
+            Console.WriteLine(vbTab & "MarketRuleIds: " & contractDetails.MarketRuleIds)
+            Console.WriteLine(vbTab & "LastTradeTime: " & contractDetails.LastTradeTime)
+            Console.WriteLine(vbTab & "TimeZoneId: " & contractDetails.TimeZoneId)
+            printContractDetailsSecIdList(contractDetails.SecIdList)
+        End Sub
+
 
         '! [contractdetailsend]
         Public Sub contractDetailsEnd(reqId As Integer) Implements IBApi.EWrapper.contractDetailsEnd
@@ -96,9 +207,9 @@ Namespace Samples
         End Sub
         '! [currenttime]
 
-        Public Sub deltaNeutralValidation(reqId As Integer, underComp As IBApi.UnderComp) Implements IBApi.EWrapper.deltaNeutralValidation
-            Console.WriteLine("DeltaNeutralValidation - ReqId [" & reqId & "] UnderComp [ConId:" & underComp.ConId & ", Price:" &
-                          underComp.Price & ", Delta:" & underComp.Delta & "]")
+        Public Sub deltaNeutralValidation(reqId As Integer, deltaNeutralContract As IBApi.DeltaNeutralContract) Implements IBApi.EWrapper.deltaNeutralValidation
+            Console.WriteLine("DeltaNeutralValidation - ReqId [" & reqId & "] DeltaNeutralContract [ConId:" & deltaNeutralContract.ConId & ", Price:" &
+                          deltaNeutralContract.Price & ", Delta:" & deltaNeutralContract.Delta & "]")
         End Sub
 
         '! [displaygrouplist]
@@ -113,11 +224,11 @@ Namespace Samples
         End Sub
         '! [displaygroupupdated]
 
-
+        '! [errors]
         Public Sub [error](id As Integer, errorCode As Integer, errorMsg As String) Implements IBApi.EWrapper.error
             Console.WriteLine("Error - Id [" & id & "] ErrorCode [" & errorCode & "] ErrorMsg [" & errorMsg & "]")
         End Sub
-
+        '! [errors]
 
         Public Sub [error](str As String) Implements IBApi.EWrapper.error
             Console.WriteLine("Error - Str [" & str & "]")
@@ -130,7 +241,7 @@ Namespace Samples
         '! [execdetails]
         Public Sub execDetails(reqId As Integer, contract As IBApi.Contract, execution As IBApi.Execution) Implements IBApi.EWrapper.execDetails
             Console.WriteLine("ExecDetails - ReqId [" & reqId & "] Contract [" & contract.Symbol & ", " & contract.SecType &
-                          "] Execution [Price: " & execution.Price & ", Exchange: " & execution.Exchange & "]")
+                          "] Execution [Price: " & execution.Price & ", Exchange: " & execution.Exchange & ", Last Liquidity: " & execution.LastLiquidity.ToString() & "]")
         End Sub
         '! [execdetails]
         '! [execdetailsend]
@@ -145,11 +256,18 @@ Namespace Samples
         '! [fundamentaldata]
 
         '! [historicaldata]
-        Public Sub historicalData(reqId As Integer, [date] As String, open As Double, high As Double, low As Double, close As Double, volume As Integer, count As Integer, WAP As Double, hasGaps As Boolean) Implements IBApi.EWrapper.historicalData
-            Console.WriteLine("HistoricalData - ReqId [" & reqId & "] Date [" & [date] & "] Open [" & open & "] High [" &
-                          high & "] Low [" & low & "] Volume [" & volume & "] Count [" & count & "]")
+        Public Sub historicalData(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalData
+            Console.WriteLine("HistoricalData - ReqId [" & reqId & "] Date [" & bar.Time & "] Open [" & bar.Open & "] High [" &
+                          bar.High & "] Low [" & bar.Low & "] Volume [" & bar.Volume & "] Count [" & bar.Count & "]")
         End Sub
         '! [historicaldata]
+
+        '! [historicalDataUpdate]
+        Public Sub historicalDataUpdate(reqId As Integer, bar As Bar) Implements IBApi.EWrapper.historicalDataUpdate
+            Console.WriteLine("HistoricalDataUpdate - ReqId [" & reqId & "] Date [" & bar.Time & "] Open [" & bar.Open & "] High [" &
+                          bar.High & "] Low [" & bar.Low & "] Volume [" & bar.Volume & "] Count [" & bar.Count & "]")
+        End Sub
+        '! [historicalDataUpdate]
 
         '! [historicaldataend]
         Public Sub historicalDataEnd(reqId As Integer, start As String, [end] As String) Implements IBApi.EWrapper.historicalDataEnd
@@ -178,8 +296,9 @@ Namespace Samples
 
         '! [openorder]
         Public Sub openOrder(orderId As Integer, contract As IBApi.Contract, order As IBApi.Order, orderState As IBApi.OrderState) Implements IBApi.EWrapper.openOrder
-            Console.WriteLine("OpenOrder. ID: " & orderId & ", " & contract.Symbol & ", " & contract.SecType & " @ " & contract.Exchange &
-                          ": " & order.Action & ", " & order.OrderType & " " & order.TotalQuantity & ", " & orderState.Status)
+            Console.WriteLine("OpenOrder. PermID: " & order.PermId & ", ClientId: " & order.ClientId & ", OrderId: " & orderId & ", Account: " & order.Account &
+                ", Symbol: " & contract.Symbol & ", SecType: " & contract.SecType & " , Exchange: " & contract.Exchange & ", Action: " & order.Action & ", OrderType: " & order.OrderType &
+                ", TotalQty: " & order.TotalQuantity & ", CashQty: " & order.CashQty & ", LmtPrice: " & order.LmtPrice & ", AuxPrice: " & order.AuxPrice & ", Status: " & orderState.Status)
         End Sub
         '! [openorder]
 
@@ -190,10 +309,10 @@ Namespace Samples
         '! [openorderend]
 
         '! [orderstatus]
-        Public Sub orderStatus(orderId As Integer, status As String, filled As Double, remaining As Double, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String) Implements IBApi.EWrapper.orderStatus
-            Console.WriteLine("OrderStatus. Id: " & orderId & ", Status: " & status & ", Filled" & filled & ", Remaining: " & remaining &
+        Public Sub orderStatus(orderId As Integer, status As String, filled As Double, remaining As Double, avgFillPrice As Double, permId As Integer, parentId As Integer, lastFillPrice As Double, clientId As Integer, whyHeld As String, mktCapPrice As Double) Implements IBApi.EWrapper.orderStatus
+            Console.WriteLine("OrderStatus. Id: " & orderId & ", Status: " & status & ", Filled: " & filled & ", Remaining: " & remaining &
                 ", AvgFillPrice: " & avgFillPrice & ", PermId: " & permId & ", ParentId: " & parentId & ", LastFillPrice: " & lastFillPrice &
-                ", ClientId: " & clientId & ", WhyHeld: " & whyHeld)
+                ", ClientId: " & clientId & ", WhyHeld: " & whyHeld & ", mktCapPrice: " & mktCapPrice)
         End Sub
         '! [orderstatus]
 
@@ -237,8 +356,8 @@ Namespace Samples
 
         '! [scannerdata]
         Public Sub scannerData(reqId As Integer, rank As Integer, contractDetails As IBApi.ContractDetails, distance As String, benchmark As String, projection As String, legsStr As String) Implements IBApi.EWrapper.scannerData
-            Console.WriteLine("ScannerData. " & reqId & " - Rank: " & rank & ", Symbol: " & contractDetails.Summary.Symbol & ", SecType: " &
-                          contractDetails.Summary.SecType & ", Currency: " & contractDetails.Summary.Currency & ", Distance: " & distance &
+            Console.WriteLine("ScannerData. " & reqId & " - Rank: " & rank & ", Symbol: " & contractDetails.Contract.Symbol & ", SecType: " &
+                          contractDetails.Contract.SecType & ", Currency: " & contractDetails.Contract.Currency & ", Distance: " & distance &
                           ", Benchmark: " & benchmark & ", Projection: " & projection & ", Legs String: " & legsStr)
         End Sub
         '! [scannerdata]
@@ -249,11 +368,11 @@ Namespace Samples
         End Sub
         '! [scannerdataend]
 
-        '! [scannerParameters]
+        '! [scannerparameters]
         Public Sub scannerParameters(xml As String) Implements IBApi.EWrapper.scannerParameters
             Console.WriteLine("ScannerParameters. " & xml & "\n")
         End Sub
-        '! [scannerParameters]
+        '! [scannerparameters]
 
         '! [tickEFP]
         Public Sub tickEFP(tickerId As Integer, tickType As Integer, basisPoints As Double, formattedBasisPoints As String, impliedFuture As Double, holdDays As Integer, futureLastTradeDate As String, dividendImpact As Double, dividendsToLastTradeDate As Double) Implements IBApi.EWrapper.tickEFP
@@ -270,21 +389,21 @@ Namespace Samples
         '! [tickgeneric]
 
         '! [tickoptioncomputation]
-        Public Sub tickOptionComputation(tickerId As Integer, field As Integer, impliedVolatility As Double, delta As Double, optPrice As Double, pvDividend As Double, gamma As Double, vega As Double, theta As Double, undPrice As Double) Implements IBApi.EWrapper.tickOptionComputation
-            Console.WriteLine("TickOptionComputation. TickerId: " & tickerId & ", field: " & field & ", ImpliedVolatility: " & impliedVolatility &
+        Public Sub tickOptionComputation(tickerId As Integer, field As Integer, tickAttrib As Integer, impliedVolatility As Double, delta As Double, optPrice As Double, pvDividend As Double, gamma As Double, vega As Double, theta As Double, undPrice As Double) Implements IBApi.EWrapper.tickOptionComputation
+            Console.WriteLine("TickOptionComputation. TickerId: " & tickerId & ", field: " & field & ", TickAttrib: " & tickAttrib & ", ImpliedVolatility: " & impliedVolatility &
                         ", Delta: " & delta & ", OptionPrice: " & optPrice & ", pvDividend: " & pvDividend & ", Gamma: " & gamma &
                       ", Vega: " & vega & ", Theta: " & theta & ", UnderlyingPrice: " & undPrice)
         End Sub
         '! [tickoptioncomputation]
 
         '! [tickprice]
-        Public Sub tickPrice(tickerId As Integer, field As Integer, price As Double, canAutoExecute As Integer) Implements IBApi.EWrapper.tickPrice
-            Console.WriteLine("TickPrice - TickerId [" & CStr(tickerId) & "] Field [" & TickType.getField(field) & "] Price [" & CStr(price) & "]")
+        Public Sub tickPrice(tickerId As Integer, field As Integer, price As Double, attribs As TickAttrib) Implements IBApi.EWrapper.tickPrice
+            Console.WriteLine("TickPrice - TickerId [" & CStr(tickerId) & "] Field [" & TickType.getField(field) & "] Price [" & CStr(price) & "] PreOpen [" & attribs.PreOpen & "]")
         End Sub
         '! [tickprice]
 
         '! [ticksize]
-        Public Sub tickSize(tickerId As Integer, field As Integer, size As Integer) Implements IBApi.EWrapper.tickSize
+        Public Sub tickSize(tickerId As Integer, field As Integer, size As Long) Implements IBApi.EWrapper.tickSize
             Console.WriteLine("Tick Size. Ticker Id:" & CStr(tickerId) & ", Field: " & TickType.getField(field) & ", Size: " & CStr(size))
         End Sub
         '! [ticksize]
@@ -314,16 +433,16 @@ Namespace Samples
         '! [updateaccountvalue]
 
         '! [updatemktdepth]
-        Public Sub updateMktDepth(tickerId As Integer, position As Integer, operation As Integer, side As Integer, price As Double, size As Integer) Implements IBApi.EWrapper.updateMktDepth
+        Public Sub updateMktDepth(tickerId As Integer, position As Integer, operation As Integer, side As Integer, price As Double, size As Long) Implements IBApi.EWrapper.updateMktDepth
             Console.WriteLine("UpdateMarketDepth. " & CStr(tickerId) & " - Position: " & CStr(position) & ", Operation: " & CStr(operation) & ", Side: " & CStr(side) &
-                          ", Price: " & CStr(price) & ", Size" & CStr(size))
+                          ", Price: " & CStr(price) & ", Size: " & CStr(size))
         End Sub
         '! [updatemktdepth]
 
         '! [updatemktdepthl2]
-        Public Sub updateMktDepthL2(tickerId As Integer, position As Integer, marketMaker As String, operation As Integer, side As Integer, price As Double, size As Integer) Implements IBApi.EWrapper.updateMktDepthL2
-            Console.WriteLine("UpdateMarketDepthL2. " & tickerId & " - Position: " & position & ", Operation: " & operation & ", Side: " & side &
-                          ", Price: " & price & ", Size" & size)
+        Public Sub updateMktDepthL2(tickerId As Integer, position As Integer, marketMaker As String, operation As Integer, side As Integer, price As Double, size As Long, isSmartDepth As Boolean) Implements IBApi.EWrapper.updateMktDepthL2
+            Console.WriteLine("UpdateMarketDepthL2. " & CStr(tickerId) & " - Position: " & CStr(position) & ", Operation: " & CStr(operation) & ", Side: " & CStr(side) &
+                          ", Price: " & CStr(price) & ", Size: " & CStr(size) & ", isSmartDepth: " & CStr(isSmartDepth))
         End Sub
         '! [updatemktdepthl2]
 
@@ -334,10 +453,10 @@ Namespace Samples
         '! [updatenewsbulletin]
 
         '! [updateportfolio]
-        Public Sub updatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealisedPNL As Double, realisedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
+        Public Sub updatePortfolio(contract As IBApi.Contract, position As Double, marketPrice As Double, marketValue As Double, averageCost As Double, unrealizedPNL As Double, realizedPNL As Double, accountName As String) Implements IBApi.EWrapper.updatePortfolio
             Console.WriteLine("UpdatePortfolio. " & contract.Symbol & ", " & contract.SecType & " @ " & contract.Exchange &
                 ": Position: " & position & ", MarketPrice: " & marketPrice & ", MarketValue: " & marketValue & ", AverageCost: " & averageCost &
-                ", UnrealisedPNL: " & unrealisedPNL & ", RealisedPNL: " & realisedPNL & ", AccountName: " & accountName)
+                ", UnrealizedPNL: " & unrealizedPNL & ", RealizedPNL: " & realizedPNL & ", AccountName: " & accountName)
         End Sub
         '! [updateportfolio]
 
@@ -369,6 +488,7 @@ Namespace Samples
         End Sub
         '! [securityDefinitionOptionParameterEnd]
 
+        '! [softDollarTiers]
         Public Sub softDollarTiers(reqid As Integer, tiers As SoftDollarTier()) Implements EWrapper.softDollarTiers
             Console.WriteLine("Soft Dollar Tiers:")
 
@@ -376,6 +496,260 @@ Namespace Samples
                 Console.WriteLine(tier.DisplayName)
             Next
         End Sub
+        '! [softDollarTiers]
+
+        '! [familyCodes]
+        Public Sub familyCodes(familyCodes As FamilyCode()) Implements EWrapper.familyCodes
+            Console.WriteLine("Family Codes:")
+
+            For Each familyCode In familyCodes
+                Console.WriteLine("Account ID: " & familyCode.AccountID & " Family Code Str: " & familyCode.FamilyCodeStr)
+            Next
+        End Sub
+        '! [familyCodes]
+
+        '! [symbolSamples]
+        Public Sub symbolSamples(reqId As Integer, contractDescriptions As ContractDescription()) Implements EWrapper.symbolSamples
+            Dim derivSecTypes As String
+
+            Console.WriteLine("Symbol Samples. Request Id: " & reqId)
+
+            For Each contractDescription In contractDescriptions
+                derivSecTypes = ""
+                For Each derivSecType In contractDescription.DerivativeSecTypes
+                    derivSecTypes += derivSecType
+                    derivSecTypes += " "
+                Next
+                Console.WriteLine("Contract: conId - " & contractDescription.Contract.ConId & ", symbol - " & contractDescription.Contract.Symbol &
+                                  ", secType -" & contractDescription.Contract.SecType & ", primExchange - " & contractDescription.Contract.PrimaryExch &
+                                  ", currency - " & contractDescription.Contract.Currency & ", derivativeSecTypes - " & derivSecTypes)
+            Next
+        End Sub
+        '! [symbolSamples]
+
+        '! [mktDepthExchanges]
+        Public Sub mktDepthExchanges(depthMktDataDescriptions As DepthMktDataDescription()) Implements EWrapper.mktDepthExchanges
+            Console.WriteLine("Market Depth Exchanges:")
+
+            Dim aggGroup As String
+
+            For Each depthMktDataDescription In depthMktDataDescriptions
+                If depthMktDataDescription.AggGroup <> Integer.MaxValue Then
+                    aggGroup = depthMktDataDescription.AggGroup
+                Else
+                    aggGroup = ""
+                End If
+
+                Console.WriteLine("Depth Market Data Descriprion. Exchange: " & depthMktDataDescription.Exchange &
+                                  " Security Type: " & depthMktDataDescription.SecType &
+                                  " Listing Exch: " & depthMktDataDescription.ListingExch &
+                                  " Service Data Type: " & depthMktDataDescription.ServiceDataType &
+                                  "  Agg Group: " & aggGroup)
+            Next
+        End Sub
+        '! [mktDepthExchanges]
+
+        '! [tickNews]
+        Public Sub tickNews(tickerId As Integer, timeStamp As Long, providerCode As String, articleId As String, headline As String, extraData As String) Implements IBApi.EWrapper.tickNews
+            Console.WriteLine("Tick News. Ticker Id: " & tickerId & ", Time Stamp: " & timeStamp & ", Provider Code: " & providerCode & ", Article Id: " & articleId & ", Headline: " & headline & ", Extra Data: " & extraData)
+        End Sub
+        '! [tickNews]
+
+        '! [smartcomponents]
+        Public Sub smartComponents(reqId As Integer, theMap As Dictionary(Of Integer, KeyValuePair(Of String, Char))) Implements EWrapper.smartComponents
+            Dim sb As New StringBuilder
+
+            sb.AppendFormat("==== Smart Components Begin (total={0}) reqId = {1} ===={2}", theMap.Count, reqId, Environment.NewLine)
+
+            For Each item In theMap
+                sb.AppendFormat("bit number: {0}, exchange: {1}, exchange letter: {2}{3}", item.Key, item.Value.Key, item.Value.Value, Environment.NewLine)
+            Next
+
+            sb.AppendFormat("==== Smart Components Begin (total={0}) reqId = {1} ===={2}", theMap.Count, reqId, Environment.NewLine)
+
+            Console.WriteLine(sb)
+        End Sub
+        '! [smartcomponents]
+
+        '! [tickReqParams]
+        Public Sub tickReqParams(tickerId As Integer, minTick As Double, bboExchange As String, snapshotPermissions As Integer) Implements EWrapper.tickReqParams
+            Console.WriteLine("id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, minTick, bboExchange, snapshotPermissions)
+
+            Me.BboExchange = bboExchange
+        End Sub
+        '! [tickReqParams]
+
+        '! [newsProviders]
+        Public Sub newsProviders(newsProviders As NewsProvider()) Implements EWrapper.newsProviders
+            Console.WriteLine("News Providers")
+
+            For Each newsProvider In newsProviders
+                Console.WriteLine("News Provider: providerCode - " & newsProvider.ProviderCode & ", providerName - " & newsProvider.ProviderName)
+            Next
+        End Sub
+        '! [newsProviders]
+
+        '! [newsArticle]
+        Public Sub newsArticle(requestId As Integer, articleType As Integer, articleText As String) Implements EWrapper.newsArticle
+            Console.WriteLine("News Article. Request Id: " & requestId & ", Article Type: " & articleType)
+
+            If articleType = 0 Then
+                Console.WriteLine("News Article Text: " & articleText)
+            ElseIf articleType = 1 Then
+                Console.WriteLine("News Article Text: article text is binary/pdf and cannot be displayed")
+            End If
+        End Sub
+        '! [newsArticle]
+
+        '! [historicalNews]
+        Public Sub historicalNews(requestId As Integer, time As String, providerCode As String, articleId As String, headline As String) Implements IBApi.EWrapper.historicalNews
+            Console.WriteLine("Historical News. Request Id: " & requestId & ", Time: " & time & ", Provider Code: " & providerCode & ", Article Id: " & articleId & ", Headline: " & headline)
+        End Sub
+        '! [historicalNews]
+
+        '! [historicalNewsEnd]
+        Public Sub historicalNewsEnd(requestId As Integer, hasMore As Boolean) Implements IBApi.EWrapper.historicalNewsEnd
+            Console.WriteLine("Historical News End. Request Id: " & requestId & ", Has More: " & hasMore)
+        End Sub
+        '! [historicalNewsEnd]
+
+        '! [headTimestamp]
+        Public Sub headTimestamp(requestId As Integer, timeStamp As String) Implements IBApi.EWrapper.headTimestamp
+            Console.WriteLine("Head time stamp. Request Id: {0}, Head time stamp: {1}", requestId, timeStamp)
+        End Sub
+        '! [headTimestamp]
+
+        '! [histogramData]
+        Public Sub histogramData(reqId As Integer, data As HistogramEntry()) Implements EWrapper.histogramData
+            Console.WriteLine("Histogram data. Request Id: {0}, data size: {1}", reqId, data.Length)
+            data.ToList().ForEach(Sub(i) Console.WriteLine(vbTab & "Price: {0}, Size: {1}", i.Price, i.Size))
+        End Sub
+        '! [histogramData]
+
+        '! [rerouteMktDataReq]
+        Public Sub rerouteMktDataReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDataReq
+            Console.WriteLine("Re-route market data request. Req Id: {0}, Con Id: {1}, Exchange: {2}", reqId, conId, exchange)
+        End Sub
+        '! [rerouteMktDataReq]
+
+        '! [rerouteMktDepthReq]
+        Public Sub rerouteMktDepthReq(reqId As Integer, conId As Integer, exchange As String) Implements IBApi.EWrapper.rerouteMktDepthReq
+            Console.WriteLine("Re-route market depth request. Req Id: {0}, Con Id: {1}, Exchange: {2}", reqId, conId, exchange)
+        End Sub
+        '! [rerouteMktDepthReq]
+
+        '! [marketRule]
+        Public Sub marketRule(marketRuleId As Integer, priceIncrements As PriceIncrement()) Implements EWrapper.marketRule
+            Console.WriteLine("Market Rule Id:" & marketRuleId)
+
+            For Each priceIncrement In priceIncrements
+                Console.WriteLine("LowEdge: " & CDec(priceIncrement.LowEdge) & " Increment: " & CDec(priceIncrement.Increment))
+            Next
+        End Sub
+        '! [marketRule]
+
+		'! [pnl]
+        Public Sub pnl(reqId As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double) Implements EWrapper.pnl
+            Console.WriteLine("PnL. Request Id: {0}, daily PnL: {1}, unrealized PnL: {2}, realized PnL: {3}", reqId, dailyPnL, unrealizedPnL, realizedPnL)
+        End Sub
+		'! [pnl]
+		
+		'! [pnlsingle]
+        Public Sub pnlSingle(reqId As Integer, pos As Integer, dailyPnL As Double, unrealizedPnL As Double, realizedPnL As Double, value As Double) Implements EWrapper.pnlSingle
+            Console.WriteLine("PnL Single. Request Id: {0}, pos: {1}, daily PnL: {2}, unrealized PnL: {3}, realized PnL: {4}, value: {5}", reqId, pos, dailyPnL, unrealizedPnL, realizedPnL, value)
+        End Sub
+		'! [pnlsingle]
+		
+		'! [historicalticks]
+        Public Sub historicalTick(reqId As Integer, ticks As HistoricalTick(), done As Boolean) Implements EWrapper.historicalTicks
+            For Each tick In ticks
+                Console.WriteLine("Historical Tick. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}", reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Price, tick.Size)
+            Next
+        End Sub
+		'! [historicalticks]
+
+		'! [historicalticksbidask]
+        Public Sub historicalTickBidAsk(reqId As Integer, ticks As HistoricalTickBidAsk(), done As Boolean) Implements EWrapper.historicalTicksBidAsk
+            For Each tick In ticks
+                Console.WriteLine("Historical Tick Bid/Ask. Request Id: {0}, Time: {1}, Price Bid: {2}, Price Ask: {3}, Size Bid: {4}, Size Ask: {5}, Bid/Ask Tick Attribs: {6}",
+                    reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.PriceBid, tick.PriceAsk, tick.SizeBid, tick.SizeAsk, tick.TickAttribBidAsk.toString())
+            Next
+        End Sub
+		'! [historicalticksbidask]
+
+		'! [historicaltickslast]
+        Public Sub historicalTickLast(reqId As Integer, ticks As HistoricalTickLast(), done As Boolean) Implements EWrapper.historicalTicksLast
+            For Each tick In ticks
+                Console.WriteLine("Historical Tick Last. Request Id: {0}, Time: {1}, Price: {2}, Size: {3}, Exchange: {4}, Special Conditions: {5}, Last Tick Attribs: {6}",
+                    reqId, Util.UnixSecondsToString(tick.Time, "yyyyMMdd-HH:mm:ss zzz"), tick.Price, tick.Size, tick.Exchange, tick.SpecialConditions, tick.TickAttribLast.toString())
+            Next
+        End Sub
+        '! [historicaltickslast]
+
+        '! [tickbytickalllast]
+        Public Sub tickByTickAllLast(reqId As Integer, tickType As Integer, time As Long, price As Double, size As Long, tickAttribLast As TickAttribLast, exchange As String, specialConditions As String) Implements EWrapper.tickByTickAllLast
+            Dim tickTypeStr As String
+            If tickType = 1 Then
+                tickTypeStr = "Last"
+            Else
+                tickTypeStr = "AllLast"
+            End If
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: {1}, Time: {2}, Price: {3}, Size: {4}, Exchange: {5}, Special Conditions: {6}, PastLimit: {7}, Unreported: {8}",
+                reqId, tickTypeStr, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), price, size, exchange, specialConditions, tickAttribLast.PastLimit, tickAttribLast.Unreported)
+        End Sub
+        '! [tickbytickalllast]
+
+        '! [tickbytickbidask]
+        Public Sub tickByTickBidAsk(reqId As Integer, time As Long, bidPrice As Double, askPrice As Double, bidSize As Long, askSize As Long, tickAttribBidAsk As TickAttribBidAsk) Implements EWrapper.tickByTickBidAsk
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: BidAsk, Time: {1}, BidPrice: {2}, AskPrice: {3}, BidSize: {4}, AskSize: {5}, BidPastLow: {6}, AskPastHigh: {7}",
+                reqId, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), bidPrice, askPrice, bidSize, askSize, tickAttribBidAsk.BidPastLow, tickAttribBidAsk.AskPastHigh)
+        End Sub
+        '! [tickbytickbidask]
+
+        '! [tickbytickmidpoint]
+        Public Sub tickByTickMidPoint(reqId As Integer, time As Long, midPoint As Double) Implements EWrapper.tickByTickMidPoint
+            Console.WriteLine("Tick-By-Tick. Request Id: {0}, TickType: MidPoint, Time: {1}, MidPoint: {2}",
+                reqId, Util.UnixSecondsToString(time, "yyyyMMdd-HH:mm:ss zzz"), midPoint)
+        End Sub
+        '! [tickbytickmidpoint]
+
+        '! [orderbound]
+        Public Sub orderBound(orderId As Long, apiClientId As Integer, apiOrderId As Integer) Implements EWrapper.orderBound
+            Console.WriteLine("Order bound. Order Id: {0}, Api Client Id: {1}, Api Order Id: {2}", orderId, apiClientId, apiOrderId)
+        End Sub
+        '! [orderbound]
+
+        '! [completedorder]
+        Public Sub completedOrder(contract As IBApi.Contract, order As IBApi.Order, orderState As IBApi.OrderState) Implements IBApi.EWrapper.completedOrder
+            Console.WriteLine("CompletedOrder. PermID: " & order.PermId & ", ParentPermID: " & Util.LongMaxString(order.ParentPermId) & ", Account: " & order.Account & ", Symbol: " & contract.Symbol & ", SecType: " & contract.SecType & " , Exchange: " & contract.Exchange & ", Action: " & order.Action & ", OrderType: " & order.OrderType & ", TotalQty: " & order.TotalQuantity &
+                ", CashQty: " & order.CashQty & ", FilledQty: " & order.FilledQuantity & ", LmtPrice: " & order.LmtPrice & ", AuxPrice: " & order.AuxPrice & ", Status: " & orderState.Status &
+                ", CompletedTime: " & orderState.CompletedTime & ", CompletedStatus: " & orderState.CompletedStatus)
+        End Sub
+        '! [completedorder]
+
+        '! [completedordersend]
+        Public Sub completedOrdersEnd() Implements IBApi.EWrapper.completedOrdersEnd
+            Console.WriteLine("CompletedOrdersEnd")
+        End Sub
+        '! [completedordersend]
+
+        '! [replacefaend]
+        Public Sub replaceFAEnd(reqId As Integer, text As String) Implements IBApi.EWrapper.replaceFAEnd
+            Console.WriteLine("replaceFAEnd. ReqId: {0}, Text: {1}", reqId, text)
+        End Sub
+		'! [replacefaend]
+
+		'! [wshMetaData]
+        Public Sub wshMetaData(reqId As Integer, dataJson As String) Implements EWrapper.wshMetaData
+            Console.WriteLine($"WSH Meta Data. Request Id: {reqId}, Data JSON: {dataJson}")
+        End Sub
+		'! [wshMetaData]
+
+		'! [wshEventData]
+        Public Sub wshEventData(reqId As Integer, dataJson As String) Implements EWrapper.wshEventData
+            Console.WriteLine($"WSH Event Data. Request Id: {reqId}, Data JSON: {dataJson}")
+        End Sub
+        '! [wshEventData]
 
     End Class
 

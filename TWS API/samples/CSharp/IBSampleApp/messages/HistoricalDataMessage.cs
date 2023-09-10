@@ -1,13 +1,9 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace IBSampleApp.messages
 {
-    public class HistoricalDataMessage : IBMessage 
+    class HistoricalDataMessage
     {
         protected int requestId;
         protected string date;
@@ -15,7 +11,7 @@ namespace IBSampleApp.messages
         protected double high;
         protected double low;
         protected double close;
-        protected int volume;
+        protected long volume;
         protected int count;
         protected double wap;
         protected bool hasGaps;
@@ -57,7 +53,7 @@ namespace IBSampleApp.messages
             set { close = value; }
         }
         
-        public int Volume
+        public long Volume
         {
             get { return volume; }
             set { volume = value; }
@@ -81,19 +77,17 @@ namespace IBSampleApp.messages
             set { hasGaps = value; }
         }
 
-        public HistoricalDataMessage(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        public HistoricalDataMessage(int reqId, IBApi.Bar bar)
         {
-            Type = MessageType.HistoricalData;
             RequestId = reqId;
-            Date = date;
-            Open = open;
-            High = high;
-            Low = low;
-            Close = close;
-            Volume = volume;
-            Count = count;
-            Wap = WAP;
-            HasGaps = hasGaps;
+            Date = bar.Time;
+            Open = bar.Open;
+            High = bar.High;
+            Low = bar.Low;
+            Close = bar.Close;
+            Volume = bar.Volume;
+            Count = bar.Count;
+            Wap = bar.WAP;
         }
     }
 }

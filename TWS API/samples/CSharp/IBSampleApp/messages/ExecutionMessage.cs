@@ -1,44 +1,23 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class ExecutionMessage : IBMessage
+    class ExecutionMessage
     {
-        private int reqId;
-        private Contract contract;
-        private Execution execution;
-
         public ExecutionMessage(int reqId, Contract contract, Execution execution)
         {
-            Type = MessageType.ExecutionData;
             ReqId = reqId;
             Contract = contract;
             Execution = execution;
         }
 
-        public Contract Contract
-        {
-            get { return contract; }
-            set { contract = value; }
-        }
-        
-        public Execution Execution
-        {
-            get { return execution; }
-            set { execution = value; }
-        }
+        public Contract Contract { get; set; }
 
-        public int ReqId
-        {
-            get { return reqId; }
-            set { reqId = value; }
-        }
+        public Execution Execution { get; set; }
 
+        public int ReqId { get; set; }
     }
 }

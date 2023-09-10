@@ -1,3 +1,6 @@
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package com.ib.client;
 
 import java.io.IOException;
@@ -11,9 +14,8 @@ public class ExecutionCondition extends OrderCondition {
 	protected ExecutionCondition() { }
 	
 	@Override
-	public void readExternal(ObjectInput in) throws IOException,
-			ClassNotFoundException {
-		super.readExternal(in);
+	public void readFrom(ObjectInput in) throws IOException{
+		super.readFrom(in);
 		
 		m_secType = in.readUTF();
 		m_exchange = in.readUTF();
@@ -26,8 +28,8 @@ public class ExecutionCondition extends OrderCondition {
 	}
 
 	@Override
-	public void writeExternal(ObjectOutput out) throws IOException {
-		super.writeExternal(out);
+	public void writeTo(ObjectOutput out) throws IOException {
+		super.writeTo(out);
 		
 		out.writeUTF(m_secType);
 		out.writeUTF(m_exchange);

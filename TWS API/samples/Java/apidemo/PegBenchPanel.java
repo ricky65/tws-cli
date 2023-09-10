@@ -1,3 +1,6 @@
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package apidemo;
 
 import javax.swing.JDialog;
@@ -20,7 +23,7 @@ public class PegBenchPanel extends OnOKPanel {
 	final ContractLookupButton m_refCon;
 	final UpperField m_pegChangeAmount = new UpperField();
 	final UpperField m_refChangeAmount = new UpperField();
-	final TCombo<String> m_pegChangeType = new TCombo<String>("increase", "decrease");
+	final TCombo<String> m_pegChangeType = new TCombo<>("increase", "decrease");
 	
 	public PegBenchPanel(JDialog parentDlg, Order order, ContractLookuper lookuper) {
 		m_parentDlg = parentDlg;
@@ -36,7 +39,7 @@ public class PegBenchPanel extends OnOKPanel {
 			protected void actionPerformed(int refConId, String refExchId) {
 				PegBenchPanel.this.m_order.referenceContractId(refConId);
 				PegBenchPanel.this.m_order.referenceExchangeId(refExchId);
-			}; 
+			}
 		};
 		
 		add("Starting price", m_startingPrice);

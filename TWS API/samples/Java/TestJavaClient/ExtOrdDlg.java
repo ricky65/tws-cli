@@ -1,12 +1,10 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,11 +17,15 @@ import javax.swing.JTextField;
 
 import com.ib.client.Order;
 
+import apidemo.util.UpperField;
+
 public class ExtOrdDlg extends JDialog {
     public Order 		m_order = new Order();
     public boolean 		m_rc;
 
     private JTextField 	m_tif = new JTextField( "DAY");
+    private JTextField 	m_duration = new JTextField();
+    private JTextField 	m_postToAts = new JTextField();
     private JTextField 	m_activeStartTime = new JTextField();
     private JTextField 	m_activeStopTime = new JTextField();
     private JTextField 	m_ocaGroup = new JTextField();
@@ -35,7 +37,7 @@ public class ExtOrdDlg extends JDialog {
     private JTextField  m_clearingAccount = new JTextField();
     private JTextField  m_clearingIntent = new JTextField();
 
-    private JTextField 	m_openClose = new JTextField( "O");
+    private JTextField 	m_openClose = new JTextField();
     private JTextField 	m_origin = new JTextField( "1");
     private JTextField 	m_orderRef = new JTextField();
     private JTextField 	m_parentId = new JTextField( "0");
@@ -55,9 +57,6 @@ public class ExtOrdDlg extends JDialog {
     private JTextField  m_overridePercentageConstraints = new JTextField();
     private JTextField  m_minQty = new JTextField();
     private JTextField  m_percentOffset = new JTextField();
-    private JTextField  m_eTradeOnly = new JTextField();
-    private JTextField  m_firmQuoteOnly = new JTextField();
-    private JTextField  m_nbboPriceCap = new JTextField();
     private JTextField  m_auctionStrategy = new JTextField("0");
     private JTextField  m_startingPrice = new JTextField();
     private JTextField  m_stockRefPrice = new JTextField();
@@ -100,11 +99,17 @@ public class ExtOrdDlg extends JDialog {
 	private JCheckBox 	m_solicited = new JCheckBox("Solicited", false);
 	private JCheckBox 	m_randomizeSize = new JCheckBox("Randomize size", false);
 	private JCheckBox 	m_randomizePrice = new JCheckBox("Randomize price", false);
+	private UpperField  m_mifid2DecisionMaker = new UpperField();
+	private UpperField  m_mifid2DecisionAlgo = new UpperField();
+    private UpperField  m_mifid2ExecutionTrader = new UpperField();
+    private UpperField  m_mifid2ExecutionAlgo = new UpperField();
+    private JCheckBox   m_dontUseAutoPriceForHedge = new JCheckBox("Don't use auto price for hedge", false);
+    private JCheckBox   m_isOmsConainer = new JCheckBox("OMS Container", false);
+    private JCheckBox   m_discretionaryUpToLimitPrice = new JCheckBox("Relative discretionary", false);
+    private JCheckBox   m_notHeld = new JCheckBox("Not held", false);
+    private JCheckBox   m_autoCancelParent = new JCheckBox("Auto Cancel Parent", false);
 
-    private JButton 	m_ok = new JButton( "OK");
-    private JButton 	m_cancel = new JButton( "Cancel");
-
-    public ExtOrdDlg( OrderDlg owner) {
+    ExtOrdDlg( OrderDlg owner) {
         super( owner, true);
 
         setTitle( "Sample");
@@ -114,6 +119,10 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.setBorder( BorderFactory.createTitledBorder( "Extended Order Info") );
         extOrderDetailsPanel.add( new JLabel( "TIF") );
         extOrderDetailsPanel.add( m_tif);
+        extOrderDetailsPanel.add( new JLabel( "Duration") );
+        extOrderDetailsPanel.add( m_duration);
+        extOrderDetailsPanel.add( new JLabel( "Post To ATS") );
+        extOrderDetailsPanel.add( m_postToAts);
         extOrderDetailsPanel.add(new JLabel("Active Start Time"));
         extOrderDetailsPanel.add(m_activeStartTime);
         extOrderDetailsPanel.add(new JLabel("Active Stop Time"));
@@ -179,12 +188,6 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.add(m_minQty);
         extOrderDetailsPanel.add(new JLabel("Percent Offset"));
         extOrderDetailsPanel.add(m_percentOffset);
-        extOrderDetailsPanel.add(new JLabel("Electronic Exchange Only"));
-        extOrderDetailsPanel.add(m_eTradeOnly);
-        extOrderDetailsPanel.add(new JLabel("Firm Quote Only"));
-        extOrderDetailsPanel.add(m_firmQuoteOnly);
-        extOrderDetailsPanel.add(new JLabel("NBBO Price Cap"));
-        extOrderDetailsPanel.add(m_nbboPriceCap);
         extOrderDetailsPanel.add( new JLabel( "") );
         extOrderDetailsPanel.add( new JLabel(""));
         extOrderDetailsPanel.add(new JLabel("BOX: Auction Strategy"));
@@ -260,23 +263,33 @@ public class ExtOrdDlg extends JDialog {
         extOrderDetailsPanel.add(m_solicited);
         extOrderDetailsPanel.add(m_randomizeSize);
         extOrderDetailsPanel.add(m_randomizePrice);
+        
+        extOrderDetailsPanel.add(new JLabel("MiFID II Decision Maker"));
+        extOrderDetailsPanel.add(m_mifid2DecisionMaker);
+        extOrderDetailsPanel.add(new JLabel("MiFID II Decision Algo"));
+        extOrderDetailsPanel.add(m_mifid2DecisionAlgo);
+
+        extOrderDetailsPanel.add(new JLabel("MiFID II Execution Trader"));
+        extOrderDetailsPanel.add(m_mifid2ExecutionTrader);
+        extOrderDetailsPanel.add(new JLabel("MiFID II Execution Algo"));
+        extOrderDetailsPanel.add(m_mifid2ExecutionAlgo);
+        
+        extOrderDetailsPanel.add(m_dontUseAutoPriceForHedge);
+        extOrderDetailsPanel.add(m_isOmsConainer);
+        extOrderDetailsPanel.add(m_discretionaryUpToLimitPrice);
+        extOrderDetailsPanel.add(m_notHeld);
+        extOrderDetailsPanel.add(m_autoCancelParent);
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_ok);
-        buttonPanel.add( m_cancel);
+        JButton btnOk = new JButton("OK");
+        buttonPanel.add(btnOk);
+        JButton btnCancel = new JButton("Cancel");
+        buttonPanel.add(btnCancel);
 
         // create action listeners
-        m_ok.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOk();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnOk.addActionListener(e -> onOk());
+        btnCancel.addActionListener(e -> onCancel());
 
         // create dlg box
         getContentPane().add( extOrderDetailsPanel, BorderLayout.CENTER);
@@ -294,6 +307,8 @@ public class ExtOrdDlg extends JDialog {
         try {
             // set extended order fields
             m_order.tif(m_tif.getText().trim());
+            m_order.duration(parseMaxInt(m_duration));
+            m_order.postToAts(parseMaxInt(m_postToAts));
             m_order.activeStartTime(m_activeStartTime.getText().trim());
             m_order.activeStopTime(m_activeStopTime.getText().trim());
             m_order.ocaGroup(m_ocaGroup.getText().trim());
@@ -325,9 +340,6 @@ public class ExtOrdDlg extends JDialog {
             m_order.minQty(parseMaxInt(m_minQty));
             m_order.overridePercentageConstraints(parseInt(m_overridePercentageConstraints) != 0);
             m_order.percentOffset(parseMaxDouble(m_percentOffset));
-            m_order.eTradeOnly(parseInt(m_eTradeOnly) != 0);
-            m_order.firmQuoteOnly(parseInt(m_firmQuoteOnly) != 0);
-            m_order.nbboPriceCap(parseMaxDouble(m_nbboPriceCap));
             m_order.optOutSmartRouting(m_optOutSmartRoutingCheckBox.isSelected());
             m_order.solicited(m_solicited.isSelected());
             m_order.auctionStrategy(parseInt(m_auctionStrategy));
@@ -369,6 +381,16 @@ public class ExtOrdDlg extends JDialog {
             
             m_order.randomizePrice(m_randomizePrice.isSelected());
             m_order.randomizeSize(m_randomizeSize.isSelected());
+            
+            m_order.mifid2DecisionMaker(m_mifid2DecisionMaker.getText());
+            m_order.mifid2DecisionAlgo(m_mifid2DecisionAlgo.getText());
+            m_order.mifid2ExecutionTrader(m_mifid2ExecutionTrader.getText());
+            m_order.mifid2ExecutionAlgo(m_mifid2ExecutionAlgo.getText());
+            m_order.dontUseAutoPriceForHedge(m_dontUseAutoPriceForHedge.isSelected());
+            m_order.isOmsContainer(m_isOmsConainer.isSelected());
+            m_order.discretionaryUpToLimitPrice(m_discretionaryUpToLimitPrice.isSelected());
+            m_order.notHeld(m_notHeld.isSelected());
+            m_order.autoCancelParent(m_autoCancelParent.isSelected());
         }
         catch( Exception e) {
             Main.inform( this, "Error - " + e);

@@ -1,9 +1,7 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using IBApi;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Windows.Forms;
@@ -11,7 +9,7 @@ using IBSampleApp.messages;
 
 namespace IBSampleApp.ui
 {
-    public class RealTimeBarsManager : HistoricalDataManager
+    class RealTimeBarsManager : HistoricalDataManager
     {
         public const int RT_BARS_ID_BASE = 40000000;
 
@@ -32,14 +30,12 @@ namespace IBSampleApp.ui
             base.Clear();
         }
 
-        public override void UpdateUI(IBMessage message)
+        public void UpdateUI(RealTimeBarMessage rtBar)
         {
             barCounter++;
+
             Chart rtBarsChart = (Chart)uiControl;
-            RealTimeBarMessage rtBar = (RealTimeBarMessage)message;
-
             DateTime start = new DateTime(1970, 1, 1, 0, 0, 0);
-
             DateTime dt = start.AddMilliseconds(rtBar.Timestamp * 1000).ToLocalTime();
 
             // adding date and high
@@ -50,7 +46,7 @@ namespace IBSampleApp.ui
             rtBarsChart.Series[0].Points[barCounter].YValues[2] = rtBar.Open;
             // adding close
             rtBarsChart.Series[0].Points[barCounter].YValues[3] = rtBar.Close;
-            PopulateGrid(message);
+            PopulateGrid(rtBar);
         }
     }
 }

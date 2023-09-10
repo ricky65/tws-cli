@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -20,18 +20,21 @@ public class OrderComboLeg {
 
     @Override
     public boolean equals(Object p_other) {
-        if ( this == p_other ) {
+        if (this == p_other) {
             return true;
         }
-        else if ( p_other == null ) {
+        if (!(p_other instanceof OrderComboLeg)) {
             return false;
         }
 
         OrderComboLeg l_theOther = (OrderComboLeg)p_other;
 
-        if (m_price != l_theOther.m_price) {
-        	return false;
-        }
-        return true;
+        return m_price == l_theOther.m_price;
+    }
+
+    @Override
+    public int hashCode() {
+        long temp = Double.doubleToLongBits(m_price);
+        return (int) (temp ^ (temp >>> 32));
     }
 }

@@ -1,6 +1,9 @@
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 #pragma once
-#ifndef ACCOUNTSUMMARYTAGS
-#define ACCOUNTSUMMARYTAGS
+#ifndef TWS_API_SAMPLES_TESTCPPCLIENT_ACCOUNTSUMMARYTAGS_H
+#define TWS_API_SAMPLES_TESTCPPCLIENT_ACCOUNTSUMMARYTAGS_H
 
 #include <string>
 

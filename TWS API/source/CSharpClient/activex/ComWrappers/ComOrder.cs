@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -16,7 +16,7 @@ namespace TWSLib
      * @brief The order's description.
      * @sa Contract, OrderComboLeg, OrderState
      */
-    [ComVisible(true)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class ComOrder : ComWrapper<Order>, TWSLib.IOrder
     {        
         /**
@@ -121,12 +121,6 @@ namespace TWSLib
 
         double TWSLib.IOrder.discretionaryAmt { get { return data.DiscretionaryAmt; } set { data.DiscretionaryAmt = value; } }
 
-        bool TWSLib.IOrder.eTradeOnly { get { return data.ETradeOnly; } set { data.ETradeOnly = value; } }
-
-        bool TWSLib.IOrder.firmQuoteOnly { get { return data.FirmQuoteOnly; } set { data.FirmQuoteOnly = value; } }
-
-        double TWSLib.IOrder.nbboPriceCap { get { return data.NbboPriceCap; } set { data.NbboPriceCap = value; } }
-
         bool TWSLib.IOrder.optOutSmartRouting { get { return data.OptOutSmartRouting; } set { data.OptOutSmartRouting = value; } }
 
         int TWSLib.IOrder.auctionStrategy { get { return data.AuctionStrategy; } set { data.AuctionStrategy = value; } }
@@ -216,7 +210,7 @@ namespace TWSLib
 
             set
             {
-                data.AlgoParams = value != null ? (value as ComTagValueList).Tvl.ConvertTo() : new List<TagValue>();
+                data.AlgoParams = value != null ? (value as ComTagValueList) : new List<TagValue>();
             }
         }
 
@@ -229,7 +223,7 @@ namespace TWSLib
 
             set
             {
-                data.SmartComboRoutingParams = value != null ? (value as ComTagValueList).Tvl.ConvertTo() : new List<TagValue>();
+                data.SmartComboRoutingParams = value != null ? (value as ComTagValueList) : new List<TagValue>();
             }
         }
 
@@ -242,7 +236,7 @@ namespace TWSLib
 
             set
             {
-                data.OrderComboLegs = value != null ? (value as TWSLib.ComOrderComboLegList).Ocl.ConvertTo() : null;
+                data.OrderComboLegs = value != null ? (value as TWSLib.ComOrderComboLegList) : null;
             }
         }
 
@@ -255,7 +249,7 @@ namespace TWSLib
 
             set
             {
-                data.OrderMiscOptions = value != null ? (value as ComTagValueList).Tvl.ConvertTo() : new List<TagValue>();
+                data.OrderMiscOptions = value != null ? (value as ComTagValueList) : new List<TagValue>();
             }
         }
 
@@ -350,5 +344,24 @@ namespace TWSLib
         string TWSLib.IOrder.modelCode { get { return ModelCode; } set { ModelCode = value; } }
         string TWSLib.IOrder.extOperator { get { return data.ExtOperator; } set { data.ExtOperator = value; } }
         TWSLib.ComSoftDollarTier IOrder.tier { get { return new TWSLib.ComSoftDollarTier(data); } }
+        double TWSLib.IOrder.cashQty { get { return data.CashQty; } set { data.CashQty = value; } }
+        string TWSLib.IOrder.mifid2DecisionMaker { get { return data.Mifid2DecisionMaker; } set { data.Mifid2DecisionMaker = value; } }
+        string TWSLib.IOrder.mifid2DecisionAlgo { get { return data.Mifid2DecisionAlgo; } set { data.Mifid2DecisionAlgo = value; } }
+        string TWSLib.IOrder.mifid2ExecutionTrader { get { return data.Mifid2ExecutionTrader; } set { data.Mifid2ExecutionTrader = value; } }
+        string TWSLib.IOrder.mifid2ExecutionAlgo { get { return data.Mifid2ExecutionAlgo; } set { data.Mifid2ExecutionAlgo = value; } }
+        bool TWSLib.IOrder.dontUseAutoPriceForHedge { get { return data.DontUseAutoPriceForHedge; } set { data.DontUseAutoPriceForHedge = value; } }
+        bool TWSLib.IOrder.isOmsContainer { get { return data.IsOmsContainer; } set { data.IsOmsContainer = value; } }
+        bool TWSLib.IOrder.discretionaryUpToLimitPrice { get { return data.DiscretionaryUpToLimitPrice; } set { data.DiscretionaryUpToLimitPrice = value; } }
+        string TWSLib.IOrder.autoCancelDate { get { return data.AutoCancelDate; } set { data.AutoCancelDate = value; } }
+        double TWSLib.IOrder.filledQuantity { get { return data.FilledQuantity; } set { data.FilledQuantity = value; } }
+        int TWSLib.IOrder.refFuturesConId { get { return data.RefFuturesConId; } set { data.RefFuturesConId = value; } }
+        bool TWSLib.IOrder.autoCancelParent { get { return data.AutoCancelParent; } set { data.AutoCancelParent = value; } }
+        string TWSLib.IOrder.shareholder { get { return data.Shareholder; } set { data.Shareholder = value; } }
+        bool TWSLib.IOrder.imbalanceOnly { get { return data.ImbalanceOnly; } set { data.ImbalanceOnly = value; } }
+        bool TWSLib.IOrder.routeMarketableToBbo { get { return data.RouteMarketableToBbo; } set { data.RouteMarketableToBbo = value; } }
+        int TWSLib.IOrder.parentPermId { get { return (int)data.ParentPermId; } set { data.ParentPermId = value; } }
+        bool TWSLib.IOrder.usePriceMgmtAlgo { get { return data.UsePriceMgmtAlgo ?? false; } set { data.UsePriceMgmtAlgo = value; } }
+        int TWSLib.IOrder.duration { get { return (int)data.Duration; } set { data.Duration = value; } }
+        int TWSLib.IOrder.postToAts { get { return (int)data.PostToAts; } set { data.PostToAts = value; } }
     }
 }

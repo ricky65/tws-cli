@@ -1,17 +1,15 @@
-﻿using IBApi;
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
+using IBApi;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IBSampleApp.ui
 {
-    public partial class ContractSearchDialog : Form
+    partial class ContractSearchDialog : Form
     {
         IBClient ibClient;
         List<Contract> contracts = new List<Contract>();
@@ -55,7 +53,7 @@ namespace IBSampleApp.ui
                 return;
 
             Contract = contracts[listBox.SelectedIndex];
-            this.DialogResult = DialogResult.OK;
+            DialogResult = DialogResult.OK;
 
             Close();
         }

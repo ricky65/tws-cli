@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2016 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System.Collections.Generic;
 using IBApi;
@@ -136,6 +136,23 @@ namespace Samples
             return order;
         }
 
+		/// <summary>
+		// A Midprice order is designed to split the difference between the bid and ask prices, and fill at the current midpoint of 
+		// the NBBO or better. Set an optional price cap to define the highest price (for a buy order) or the lowest price (for a sell 
+		// order) you are willing to accept. Requires TWS 975+. Smart-routing to US stocks only.
+        /// </summary>
+		public static Order Midprice(string action, double quantity, double priceCap)
+        {
+            //! [midprice]
+            Order order = new Order();
+            order.Action = action;
+            order.OrderType = "MIDPRICE";
+            order.TotalQuantity = quantity;
+			order.LmtPrice = priceCap;
+            //! [midprice]
+            return order;
+        }
+		
         /// <summary>
         /// A pegged-to-market order is designed to maintain a purchase price relative to the national best offer (NBO) or a sale price 
         /// relative to the national best bid (NBB). Depending on the width of the quote, this order may be passive or aggressive. 
@@ -175,7 +192,7 @@ namespace Samples
             order.OrderType = "PEG STK";
             order.TotalQuantity = quantity;
             order.Delta = delta;
-            order.LmtPrice = stockReferencePrice;
+            order.StockRefPrice = stockReferencePrice;
             order.StartingPrice = startingPrice;
             //! [pegged_stock]
             return order;
@@ -355,6 +372,25 @@ namespace Samples
             return order;
         }
 
+		/// <summary>
+		/// Forex orders can be placed in demonination of second currency in pair using cashQty field
+		/// Requires TWS or IBG 963+
+		/// https://www.interactivebrokers.com/en/index.php?f=23876#963-02
+		/// <summary>
+
+        public static Order LimitOrderWithCashQty(string action, double limitPrice, double cashQty)
+        {
+            // ! [limitorderwithcashqty]
+            Order order = new Order();
+            order.Action = action;
+            order.OrderType = "LMT";
+            order.LmtPrice = limitPrice;
+            order.CashQty = cashQty;
+            // ! [limitorderwithcashqty]
+            return order;
+        }
+
+
         /// <summary>
         /// A Limit if Touched is an order to buy (or sell) a contract at a specified price or better, below (or above) the market. This order is 
         /// held in the system until the trigger price is touched. An LIT order is similar to a stop limit order, except that an LIT sell order is 
@@ -440,7 +476,7 @@ namespace Samples
         /// to be more aggressive. If the market moves in the opposite direction, the order will execute.
         /// Products: STK
         /// </summary>
-        public static Order PeggedToMidpoint(string action, double quantity, double offset)
+        public static Order PeggedToMidpoint(string action, double quantity, double offset, double limitPrice)
         {
             // ! [pegged_midpoint]
             Order order = new Order();
@@ -448,6 +484,7 @@ namespace Samples
             order.OrderType = "PEG MID";
             order.TotalQuantity = quantity;
             order.AuxPrice = offset;
+			order.LmtPrice = limitPrice;
             // ! [pegged_midpoint]
             return order;
         }
@@ -626,7 +663,7 @@ namespace Samples
         /// and is generally used in falling markets.
         /// Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
         /// </summary>
-        public static Order TrailingStopLimit(string action, double quantity, double limitPrice, double trailingAmount, double trailStopPrice)
+        public static Order TrailingStopLimit(string action, double quantity, double lmtPriceOffset, double trailingAmount, double trailStopPrice)
         {
             // ! [trailingstoplimit]
             Order order = new Order();
@@ -634,7 +671,7 @@ namespace Samples
             order.OrderType = "TRAIL LIMIT";
             order.TotalQuantity = quantity;
             order.TrailStopPrice = trailStopPrice;
-            order.LmtPrice = limitPrice;
+            order.LmtPriceOffset = lmtPriceOffset;
             order.AuxPrice = trailingAmount;
             // ! [trailingstoplimit]
             return order;
@@ -890,6 +927,36 @@ namespace Samples
             //! [adjustable_stop_limit]
             return order;
         }
+		
+		public static Order AttachAdjustableToTrail(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustedStopPrice, 
+            double adjustedTrailAmount, int trailUnit)
+        {
+            //! [adjustable_trail]
+            //Attached order is a conventional STP order
+            Order order = Stop(parent.Action.Equals("BUY") ? "SELL" : "BUY", parent.TotalQuantity, attachedOrderStopPrice);
+            order.ParentId = parent.OrderId;
+            //When trigger price is penetrated
+            order.TriggerPrice = triggerPrice;
+            //The parent order will be turned into a TRAIL order
+            order.AdjustedOrderType = "TRAIL";
+            //With a stop price of...
+            order.AdjustedStopPrice = adjustedStopPrice;
+            //traling by and amount (0) or a percent (100)...
+            order.AdjustableTrailingUnit = trailUnit;
+            //of...
+            order.AdjustedTrailingAmount = adjustedTrailAmount;
+            //! [adjustable_trail]        
+            return order;
+        }
+
+        public static Order WhatIfLimitOrder(string action, double quantity, double limitPrice)
+        {
+            // ! [whatiflimitorder]
+            Order order = LimitOrder(action, quantity, limitPrice);
+            order.WhatIf = true;
+            // ! [whatiflimitorder]
+            return order;
+        }
 
         public static PriceCondition PriceCondition(int conId, string exchange, double price, bool isMore, bool isConjunction)
         {
@@ -989,6 +1056,19 @@ namespace Samples
             //! [volume_condition]
             return volCond;
 
+        }
+		
+		public static Order LimitIBKRATS(string action, double quantity, double limitPrice)
+        {
+            // ! [limit_ibkrats]
+            Order order = new Order();
+            order.Action = action;
+            order.OrderType = "LMT";
+			order.LmtPrice = limitPrice;
+            order.TotalQuantity = quantity;
+			order.NotHeld = true;
+            // ! [limit_ibkrats]
+            return order;
         }
 
     }

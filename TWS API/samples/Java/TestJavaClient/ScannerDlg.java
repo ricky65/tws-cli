@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package TestJavaClient;
@@ -6,9 +6,8 @@ package TestJavaClient;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -30,7 +29,8 @@ public class ScannerDlg extends JDialog {
     public int          m_userSelection = NO_SELECTION;
     public int 			m_id;
     public ScannerSubscription m_subscription = new ScannerSubscription();
-    private ArrayList<TagValue> m_scannerSubscriptionOptions = new ArrayList<TagValue>();
+    private List<TagValue> m_scannerSubscriptionOptions = new ArrayList<>();
+    private List<TagValue> m_scannerFilterOptions = new ArrayList<>();
 
     private JTextField m_Id = new JTextField( "0");
     private JTextField m_numberOfRows = new JTextField("10");
@@ -58,13 +58,18 @@ public class ScannerDlg extends JDialog {
     private JButton 	m_requestParameters = new JButton( "Request Parameters");
     private JButton 	m_subscribe = new JButton( "Subscribe");
     private JButton 	m_cancel = new JButton( "Cancel Subscription");
-    private JButton 	m_options = new JButton( "Options");
+    private JButton     m_options = new JButton( "Options");
+    private JButton     m_filterOptions = new JButton( "Filter");
 
     private static final int COL1_WIDTH = 30;
     private static final int COL2_WIDTH = 100 - COL1_WIDTH;
 
-    ArrayList<TagValue> scannerSubscriptionOptions() {
+    List<TagValue> scannerSubscriptionOptions() {
     	return m_scannerSubscriptionOptions;
+    }
+    
+    List<TagValue> scannerFilterOptions() {
+        return m_scannerFilterOptions;
     }
     
     private static void addGBComponent(IBGridBagPanel panel, Component comp,
@@ -141,31 +146,18 @@ public class ScannerDlg extends JDialog {
 
         // create button panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add( m_requestParameters);
-        buttonPanel.add( m_subscribe);
-        buttonPanel.add( m_cancel);
-        buttonPanel.add( m_options);
+        
+        buttonPanel.add(m_requestParameters);
+        buttonPanel.add(m_subscribe);
+        buttonPanel.add(m_cancel);
+        buttonPanel.add(m_options);
+        buttonPanel.add(m_filterOptions);
 
-        m_requestParameters.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onRequestParameters();
-            }
-        });
-        m_subscribe.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onSubscribe();
-            }
-        });
-        m_cancel.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onCancelSubscription();
-            }
-        });
-        m_options.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e) {
-                onOptions();
-            }
-        });
+        m_requestParameters.addActionListener(e -> onRequestParameters());
+        m_subscribe.addActionListener(e -> onSubscribe());
+        m_cancel.addActionListener(e -> onCancelSubscription());
+        m_options.addActionListener(e -> onOptions());
+        m_filterOptions.addActionListener(e -> onFilter());
 
         // create top panel
         JPanel topPanel = new JPanel();
@@ -178,6 +170,15 @@ public class ScannerDlg extends JDialog {
         getContentPane().add( buttonPanel, BorderLayout.SOUTH);
 
         pack();
+    }
+
+    private void onFilter() {
+        SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Scanner Subscription Filter Options", m_scannerFilterOptions, this);
+
+        // show smart combo routing params dialog
+        smartComboRoutingParamsDlg.setVisible( true);
+        
+        m_scannerFilterOptions = smartComboRoutingParamsDlg.smartComboRoutingParams();
     }
 
     private static double parseDouble(JTextField textfield) {
@@ -198,7 +199,7 @@ public class ScannerDlg extends JDialog {
         }
     }
 
-    void onSubscribe() {
+    private void onSubscribe() {
         m_userSelection = NO_SELECTION;
 
         try {
@@ -224,7 +225,7 @@ public class ScannerDlg extends JDialog {
             m_subscription.maturityDateBelow(m_maturityDateBelow.getText().trim());
             m_subscription.couponRateAbove(parseDouble(m_couponRateAbove));
             m_subscription.couponRateBelow(parseDouble(m_couponRateBelow));
-            m_subscription.excludeConvertible(m_excludeConvertible.getText().trim());
+            m_subscription.excludeConvertible(Boolean.parseBoolean(m_excludeConvertible.getText().trim()));
             m_subscription.scannerSettingPairs(m_scannerSettingPairs.getText().trim());
  //           m_subscription.stockTypeFilter(m_stockTypeFilter.getText().trim()); Peter ???
         }
@@ -237,18 +238,18 @@ public class ScannerDlg extends JDialog {
         setVisible( false);
     }
 
-    void onRequestParameters() {
+    private void onRequestParameters() {
         m_userSelection = REQUEST_PARAMETERS_SELECTION;
         setVisible( false);
     }
 
-    void onCancelSubscription() {
+    private void onCancelSubscription() {
         m_userSelection = CANCEL_SELECTION;
         m_id = Integer.parseInt( m_Id.getText().trim() );
         setVisible( false);
     }
 
-    void onOptions() {
+    private void onOptions() {
         SmartComboRoutingParamsDlg smartComboRoutingParamsDlg = new SmartComboRoutingParamsDlg("Scanner Subscription Options", m_scannerSubscriptionOptions, this);
 
         // show smart combo routing params dialog
@@ -256,9 +257,12 @@ public class ScannerDlg extends JDialog {
         
         m_scannerSubscriptionOptions = smartComboRoutingParamsDlg.smartComboRoutingParams();
     }
-    
-    public void show() {
-        m_userSelection = NO_SELECTION;
-        super.show();
+
+    @Override
+    public void setVisible(final boolean b) {
+        if (b) {
+            m_userSelection = NO_SELECTION;
+        }
+        super.setVisible(b);
     }
 }

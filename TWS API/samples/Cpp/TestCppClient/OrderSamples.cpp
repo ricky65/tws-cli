@@ -1,9 +1,9 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 #include "StdAfx.h"
 
-#include "OrderSamples.h"
 #include "Order.h"
+#include "OrderSamples.h"
 #include "PriceCondition.h"
 #include "executioncondition.h"
 #include "MarginCondition.h"
@@ -135,6 +135,22 @@ Order OrderSamples::MidpointMatch(std::string action, double quantity){
 }
 
 	/// <summary>
+	// A Midprice order is designed to split the difference between the bid and ask prices, and fill at the current midpoint of 
+	// the NBBO or better. Set an optional price cap to define the highest price (for a buy order) or the lowest price (for a sell 
+	// order) you are willing to accept. Requires TWS 975+. Smart-routing to US stocks only.
+    /// </summary>
+Order OrderSamples::Midprice(std::string action, double quantity, double priceCap){
+	//! [midprice]
+	Order order;
+	order.action = action;
+	order.orderType = "MIDPRICE";
+	order.totalQuantity = quantity;
+	order.lmtPrice = priceCap; // optional
+	//! [midprice]
+	return order;
+}
+
+	/// <summary>
     /// A pegged-to-market order is designed to maintain a purchase price relative to the national best offer (NBO) or a sale price 
     /// relative to the national best bid (NBB). Depending on the width of the quote, this order may be passive or aggressive. 
     /// The trader creates the order by entering a limit price which defines the worst limit price that they are willing to accept. 
@@ -171,7 +187,7 @@ Order OrderSamples::PeggedToStock(std::string action, double quantity, double de
 	order.orderType = "PEG STK";
 	order.totalQuantity = quantity;
 	order.delta = delta;
-	order.lmtPrice = stockReferencePrice;
+	order.stockRefPrice = stockReferencePrice;
 	order.startingPrice = startingPrice;
 	//! [pegged_stock]
 	return order;
@@ -345,6 +361,23 @@ Order OrderSamples::LimitOrder(std::string action, double quantity, double limit
 }
 
 	/// <summary>
+	/// Forex orders can be placed in denomination of second currency in pair using cashQty field
+	/// Requires TWS or IBG 963+
+	/// https://www.interactivebrokers.com/en/index.php?f=23876#963-02
+	/// </summary>
+
+Order OrderSamples::LimitOrderWithCashQty(std::string action, double limitPrice, double cashQty){
+	// ! [limitorderwithcashqty]
+	Order order;
+	order.action = action;
+	order.orderType = "LMT";
+	order.lmtPrice = limitPrice;
+	order.cashQty = cashQty;
+	// ! [limitorderwithcashqty]
+	return order;
+}
+
+	/// <summary>
     /// A Limit if Touched is an order to buy (or sell) a contract at a specified price or better, below (or above) the market. This order is 
     /// held in the system until the trigger price is touched. An LIT order is similar to a stop limit order, except that an LIT sell order is 
     /// placed above the current market price, and a stop limit sell order is placed below.
@@ -425,13 +458,14 @@ Order OrderSamples::PassiveRelative(std::string action, double quantity, double 
     /// to be more aggressive. If the market moves in the opposite direction, the order will execute.
     /// Products: STK
     /// </summary>
-Order OrderSamples::PeggedToMidpoint(std::string action, double quantity, double offset){
+Order OrderSamples::PeggedToMidpoint(std::string action, double quantity, double offset, double limitPrice){
 	// ! [pegged_midpoint]
 	Order order;
 	order.action = action;
 	order.orderType = "PEG MID";
 	order.totalQuantity = quantity;
 	order.auxPrice = offset;
+	order.lmtPrice = limitPrice;
 	// ! [pegged_midpoint]
 	return order;
 }
@@ -593,14 +627,14 @@ Order OrderSamples::TrailingStop(std::string action, double quantity, double tra
     /// and is generally used in falling markets.
     /// Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
     /// </summary>
-Order OrderSamples::TrailingStopLimit(std::string action, double quantity, double limitPrice, double trailingAmount, double trailStopPrice){
+Order OrderSamples::TrailingStopLimit(std::string action, double quantity, double lmtPriceOffset, double trailingAmount, double trailStopPrice){
 	// ! [trailingstoplimit]
 	Order order;
 	order.action = action;
 	order.orderType = "TRAIL LIMIT";
 	order.totalQuantity = quantity;
 	order.trailStopPrice = trailStopPrice;
-	order.lmtPrice = limitPrice;
+	order.lmtPriceOffset = lmtPriceOffset;
 	order.auxPrice = trailingAmount;
 	// ! [trailingstoplimit]
 	return order;
@@ -845,6 +879,37 @@ Order OrderSamples::AttachAdjustableToStopLimit(Order parent, double attachedOrd
 	return order;
 }
 
+Order OrderSamples::AttachAdjustableToTrail(Order parent, double attachedOrderStopPrice, double triggerPrice, double adjustStopPrice, double adjustedTrailAmount, int trailUnit){
+	//! [adjustable_trail]
+	//Attached order is a conventional STP order
+	Order order;
+	order.action = (parent.action == "BUY") ? "SELL": "BUY";
+	order.orderType = "STP";
+	order.totalQuantity = parent.totalQuantity;
+	order.auxPrice = attachedOrderStopPrice;
+	order.parentId = parent.orderId;
+	//When trigger price is penetrated
+	order.triggerPrice = triggerPrice;
+	//The parent order will be turned into a TRAIL order
+	order.adjustedOrderType = "TRAIL";
+	//With a stop price of...
+	order.adjustedStopPrice = adjustStopPrice;
+	//traling by and amount (0) or a percent (100)...
+	order.adjustableTrailingUnit = trailUnit;
+	//of...
+	order.adjustedTrailingAmount = adjustedTrailAmount;
+	//! [adjustable_trail]
+	return order;
+}
+
+Order OrderSamples::WhatIfLimitOrder(std::string action, double quantity, double limitPrice){
+	// ! [whatiflimitorder]
+	Order order = LimitOrder(action, quantity, limitPrice);
+	order.whatIf = true;
+	// ! [whatiflimitorder]
+	return order;
+}
+
 OrderCondition* OrderSamples::Price_Condition(int conId, std::string exchange, double price, bool isMore, bool isConjunction){
 	//! [price_condition]
 	//Conditions have to be created via the OrderCondition.Create 
@@ -937,3 +1002,16 @@ OrderCondition* OrderSamples::Volume_Condition(int conId, std::string exchange, 
 	//! [volume_condition]
 	return dynamic_cast<OrderCondition *>(volCondition);
 }
+
+Order OrderSamples::LimitIBKRATS(std::string action, double quantity, double limitPrice){
+	// ! [limit_ibkrats]
+	Order order;
+	order.action = action;
+	order.orderType = "LMT";
+	order.lmtPrice = limitPrice;
+	order.totalQuantity = quantity;
+	order.notHeld = true;
+	// ! [limit_ibkrats]
+	return order;
+}
+

@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -106,12 +106,6 @@ namespace TWSLib
         // SMART routing only
         [DispId(80)]
         double discretionaryAmt { get; set; }
-        [DispId(81)]
-        bool eTradeOnly { [return: MarshalAs(UnmanagedType.Bool)] get; [param: MarshalAs(UnmanagedType.Bool)] set; }
-        [DispId(82)]
-        bool firmQuoteOnly { [return: MarshalAs(UnmanagedType.Bool)] get; [param: MarshalAs(UnmanagedType.Bool)] set; }
-        [DispId(83)]
-        double nbboPriceCap { get; set; }
         [DispId(84)]
         bool optOutSmartRouting { [return: MarshalAs(UnmanagedType.Bool)] get; [param: MarshalAs(UnmanagedType.Bool)] set; }
 
@@ -291,5 +285,63 @@ namespace TWSLib
 
         [DispId(167)]
         ComSoftDollarTier tier { get; }
+
+        [DispId(168)]
+        double cashQty { get; set; }
+
+        [DispId(169)]
+        string mifid2DecisionMaker { get; set; }
+
+        [DispId(170)]
+        string mifid2DecisionAlgo { get; set; }
+
+        [DispId(171)]
+        string mifid2ExecutionTrader { get; set; }
+
+        [DispId(172)]
+        string mifid2ExecutionAlgo { get; set; }
+
+        [DispId(173)]
+        bool dontUseAutoPriceForHedge { get; set; }
+
+        [DispId(174)]
+        bool isOmsContainer { get; set; }
+
+        [DispId(175)]
+        bool discretionaryUpToLimitPrice { get; set; }
+
+        [DispId(176)]
+        string autoCancelDate { get; set; }
+
+        [DispId(177)]
+        double filledQuantity { get; set; }
+
+        [DispId(178)]
+        int refFuturesConId { get; set; }
+
+        [DispId(179)]
+        bool autoCancelParent { get; set; }
+
+        [DispId(180)]
+        string shareholder { get; set; }
+
+        [DispId(181)]
+        bool imbalanceOnly { get; set; }
+
+        [DispId(182)]
+        bool routeMarketableToBbo { get; set; }
+
+        [DispId(183)]
+        int parentPermId { get; set; }
+
+        [DispId(184)]
+        bool usePriceMgmtAlgo { get; set; }
+
+        [DispId(185)]
+        int duration { get; set; }
+
+        [DispId(186)]
+        int postToAts { get; set; }
+
     }
 }

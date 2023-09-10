@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo.util;
@@ -122,7 +122,7 @@ public class HtmlButton extends JLabel {
 		return String.format( "<html><b>%s</html>", str);
 	}
 	
-	class B implements Border {
+	static class B implements Border {
 		@Override public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
 		}
 

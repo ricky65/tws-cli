@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using IBApi;
@@ -14,7 +14,7 @@ namespace TWSLib
      * @class ScannerSubscription
      * @brief Defines a market scanner request
      */
-    [ComVisible(true)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class ComScannerSubscription : ComWrapper<ScannerSubscription>, IScannerSubscription
     {
         public int NumberOfRows
@@ -125,9 +125,9 @@ namespace TWSLib
             set { if (data != null) data.CouponRateBelow = value; }
         }
 
-        public string ExcludeConvertible
+        public bool ExcludeConvertible
         {
-            get { return data != null ? data.ExcludeConvertible : default(string); }
+            get { return data != null ? data.ExcludeConvertible : default(bool); }
             set { if (data != null) data.ExcludeConvertible = value; }
         }
 
@@ -181,8 +181,8 @@ namespace TWSLib
 
         int TWSLib.IScannerSubscription.excludeConvertible
         {
-            get { return string.IsNullOrEmpty(ExcludeConvertible) ? 0 : int.Parse(ExcludeConvertible); }
-            set { ExcludeConvertible = value.ToString(); }
+            get { return !ExcludeConvertible ? 0 : 1; }
+            set { ExcludeConvertible = value != 0; }
         }
 
         string TWSLib.IScannerSubscription.scannerSettingPairs { get { return ScannerSettingPairs; } set { ScannerSettingPairs = value; } }

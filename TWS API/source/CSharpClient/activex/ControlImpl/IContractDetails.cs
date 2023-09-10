@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -41,7 +41,7 @@ namespace TWSLib
         string liquidHours { get; }
 
         [DispId(16)]
-        object summary { [return:MarshalAs(UnmanagedType.IDispatch)] get; }
+        object contract { [return:MarshalAs(UnmanagedType.IDispatch)] get; }
 
         // CUSIP/ISIN/etc.
         [DispId(17)]
@@ -82,5 +82,21 @@ namespace TWSLib
         string evRule { get; }
         [DispId(36)]
         double evMultiplier { get; }
+        [DispId(37)]
+        int mdSizeMultiplier { get; }
+        [DispId(38)]
+        int aggGroup { get; }
+        [DispId(39)]
+        string underSymbol { get; }
+        [DispId(40)]
+        string underSecType { get; }
+        [DispId(41)]
+        string marketRuleIds { get; }
+        [DispId(42)]
+        string realExpirationDate { get; }
+        [DispId(43)]
+        string lastTradeTime { get; }
+        [DispId(44)]
+        string stockType { get; }
     }
 }

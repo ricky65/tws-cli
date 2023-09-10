@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -77,12 +77,6 @@ namespace TWSLib
         int minQty { get; set; }
         [DispId(32)]
         double percentOffset { get; set; }
-        [DispId(33)]
-        bool eTradeOnly { get; set; }
-        [DispId(34)]
-        bool firmQuoteOnly { get; set; }
-        [DispId(35)]
-        double nbboPriceCap { get; set; }
         [DispId(36)]
         int auctionStrategy { get; set; }
         [DispId(37)]
@@ -146,7 +140,7 @@ namespace TWSLib
         [DispId(60)]
         void reqMktData(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string primaryExchange,
-                  string currency, string genericTicks, bool snapshot, ITagValueList options);
+                  string currency, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options);
 
         [DispId(61)]
         void reqOpenOrders();
@@ -163,7 +157,7 @@ namespace TWSLib
         [DispId(65)]
         void reqMktData2(int id, string localSymbol, string secType, string exchange,
                   string primaryExchange, string currency, string genericTicks,
-                  bool snapshot, ITagValueList options);
+                  bool snapshot, bool regulatorySnapshot, ITagValueList options);
 
         [DispId(66)]
         void placeOrder2(int id, string action, double quantity, string localSymbol,
@@ -178,11 +172,11 @@ namespace TWSLib
         void reqContractDetails2(string localSymbol, string secType, string exchange, string curency, int includeExpired);
         [DispId(69)]
         void reqMktDepth(int id, string symbol, string secType, string lastTradeDate, double strike,
-                  string right, string multiplier, string exchange, string curency, int numRows, ITagValueList options);
+                  string right, string multiplier, string exchange, string curency, int numRows, bool isSmartDepth, ITagValueList options);
         [DispId(70)]
-        void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows, ITagValueList options);
+        void reqMktDepth2(int id, string localSymbol, string secType, string exchange, string curency, int numRows, bool isSmartDepth, ITagValueList options);
         [DispId(71)]
-        void cancelMktDepth(int id);
+        void cancelMktDepth(int id, bool isSmartDepth);
         [DispId(72)]
         void addComboLeg(int conid, string action, int ratio, string exchange, int openClose, int shortSaleSlot, string designatedLocation, int exemptCode);
         [DispId(73)]
@@ -202,12 +196,12 @@ namespace TWSLib
         [DispId(80)]
         void requestFA(int faDataType);
         [DispId(81)]
-        void replaceFA(int faDataType, string cxml);
+        void replaceFA(int reqId, int faDataType, string cxml);
         [DispId(82)]
         void reqHistoricalData(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency, int isExpired,
                   string endDateTime, string durationStr, string barSizeSetting, string whatToShow,
-                  int useRTH, int formatDate, ITagValueList options);
+                  int useRTH, int formatDate, bool keepUpToDate, ITagValueList options);
         [DispId(83)]
         void exerciseOptions(int id, string symbol, string secType, string lastTradeDate, double strike,
                   string right, string multiplier, string exchange, string curency,
@@ -221,7 +215,7 @@ namespace TWSLib
            string moodyRatingBelow, string spRatingAbove, string spRatingBelow,
            string maturityDateAbove, string maturityDateBelow, double couponRateAbove,
            double couponRateBelow, int excludeConvertible, int averageOptionVolumeAbove,
-           string scannerSettingPairs, string stockTypeFilter, ITagValueList options);
+           string scannerSettingPairs, string stockTypeFilter, string options, string scannerSubscriptionFilterOptions);
         [DispId(86)]
         void cancelHistoricalData(int tickerId);
         [DispId(87)]
@@ -256,9 +250,9 @@ namespace TWSLib
         [DispId(100)]
         void reqContractDetailsEx(int reqId, IContract contract);
         [DispId(101)]
-        void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, ITagValueList options);
+        void reqMktDataEx(int tickerId, IContract contract, string genericTicks, bool snapshot, bool regulatorySnapshot, ITagValueList options);
         [DispId(102)]
-        void reqMktDepthEx(int tickerId, IContract contract, int numRows, ITagValueList options);
+        void reqMktDepthEx(int tickerId, IContract contract, int numRows, bool isSmartDepth, ITagValueList options);
         [DispId(103)]
         void placeOrderEx(int orderId, IContract contract, IOrder order);
         [DispId(104)]
@@ -268,11 +262,11 @@ namespace TWSLib
            int exerciseQuantity, string account, int @override);
         [DispId(106)]
         void reqHistoricalDataEx(int tickerId, IContract contract, string endDateTime,
-           string duration, string barSize, string whatToShow, bool useRTH, int formatDate, ITagValueList options);
+           string duration, string barSize, string whatToShow, bool useRTH, int formatDate, bool keepUpToDate, ITagValueList options);
         [DispId(107)]
         void reqRealTimeBarsEx(int tickerId, IContract contract, int barSize, string whatToShow, bool useRTH, ITagValueList options);
         [DispId(108)]
-        void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, ITagValueList options);
+        void reqScannerSubscriptionEx(int tickerId, IScannerSubscription subscription, string options, [Optional] string scannerSubscriptionFilterOptions);
         [DispId(109)]
         void addOrderComboLeg(double price);
         [DispId(110)]
@@ -320,7 +314,7 @@ namespace TWSLib
         [DispId(204)]
         IScannerSubscription createScannerSubscription();
         [DispId(205)]
-        IUnderComp createUnderComp();
+        IDeltaNeutralContract createDeltaNeutralContract();
         [DispId(206)]
         ITagValueList createTagValueList();
         [DispId(207)]
@@ -339,7 +333,54 @@ namespace TWSLib
         void reqSecDefOptParams(int reqId, string underlyingSymbol, string futFopExchange, string underlyingSecType, int underlyingConId);
         [DispId(214)]
         void reqSoftDollarTiers(int reqId);
-
+        [DispId(215)]
+        void reqFamilyCodes();
+        [DispId(216)]
+        void reqMatchingSymbols(int reqId, string pattern);
+        [DispId(217)]
+        void reqMktDepthExchanges();
+        [DispId(218)]
+        void reqSmartComponents(int reqId, string bboExchange);
+        [DispId(219)]
+        void reqNewsProviders();
+        [DispId(220)]
+        void reqNewsArticle(int requestId, string providerCode, string articleId, ITagValueList options);
+        [DispId(221)]
+        void reqHistoricalNews(int requestId, int conId, string providerCodes, string startDateTime, string endDateTime, int totalResults, ITagValueList options);
+        [DispId(222)]
+        void reqHeadTimestamp(int tickerId, IContract contract, string whatToShow, int useRTH, int formatDate);
+        [DispId(223)]
+        void reqHistogramData(int tickerId, IContract contract, bool useRTH, string period);
+        [DispId(224)]
+        void cancelHistogramData(int tickerId);
+        [DispId(225)]
+        void cancelHeadTimestamp(int tickerId);
+        [DispId(226)]
+        void reqMarketRule(int marketRuleId);
+        [DispId(227)]
+        void reqPnL(int reqId, string account, string modelCode);
+        [DispId(228)]
+        void cancelPnL(int reqId);
+        [DispId(229)]
+        void reqPnLSingle(int reqId, string account, string modelCode, int conId);
+        [DispId(230)]
+        void cancelPnLSingle(int reqId);
+        [DispId(231)]
+        void reqTickByTickData(int reqId, IContract contract, string tickType, int numberOfTicks, bool ignoreSize);
+        [DispId(232)]
+        void cancelTickByTickData(int reqId);
+        [DispId(233)]
+        void reqHistoricalTicks(int reqId, IContract contract, string startDateTime, string endDateTime, int numberOfTicks, string whatToShow, int useRth, bool ignoreSize, ITagValueList options);
+        [DispId(234)]
+        void reqCompletedOrders(bool apiOnly);
+        [DispId(235)]
+        void reqWshMetaData(int reqId);
+        [DispId(236)]
+        void reqWshEventData(int reqId, int conId);
+        [DispId(237)]
+        void cancelWshMetaData(int reqId);
+        [DispId(238)]
+        void cancelWshEventData(int reqId);
         #endregion
     }
 }

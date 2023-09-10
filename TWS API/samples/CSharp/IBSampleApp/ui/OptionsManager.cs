@@ -1,9 +1,8 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using IBSampleApp.messages;
 using IBApi;
@@ -11,7 +10,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class OptionsManager
+    class OptionsManager
     {
         public const int OPTIONS_ID_BASE = 70000000;
         private const int OPTIONS_DATA_CALL_BASE = OPTIONS_ID_BASE + 100000;
@@ -37,17 +36,15 @@ namespace IBSampleApp.ui
         private const int POS_MARKET_PRICE_IDX = 3;
         private const int POS_MARKET_VALUE_IDX = 4;
         private const int POS_AVG_COST_IDX = 5;
-        private const int POS_UNREALISED_PNL_IDX = 6;
-        private const int POS_REALISED_PNL_IDX = 7;
+        private const int POS_UNREALIZED_PNL_IDX = 6;
+        private const int POS_REALIZED_PNL_IDX = 7;
 
         private int currentMktDataCallRequest = OPTIONS_DATA_CALL_BASE;
         private int currentMktDataPutRequest = OPTIONS_DATA_PUT_BASE;
         private int currentOptionsExercisingRequest = OPTIONS_EXERCISING_BASE;
 
-        private bool isRequestActive = false;
-        
         private string optionsDataExchange;
-        private bool useSnapshot = false;
+        private bool useSnapshot;
         
         private IBClient ibClient;
         private DataGridView callGrid;
@@ -62,67 +59,64 @@ namespace IBSampleApp.ui
             this.ibClient = ibClient;
             this.callGrid = callGrid;
             this.putGrid = putGrid;
-            this.positionsGrid = optionPositionsGrid;
+            positionsGrid = optionPositionsGrid;
             this.optionParamsListView = optionParamsListView;
         }
 
-        public void UpdateUI(IBMessage message)
+        public void UpdateUI(ContractDetailsMessage message)
         {
-            if (message is ContractDetailsMessage)
-            {
-                Contract contract = ((ContractDetailsMessage)message).ContractDetails.Summary;
+            Contract contract = message.ContractDetails.Contract;
 
-                if (contract.Right != null)
-                {
-                    if (contract.Right.Equals("C"))
-                    {
-                        int mktDataRequest = currentMktDataCallRequest++;
-                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
-                        UpdateContractDetails(callGrid, (mktDataRequest - OPTIONS_DATA_CALL_BASE), contract);
-                    }
-                    else
-                    {
-                        int mktDataRequest = currentMktDataPutRequest++;
-                        ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, new List<TagValue>());
-                        UpdateContractDetails(putGrid, (mktDataRequest - OPTIONS_DATA_PUT_BASE), contract);
-                    }
-                }
-            }
-            else if (message is MarketDataMessage)
+            if (contract.Right != null)
             {
-                MarketDataMessage mktDataMsg = (MarketDataMessage)message;
-                if (mktDataMsg.RequestId < OPTIONS_DATA_PUT_BASE)
+                if (contract.Right.Equals("C"))
                 {
-                    UpdateOptionGridTick(callGrid, (mktDataMsg.RequestId - OPTIONS_DATA_CALL_BASE), mktDataMsg);
+                    int mktDataRequest = currentMktDataCallRequest++;
+                    ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
+                    UpdateContractDetails(callGrid, (mktDataRequest - OPTIONS_DATA_CALL_BASE), contract);
                 }
                 else
                 {
-                    UpdateOptionGridTick(putGrid, (mktDataMsg.RequestId - OPTIONS_DATA_PUT_BASE), mktDataMsg);
-                }
-            }
-            else if (message is SecurityDefinitionOptionParameterMessage)
-            {
-                SecurityDefinitionOptionParameterMessage secDefOptParamMsg = (SecurityDefinitionOptionParameterMessage)message;
-
-                var key = new SecDefOptParamKey(secDefOptParamMsg.Exchange, secDefOptParamMsg.UnderlyingConId, secDefOptParamMsg.TradingClass, secDefOptParamMsg.Multiplier);
-
-                if (!secDefOptParamGroups.ContainsKey(key))
-                {
-                    optionParamsListView.Groups.Add(secDefOptParamGroups[key] = new ListViewGroup(key + ""));                    
-                }
-
-                var strikes = secDefOptParamMsg.Strikes.ToArray();
-                var expriations = secDefOptParamMsg.Expirations.ToArray();
-                var n = Math.Max(strikes.Length, expriations.Length);
-
-                for (int i = 0; i < n; i++)
-                {
-                    var item = new ListViewItem(new[] { i < expriations.Length ? expriations[i] : "", i < strikes.Length ? strikes[i] + "" : "" }) { Group = secDefOptParamGroups[key] };
-
-                    optionParamsListView.Items.Add(item);
+                    int mktDataRequest = currentMktDataPutRequest++;
+                    ibClient.ClientSocket.reqMktData(mktDataRequest, contract, "", useSnapshot, false, new List<TagValue>());
+                    UpdateContractDetails(putGrid, (mktDataRequest - OPTIONS_DATA_PUT_BASE), contract);
                 }
             }
         }
+
+        public void UpdateUI(MarketDataMessage mktDataMsg)
+        {
+            if (mktDataMsg.RequestId < OPTIONS_DATA_PUT_BASE)
+            {
+                UpdateOptionGridTick(callGrid, (mktDataMsg.RequestId - OPTIONS_DATA_CALL_BASE), mktDataMsg);
+            }
+            else
+            {
+                UpdateOptionGridTick(putGrid, (mktDataMsg.RequestId - OPTIONS_DATA_PUT_BASE), mktDataMsg);
+            }
+        }        
+
+        public void UpdateUI(SecurityDefinitionOptionParameterMessage secDefOptParamMsg)
+        {
+            var key = new SecDefOptParamKey(secDefOptParamMsg.Exchange, secDefOptParamMsg.UnderlyingConId, secDefOptParamMsg.TradingClass, secDefOptParamMsg.Multiplier);
+
+            if (!secDefOptParamGroups.ContainsKey(key))
+            {
+                optionParamsListView.Groups.Add(secDefOptParamGroups[key] = new ListViewGroup(key + ""));
+            }
+
+            var strikes = secDefOptParamMsg.Strikes.ToArray();
+            var expriations = secDefOptParamMsg.Expirations.ToArray();
+            var n = Math.Max(strikes.Length, expriations.Length);
+
+            for (int i = 0; i < n; i++)
+            {
+                var item = new ListViewItem(new[] { i < expriations.Length ? expriations[i] : "", i < strikes.Length ? strikes[i] + "" : "" }) { Group = secDefOptParamGroups[key] };
+
+                optionParamsListView.Items.Add(item);
+            }
+        }
+        
 
         Dictionary<SecDefOptParamKey, ListViewGroup> secDefOptParamGroups = new Dictionary<SecDefOptParamKey, ListViewGroup>();
 
@@ -139,8 +133,8 @@ namespace IBSampleApp.ui
                         positionsGrid[POS_MARKET_PRICE_IDX, i].Value = positionMessage.MarketPrice;
                         positionsGrid[POS_MARKET_VALUE_IDX, i].Value = positionMessage.MarketValue;
                         positionsGrid[POS_AVG_COST_IDX, i].Value = positionMessage.AverageCost;
-                        positionsGrid[POS_UNREALISED_PNL_IDX, i].Value = positionMessage.UnrealisedPNL;
-                        positionsGrid[POS_REALISED_PNL_IDX, i].Value = positionMessage.RealisedPNL;
+                        positionsGrid[POS_UNREALIZED_PNL_IDX, i].Value = positionMessage.UnrealizedPNL;
+                        positionsGrid[POS_REALIZED_PNL_IDX, i].Value = positionMessage.RealizedPNL;
                         return;
                     }
                 }
@@ -159,7 +153,7 @@ namespace IBSampleApp.ui
             Clear();
             IsRequestActive = true;
             this.useSnapshot = useSnapshot;
-            this.optionsDataExchange = optionExchange;
+            optionsDataExchange = optionExchange;
             ibClient.ClientSocket.reqContractDetails(OPTIONS_ID_BASE, contract);
         }
 
@@ -202,9 +196,11 @@ namespace IBSampleApp.ui
             switch (message.Field)
             {
                 case TickType.ASK:
+                case TickType.DELAYED_ASK:
                     grid[ASK_INDEX, row].Value = message.Price;
                     break;
                 case TickType.BID:
+                case TickType.DELAYED_BID:
                     grid[BID_INDEX, row].Value = message.Price;
                     break;
             }
@@ -220,11 +216,7 @@ namespace IBSampleApp.ui
             grid[THETA_INDEX, row].Value = message.Theta;
         }
 
-        public bool IsRequestActive
-        {
-            get { return isRequestActive; }
-            set { isRequestActive = value; }
-        }
+        public bool IsRequestActive { get; set; }
 
         public void ExerciseOptions(int ovrd, int quantity, string exchange, int action) 
         {

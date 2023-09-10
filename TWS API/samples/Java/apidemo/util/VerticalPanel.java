@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package apidemo.util;
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 
 public class VerticalPanel extends JPanel {
-	private class FlowPanel extends JPanel {
+	private static class FlowPanel extends JPanel {
 		FlowPanel( Component[] comps) {
 			setLayout( new FlowLayout( FlowLayout.LEFT, 5, 2) );
 			for( Component comp : comps) {
@@ -28,21 +28,21 @@ public class VerticalPanel extends JPanel {
 			return super.getPreferredSize();
 		}
 
-		public int wid() {
+		int wid() {
 			return getComponent( 0).getPreferredSize().width;
 		}
 		
-		public int wid2() {
+		int wid2() {
 			return getComponentCount() > 1 ? getComponent(1).getPreferredSize().width : 0;
 		}
 
-		public void wid( int i) {
+		void wid( int i) {
 			Dimension d = getComponent( 0).getPreferredSize();
 			d.width = i;
 			getComponent( 0).setPreferredSize( d);
 		}
 		
-		public void wid2(int i) {
+		void wid2(int i) {
 			if (getComponentCount() < 2) {
 				return;
 			}
@@ -89,7 +89,7 @@ public class VerticalPanel extends JPanel {
 		recalculateChildSizes();
 	}
 
-	public void recalculateChildSizes() {
+	private void recalculateChildSizes() {
 		int max = 0;
 		for (int i = 0; i < getComponentCount(); i++) {
 			FlowPanel comp = (FlowPanel)getComponent( i);

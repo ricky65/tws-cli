@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
+using IBApi;
 
 namespace TWSLib
 {
@@ -15,9 +16,9 @@ namespace TWSLib
     public interface ITwsEvents
     {
         [DispId(1)]
-        void tickPrice(int id, int tickType, double price, int canAutoExecute);
+        void tickPrice(int id, int tickType, double price, bool canAutoExecute, bool pastLimit, bool preOpen);
         [DispId(2)]
-        void tickSize(int id, int tickType, int size);
+        void tickSize(int id, int tickType, long size);
         [DispId(3)]
         void connectionClosed();
         [DispId(4)]
@@ -37,15 +38,15 @@ namespace TWSLib
         [DispId(12)]
         void updatePortfolio(string symbol, string secType, string lastTradeDate, double strike, string right, string curency, string localSymbol, double position, double marketPrice, double marketValue, double averageCost, double unrealizedPNL, double realizedPNL, string accountName);
         [DispId(13)]
-        void orderStatus(int id, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld);
+        void orderStatus(int id, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice);
         [DispId(14)]
         void contractDetails(string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, int conId, double minTick, int priceMagnifier, string multiplier, string orderTypes, string validExchanges);
         [DispId(15)]
-        void execDetails(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, double shares, double price, int permId, int clientId, int isLiquidation);
+        void execDetails(int id, string symbol, string secType, string lastTradeDate, double strike, string right, string cExchange, string curency, string localSymbol, string execId, string time, string acctNumber, string eExchange, string side, double shares, double price, int permId, int clientId, int isLiquidation, string lastLiquidity);
         [DispId(16)]
-        void updateMktDepth(int id, int position, int operation, int side, double price, int size);
+        void updateMktDepth(int id, int position, int operation, int side, double price, long size);
         [DispId(17)]
-        void updateMktDepthL2(int id, int position, string marketMaker, int operation, int side, double price, int size);
+        void updateMktDepthL2(int id, int position, string marketMaker, int operation, int side, double price, long size, bool isSmartDepth);
         [DispId(18)]
         void updateNewsBulletin(short msgId, short msgType, string message, string origExchange);
         [DispId(19)]
@@ -65,7 +66,7 @@ namespace TWSLib
         [DispId(26)]
         void scannerData(int reqId, int rank, string symbol, string secType, string lastTradeDate, double strike, string right, string exchange, string curency, string localSymbol, string marketName, string tradingClass, string distance, string benchmark, string projection, string legsStr);
         [DispId(27)]
-        void tickOptionComputation(int id, int tickType, double impliedVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
+        void tickOptionComputation(int id, int tickType, int tickAttrib, double impliedVol, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
         [DispId(28)]
         void tickGeneric(int id, int tickType, double value);
         [DispId(29)]
@@ -92,7 +93,7 @@ namespace TWSLib
         [DispId(38)]
         void execDetailsEnd(int reqId);
         [DispId(39)]
-        void deltaNeutralValidation(int reqId, IUnderComp underComp);
+        void deltaNeutralValidation(int reqId, IDeltaNeutralContract deltaNeutralContract);
         [DispId(40)]
         void tickSnapshotEnd(int reqId);
         [DispId(41)]
@@ -145,10 +146,73 @@ namespace TWSLib
         [DispId(122)]
         void accountUpdateMultiEnd(int requestId);
         [DispId(123)]
-        void securityDefinitionOptionParameterDelegate(int reqId, string exchange, int underlyingConId, string tradingClass, string multiplier, ArrayList expirations, ArrayList strikes);
+        void securityDefinitionOptionParameter(
+            int reqId, 
+            string exchange, 
+            int underlyingConId, 
+            string tradingClass, 
+            string multiplier,             
+            string expirations,
+            string strikes);
         [DispId(124)]
-        void securityDefinitionOptionParameterEndDelegate(int reqId);
+        void securityDefinitionOptionParameterEnd(int reqId);
         [DispId(125)]
-        void softDollarTiersDelegate(int reqid);
+        void softDollarTiers(int reqid, IComList tiers);
+        [DispId(126)]
+        void familyCodes(IFamilyCodeList familyCodes);
+        [DispId(127)]
+        void symbolSamples(int reqId, IContractDescriptionList contractDescriptions);
+        [DispId(128)]
+        void mktDepthExchanges(IDepthMktDataDescriptionList depthMktDataDescriptions);
+        [DispId(129)]
+        void tickNews(int tickerId, string timeStamp, string providerCode, string articleId, string headline, string extraData);
+        [DispId(130)]
+        void smartComponents(int reqId, IComList theMap);
+        [DispId(131)]
+        void tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions);
+        [DispId(132)]
+        void newsProviders(INewsProviderList newsProviders);
+        [DispId(133)]
+        void newsArticle(int requestId, int articleType, string articleText);
+        [DispId(134)]
+        void historicalNews(int requestId, string time, string providerCode, string articleId, string headline);
+        [DispId(135)]
+        void historicalNewsEnd(int requestId, bool hasMore);
+        [DispId(136)]
+        void headTimestamp(int reqId, string timestamp);
+        [DispId(137)]
+        void histogramData(int reqId, IHistogramEntry data);
+        [DispId(138)]
+        void rerouteMktDataReq(int reqId, int conId, string exchange);
+        [DispId(139)]
+        void rerouteMktDepthReq(int reqId, int conId, string exchange);
+        [DispId(140)]
+        void marketRule(int marketRuleId, IPriceIncrementList priceIncrements);
+        [DispId(141)]
+        void pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL);
+        [DispId(142)]
+        void pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value);
+        [DispId(143)]
+        void historicalTicks(int reqId, IHistoricalTickList ticks, bool done);
+        [DispId(144)]
+        void historicalTicksBidAsk(int reqId, IHistoricalTickBidAskList ticks, bool done);
+        [DispId(145)]
+        void historicalTicksLast(int reqId, IHistoricalTickLastList ticks, bool done);
+        [DispId(146)]
+        void tickByTickAllLast(int reqId, int tickType, string time, double price, long size, ITickAttribLast tickAttribLast, string exchange, string specialConditions);
+        [DispId(147)]
+        void tickByTickBidAsk(int reqId, string time, double bidPrice, double askPrice, long bidSize, long askSize, ITickAttribBidAsk tickAttribBidAsk);
+        [DispId(148)]
+        void tickByTickMidPoint(int reqId, string time, double midPoint);
+        [DispId(149)]
+        void orderBound(string orderId, int apiClientId, int apiOrderId);
+        [DispId(150)]
+        void histogramDataEnd(int reqId);
+        [DispId(151)]
+        void completedOrder(IContract contract, IOrder order, IOrderState orderState);
+        [DispId(152)]
+        void completedOrdersEnd();
+        [DispId(153)]
+        void replaceFAEnd(int reqId, string text);
     }
 }

@@ -1,4 +1,7 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿' Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
+
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class dlgAdjustStop
     Inherits System.Windows.Forms.Form
 
@@ -50,6 +53,7 @@ Partial Class dlgAdjustStop
         'cbAdjustedTrailingAmntUnit
         '
         Me.cbAdjustedTrailingAmntUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbAdjustedTrailingAmntUnit.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cbAdjustedTrailingAmntUnit.FormattingEnabled = True
         Me.cbAdjustedTrailingAmntUnit.Items.AddRange(New Object() {"amonunt", "%"})
         Me.cbAdjustedTrailingAmntUnit.Location = New System.Drawing.Point(162, 143)
@@ -59,9 +63,10 @@ Partial Class dlgAdjustStop
         '
         'tbAdjustedTrailingAmnt
         '
+        Me.tbAdjustedTrailingAmnt.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbAdjustedTrailingAmnt.Location = New System.Drawing.Point(162, 117)
         Me.tbAdjustedTrailingAmnt.Name = "tbAdjustedTrailingAmnt"
-        Me.tbAdjustedTrailingAmnt.Size = New System.Drawing.Size(121, 20)
+        Me.tbAdjustedTrailingAmnt.Size = New System.Drawing.Size(121, 13)
         Me.tbAdjustedTrailingAmnt.TabIndex = 21
         '
         'label15
@@ -75,9 +80,10 @@ Partial Class dlgAdjustStop
         '
         'tbAdjustedStopLimitPrice
         '
+        Me.tbAdjustedStopLimitPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbAdjustedStopLimitPrice.Location = New System.Drawing.Point(162, 91)
         Me.tbAdjustedStopLimitPrice.Name = "tbAdjustedStopLimitPrice"
-        Me.tbAdjustedStopLimitPrice.Size = New System.Drawing.Size(121, 20)
+        Me.tbAdjustedStopLimitPrice.Size = New System.Drawing.Size(121, 13)
         Me.tbAdjustedStopLimitPrice.TabIndex = 20
         '
         'label14
@@ -91,9 +97,10 @@ Partial Class dlgAdjustStop
         '
         'tbAdjustedStopPrice
         '
+        Me.tbAdjustedStopPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbAdjustedStopPrice.Location = New System.Drawing.Point(162, 65)
         Me.tbAdjustedStopPrice.Name = "tbAdjustedStopPrice"
-        Me.tbAdjustedStopPrice.Size = New System.Drawing.Size(121, 20)
+        Me.tbAdjustedStopPrice.Size = New System.Drawing.Size(121, 13)
         Me.tbAdjustedStopPrice.TabIndex = 18
         '
         'label13
@@ -107,9 +114,10 @@ Partial Class dlgAdjustStop
         '
         'tbTriggerPrice
         '
+        Me.tbTriggerPrice.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tbTriggerPrice.Location = New System.Drawing.Point(162, 39)
         Me.tbTriggerPrice.Name = "tbTriggerPrice"
-        Me.tbTriggerPrice.Size = New System.Drawing.Size(121, 20)
+        Me.tbTriggerPrice.Size = New System.Drawing.Size(121, 13)
         Me.tbTriggerPrice.TabIndex = 17
         '
         'label12
@@ -124,6 +132,7 @@ Partial Class dlgAdjustStop
         'cbAdjustedOrderType
         '
         Me.cbAdjustedOrderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbAdjustedOrderType.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.cbAdjustedOrderType.FormattingEnabled = True
         Me.cbAdjustedOrderType.Items.AddRange(New Object() {"", "STP", "STP LMT", "TRAIL", "TRAIL LIMIT"})
         Me.cbAdjustedOrderType.Location = New System.Drawing.Point(162, 12)
@@ -164,6 +173,7 @@ Partial Class dlgAdjustStop
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.Gainsboro
         Me.ClientSize = New System.Drawing.Size(295, 211)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnOK)

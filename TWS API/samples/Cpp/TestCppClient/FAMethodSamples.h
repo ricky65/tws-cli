@@ -1,6 +1,9 @@
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 #pragma once
-#ifndef FAMETHODSAMPLE
-#define FAMETHODSAMPLE
+#ifndef TWS_API_SAMPLES_TESTCPPCLIENT_FAMETHODSAMPLES_H
+#define TWS_API_SAMPLES_TESTCPPCLIENT_FAMETHODSAMPLES_H
 
 #include <string>
 
@@ -95,7 +98,7 @@ public:
 			"</AllocationProfile>"
 			"<AllocationProfile>"
 				"<name>Ratios_2_1</name>"
-				"<type>1</type>"
+				"<type>2</type>"
 				"<ListOfAllocations varName=\"listOfAllocations\">"
 					"<Allocation>"
 						"<acct>DU119915</acct>"

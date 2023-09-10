@@ -1,9 +1,9 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
-* and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #pragma once
-#ifndef testcppclient_h__INCLUDED
-#define testcppclient_h__INCLUDED
+#ifndef TWS_API_SAMPLES_TESTCPPCLIENT_TESTCPPCLIENT_H
+#define TWS_API_SAMPLES_TESTCPPCLIENT_TESTCPPCLIENT_H
 
 #include "EWrapper.h"
 #include "EReaderOSSignal.h"
@@ -18,6 +18,10 @@ enum State {
 	ST_CONNECT,
 	ST_TICKDATAOPERATION,
 	ST_TICKDATAOPERATION_ACK,
+	ST_TICKOPTIONCOMPUTATIONOPERATION,
+	ST_TICKOPTIONCOMPUTATIONOPERATION_ACK,
+	ST_DELAYEDTICKDATAOPERATION,
+	ST_DELAYEDTICKDATAOPERATION_ACK,
 	ST_MARKETDEPTHOPERATION,
 	ST_MARKETDEPTHOPERATION_ACK,
 	ST_REALTIMEBARS,
@@ -32,8 +36,8 @@ enum State {
 	ST_CONTRACTOPERATION_ACK,
 	ST_MARKETSCANNERS,
 	ST_MARKETSCANNERS_ACK,
-	ST_REUTERSFUNDAMENTALS,
-	ST_REUTERSFUNDAMENTALS_ACK,
+	ST_FUNDAMENTALS,
+	ST_FUNDAMENTALS_ACK,
 	ST_BULLETINS,
 	ST_BULLETINS_ACK,
 	ST_ACCOUNTOPERATIONS,
@@ -60,9 +64,49 @@ enum State {
 	ST_MISCELANEOUS_ACK,
 	ST_CANCELORDER,
 	ST_CANCELORDER_ACK,
+	ST_FAMILYCODES,
+	ST_FAMILYCODES_ACK,
+	ST_SYMBOLSAMPLES,
+	ST_SYMBOLSAMPLES_ACK,
+	ST_REQMKTDEPTHEXCHANGES,
+	ST_REQMKTDEPTHEXCHANGES_ACK,
+	ST_REQNEWSTICKS,
+	ST_REQNEWSTICKS_ACK,
+	ST_REQSMARTCOMPONENTS,
+	ST_REQSMARTCOMPONENTS_ACK,
+	ST_NEWSPROVIDERS,
+	ST_NEWSPROVIDERS_ACK,
+	ST_REQNEWSARTICLE,
+	ST_REQNEWSARTICLE_ACK,
+	ST_REQHISTORICALNEWS,
+	ST_REQHISTORICALNEWS_ACK,
+	ST_REQHEADTIMESTAMP,
+	ST_REQHEADTIMESTAMP_ACK,
+	ST_REQHISTOGRAMDATA,
+	ST_REQHISTOGRAMDATA_ACK,
+	ST_REROUTECFD,
+	ST_REROUTECFD_ACK,
+	ST_MARKETRULE,
+	ST_MARKETRULE_ACK,
+    ST_PNL,
+    ST_PNL_ACK,
+    ST_PNLSINGLE,
+    ST_PNLSINGLE_ACK,
+    ST_CONTFUT,
+    ST_CONTFUT_ACK,
 	ST_PING,
 	ST_PING_ACK,
-	ST_IDLE
+    ST_REQHISTORICALTICKS,
+    ST_REQHISTORICALTICKS_ACK,
+    ST_REQTICKBYTICKDATA,
+    ST_REQTICKBYTICKDATA_ACK,
+	ST_WHATIFSAMPLES,
+	ST_WHATIFSAMPLES_ACK,
+	ST_IDLE,
+	ST_IBKRATSSAMPLE,
+	ST_IBKRATSSAMPLE_ACK,
+	ST_WSH,
+	ST_WSH_ACK
 };
 
 //! [ewrapperimpl]
@@ -79,12 +123,16 @@ public:
 
 public:
 
-	bool connect(const char * host, unsigned int port, int clientId = 0);
+	bool connect(const char * host, int port, int clientId = 0);
 	void disconnect() const;
 	bool isConnected() const;
 
 private:
+    void pnlOperation();
+    void pnlSingleOperation();
 	void tickDataOperation();
+	void tickOptionComputationOperation();
+	void delayedTickDataOperation();
 	void marketDepthOperations();
 	void realTimeBars();
 	void marketDataType();
@@ -98,87 +146,44 @@ private:
 	void hedgeSample();
 	void contractOperations();
 	void marketScanners();
-	void reutersFundamentals();
+	void fundamentals();
 	void bulletins();
 	void testAlgoSamples();
 	void financialAdvisorOrderSamples();
 	void financialAdvisorOperations();
 	void testDisplayGroups();
 	void miscelaneous();
+	void reqFamilyCodes();
+	void reqMatchingSymbols();
+	void reqMktDepthExchanges();
+	void reqNewsTicks();
+	void reqSmartComponents();
+	void reqNewsProviders();
+	void reqNewsArticle();
+	void reqHistoricalNews();
+	void reqHeadTimestamp();
+	void reqHistogramData();
+	void rerouteCFDOperations();
+	void marketRuleOperations();
+	void continuousFuturesOperations();
+    void reqHistoricalTicks();
+    void reqTickByTickData();
+	void whatIfSamples();
+	void ibkratsSample();
+	void wshCalendarOperations();
 
 	void reqCurrentTime();
 
 public:
 	// events
-	void tickPrice(TickerId tickerId, TickType field, double price, int canAutoExecute);
-	void tickSize(TickerId tickerId, TickType field, int size);
-	void tickOptionComputation( TickerId tickerId, TickType tickType, double impliedVol, double delta,
-		double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice);
-	void tickGeneric(TickerId tickerId, TickType tickType, double value);
-	void tickString(TickerId tickerId, TickType tickType, const std::string& value);
-	void tickEFP(TickerId tickerId, TickType tickType, double basisPoints, const std::string& formattedBasisPoints,
-		double totalDividends, int holdDays, const std::string& futureLastTradeDate, double dividendImpact, double dividendsToLastTradeDate);
-	void orderStatus(OrderId orderId, const std::string& status, double filled,
-		double remaining, double avgFillPrice, int permId, int parentId,
-		double lastFillPrice, int clientId, const std::string& whyHeld);
-	void openOrder(OrderId orderId, const Contract&, const Order&, const OrderState&);
-	void openOrderEnd();
-	void winError(const std::string& str, int lastError);
-	void connectionClosed();
-	void updateAccountValue(const std::string& key, const std::string& val,
-		const std::string& currency, const std::string& accountName);
-	void updatePortfolio(const Contract& contract, double position,
-		double marketPrice, double marketValue, double averageCost,
-		double unrealizedPNL, double realizedPNL, const std::string& accountName);
-	void updateAccountTime(const std::string& timeStamp);
-	void accountDownloadEnd(const std::string& accountName);
-	void nextValidId(OrderId orderId);
-	void contractDetails(int reqId, const ContractDetails& contractDetails);
-	void bondContractDetails(int reqId, const ContractDetails& contractDetails);
-	void contractDetailsEnd(int reqId);
-	void execDetails(int reqId, const Contract& contract, const Execution& execution);
-	void execDetailsEnd(int reqId);
-	void error(const int id, const int errorCode, const std::string errorString);
-	void updateMktDepth(TickerId id, int position, int operation, int side,
-		double price, int size);
-	void updateMktDepthL2(TickerId id, int position, std::string marketMaker, int operation,
-		int side, double price, int size);
-	void updateNewsBulletin(int msgId, int msgType, const std::string& newsMessage, const std::string& originExch);
-	void managedAccounts(const std::string& accountsList);
-	void receiveFA(faDataType pFaDataType, const std::string& cxml);
-	void historicalData(TickerId reqId, const std::string& date, double open, double high,
-		double low, double close, int volume, int barCount, double WAP, int hasGaps);
-	void scannerParameters(const std::string& xml);
-	void scannerData(int reqId, int rank, const ContractDetails& contractDetails,
-		const std::string& distance, const std::string& benchmark, const std::string& projection,
-		const std::string& legsStr);
-	void scannerDataEnd(int reqId);
-	void realtimeBar(TickerId reqId, long time, double open, double high, double low, double close,
-		long volume, double wap, int count);
-	void currentTime(long time);
-	void fundamentalData(TickerId reqId, const std::string& data);
-	void deltaNeutralValidation(int reqId, const UnderComp& underComp);
-	void tickSnapshotEnd(int reqId);
-	void marketDataType(TickerId reqId, int marketDataType);
-	void commissionReport( const CommissionReport& commissionReport);
-	void position( const std::string& account, const Contract& contract, double position, double avgCost);
-	void positionEnd();
-	void accountSummary( int reqId, const std::string& account, const std::string& tag, const std::string& value, const std::string& curency);
-	void accountSummaryEnd( int reqId);
-	void verifyMessageAPI( const std::string& apiData);
-	void verifyCompleted( bool isSuccessful, const std::string& errorText);
-	void verifyAndAuthMessageAPI( const std::string& apiData, const std::string& xyzChallenge);
-	void verifyAndAuthCompleted( bool isSuccessful, const std::string& errorText);
-	void displayGroupList( int reqId, const std::string& groups);
-	void displayGroupUpdated( int reqId, const std::string& contractInfo);
-    void connectAck();
-	void positionMulti( int reqId, const std::string& account,const std::string& modelCode, const Contract& contract, double pos, double avgCost);
-	void positionMultiEnd( int reqId);
-	void accountUpdateMulti( int reqId, const std::string& account, const std::string& modelCode, const std::string& key, const std::string& value, const std::string& currency);
-	void accountUpdateMultiEnd( int reqId);
-    void securityDefinitionOptionalParameter(int reqId, const std::string& exchange, int underlyingConId, const std::string& tradingClass, const std::string& multiplier, std::set<std::string> expirations, std::set<double> strikes);
-    void securityDefinitionOptionalParameterEnd(int reqId);
-	void softDollarTiers(int reqId, const std::vector<SoftDollarTier> &tiers);
+	#include "EWrapper_prototypes.h"
+
+
+private:
+	void printContractMsg(const Contract& contract);
+	void printContractDetailsMsg(const ContractDetails& contractDetails);
+	void printContractDetailsSecIdList(const TagValueListSPtr &secIdList);
+	void printBondContractDetailsMsg(const ContractDetails& contractDetails);
 
 private:
 	//! [socket_declare]
@@ -189,8 +194,9 @@ private:
 	time_t m_sleepDeadline;
 
 	OrderId m_orderId;
-	EReader *m_pReader;
+	std::unique_ptr<EReader> m_pReader;
     bool m_extraAuth;
+	std::string m_bboExchange;
 };
 
 #endif

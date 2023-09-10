@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
@@ -53,5 +53,17 @@ public class DeltaNeutralContract {
         }
 
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = m_conid;
+        temp = Double.doubleToLongBits(m_delta);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(m_price);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }

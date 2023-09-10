@@ -1,9 +1,7 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using IBApi;
 using IBSampleApp.messages;
@@ -11,7 +9,7 @@ using IBSampleApp.util;
 
 namespace IBSampleApp.ui
 {
-    public class ScannerManager : DataManager
+    class ScannerManager : DataManager
     {
         private int rowCounter = -1;
 
@@ -27,35 +25,33 @@ namespace IBSampleApp.ui
         public ScannerManager(IBClient client, DataGridView dataGrid, TextBox paramsOutput)
             : base(client, dataGrid)
         {
-            this.parametersOutput = paramsOutput;
+            parametersOutput = paramsOutput;
         }
 
         public override void NotifyError(int requestId)
         {
         }
 
-        public override void UpdateUI(IBMessage message)
+        public void UpdateUI(ScannerParametersMessage scanParamsMessage)
         {
-
-            if (message.Type == MessageType.ScannerParameters)
-            {
-                ScannerParametersMessage scanParamsMessage = (ScannerParametersMessage)message;
-                parametersOutput.Text = scanParamsMessage.XmlData;
-            }
-            else
-            {
-                ScannerMessage scannMessage = (ScannerMessage)message;
-                DataGridView grid = (DataGridView)uiControl;
-                rowCounter++;
-                grid.Rows.Add();
-                grid[RANK_IDX, rowCounter].Value = scannMessage.Rank;
-                grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Summary);
-                grid[DISTANCE_IDX, rowCounter].Value = scannMessage.Distance;
-                grid[BENCHMARK_IDX, rowCounter].Value = scannMessage.Benchmark;
-                grid[PROJECTION_IDX, rowCounter].Value = scannMessage.Projection;
-                grid[LEGS_IDX, rowCounter].Value = scannMessage.LegsStr;
-            }
+            parametersOutput.Text = scanParamsMessage.XmlData;
         }
+
+        public void UpdateUI(ScannerMessage scannMessage)
+        {
+            DataGridView grid = (DataGridView)uiControl;
+
+            rowCounter++;
+
+            grid.Rows.Add();
+            grid[RANK_IDX, rowCounter].Value = scannMessage.Rank;
+            grid[CONTRACT_IDX, rowCounter].Value = Utils.ContractToString(scannMessage.ContractDetails.Contract);
+            grid[DISTANCE_IDX, rowCounter].Value = scannMessage.Distance;
+            grid[BENCHMARK_IDX, rowCounter].Value = scannMessage.Benchmark;
+            grid[PROJECTION_IDX, rowCounter].Value = scannMessage.Projection;
+            grid[LEGS_IDX, rowCounter].Value = scannMessage.LegsStr;
+        }
+        
 
         public override void Clear()
         {
@@ -65,9 +61,9 @@ namespace IBSampleApp.ui
             rowCounter = -1;
         }
 
-        public void AddRequest(ScannerSubscription scannerSubscription)
+        public void AddRequest(ScannerSubscription scannerSubscription, List<TagValue> filterOptions)
         {
-            ibClient.ClientSocket.reqScannerSubscription(currentTicker, scannerSubscription, new List<TagValue>());
+            ibClient.ClientSocket.reqScannerSubscription(currentTicker, scannerSubscription, null, filterOptions);
         }
 
         public void RequestParameters()

@@ -1,4 +1,7 @@
-﻿Imports IBApi
+﻿' Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
+
+Imports IBApi
 
 Namespace Samples
 
@@ -143,6 +146,22 @@ Namespace Samples
             Return order
         End Function
 
+		''' <summary>
+		''' A Midprice order is designed to split the difference between the bid and ask prices, and fill at the current midpoint of 
+		''' the NBBO or better. Set an optional price cap to define the highest price (for a buy order) or the lowest price (for a sell 
+		''' order) you are willing to accept. Requires TWS 975+. Smart-routing to US stocks only.
+        ''' </summary>
+        Public Shared Function Midprice(action As String, quantity As Double, priceCap As Double) As Order
+            '! [midprice]
+            Dim order As Order = New Order
+            order.Action = action
+            order.OrderType = "MIDPRICE"
+            order.TotalQuantity = quantity
+			order.LmtPrice = priceCap  ''' optional
+            '! [midprice]
+            Return order
+        End Function
+				
         ''' <summary>
         ''' A pegged-to-market order Is designed to maintain a purchase price relative to the national best offer (NBO) Or a sale price 
         ''' relative to the national best bid (NBB). Depending on the width of the quote, this order may be passive Or aggressive. 
@@ -184,7 +203,7 @@ Namespace Samples
             order.OrderType = "PEG STK"
             order.TotalQuantity = quantity
             order.Delta = delta
-            order.LmtPrice = stockReferencePrice
+            order.StockRefPrice = stockReferencePrice
             order.StartingPrice = startingPrice
             '! [pegged_stock]
             Return order
@@ -368,6 +387,22 @@ Namespace Samples
             Return order
         End Function
 
+		''' <summary>
+		''' Forex orders can be placed in denomination of second currency in pair using cashQty field
+		''' Requires TWS or IBG 963+
+		''' https://www.interactivebrokers.com/en/index.php?f=23876#963-02
+		''' </summary>
+		Public Shared Function LimitOrderWithCashQty(action As String, limitPrice As Double, cashQty As Double) As Order
+            '! [limitorderwithcashqty]
+            Dim order As Order = New Order
+            order.Action = action
+            order.OrderType = "LMT"
+            order.LmtPrice = limitPrice
+            order.CashQty = cashQty
+            '! [limitorderwithcashqty]
+            Return order
+        End Function
+
         ''' <summary>
         ''' A Limit if Touched Is an order to buy (Or sell) a contract at a specified price Or better, below (Or above) the market. This order Is 
         ''' held in the system until the trigger price Is touched. An LIT order Is similar to a stop limit order, except that an LIT sell order Is 
@@ -459,13 +494,14 @@ Namespace Samples
         ''' Supported Exchanges: https://individuals.interactivebrokers.com/en/trading/orderTypeExchanges.php?ot=pegmid
         ''' Reference: http://individuals.interactivebrokers.com/en/trading/orders/pegmid.php?ib_entity=llc
         ''' </summary>
-        Public Shared Function PeggedToMidpoint(action As String, quantity As Double, offset As Double) As Order
+        Public Shared Function PeggedToMidpoint(action As String, quantity As Double, offset As Double, limitPrice As Double) As Order
             '! [pegged_midpoint]
             Dim order As Order = New Order
             order.Action = action
             order.OrderType = "PEG MID"
             order.TotalQuantity = quantity
             order.AuxPrice = offset
+			order.LmtPrice = limitPrice
             '! [pegged_midpoint]
             Return order
         End Function
@@ -654,14 +690,14 @@ Namespace Samples
         ''' Products: BOND, CFD, CASH, FUT, FOP, OPT, STK, WAR
         ''' Reference: http://individuals.interactivebrokers.com/en/trading/orders/trailingStopLimit.php?ib_entity=llc
         ''' </summary>
-        Public Shared Function TrailingStopLimit(action As String, quantity As Double, limitPrice As Double, trailingAmount As Double, trailStopPrice As Double) As Order
+        Public Shared Function TrailingStopLimit(action As String, quantity As Double, lmtPriceOffset As Double, trailingAmount As Double, trailStopPrice As Double) As Order
             '! [trailingstoplimit]
             Dim order As Order = New Order
             order.Action = action
             order.OrderType = "TRAIL LIMIT"
             order.TotalQuantity = quantity
+            order.LmtPriceOffset = lmtPriceOffset
             order.TrailStopPrice = trailStopPrice
-            order.LmtPrice = limitPrice
             order.AuxPrice = trailingAmount
             '![trailingstoplimit]
             Return order
@@ -790,7 +826,7 @@ Namespace Samples
         ''' cancellation of the remaining group orders while partial completion causes the group to rebalance. An investor might desire to sell 
         ''' 1000 shares of only ONE of three positions held above prevailing market prices. The OCA order group allows the investor to enter prices 
         ''' at specified target levels and if one is completed, the other two will automatically cancel. Alternatively, an investor may wish to take 
-        ''' a LONG position in eMini S&P stock index futures in a falling market or else SELL US treasury futures at a more favorable price. 
+        ''' a LONG position in ES mini stock index futures in a falling market or else SELL US treasury futures at a more favorable price. 
         ''' Grouping the two orders using an OCA order type offers the investor two chance to enter a similar position, while only running the risk 
         ''' of taking on a single position.
         ''' Products: BOND, CASH, FUT, FOP, STK, OPT, WAR
@@ -798,7 +834,7 @@ Namespace Samples
         ''' Reference: http://individuals.interactivebrokers.com/en/trading/orders/oca.php?ib_entity=llc
         ''' </summary>
         Public Shared Function OneCancelsAll(ocaGroup As String, ocaOrders As List(Of Order), ocaType As Integer) As List(Of Order)
-            '! [one_cancels_all]
+            '! [oca]
             For Each o As Order In ocaOrders
 
                 o.OcaGroup = ocaGroup
@@ -810,7 +846,7 @@ Namespace Samples
 
             'Telling the TWS to transmit the last order in the OCA will also cause the transmission of its predecessors.
             ocaOrders.Item(ocaOrders.Count - 1).Transmit = True
-            '! [one_cancels_all]
+            '! [oca]
             Return ocaOrders
 
         End Function
@@ -927,6 +963,39 @@ Namespace Samples
             '! [adjustable_stop_limit]
             Return order
         End Function
+		
+		Public Shared Function AttachAdjustableToTrail(parent As Order, attachedOrderStopPrice As Double, triggerPrice As Double, adjustedStopPrice As Double,
+             adjustedTrailAmount As Double, trailUnit As Integer) As Order
+
+            '! [adjustable_trail]
+            'Attached order Is a conventional STP order
+            Dim action As String = "BUY"
+            If (parent.Action.Equals("BUY")) Then
+                action = "SELL"
+            End If
+            Dim order As Order = StopOrder(action, parent.TotalQuantity, attachedOrderStopPrice)
+            order.ParentId = parent.OrderId
+            'When trigger price Is penetrated
+            order.TriggerPrice = triggerPrice
+            'The parent order will be turned into a TRAIL order
+            order.AdjustedOrderType = "TRAIL"
+            'With a stop price of...
+            order.AdjustedStopPrice = adjustedStopPrice
+            'traling by And amount (0) Or a percent (100)...
+            order.AdjustableTrailingUnit = trailUnit
+            'of...
+            order.AdjustedTrailingAmount = adjustedTrailAmount
+            '! [adjustable_trail]        
+            Return order
+        End Function
+
+        Public Shared Function WhatIfLimitOrder(action As String, quantity As Double, limitPrice As Double) As Order
+            '! [whatiflimitorder]
+            Dim order As Order = LimitOrder(action, quantity, limitPrice)
+            order.WhatIf = True
+            '! [whatiflimitorder]
+            Return order
+        End Function
 
         Public Shared Function PriceCondition(conId As Integer, exchange As String, price As Double, isMore As Boolean, isConjunction As Boolean) As PriceCondition
 
@@ -1026,6 +1095,18 @@ Namespace Samples
             '! [volume_condition]
             Return volCond
 
+        End Function
+		
+		Public Shared Function LimitIBKRATS(action As String, quantity As Double, limitPrice As Double) As Order
+            '! [limit_ibkrats]
+            Dim order As Order = New Order
+            order.Action = action
+            order.OrderType = "LMT"
+			order.LmtPrice = limitPrice
+            order.TotalQuantity = quantity
+			order.NotHeld = True
+            '! [limit_ibkrats]
+            Return order
         End Function
 
     End Class

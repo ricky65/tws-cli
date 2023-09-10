@@ -67,8 +67,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 9,72,18,0
- PRODUCTVERSION 9,72,18,0
+ FILEVERSION 10,10,01,0
+ PRODUCTVERSION 10,10,01,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -85,12 +85,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Interactive Brokers"
             VALUE "FileDescription", "TwsSocketClient DLL"
-            VALUE "FileVersion", "9.72.18"
+            VALUE "FileVersion", "10.10.01"
             VALUE "InternalName", "TwsSocketClient"
             VALUE "LegalCopyright", "Copyright (C) 2006"
             VALUE "OriginalFilename", "TwsSocketClient.DLL"
             VALUE "ProductName", "TwsSocketClient Dynamic Link Library"
-            VALUE "ProductVersion", "9.72.18"
+            VALUE "ProductVersion", "10.10.01"
         END
     END
     BLOCK "VarFileInfo"

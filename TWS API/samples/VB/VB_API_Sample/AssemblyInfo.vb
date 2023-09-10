@@ -1,4 +1,4 @@
-﻿' Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿' Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
 ' and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable.
 
 Imports System.Reflection
@@ -32,6 +32,8 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below
 
 
-<Assembly: AssemblyVersion("9.72.18.0")> 
+<Assembly: AssemblyVersion("10.10.01.0")> 
 
 
+
+<Assembly: ComVisibleAttribute(False)> 

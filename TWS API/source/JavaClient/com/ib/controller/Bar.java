@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.controller;
@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Bar {
-	private static final SimpleDateFormat FORMAT = new SimpleDateFormat( "yyyyMMdd HH:mm:ss"); // format for historical query
+	private static final ThreadLocal<SimpleDateFormat> FORMAT_CACHE = ThreadLocal.withInitial(() -> new SimpleDateFormat( "yyyyMMdd HH:mm:ss"));
 
 	private final long m_time;
 	private final double m_high;
@@ -44,7 +44,7 @@ public class Bar {
 
 	/** Format for query. */
 	public static String format( long ms) {
-		return FORMAT.format( new Date( ms) );
+		return FORMAT_CACHE.get().format( new Date( ms) );
 	}
 
 	@Override public String toString() {

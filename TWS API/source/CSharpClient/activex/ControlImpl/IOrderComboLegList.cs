@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
@@ -22,10 +22,10 @@ namespace TWSLib
         object Add();
     }
 
-    [ComVisible(true)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class ComOrderComboLegList : IOrderComboLegList
     {
-        public ComList<ComOrderComboLeg, IBApi.OrderComboLeg> Ocl { get; private set; }
+        private ComList<ComOrderComboLeg, IBApi.OrderComboLeg> Ocl;
 
         public ComOrderComboLegList() : this(null) { }
 
@@ -56,6 +56,11 @@ namespace TWSLib
             Ocl.Add(rval);
 
             return rval;
+        }
+
+        public static implicit operator List<IBApi.OrderComboLeg>(ComOrderComboLegList from)
+        {
+            return from.Ocl.ConvertTo();
         }
     }
 }

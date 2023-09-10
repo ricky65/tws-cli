@@ -1,9 +1,10 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 package com.ib.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ib.client.Types.Right;
 import com.ib.client.Types.SecIdType;
@@ -13,7 +14,7 @@ public class Contract implements Cloneable {
     private int     m_conid;
     private String  m_symbol;
     private String  m_secType;
-    private String  m_lastTradedateOrContractMonth;
+    private String  m_lastTradeDateOrContractMonth;
     private double  m_strike;
     private String  m_right;
     private String  m_multiplier; // should be double
@@ -23,13 +24,13 @@ public class Contract implements Cloneable {
     private String  m_localSymbol;
     private String  m_tradingClass;
     private String  m_secIdType; // CUSIP;SEDOL;ISIN;RIC
-    private String  m_secId; 
-    
-    private DeltaNeutralContract m_underComp;
+    private String  m_secId;
+
+    private DeltaNeutralContract m_deltaNeutralContract;
     private boolean m_includeExpired;  // can not be set to true for orders
     // COMBOS
     private String m_comboLegsDescrip; // received in open order version 14 and up for all combos 
-    private ArrayList<ComboLeg> m_comboLegs = new ArrayList<ComboLeg>(); // would be final except for clone
+    private List<ComboLeg> m_comboLegs = new ArrayList<>(); // would be final except for clone
 
     // Get
     public double strike()          { return m_strike; }
@@ -41,7 +42,7 @@ public class Contract implements Cloneable {
     public String currency()        { return m_currency; }
     public String exchange()        { return m_exchange; }
     public String primaryExch()     { return m_primaryExch; }
-    public String lastTradeDateOrContractMonth()          { return m_lastTradedateOrContractMonth; }
+    public String lastTradeDateOrContractMonth()          { return m_lastTradeDateOrContractMonth; }
     public String localSymbol()     { return m_localSymbol; }
     public String tradingClass()    { return m_tradingClass; }
     public String multiplier()      { return m_multiplier; }
@@ -50,15 +51,15 @@ public class Contract implements Cloneable {
     public String secId()           { return m_secId; }
     public String symbol()          { return m_symbol; }
     public boolean includeExpired() { return m_includeExpired; }
-    public DeltaNeutralContract underComp() { return m_underComp; }
-    public ArrayList<ComboLeg> comboLegs()  { return m_comboLegs; }
+    public DeltaNeutralContract deltaNeutralContract() { return m_deltaNeutralContract; }
+    public List<ComboLeg> comboLegs()  { return m_comboLegs; }
     public String comboLegsDescrip()        { return m_comboLegsDescrip; }
 
     // Set
     public void conid(int v)            { m_conid = v; }
     public void currency(String v)      { m_currency = v; }
     public void exchange(String v)      { m_exchange = v; }
-    public void lastTradeDateOrContractMonth(String v)        { m_lastTradedateOrContractMonth = v; }
+    public void lastTradeDateOrContractMonth(String v)        { m_lastTradeDateOrContractMonth = v; }
     public void localSymbol(String v)   { m_localSymbol = v; }
     public void tradingClass(String v)  { m_tradingClass = v; }
     public void multiplier(String v)    { m_multiplier = v; }
@@ -72,11 +73,11 @@ public class Contract implements Cloneable {
     public void secType(String v)       { m_secType = v; }
     public void strike(double v)        { m_strike = v; }
     public void symbol(String v)        { m_symbol = v; }
-    public void underComp(DeltaNeutralContract v) { m_underComp = v; }
+    public void deltaNeutralContract(DeltaNeutralContract v) { m_deltaNeutralContract = v; }
     public void includeExpired(boolean v)         { m_includeExpired = v; }
-    public void comboLegs(ArrayList<ComboLeg> v)  { m_comboLegs = v; }
+    public void comboLegs(List<ComboLeg> v)  { m_comboLegs = v; }
     public void comboLegsDescrip(String v)        { m_comboLegsDescrip = v; }
-    
+
     public Contract() {
     	m_conid = 0;
         m_strike = 0;
@@ -87,10 +88,10 @@ public class Contract implements Cloneable {
         try {
             Contract copy = (Contract)super.clone();
             if ( copy.m_comboLegs != null ) {
-                copy.m_comboLegs = new ArrayList<ComboLeg>( copy.m_comboLegs);
+                copy.m_comboLegs = new ArrayList<>( copy.m_comboLegs);
             }
             else {
-                copy.m_comboLegs = new ArrayList<ComboLeg>();
+                copy.m_comboLegs = new ArrayList<>();
             }
             return copy;
         }
@@ -103,12 +104,12 @@ public class Contract implements Cloneable {
     public Contract(int p_conId, String p_symbol, String p_secType, String p_lastTradeDateOrContractMonth,
                     double p_strike, String p_right, String p_multiplier,
                     String p_exchange, String p_currency, String p_localSymbol, String p_tradingClass,
-                    ArrayList<ComboLeg> p_comboLegs, String p_primaryExch, boolean p_includeExpired,
+                    List<ComboLeg> p_comboLegs, String p_primaryExch, boolean p_includeExpired,
                     String p_secIdType, String p_secId) {
     	m_conid = p_conId;
         m_symbol = p_symbol;
         m_secType = p_secType;
-        m_lastTradedateOrContractMonth = p_lastTradeDateOrContractMonth;
+        m_lastTradeDateOrContractMonth = p_lastTradeDateOrContractMonth;
         m_strike = p_strike;
         m_right = p_right;
         m_multiplier = p_multiplier;
@@ -150,13 +151,13 @@ public class Contract implements Cloneable {
         	return false;
         }
 
-        if (!Util.NormalizeString(m_secType).equals("BOND")) {
+        if (!"BOND".equals(m_secType)) {
 
         	if (m_strike != l_theOther.m_strike) {
         		return false;
         	}
 
-        	if (Util.StringCompare(m_lastTradedateOrContractMonth, l_theOther.m_lastTradedateOrContractMonth) != 0 ||
+        	if (Util.StringCompare(m_lastTradeDateOrContractMonth, l_theOther.m_lastTradeDateOrContractMonth) != 0 ||
         		Util.StringCompare(m_right, l_theOther.m_right) != 0 ||
         		Util.StringCompare(m_multiplier, l_theOther.m_multiplier) != 0 ||
         		Util.StringCompare(m_localSymbol, l_theOther.m_localSymbol) != 0 ||
@@ -174,19 +175,29 @@ public class Contract implements Cloneable {
         }
 
     	// compare combo legs
-        if (!Util.ArrayEqualsUnordered(m_comboLegs, l_theOther.m_comboLegs)) {
+        if (!Util.listsEqualUnordered(m_comboLegs, l_theOther.m_comboLegs)) {
         	return false;
         }
 
-        if (m_underComp != l_theOther.m_underComp) {
-        	if (m_underComp == null || l_theOther.m_underComp == null) {
+        if (m_deltaNeutralContract != l_theOther.m_deltaNeutralContract) {
+        	if (m_deltaNeutralContract == null || l_theOther.m_deltaNeutralContract == null) {
         		return false;
         	}
-        	if (!m_underComp.equals(l_theOther.m_underComp)) {
+        	if (!m_deltaNeutralContract.equals(l_theOther.m_deltaNeutralContract)) {
         		return false;
         	}
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        // Use a few fields only as a compromise between performance and hashCode quality.
+        int result = m_conid;
+        result = result * 31 + (m_symbol == null || "".equals(m_symbol) ? 0 : m_symbol.hashCode());
+        long temp = Double.doubleToLongBits(m_strike);
+        result = result * 31 + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     /** Returns a text description that can be used for display. */
@@ -211,15 +222,16 @@ public class Contract implements Cloneable {
                 app( sb, m_primaryExch);
             }
 
-            app( sb, m_lastTradedateOrContractMonth);
+            app( sb, m_lastTradeDateOrContractMonth);
 
             if (m_strike != 0) {
                 app( sb, m_strike);
             }
 
-            if( !Util.StringIsEmpty(m_right) ) {
+            if( !Util.StringIsEmpty(m_right) && !m_right.equals("?") ) {
                 app( sb, m_right);
             }
+            app( sb, m_currency);
         }
         return sb.toString();
     }
@@ -241,7 +253,7 @@ public class Contract implements Cloneable {
         add( sb, "conid", m_conid);
         add( sb, "symbol", m_symbol);
         add( sb, "secType", m_secType);
-        add( sb, "lastTradeDateOrContractMonth", m_lastTradedateOrContractMonth);
+        add( sb, "lastTradeDateOrContractMonth", m_lastTradeDateOrContractMonth);
         add( sb, "strike", m_strike);
         add( sb, "right", m_right);
         add( sb, "multiplier", m_multiplier);

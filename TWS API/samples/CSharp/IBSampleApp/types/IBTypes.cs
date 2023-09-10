@@ -1,41 +1,29 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Data;
 
 namespace IBSampleApp.types
 {
-    public class IBType
+    class IBType
     {
-        private string name;
-        private object value;
-
         public IBType(string name, object value)
         {
-            this.name = name;
-            this.value = value;
+            Name = name;
+            Value = value;
         }
 
-        public string Name
-        {
-            get { return name; }
-        }
-        
-        public object Value
-        {
-            get { return this.value; }
-        }
+        public string Name { get; }
+
+        public object Value { get; }
 
         public override string ToString()
         {
-            return name;
+            return Name;
         }
     }
 
-    public class TriggerMethod
+    class TriggerMethod
     {
         public static object[] GetAll()
         {
@@ -50,22 +38,25 @@ namespace IBSampleApp.types
         public static IBType Midpoint = new IBType("Midpoint", 6);
     }
 
-    public class Rule80A
+    class Rule80A
     {
         public static object[] GetAll()
         {
-            return new object[] { None, IndivArb, IndivBigNonArb, IndivSmallNonArb, INST_ARB, InstBigNonArb, InstSmallNonArb };
+            return new object[] { None, Individual, Agency, AgentOtherMember, IndividualPTIA, AgencyPTIA, AgentOtherMemberPTIA, IndividualPT, AgencyPT, AgentOtherMemberPT };
         }
         public static IBType None = new IBType("None", "");
-        public static IBType IndivArb = new IBType("IndivArb", "J");
-        public static IBType IndivBigNonArb = new IBType("IndivBigNonArb", "K");
-        public static IBType IndivSmallNonArb = new IBType("IndivSmallNonArb", "I");
-        public static IBType INST_ARB = new IBType("INST_ARB", "U");
-        public static IBType InstBigNonArb = new IBType("InstBigNonArb", "Y");
-        public static IBType InstSmallNonArb = new IBType("InstSmallNonArb", "A");
+        public static IBType Individual = new IBType("Individual", "I");
+        public static IBType Agency = new IBType("Agency", "A");
+        public static IBType AgentOtherMember = new IBType("AgentOtherMember", "W");
+        public static IBType IndividualPTIA = new IBType("IndividualPTIA", "J");
+        public static IBType AgencyPTIA = new IBType("AgencyPTIA", "U");
+        public static IBType AgentOtherMemberPTIA = new IBType("AgentOtherMemberPTIA", "M");
+        public static IBType IndividualPT = new IBType("IndividualPT", "K");
+        public static IBType AgencyPT = new IBType("AgencyPT", "Y");
+        public static IBType AgentOtherMemberPT = new IBType("AgentOtherMemberPT", "N");
     }
 
-    public class OCAType
+    class OCAType
     {
         public static object[] GetAll()
         {
@@ -77,7 +68,7 @@ namespace IBSampleApp.types
         public static IBType ReduceWithoutBlocking = new IBType("ReduceWithoutBlocking", 3);
     }
 
-    public class HedgeType
+    class HedgeType
     {
         public static object[] GetAll()
         {
@@ -90,7 +81,7 @@ namespace IBSampleApp.types
         public static IBType Pair = new IBType("Pair", "P");
     }
 
-    public class VolatilityType
+    class VolatilityType
     {
         public static object[] GetAll()
         {
@@ -101,7 +92,7 @@ namespace IBSampleApp.types
         public static IBType Annual = new IBType("Annual", 1);
     }
 
-    public class ReferencePriceType
+    class ReferencePriceType
     {
         public static object[] GetAll()
         {
@@ -112,7 +103,7 @@ namespace IBSampleApp.types
         public static IBType BidOrAsk = new IBType("BidOrAsk", 2);
     }
 
-    public class FaMethod
+    class FaMethod
     {
         public static object[] GetAll()
         {
@@ -125,7 +116,7 @@ namespace IBSampleApp.types
         public static IBType PctChange = new IBType("PctChange", "PctChange");
     }
 
-    public class ContractRight
+    class ContractRight
     {
         public static object[] GetAll()
         {
@@ -137,7 +128,7 @@ namespace IBSampleApp.types
         public static IBType Call = new IBType("Call", "C");
     }
 
-    public class FundamentalsReport
+    class FundamentalsReport
     {
         public static object[] GetAll()
         {
@@ -149,7 +140,7 @@ namespace IBSampleApp.types
         public static IBType RESC = new IBType("Analyst estimates", "RESC");
     }
 
-    public class FinancialAdvisorDataType
+    class FinancialAdvisorDataType
     {
         public static object[] GetAll()
         {
@@ -161,7 +152,7 @@ namespace IBSampleApp.types
         public static IBType Aliases = new IBType("Alias", 3);
     }
 
-    public class AllocationGroupMethod
+    class AllocationGroupMethod
     {
         //The DataTable will then properly populate the grid's ComboBox cell
         public static DataTable GetAsData()
@@ -182,7 +173,7 @@ namespace IBSampleApp.types
         public static IBType PercentChange = new IBType("Percent change", "PctChange");
     }
 
-    public class AllocationProfileType
+    class AllocationProfileType
     {
         public static DataTable GetAsData()
         {
@@ -194,5 +185,30 @@ namespace IBSampleApp.types
             allocationProfileTypes.Rows.Add("Shares", 3);
             return allocationProfileTypes;
         }
+    }
+
+    class MarketDataType
+    {
+        public static object[] GetAll()
+        {
+            return new object[] { Real_Time, Frozen, Delayed, Delayed_Frozen };
+        }
+
+        public static IBType get(int marketDataType)
+        {
+            IBType ret = Real_Time;
+            foreach (object ibType in GetAll()){
+                if ( (int)((IBType)ibType).Value == marketDataType)
+                {
+                    ret = (IBType)ibType;
+                }
+            }
+            return ret;
+        }
+
+        public static IBType Real_Time = new IBType("Real-Time", 1);
+        public static IBType Frozen = new IBType("Frozen", 2);
+        public static IBType Delayed = new IBType("Delayed", 3);
+        public static IBType Delayed_Frozen = new IBType("Delayed-Frozen", 4);
     }
 }

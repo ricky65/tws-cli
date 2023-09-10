@@ -1,17 +1,13 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 #include "StdAfx.h"
 
-#ifdef _WIN32
-# include <Windows.h>
-# define sleep( seconds) Sleep( seconds * 1000);
-#else
-# include <unistd.h>
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <chrono>
+#include <thread>
 
 #include "TestCppClient.h"
 
@@ -25,7 +21,7 @@ const unsigned SLEEP_TIME = 10;
 int main(int argc, char** argv)
 {
 	const char* host = argc > 1 ? argv[1] : "";
-	unsigned int port = argc > 2 ? atoi(argv[2]) : 0;
+	int port = argc > 2 ? atoi(argv[2]) : 0;
 	if (port <= 0)
 		port = 7496;
 	const char* connectOptions = argc > 3 ? argv[3] : "";
@@ -40,24 +36,24 @@ int main(int argc, char** argv)
 
 		TestCppClient client;
 
+		// Run time error will occur (here) if TestCppClient.exe is compiled in debug mode but TwsSocketClient.dll is compiled in Release mode
+		// TwsSocketClient.dll (in Release Mode) is copied by API installer into SysWOW64 folder within Windows directory 
+		
 		if( connectOptions) {
 			client.setConnectOptions( connectOptions);
 		}
-		//! [connect]
+		
 		client.connect( host, port, clientId);
-		//! [connect]
-		//! [ereader]
-		//Unlike the C# and Java clients, there is no need to explicitely create an EReader object nor a thread
+		
 		while( client.isConnected()) {
 			client.processMessages();
 		}
-		//! [ereader]
 		if( attempt >= MAX_ATTEMPTS) {
 			break;
 		}
 
 		printf( "Sleeping %u seconds before next attempt\n", SLEEP_TIME);
-		sleep( SLEEP_TIME);
+		std::this_thread::sleep_for(std::chrono::seconds(SLEEP_TIME));
 	}
 
 	printf ( "End of C++ Socket Client Test\n");

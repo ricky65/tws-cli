@@ -1,33 +1,21 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+using IBApi;
 
 namespace IBSampleApp.messages
 {
-    public class TickPriceMessage : MarketDataMessage
+    class TickPriceMessage : MarketDataMessage
     {
-        private double price;
-        private int canAutoExecute;
-
-        public TickPriceMessage(int requestId, int field, double price, int canAutoExecute) : base(MessageType.TickPrice, requestId, field)
+        public TickPriceMessage(int requestId, int field, double price, TickAttrib attribs)
+            : base(requestId, field)
         {
-            this.price = price;
-            this.canAutoExecute = canAutoExecute;
+            Price = price;
+            Attribs = attribs;
         }
 
-        public int CanAutoExecute
-        {
-            get { return canAutoExecute; }
-            set { canAutoExecute = value; }
-        }
-        public double Price
-        {
-            get { return price; }
-            set { price = value; }
-        }
+        public TickAttrib Attribs { get; set; }
 
+        public double Price { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 using System;
 using System.Collections.Generic;
@@ -47,9 +47,9 @@ namespace Samples
         public override void contractDetails(int reqId, ContractDetails contractDetails)
         {
             Console.WriteLine("/*******Incoming Contract Details - RequestId "+reqId+"************/");
-            Console.WriteLine(contractDetails.Summary.Symbol + " " + contractDetails.Summary.SecType + " @ " + contractDetails.Summary.Exchange);
-            Console.WriteLine("lastTradeDate: " + contractDetails.Summary.LastTradeDateOrContractMonth + ", Right: " + contractDetails.Summary.Right);
-            Console.WriteLine("Strike: " + contractDetails.Summary.Strike + ", Multiplier: " + contractDetails.Summary.Multiplier);
+            Console.WriteLine(contractDetails.Contract.Symbol + " " + contractDetails.Contract.SecType + " @ " + contractDetails.Contract.Exchange);
+            Console.WriteLine("lastTradeDate: " + contractDetails.Contract.LastTradeDateOrContractMonth + ", Right: " + contractDetails.Contract.Right);
+            Console.WriteLine("Strike: " + contractDetails.Contract.Strike + ", Multiplier: " + contractDetails.Contract.Multiplier);
             Console.WriteLine("/*******     End     *************/\n");
         }
 

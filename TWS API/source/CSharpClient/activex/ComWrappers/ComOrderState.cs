@@ -1,4 +1,4 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using IBApi;
@@ -15,7 +15,7 @@ namespace TWSLib
      * @brief Provides an active order's current state
      * @sa Order
      */
-    [ComVisible(true)]
+    [ComVisible(true), ClassInterface(ClassInterfaceType.None)]
     public class ComOrderState : ComWrapper<OrderState>, IOrderState
     {
         /**
@@ -28,30 +28,84 @@ namespace TWSLib
         }
 
         /**
+         * @brief The account's current initial margin.
+         */
+        public string InitMarginBefore
+        {
+            get { return data !=null ? data.InitMarginBefore : default(string); }
+            set { if (data != null) data.InitMarginBefore = value; }
+        }
+
+        /**
+        * @brief The account's current maintenance margin
+        */
+        public string MaintMarginBefore
+        {
+            get { return data !=null ? data.MaintMarginBefore : default(string); }
+            set { if (data != null) data.MaintMarginBefore = value; }
+        }
+
+        /**
+        * @brief The account's current equity with loan
+        */
+        public string EquityWithLoanBefore
+        {
+            get { return data !=null ? data.EquityWithLoanBefore : default(string); }
+            set { if (data != null) data.EquityWithLoanBefore = value; }
+        }
+
+        /**
+         * @brief The change of the account's initial margin.
+         */
+        public string InitMarginChange
+        {
+            get { return data != null ? data.InitMarginChange : default(string); }
+            set { if (data != null) data.InitMarginChange = value; }
+        }
+
+        /**
+        * @brief The change of the account's maintenance margin
+        */
+        public string MaintMarginChange
+        {
+            get { return data != null ? data.MaintMarginChange : default(string); }
+            set { if (data != null) data.MaintMarginChange = value; }
+        }
+
+        /**
+        * @brief The change of the account's equity with loan
+        */
+        public string EquityWithLoanChange
+        {
+            get { return data != null ? data.EquityWithLoanChange : default(string); }
+            set { if (data != null) data.EquityWithLoanChange = value; }
+        }
+
+        /**
          * @brief The order's impact on the account's initial margin.
          */
-        public string InitMargin
+        public string InitMarginAfter
         {
-            get { return data !=null ? data.InitMargin : default(string); }
-            set { if (data != null) data.InitMargin = value; }
+            get { return data != null ? data.InitMarginAfter : default(string); }
+            set { if (data != null) data.InitMarginAfter = value; }
         }
 
         /**
         * @brief The order's impact on the account's maintenance margin
         */
-        public string MaintMargin
+        public string MaintMarginAfter
         {
-            get { return data !=null ? data.MaintMargin : default(string); }
-            set { if (data != null) data.MaintMargin = value; }
+            get { return data != null ? data.MaintMarginAfter : default(string); }
+            set { if (data != null) data.MaintMarginAfter = value; }
         }
 
         /**
         * @brief Shows the impact the order would have on the account's equity with loan
         */
-        public string EquityWithLoan
+        public string EquityWithLoanAfter
         {
-            get { return data !=null ? data.EquityWithLoan : default(string); }
-            set { if (data != null) data.EquityWithLoan = value; }
+            get { return data != null ? data.EquityWithLoanAfter : default(string); }
+            set { if (data != null) data.EquityWithLoanAfter = value; }
         }
 
         /**
@@ -100,6 +154,24 @@ namespace TWSLib
             set { if (data != null) data.WarningText = value; }
         }
 
+        /**
+         * @brief Completed time for completed order.
+         */
+        public string CompletedTime
+        {
+            get { return data != null ? data.CompletedTime : default(string); }
+            set { if (data != null) data.CompletedTime = value; }
+        }
+
+        /**
+         * @brief Completed status for completed order.
+         */
+        public string CompletedStatus
+        {
+            get { return data != null ? data.CompletedStatus : default(string); }
+            set { if (data != null) data.CompletedStatus = value; }
+        }
+
         public override bool Equals(Object other)
         {
 
@@ -119,10 +191,18 @@ namespace TWSLib
             }
 
             if (Util.StringCompare(Status, state.Status) != 0 ||
-                Util.StringCompare(InitMargin, state.InitMargin) != 0 ||
-                Util.StringCompare(MaintMargin, state.MaintMargin) != 0 ||
-                Util.StringCompare(EquityWithLoan, state.EquityWithLoan) != 0 ||
-                Util.StringCompare(CommissionCurrency, state.CommissionCurrency) != 0)
+                Util.StringCompare(InitMarginBefore, state.InitMarginBefore) != 0 ||
+                Util.StringCompare(MaintMarginBefore, state.MaintMarginBefore) != 0 ||
+                Util.StringCompare(EquityWithLoanBefore, state.EquityWithLoanBefore) != 0 ||
+                Util.StringCompare(InitMarginChange, state.InitMarginChange) != 0 ||
+                Util.StringCompare(MaintMarginChange, state.MaintMarginChange) != 0 ||
+                Util.StringCompare(EquityWithLoanChange, state.EquityWithLoanChange) != 0 ||
+                Util.StringCompare(InitMarginAfter, state.InitMarginAfter) != 0 ||
+                Util.StringCompare(MaintMarginAfter, state.MaintMarginAfter) != 0 ||
+                Util.StringCompare(EquityWithLoanAfter, state.EquityWithLoanAfter) != 0 ||
+                Util.StringCompare(CommissionCurrency, state.CommissionCurrency) != 0 ||
+                Util.StringCompare(CompletedTime, state.CompletedTime) != 0 ||
+                Util.StringCompare(CompletedStatus, state.CompletedStatus) != 0)
             {
                 return false;
             }
@@ -135,19 +215,49 @@ namespace TWSLib
             get { return Status; }
         }
 
-        string TWSLib.IOrderState.initMargin
+        string TWSLib.IOrderState.initMarginBefore
         {
-            get { return InitMargin; }
+            get { return InitMarginBefore; }
         }
 
-        string TWSLib.IOrderState.maintMargin
+        string TWSLib.IOrderState.maintMarginBefore
         {
-            get { return MaintMargin; }
+            get { return MaintMarginBefore; }
         }
 
-        string TWSLib.IOrderState.equityWithLoan
+        string TWSLib.IOrderState.equityWithLoanBefore
         {
-            get { return EquityWithLoan; }
+            get { return EquityWithLoanBefore; }
+        }
+
+        string TWSLib.IOrderState.initMarginChange
+        {
+            get { return InitMarginChange; }
+        }
+
+        string TWSLib.IOrderState.maintMarginChange
+        {
+            get { return MaintMarginChange; }
+        }
+
+        string TWSLib.IOrderState.equityWithLoanChange
+        {
+            get { return EquityWithLoanChange; }
+        }
+
+        string TWSLib.IOrderState.initMarginAfter
+        {
+            get { return InitMarginAfter; }
+        }
+
+        string TWSLib.IOrderState.maintMarginAfter
+        {
+            get { return MaintMarginAfter; }
+        }
+
+        string TWSLib.IOrderState.equityWithLoanAfter
+        {
+            get { return EquityWithLoanAfter; }
         }
 
         double TWSLib.IOrderState.commission
@@ -173,6 +283,16 @@ namespace TWSLib
         string TWSLib.IOrderState.warningText
         {
             get { return WarningText; }
+        }
+
+        string TWSLib.IOrderState.completedTime
+        {
+            get { return CompletedTime; }
+        }
+
+        string TWSLib.IOrderState.completedStatus
+        {
+            get { return CompletedStatus; }
         }
 
         public static explicit operator OrderState(ComOrderState cos)

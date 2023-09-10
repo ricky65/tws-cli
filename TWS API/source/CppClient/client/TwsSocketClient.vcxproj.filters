@@ -18,9 +18,6 @@
     <ClCompile Include="StdAfx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EReaderWMSignal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EReaderOSSignal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,6 +75,9 @@
     <ClCompile Include="SoftDollarTier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EOrderDecoder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TwsSocketClient.def">
@@ -96,13 +96,7 @@
     <ClInclude Include="EPosixClientSocketPlatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="StdAfx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EReaderWMSignal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EReaderOSSignal.h">
@@ -145,9 +139,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ScannerSubscription.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="shared_ptr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TagValue.h">
@@ -205,6 +196,54 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SoftDollarTier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DepthMktDataDescription.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FamilyCode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TickAttrib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NewsProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PriceIncrement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HistoricalTick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HistoricalTickBidAsk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HistoricalTickLast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EWrapper_prototypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HistogramEntry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TickAttribBidAsk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TickAttribLast.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="platformspecific.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EOrderDecoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EClientException.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

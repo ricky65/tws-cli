@@ -1,3 +1,6 @@
+/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 package apidemo;
 
 import java.awt.FlowLayout;
@@ -25,10 +28,10 @@ public class ConditionsPanel extends OnOKPanel {
 	 */
 	private final JDialog parentDlg;
 	private final Order m_order;
-	final ConditionsModel m_conditionList;
-	final JTable m_conditions;
-	final TCombo<String> m_cancelOrder = new TCombo<String>("Submit order", "Cancel order");
-	final JCheckBox m_ignoreRth = new JCheckBox("Allow condition to be satisfied and activate order outside of regular trading hours");
+	private final ConditionsModel m_conditionList;
+	private final JTable m_conditions;
+	private final TCombo<String> m_cancelOrder = new TCombo<>("Submit order", "Cancel order");
+	private final JCheckBox m_ignoreRth = new JCheckBox("Allow condition to be satisfied and activate order outside of regular trading hours");
 
 	public ConditionsPanel(JDialog parentDlg, Order order, final ContractLookuper lookuper) {
 		this.parentDlg = parentDlg;
@@ -60,7 +63,7 @@ public class ConditionsPanel extends OnOKPanel {
 			@Override public void mouseExited(MouseEvent e) { }
 		});
 		
-		TCombo<String> comboBox = new TCombo<String>("and", "or");
+		TCombo<String> comboBox = new TCombo<>("and", "or");
 		DefaultCellEditor editor = new DefaultCellEditor(comboBox);		
 
 		m_conditions.getColumnModel().getColumn(1).setCellEditor(editor);

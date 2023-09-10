@@ -1,20 +1,14 @@
-﻿/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using IBSampleApp.messages;
+
 using IBApi;
 
 namespace IBSampleApp.ui
 {
-    public partial class MarginDialog : Form
+    partial class MarginDialog : Form
     {
         delegate void UpdateMarginInformationDelegate(OrderState state);
 
@@ -25,23 +19,36 @@ namespace IBSampleApp.ui
 
         public void FillAndDisplay(OrderState state)
         {
-            this.equityWithLoanResult.Text = state.EquityWithLoan.ToString();
-            this.initialMarginResult.Text = state.InitMargin.ToString();
-            this.maintenanceMarginResult.Text = state.MaintMargin.ToString();
+            equityWithLoanBefore.Text = Util.formatDoubleString(state.EquityWithLoanBefore);
+            initialMarginBefore.Text = Util.formatDoubleString(state.InitMarginBefore);
+            maintenanceMarginBefore.Text = Util.formatDoubleString(state.MaintMarginBefore);
+            equityWithLoanChange.Text = Util.formatDoubleString(state.EquityWithLoanChange);
+            initialMarginChange.Text = Util.formatDoubleString(state.InitMarginChange);
+            maintenanceMarginChange.Text = Util.formatDoubleString(state.MaintMarginChange);
+            equityWithLoanAfter.Text = Util.formatDoubleString(state.EquityWithLoanAfter);
+            initialMarginAfter.Text = Util.formatDoubleString(state.InitMarginAfter);
+            maintenanceMarginAfter.Text = Util.formatDoubleString(state.MaintMarginAfter);
         }
 
         public void UpdateMarginInformation(OrderState state)
         {
             FillAndDisplay(state);
-            this.ShowDialog();  
+            ShowDialog();  
         }
 
         private void acceptMarginButton_Click(object sender, EventArgs e)
         {
-            this.equityWithLoanResult.Text = "";
-            this.initialMarginResult.Text = "";
-            this.maintenanceMarginResult.Text = "";
-            this.Visible = false;
+            equityWithLoanBefore.Text = "";
+            initialMarginBefore.Text = "";
+            maintenanceMarginBefore.Text = "";
+            equityWithLoanChange.Text = "";
+            initialMarginChange.Text = "";
+            maintenanceMarginChange.Text = "";
+            equityWithLoanAfter.Text = "";
+            initialMarginAfter.Text = "";
+            maintenanceMarginAfter.Text = "";
+            Visible = false;
         }
+
     }
 }

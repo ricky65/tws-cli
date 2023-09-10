@@ -1,3 +1,6 @@
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
+ * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
+
 #include "StdAfx.h"
 #include "OrderCondition.h"
 #include "executioncondition.h"
@@ -20,7 +23,7 @@ const char* OrderCondition::readExternal(const char* ptr, const char* endPtr) {
 }
 
 void OrderCondition::writeExternal(std::ostream & msg) const {
-	ENCODE_FIELD(conjunctionConnection() ? "a" : "o")
+	ENCODE_FIELD(conjunctionConnection() ? std::string("a") : std::string("o"))
 }
 
 std::string OrderCondition::toString() {

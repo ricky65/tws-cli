@@ -1,4 +1,4 @@
-/* Copyright (C) 2013 Interactive Brokers LLC. All rights reserved.  This code is subject to the terms
+﻿/* Copyright (C) 2019 Interactive Brokers LLC. All rights reserved. This code is subject to the terms
  * and conditions of the IB API Non-Commercial License or the IB API Commercial License, as applicable. */
 #include "StdAfx.h"
 
@@ -22,6 +22,39 @@
 	/*
      * Usually, the easiest way to define a Stock/CASH contract is through these four attributes.
      */
+Contract ContractSamples::IBMBond(){
+	//! [IBM bond contract]
+	Contract contract;
+	contract.symbol = "IBM";
+	contract.secType = "BOND";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [IBM bond contract]
+	return contract;
+}
+
+Contract ContractSamples::IBKRStk(){
+	//! [IBKR contract]
+	Contract contract;
+	contract.symbol = "IBKR";
+	contract.secType = "STK";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [IBKR contract]
+	return contract;
+}
+
+Contract ContractSamples::HKStk(){
+	//! [1@SEHK contract]
+	Contract contract;
+	contract.symbol = "1";
+	contract.secType = "STK";
+	contract.currency = "HKD";
+	contract.exchange = "SEHK";
+	//! [1@SEHK contract]
+	return contract;
+}
+
 Contract ContractSamples::EurGbpFx(){
 	//! [cashcontract]
 	Contract contract;
@@ -55,12 +88,46 @@ Contract ContractSamples::CFD(){
 	return contract;
 }
 
+Contract ContractSamples::USStockCFD(){
+	//! [usstockcfdcontract]
+	Contract contract;
+	contract.symbol = "IBM";
+	contract.secType = "CFD";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [usstockcfdcontract]
+	return contract;
+}
+
+Contract ContractSamples::EuropeanStockCFD(){
+	//! [europeanstockcfdcontract]
+	Contract contract;
+	contract.symbol = "BMW";
+	contract.secType = "CFD";
+	contract.currency = "EUR";
+	contract.exchange = "SMART";
+	//! [europeanstockcfdcontract]
+	return contract;
+}
+
+Contract ContractSamples::CashCFD(){
+	//! [cashcfdcontract]
+	Contract contract;
+	contract.symbol = "EUR";
+	contract.secType = "CFD";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [cashcfdcontract]
+	return contract;
+}
+
 Contract ContractSamples::EuropeanStock(){
 	Contract contract;
-    contract.symbol = "SMTPC";
+    contract.symbol = "NOKIA";
     contract.secType = "STK";
     contract.currency = "EUR";
-    contract.exchange = "BATEEN";
+    contract.exchange = "SMART";
+	contract.primaryExchange = "HEX";
     return contract;
 }
 
@@ -89,9 +156,29 @@ Contract ContractSamples::USStock(){
 	return contract;
 }
 
+Contract ContractSamples::etf() {
+	//! [etfcontract]
+	Contract contract;
+	contract.symbol = "QQQ";
+	contract.secType = "STK";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	//! [etfcontract]
+	return contract;
+}
+
 Contract ContractSamples::USStockAtSmart(){
 	Contract contract;
-	contract.symbol = "IBKR";
+	contract.symbol = "IBM";
+	contract.secType = "STK";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+	return contract;
+}
+
+Contract ContractSamples::IBMUSStockAtSmart(){
+	Contract contract;
+	contract.symbol = "IBM";
 	contract.secType = "STK";
 	contract.currency = "USD";
 	contract.exchange = "SMART";
@@ -101,11 +188,12 @@ Contract ContractSamples::USStockAtSmart(){
 Contract ContractSamples::USStockWithPrimaryExch(){
 	//! [stkcontractwithprimary]
 	Contract contract;
-	contract.symbol = "MSFT";
+	contract.symbol = "AAPL";
 	contract.secType = "STK";
 	contract.currency = "USD";
 	contract.exchange = "SMART";
-	//Specify the Primary Exchange attribute to avoid contract ambiguity
+	// Specify the Primary Exchange attribute to avoid contract ambiguity
+	// (there is an ambiguity because there is also a MSFT contract with primary exchange = "AEB")
 	contract.primaryExchange = "ISLAND";
 	//! [stkcontractwithprimary]
 	return contract;
@@ -126,7 +214,7 @@ Contract ContractSamples::BondWithCusip() {
 Contract ContractSamples::Bond() {
 	//! [bond]
 	Contract contract;
-	contract.conId = 147554578;
+	contract.conId = 285191782;
 	contract.exchange = "SMART";
 	//! [bond]
 	return contract;
@@ -224,15 +312,30 @@ Contract ContractSamples::OptionWithTradingClass(){
 /*
  * Using the contract's own symbol (localSymbol) can greatly simplify a contract description
  */
-Contract ContractSamples::OptionWithLoacalSymbol(){
+Contract ContractSamples::OptionWithLocalSymbol(){
 	//! [optcontract_localsymbol]
 	Contract contract;
 	//Watch out for the spaces within the local symbol!
-	contract.localSymbol = "C DBK  DEC 20  1600";
+	contract.localSymbol = "P BMW  JUL 20  4650";
 	contract.secType = "OPT";
 	contract.exchange = "DTB";
 	contract.currency = "EUR";
 	//! [optcontract_localsymbol]
+	return contract;
+}
+
+/*
+ * Dutch Warrants (IOPTs) can be defined using the local symbol or conid
+ */
+
+Contract ContractSamples::DutchWarrant(){
+	//! [ioptcontract]
+	Contract contract;
+	contract.localSymbol = "B881G";
+	contract.secType = "IOPT";
+	contract.exchange = "SBF";
+	contract.currency = "EUR";
+	//! [ioptcontract]
 	return contract;
 }
 
@@ -246,7 +349,7 @@ Contract ContractSamples::SimpleFuture(){
 	contract.secType = "FUT";
 	contract.exchange = "GLOBEX";
 	contract.currency = "USD";
-	contract.lastTradeDateOrContractMonth = "201612";
+	contract.lastTradeDateOrContractMonth = "201803";
 	//! [futcontract]
 	return contract;
 }
@@ -299,13 +402,29 @@ Contract ContractSamples::FuturesOnOptions(){
 	contract.secType = "FOP";
 	contract.exchange = "GLOBEX";
 	contract.currency = "USD";
-	contract.lastTradeDateOrContractMonth = "20160617";
-	contract.strike = 1810;
+	contract.lastTradeDateOrContractMonth = "20180316";
+	contract.strike = 2800;
 	contract.right = "C";
 	contract.multiplier = "50";
 	//! [fopcontract]
 	return contract;
 }
+
+Contract ContractSamples::Warrants(){
+	//! [warcontract]
+	Contract contract;
+	contract.symbol = "GOOG";
+	contract.secType = "WAR";
+	contract.exchange = "FWB";
+	contract.currency = "EUR";
+	contract.lastTradeDateOrContractMonth = "20201117";
+	contract.strike = 1500.0;
+	contract.right = "C";
+	contract.multiplier = "0.01";
+	//! [warcontract]
+	return contract;
+}
+
 
 	/*
      * It is also possible to define contracts based on their ISIN (IBKR STK sample).
@@ -444,6 +563,33 @@ Contract ContractSamples::FutureComboContract(){
 	return contract;
 }
 
+Contract ContractSamples::SmartFutureComboContract(){
+	//! [smartfuturespread]
+	Contract contract;
+	contract.symbol = "WTI"; // WTI,COIL spread. Symbol can be defined as first leg symbol ("WTI") or currency ("USD").
+	contract.secType = "BAG";
+	contract.currency = "USD";
+	contract.exchange = "SMART";
+
+	ComboLegSPtr leg1(new ComboLeg);
+	leg1->conId = 55928698; // WTI future June 2017
+	leg1->action = "BUY";
+	leg1->ratio = 1;
+	leg1->exchange = "IPE";
+
+	ComboLegSPtr leg2(new ComboLeg);
+	leg2->conId = 55850663; // COIL future June 2017
+	leg2->action = "SELL";
+	leg2->ratio = 1;
+	leg2->exchange = "IPE";
+
+	contract.comboLegs.reset(new Contract::ComboLegList());
+	contract.comboLegs->push_back(leg1);
+	contract.comboLegs->push_back(leg2);
+	//! [smartfuturespread]
+	return contract;
+}
+
 Contract ContractSamples::InterCmdtyFuturesContract(){
 	//! [intcmdfutcontract]
 	Contract contract;
@@ -476,7 +622,7 @@ Contract ContractSamples::NewsFeedForQuery()
 	//! [newsfeedforquery]
 	Contract contract;
 	contract.secType = "NEWS";
-	contract.exchange = "BT"; //Briefing Trader
+	contract.exchange = "BRF"; //Briefing Trader
 	//! [newsfeedforquery]
 	return contract;
 }
@@ -485,9 +631,9 @@ Contract ContractSamples::BTbroadtapeNewsFeed()
 {
 	//! [newscontractbt]
 	Contract contract;
-	contract.symbol = "BT:BT_ALL"; //BroadTape All News
+	contract.symbol = "BRF:BRF_ALL"; //BroadTape All News
 	contract.secType = "NEWS";
-	contract.exchange = "BT"; //Briefing Trader
+	contract.exchange = "BRF"; //Briefing Trader
 	//! [newscontractbt]
 	return contract;
 }
@@ -514,13 +660,56 @@ Contract ContractSamples::FLYbroadtapeNewsFeed()
 	return contract;
 }
 
-Contract ContractSamples::MTbroadtapeNewsFeed()
+Contract ContractSamples::ContFut()
 {
-	//! [newscontractmt]
+	//! [continuousfuturescontract]
 	Contract contract;
-	contract.symbol = "MT:MT_ALL"; //BroadTape All News
-	contract.secType = "NEWS";
-	contract.exchange = "MT"; //Midnight Trader
-	//! [newscontractmt]
+	contract.symbol = "ES";
+	contract.secType = "CONTFUT";
+	contract.exchange = "GLOBEX";
+	//! [continuousfuturescontract]
+	return contract;
+}
+
+Contract ContractSamples::ContAndExpiringFut(){
+	//! [contandexpiringfut]
+	Contract contract;
+	contract.symbol = "ES";
+	contract.secType = "FUT+CONTFUT";
+	contract.exchange = "GLOBEX";
+	//! [contandexpiringfut]
+	return contract;
+}
+
+Contract ContractSamples::JefferiesContract(){
+	//! [jefferies_contract]
+	Contract contract;
+	contract.symbol = "AAPL";
+	contract.secType = "STK";
+	contract.exchange = "JEFFALGO"; // must be direct-routed to JEFALGO
+	contract.currency = "USD"; // only available for US stocks
+	//! [jefferies_contract]
+	return contract;
+}
+
+Contract ContractSamples::CSFBContract(){
+	//! [csfb_contract]
+	Contract contract;
+	contract.symbol = "IBKR";
+	contract.secType = "STK";
+	contract.exchange = "CSFBALGO";
+	contract.currency = "USD";
+	//! [csfb_contract]
+	return contract;
+}
+
+Contract ContractSamples::IBKRATSContract(){
+	//! [ibkrats_contract]
+	Contract contract;
+	contract.symbol = "QQQ";
+	contract.secType = "STK";
+	contract.exchange = "IBKRATS";
+	contract.currency = "USD";
+	//! [ibkrats_contract]
 	return contract;
 }
