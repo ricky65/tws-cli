@@ -157,13 +157,13 @@ namespace TradeBot.TwsAbstractions
             ManagedAccounts?.Invoke(accountsList);
         }
 
-        public event Action<int, int, double, double, double, double, double, double, double, double> TickOptionCommunication;
+        public event Action<int, int, int, double, double, double, double, double, double, double, double> TickOptionCommunication;
 
         void EWrapper.tickOptionComputation(int tickerId, int field, int tickAttrib, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
         {
-            ShowDebugMessage(tickerId, TickType.getField(field), impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+            ShowDebugMessage(tickerId, TickType.getField(field), tickAttrib, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
 
-            TickOptionCommunication?.Invoke(tickerId, field, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+            TickOptionCommunication?.Invoke(tickerId, field, tickAttrib, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
         }
 
         public event Action<int, string, string, string, string> AccountSummary;
