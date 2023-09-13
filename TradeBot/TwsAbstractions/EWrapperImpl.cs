@@ -76,22 +76,22 @@ namespace TradeBot.TwsAbstractions
             CurrentTime?.Invoke(time);
         }
 
-        public event Action<int, int, double, int> TickPrice;
+        public event Action<int, int, double, TickAttrib> TickPrice;
 
-        void EWrapper.tickPrice(int tickerId, int tickType, double price, int canAutoExecute)
+        void EWrapper.tickPrice(int tickerId, int field, double price, TickAttrib attribs)
         {
-            ShowDebugMessage(tickerId, TickType.getField(tickType), price, canAutoExecute);
+            ShowDebugMessage(tickerId, TickType.getField(field), price, attribs);
 
-            TickPrice?.Invoke(tickerId, tickType, price, canAutoExecute);
+            TickPrice?.Invoke(tickerId, field, price, attribs);
         }
 
-        public event Action<int, int, int> TickSize;
+        public event Action<int, int, long> TickSize;
 
-        void EWrapper.tickSize(int tickerId, int tickType, int size)
+        void EWrapper.tickSize(int tickerId, int field, long size)
         {
-            ShowDebugMessage(tickerId, TickType.getField(tickType), size);
+            ShowDebugMessage(tickerId, TickType.getField(field), size);
 
-            TickSize?.Invoke(tickerId, tickType, size);
+            TickSize?.Invoke(tickerId, field, size);
         }
 
         public event Action<int, int, string> TickString;
@@ -139,13 +139,13 @@ namespace TradeBot.TwsAbstractions
             NextValidId?.Invoke(orderId);
         }
 
-        public event Action<int, UnderComp> DeltaNeutralValidation;
+        public event Action<int, DeltaNeutralContract> DeltaNeutralValidation;
 
-        void EWrapper.deltaNeutralValidation(int reqId, UnderComp underComp)
+        void EWrapper.deltaNeutralValidation(int reqId, DeltaNeutralContract deltaNeutralContract)
         {
-            ShowDebugMessage(reqId, underComp);
+            ShowDebugMessage(reqId, deltaNeutralContract);
 
-            DeltaNeutralValidation?.Invoke(reqId, underComp);
+            DeltaNeutralValidation?.Invoke(reqId, deltaNeutralContract);
         }
 
         public event Action<string> ManagedAccounts;
@@ -157,13 +157,13 @@ namespace TradeBot.TwsAbstractions
             ManagedAccounts?.Invoke(accountsList);
         }
 
-        public event Action<int, int, double, double, double, double, double, double, double, double> TickOptionCommunication;
+        public event Action<int, int, int, double, double, double, double, double, double, double, double> TickOptionCommunication;
 
-        void EWrapper.tickOptionComputation(int tickerId, int tickType, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
+        void EWrapper.tickOptionComputation(int tickerId, int field, int tickAttrib, double impliedVolatility, double delta, double optPrice, double pvDividend, double gamma, double vega, double theta, double undPrice)
         {
-            ShowDebugMessage(tickerId, TickType.getField(tickType), impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+            ShowDebugMessage(tickerId, TickType.getField(field), tickAttrib, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
 
-            TickOptionCommunication?.Invoke(tickerId, tickType, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
+            TickOptionCommunication?.Invoke(tickerId, field, tickAttrib, impliedVolatility, delta, optPrice, pvDividend, gamma, vega, theta, undPrice);
         }
 
         public event Action<int, string, string, string, string> AccountSummary;
@@ -220,13 +220,13 @@ namespace TradeBot.TwsAbstractions
             AccountDownloadEnd?.Invoke(account);
         }
 
-        public event Action<int, string, double, double, double, int, int, double, int, string> OrderStatus;
+        public event Action<int, string, double, double, double, int, int, double, int, string, double> OrderStatus;
 
-        void EWrapper.orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld)
+        void EWrapper.orderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice)
         {
-            ShowDebugMessage(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
+            ShowDebugMessage(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
 
-            OrderStatus?.Invoke(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld);
+            OrderStatus?.Invoke(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
         }
 
         public event Action<int, Contract, Order, OrderState> OpenOrder;
@@ -301,13 +301,13 @@ namespace TradeBot.TwsAbstractions
             FundamentalData?.Invoke(reqId, data);
         }
 
-        public event Action<int, string, double, double, double, double, int, int, double, bool> HistoricalData;
+        public event Action<int, Bar> HistoricalData;
 
-        void EWrapper.historicalData(int reqId, string date, double open, double high, double low, double close, int volume, int count, double WAP, bool hasGaps)
+        void EWrapper.historicalData(int reqId, Bar bar)
         {
-            ShowDebugMessage(reqId, date, open, high, low, close, volume, count, WAP, hasGaps);
+            ShowDebugMessage(reqId, bar);
 
-            HistoricalData?.Invoke(reqId, date, open, high, low, close, volume, count, WAP, hasGaps);
+            HistoricalData?.Invoke(reqId, bar);
         }
 
         public event Action<int, string, string> HistoricalDataEnd;
@@ -328,22 +328,22 @@ namespace TradeBot.TwsAbstractions
             MarketDataType?.Invoke(reqId, marketDataType);
         }
 
-        public event Action<int, int, int, int, double, int> UpdateMktDepth;
+        public event Action<int, int, int, int, double, long> UpdateMktDepth;
 
-        void EWrapper.updateMktDepth(int tickerId, int position, int operation, int side, double price, int size)
+        void EWrapper.updateMktDepth(int tickerId, int position, int operation, int side, double price, long size)
         {
             ShowDebugMessage(tickerId, position, operation, side, price, size);
 
             UpdateMktDepth?.Invoke(tickerId, position, operation, side, price, size);
         }
 
-        public event Action<int, int, string, int, int, double, int> UpdateMktDepthL2;
+        public event Action<int, int, string, int, int, double, long, bool> UpdateMktDepthL2;
 
-        void EWrapper.updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, int size)
+        void EWrapper.updateMktDepthL2(int tickerId, int position, string marketMaker, int operation, int side, double price, long size, bool isSmartDepth)
         {
-            ShowDebugMessage(tickerId, position, marketMaker, operation, side, price, size);
+            ShowDebugMessage(tickerId, position, marketMaker, operation, side, price, size, isSmartDepth);
 
-            UpdateMktDepthL2?.Invoke(tickerId, position, marketMaker, operation, side, price, size);
+            UpdateMktDepthL2?.Invoke(tickerId, position, marketMaker, operation, side, price, size, isSmartDepth);
         }
 
         public event Action<int, int, string, string> UpdateNewsBulletin;
@@ -552,6 +552,160 @@ namespace TradeBot.TwsAbstractions
             SoftDollarTiers?.Invoke(reqId, tiers);
         }
 
+        public event Action<int, double, string, int> TickReqParams;
+        void EWrapper.tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+            ShowDebugMessage(tickerId, minTick, bboExchange, snapshotPermissions);
+            //IO.ShowMessage("tickReqParams: id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, Util.DoubleMaxString(minTick), bboExchange, Util.IntMaxString(snapshotPermissions));
+
+            TickReqParams?.Invoke(tickerId, minTick, bboExchange, snapshotPermissions);
+        }
+
+        void EWrapper.historicalDataUpdate(int reqId, Bar bar)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.familyCodes(FamilyCode[] familyCodes)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.symbolSamples(int reqId, ContractDescription[] contractDescriptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.mktDepthExchanges(DepthMktDataDescription[] depthMktDataDescriptions)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.tickNews(int tickerId, long timeStamp, string providerCode, string articleId, string headline, string extraData)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.newsProviders(NewsProvider[] newsProviders)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.newsArticle(int requestId, int articleType, string articleText)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.historicalNews(int requestId, string time, string providerCode, string articleId, string headline)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.historicalNewsEnd(int requestId, bool hasMore)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.headTimestamp(int reqId, string headTimestamp)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.histogramData(int reqId, HistogramEntry[] data)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.rerouteMktDataReq(int reqId, int conId, string exchange)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.rerouteMktDepthReq(int reqId, int conId, string exchange)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.marketRule(int marketRuleId, PriceIncrement[] priceIncrements)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.pnl(int reqId, double dailyPnL, double unrealizedPnL, double realizedPnL)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.pnlSingle(int reqId, int pos, double dailyPnL, double unrealizedPnL, double realizedPnL, double value)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.historicalTicks(int reqId, HistoricalTick[] ticks, bool done)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.historicalTicksBidAsk(int reqId, HistoricalTickBidAsk[] ticks, bool done)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.historicalTicksLast(int reqId, HistoricalTickLast[] ticks, bool done)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.tickByTickAllLast(int reqId, int tickType, long time, double price, long size, TickAttribLast tickAttribLast, string exchange, string specialConditions)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.tickByTickBidAsk(int reqId, long time, double bidPrice, double askPrice, long bidSize, long askSize, TickAttribBidAsk tickAttribBidAsk)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.tickByTickMidPoint(int reqId, long time, double midPoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.orderBound(long orderId, int apiClientId, int apiOrderId)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.completedOrder(Contract contract, Order order, OrderState orderState)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.completedOrdersEnd()
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.replaceFAEnd(int reqId, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.wshMetaData(int reqId, string dataJson)
+        {
+            throw new NotImplementedException();
+        }
+
+        void EWrapper.wshEventData(int reqId, string dataJson)
+        {
+            throw new NotImplementedException();
+        }
+
         private void ShowDebugMessage(params object[] parameterValues)
         {
             StackTrace stackTrace = new StackTrace();
@@ -574,6 +728,6 @@ namespace TradeBot.TwsAbstractions
                     methodName,
                     parameters.ToPrettyString());
             }
-        }
+        }       
     }
 }

@@ -630,7 +630,7 @@ namespace TradeBot
             {
                 tickerId = NumberGenerator.NextRandomInt();
                 tickerContract = ContractFactory.CreateStockContract(newValue);
-                clientSocket.reqMktData(tickerId, tickerContract, "", false, null);
+                clientSocket.reqMktData(tickerId, tickerContract, "", false, false, null);
             }
             else
             {
@@ -691,12 +691,12 @@ namespace TradeBot
             nextValidOrderId = orderId;
         }
 
-        private void OnTickPrice(int tickId, int field, double price, int canAutoExecute)
+        private void OnTickPrice(int tickId, int field, double price, TickAttrib canAutoExecute)
         {
             UpdateTickData(tickId, field, price);
         }
 
-        private void OnTickSize(int tickId, int field, int size)
+        private void OnTickSize(int tickId, int field, long size)
         {
             UpdateTickData(tickId, field, size);
         }
