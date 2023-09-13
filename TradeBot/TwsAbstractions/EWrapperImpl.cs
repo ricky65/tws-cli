@@ -552,6 +552,14 @@ namespace TradeBot.TwsAbstractions
             SoftDollarTiers?.Invoke(reqId, tiers);
         }
 
+        public event Action<int, double, string, int> TickReqParams;
+        void EWrapper.tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
+        {
+            IO.ShowMessage("tickReqParams: id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, Util.DoubleMaxString(minTick), bboExchange, Util.IntMaxString(snapshotPermissions));
+
+            TickReqParams?.Invoke(tickerId, minTick, bboExchange, snapshotPermissions);
+        }
+
         void EWrapper.historicalDataUpdate(int reqId, Bar bar)
         {
             throw new NotImplementedException();
@@ -578,11 +586,6 @@ namespace TradeBot.TwsAbstractions
         }
 
         void EWrapper.smartComponents(int reqId, Dictionary<int, KeyValuePair<string, char>> theMap)
-        {
-            throw new NotImplementedException();
-        }
-
-        void EWrapper.tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
             throw new NotImplementedException();
         }
