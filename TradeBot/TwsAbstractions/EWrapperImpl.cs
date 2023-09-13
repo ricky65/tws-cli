@@ -555,7 +555,8 @@ namespace TradeBot.TwsAbstractions
         public event Action<int, double, string, int> TickReqParams;
         void EWrapper.tickReqParams(int tickerId, double minTick, string bboExchange, int snapshotPermissions)
         {
-            IO.ShowMessage("tickReqParams: id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, Util.DoubleMaxString(minTick), bboExchange, Util.IntMaxString(snapshotPermissions));
+            ShowDebugMessage(tickerId, minTick, bboExchange, snapshotPermissions);
+            //IO.ShowMessage("tickReqParams: id={0} minTick = {1} bboExchange = {2} snapshotPermissions = {3}", tickerId, Util.DoubleMaxString(minTick), bboExchange, Util.IntMaxString(snapshotPermissions));
 
             TickReqParams?.Invoke(tickerId, minTick, bboExchange, snapshotPermissions);
         }
