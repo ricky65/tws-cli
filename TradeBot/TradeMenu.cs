@@ -51,16 +51,20 @@ namespace TradeBot
 
             addMenuOption(entries.ClosePosition, controller.ClosePositionCommand);
             //Rick
+            addMenuOption(entries.CloseTwoThirdsPosition, controller.CloseTwoThirdsPositionCommand);
             addMenuOption(entries.CloseHalfPosition, controller.CloseHalfPositionCommand);
             addMenuOption(entries.CloseThirdPosition, controller.CloseThirdPositionCommand);
-            addMenuOption(entries.CloseTwoThirdsPosition, controller.CloseTwoThirdsPositionCommand);
+            addMenuOption(entries.CloseQuarterPosition, controller.CloseQuarterPositionCommand);
+            
             addMenuOptionDivider();
             addMenuOption(entries.ReversePosition, controller.ReversePositionCommand);
             addMenuOptionDivider();
             //Rick
             addMenuOption(entries.LimitTakeProfitHalf, controller.LimitTakeProfitHalfCommand);
             addMenuOption(entries.LimitTakeProfitThird, controller.LimitTakeProfitThirdCommand);
-            addMenuOptionDivider();
+            addMenuOption(entries.LimitTakeProfitQuarter, controller.LimitTakeProfitQuarterCommand);
+
+           addMenuOptionDivider();
             //Rick
             addMenuOption(entries.CancelLastOrder, controller.CancelLastOrderCommand);
             addMenuOptionDivider();

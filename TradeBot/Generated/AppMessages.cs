@@ -49,12 +49,17 @@ namespace TradeBot.Generated
         public IList<string> ClosePosition { get; set; }
 
         //Rick
-        [JsonProperty("closeHalfPosition")]
-        public IList<string> CloseHalfPosition { get; set; }
-        [JsonProperty("closeThirdPosition")]
-        public IList<string> CloseThirdPosition { get; set; }
         [JsonProperty("closeTwoThirdsPosition")]
         public IList<string> CloseTwoThirdsPosition { get; set; }
+
+        [JsonProperty("closeHalfPosition")]
+        public IList<string> CloseHalfPosition { get; set; }
+
+        [JsonProperty("closeThirdPosition")]
+        public IList<string> CloseThirdPosition { get; set; }
+
+        [JsonProperty("closeQuarterPosition")]
+        public IList<string> CloseQuarterPosition { get; set; }
 
         //rick
         [JsonProperty("limitTakeProfitHalf")]
@@ -62,6 +67,9 @@ namespace TradeBot.Generated
 
         [JsonProperty("limitTakeProfitThird")]
         public IList<string> LimitTakeProfitThird { get; set; }
+
+        [JsonProperty("limitTakeProfitQuarter")]
+        public IList<string> LimitTakeProfitQuarter { get; set; }
 
         [JsonProperty("cancelLastOrder")]
         public IList<string> CancelLastOrder { get; set; }

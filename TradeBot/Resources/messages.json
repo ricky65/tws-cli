@@ -31,15 +31,20 @@
     "sell": [ "s", "[buyStopPrice] Place limit order to Sell at Bid -3 cents with attached Stop Loss" ],
     "buystop": [ "bs", "[buyStopPrice] [sellStopPrice] Place LONG Buy Stop Limit order at buyStopPrice +11 cents Limit with attached Stop Loss" ],
     "sellstop": [ "ss", "[sellStopPrice] [buyStopPrice] Place SHORT Sell Stop Limit order at sellStopPrice -11 cents Limit with attached Stop Loss" ],
-    "reversePosition": [ "rev", "Place limit order to Reverse position" ],
+
     "closePosition": [ "c", "Place limit order to Close 100% of position" ],
+    "closeTwoThirdsPosition": [ "ctt", "Place limit order to Close 67% of position" ],
     "closeHalfPosition": [ "cs", "Place limit order to Close 50% of position" ],
     "closeThirdPosition": [ "ct", "Place limit order to Close 33% of position" ],
-    "closeTwoThirdsPosition": [ "ctt", "Place limit order to Close 67% of position" ],
+    "closeQuarterPosition": [ "cq", "Place limit order to Close 25% of position" ],
+
+    "reversePosition": [ "rev", "Place limit order to Reverse position" ],
+
     "limitTakeProfitHalf": [ "tph", "[limitPrice] Place Limit Order to Take Profit on 50% of position" ],
     "limitTakeProfitThird": [ "tpt", "[limitPrice] Place Limit Order to Take Profit on 33% of position" ],
+    "limitTakeProfitQuarter": [ "tpq", "[limitPrice] Place Limit Order to Take Profit on 25% of position" ],
 
-    "cancelLastOrder":  ["xc", "Cancel last order"],
+    "cancelLastOrder": [ "xc", "Cancel last order" ],
 
     "listPositions": [ "a", "List positions" ],
 

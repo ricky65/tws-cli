@@ -226,6 +226,11 @@ namespace TradeBot
             await ScalePositionAsync(-1);
         }
 
+        public async Task CloseTwoThirdsPositionCommand(string[] args)
+        {
+            await ScalePositionAsync(-0.67);
+        }     
+
         public async Task CloseHalfPositionCommand(string[] args)
         {
             await ScalePositionAsync(-0.5);
@@ -236,9 +241,9 @@ namespace TradeBot
             await ScalePositionAsync(-0.33);
         }
 
-        public async Task CloseTwoThirdsPositionCommand(string[] args)
+        public async Task CloseQuarterPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.67);
+            await ScalePositionAsync(-0.25);
         }
 
         public async Task LimitTakeProfitHalfCommand(string[] args)
@@ -264,6 +269,21 @@ namespace TradeBot
             if (canConvert)
             {
                 await LimitTakeProfitAsync(0.33, limitPrice);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public async Task LimitTakeProfitQuarterCommand(string[] args)
+        {
+            double limitPrice = 0.0;
+            bool canConvert = double.TryParse(args[0], out limitPrice);
+
+            if (canConvert)
+            {
+                await LimitTakeProfitAsync(0.25, limitPrice);
             }
             else
             {
