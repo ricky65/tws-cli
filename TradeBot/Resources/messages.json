@@ -6,7 +6,7 @@
   "titleShares": "Shares: {0}",
   "titlePositionSize": "Pos: {0}",
   "titleLastFormat": "Last: {0}",
-  "titleBidAskFormat": "Bid/Ask: {0} {1} x {2} {3}",
+  "titleBidAskFormat": "Bid/Ask: {0} x {1} ({2} x {3})",
   "titleVolumeFormat": "Vol: {0}",
   "titleCloseFormat": "Close: {0}",
   "titleOpenFormat": "Open: {0}",

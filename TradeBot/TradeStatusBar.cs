@@ -72,8 +72,8 @@ namespace TradeBot
                 infoStrings.Add(string.Format(Messages.TitlePositionSize, positionSize));
 
                 infoStrings.Add(string.Format(Messages.TitleLastFormat, GetTickAsCurrencyString(TickType.LAST)));
-                infoStrings.Add(string.Format(Messages.TitleBidAskFormat, GetTickAsString(TickType.BID_SIZE), GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK), GetTickAsString(TickType.ASK_SIZE)));
-                infoStrings.Add(string.Format(Messages.TitleVolumeFormat, GetTickAsString(TickType.VOLUME)));
+                infoStrings.Add(string.Format(Messages.TitleBidAskFormat, GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK), GetTickAsCommaFormattedString(TickType.BID_SIZE), GetTickAsCommaFormattedString(TickType.ASK_SIZE)));
+                infoStrings.Add(string.Format(Messages.TitleVolumeFormat, GetTickAsCommaFormattedString(TickType.VOLUME)));
                 infoStrings.Add(string.Format(Messages.TitleCloseFormat, GetTickAsCurrencyString(TickType.CLOSE)));
                 infoStrings.Add(string.Format(Messages.TitleOpenFormat, GetTickAsCurrencyString(TickType.OPEN)));
             }
@@ -89,6 +89,11 @@ namespace TradeBot
         private string GetTickAsCurrencyString(int tickType)
         {
             return GetTickAsFormattedString(tickType, v => v.ToCurrencyString());
+        }
+
+        private string GetTickAsCommaFormattedString(int tickType)
+        {
+            return GetTickAsFormattedString(tickType, v => v.ToCommaFormattedNumberString());
         }
 
         private string GetTickAsFormattedString(int tickType, Func<double, string> messageFormatter)

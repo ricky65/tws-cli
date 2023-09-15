@@ -27,6 +27,11 @@ namespace TradeBot.Extensions
             return currencyValue.ToString("C", CultureInfo.GetCultureInfo("en-US"));
         }
 
+        public static string ToCommaFormattedNumberString(this double value)
+        {
+            return value.ToString("N0");
+        }
+
         public static string ToPrettyString(this object obj, int maxIndentLevel = 99, int indentLevel = 0)
         {
             // Formatting is not necessary for strings and value types such as bool, int, double, etc.
