@@ -161,7 +161,7 @@ namespace TradeBot
             double sellStopPrice = Double.Parse(args[0]);
 
             if (Validation.TickerSet(service)
-                && Validation.SharesSet(Shares)
+                //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
                 service.PlaceBuyLimitOrder(Shares, TickType.ASK, sellStopPrice);
@@ -177,7 +177,7 @@ namespace TradeBot
             double buyStopPrice = Double.Parse(args[0]);
             double sellStopPrice = Double.Parse(args[1]);
             if (Validation.TickerSet(service)
-                && Validation.SharesSet(Shares)
+                //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
                 service.PlaceBuyStopLimitOrder(Shares, TickType.ASK, buyStopPrice, sellStopPrice);
@@ -193,7 +193,7 @@ namespace TradeBot
             double sellStopPrice = Double.Parse(args[0]);
             double buyStopPrice = Double.Parse(args[1]);
             if (Validation.TickerSet(service)
-                && Validation.SharesSet(Shares)
+                //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
                 service.PlaceSellStopLimitOrder(Shares, TickType.BID, sellStopPrice, buyStopPrice);
@@ -207,7 +207,7 @@ namespace TradeBot
             double sellStopPrice = Double.Parse(args[0]);
 
             if (Validation.TickerSet(service)
-                && Validation.SharesSet(Shares)
+                //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
                 service.PlaceSellLimitOrder(Shares, TickType.BID, sellStopPrice);
