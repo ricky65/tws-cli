@@ -198,6 +198,15 @@ namespace TradeBot.Generated
         [JsonProperty("sharesPrompt")]
         public string SharesPrompt { get; set; }
 
+        [JsonProperty("buyStopPrompt")]
+        public string BuyStopPrompt { get; set; }
+
+        [JsonProperty("sellStopPrompt")]
+        public string SellStopPrompt { get; set; }
+
+        [JsonProperty("limitTakeProfitPrompt")]
+        public string LimitTakeProfitPrompt { get; set; }
+
         [JsonProperty("sharesSetFormat")]
         public string SharesSetFormat { get; set; }
 

@@ -83,6 +83,12 @@
   "cashPrompt": "Cash: ",
   "cashSetFormat": "Cash set to {0}",
 
+  "buyStopPrompt": "Buy Stop: ",
+
+  "sellStopPrompt": "Sell Stop: ",
+
+  "limitTakeProfitPrompt": "Take Profit Price: ",
+
   "listPositionsFormat": "{0} {1}, AvgCost: {2}, MktPrice: {3}, MktValue: {4}, UnPnL: {5}, RePnL: {6}, A: {7}",
   "positionNotFoundError": "Position not found",
   "positionsNotFoundError": "No positions found",
