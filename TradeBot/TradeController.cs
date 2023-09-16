@@ -162,7 +162,7 @@ namespace TradeBot
             string sellStopPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.SellStopPrompt);
             double sellStopPrice = Double.Parse(sellStopPriceInput);
 
-            if (Validation.Positive(sellStopPrice)
+            if (Validation.HasValue(sellStopPrice)
                 && Validation.TickerSet(service)
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
@@ -179,7 +179,7 @@ namespace TradeBot
             string buyStopPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.BuyStopPrompt);
             double buyStopPrice = Double.Parse(buyStopPriceInput);
 
-            if (Validation.Positive(buyStopPrice)
+            if (Validation.HasValue(buyStopPrice)
                 && Validation.TickerSet(service)
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
@@ -199,8 +199,8 @@ namespace TradeBot
             string sellStopPriceInput = IO.PromptForInputIfNecessary(args, 1, Messages.SellStopPrompt);
             double sellStopPrice = Double.Parse(sellStopPriceInput);
 
-            if (Validation.Positive(buyStopPrice)
-                && Validation.Positive(sellStopPrice)
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
                 && Validation.TickerSet(service)
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
@@ -220,8 +220,8 @@ namespace TradeBot
             string buyStopPriceInput = IO.PromptForInputIfNecessary(args, 1, Messages.BuyStopPrompt);
             double buyStopPrice = Double.Parse(buyStopPriceInput);
 
-            if (Validation.Positive(sellStopPrice)
-                && Validation.Positive(buyStopPrice)
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.HasValue(buyStopPrice)
                 && Validation.TickerSet(service)
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
@@ -267,7 +267,7 @@ namespace TradeBot
             string limitPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.LimitTakeProfitPrompt);
             double limitPrice = Double.Parse(limitPriceInput);
 
-            if (Validation.Positive(limitPrice))
+            if (Validation.HasValue(limitPrice))
             {
                 await LimitTakeProfitAsync(0.5, limitPrice);
             }
@@ -282,7 +282,7 @@ namespace TradeBot
             string limitPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.LimitTakeProfitPrompt);
             double limitPrice = Double.Parse(limitPriceInput);
 
-            if (Validation.Positive(limitPrice))
+            if (Validation.HasValue(limitPrice))
             {
                 await LimitTakeProfitAsync(0.33, limitPrice);
             }
@@ -297,7 +297,7 @@ namespace TradeBot
             string limitPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.LimitTakeProfitPrompt);
             double limitPrice = Double.Parse(limitPriceInput);
 
-            if (Validation.Positive(limitPrice))
+            if (Validation.HasValue(limitPrice))
             {
                 await LimitTakeProfitAsync(0.25, limitPrice);
             }
