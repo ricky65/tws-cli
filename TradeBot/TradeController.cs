@@ -93,6 +93,7 @@ namespace TradeBot
                 service.UseCFD = false;
 
                 service.TickerSymbol = tickerSymbol;
+                service.RequestStockContractDetails(tickerSymbol);//Rick
                 await SetInitialSharesAsync();
             }
         }
@@ -107,6 +108,8 @@ namespace TradeBot
                 service.UseCFD = true;
 
                 service.TickerSymbol = tickerSymbol;
+                service.RequestStockContractDetails(tickerSymbol);//Rick: We need stock contract for market data
+                service.RequestCFDContractDetails(tickerSymbol);//Rick
                 await SetInitialSharesAsync();
             }
         }

@@ -9,7 +9,7 @@ namespace TradeBot.TwsAbstractions
             return new Contract()
             {
                 Symbol = tickerSymbol.ToUpper(),
-                SecType = SecurityTypes.STK.ToString(), //Rick: Try CFD first and only use stock if CFD not available 
+                SecType = SecurityTypes.STK.ToString(), 
                 Currency = Currencies.USD.ToString(),
                 Exchange = Exchanges.SMART.ToString()
             };
