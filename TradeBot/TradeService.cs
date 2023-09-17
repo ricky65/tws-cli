@@ -746,7 +746,8 @@ namespace TradeBot
 
         public void OnContractDetails(int reqId, ContractDetails contractDetails)
         {
-            IO.ShowMessage("OnContractDetails. Req Id: " + reqId + "\n");
+            //IO.ShowMessage("OnContractDetails. Req Id: " + reqId + "\n");            
+            IO.ShowMessage("OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")\n");
 
             //Rick: USD Stock returned is always the first one. TWS Doc says:
             //"Invoking reqContractDetails with a Contract object which has currency = USD will only return US contracts, even if there are non-US instruments which have the USD currency."
@@ -777,10 +778,8 @@ namespace TradeBot
 
         public void OnContractDetailsEnd(int reqId)
         {
-            IO.ShowMessage("OnContractDetailsEnd. Req Id: " + reqId + "\n");
+            //IO.ShowMessage("OnContractDetailsEnd. Req Id: " + reqId + "\n");
         }
-
-
 
         #endregion
     }
