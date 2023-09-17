@@ -12,7 +12,7 @@ namespace TradeBot.TwsAbstractions
                 TotalQuantity = quantity,
                 LmtPrice = limitPrice,
                 OrderType = OrderTypes.Limit,
-                Tif = TimeInForce.DAY.ToString(),
+                Tif = nameof(TimeInForce.DAY),
                 Transmit = transmitNow, //Rick: only last child in the bracket has Transmit = true
                 OutsideRth = false
             };
@@ -28,7 +28,7 @@ namespace TradeBot.TwsAbstractions
                 LmtPrice = limitPrice,
                 AuxPrice = stopPrice,
                 OrderType = OrderTypes.StopLimit,
-                Tif = TimeInForce.DAY.ToString(),
+                Tif = nameof(TimeInForce.DAY),
                 Transmit = false, //Rick: only last child in the bracket has Transmit = true
                 TriggerMethod = (int)TriggerMethod.BidAsk, 
                 OutsideRth = false               
@@ -43,7 +43,7 @@ namespace TradeBot.TwsAbstractions
                 TotalQuantity = quantity,
                 AuxPrice = stopPrice,
                 OrderType = OrderTypes.Stop,
-                Tif = TimeInForce.DAY.ToString(),
+                Tif = nameof(TimeInForce.DAY),
                 Transmit = true, //Rick: only last child in the bracket has Transmit = true
                 TriggerMethod = (int)TriggerMethod.BidAsk, 
                 OutsideRth = false
