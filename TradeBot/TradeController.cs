@@ -323,24 +323,24 @@ namespace TradeBot
 
         public Task SetRisk(string[] args)
         {
-            double newRisk = 0.0;
-            bool canConvert = double.TryParse(args[0], out newRisk);
+            string newRiskInput = IO.PromptForInputIfNecessary(args, 0, Messages.NewRiskPrompt);
+            double newRisk = Double.Parse(newRiskInput);
 
-            if (canConvert == true)
+            if (Validation.HasValue(newRisk))
             {
-                if (newRisk > 0.1 && newRisk <= 3.0)
+                if (newRisk >= 0.1 && newRisk <= 3.0)
                 {
                     service.RiskPercent = newRisk;
                     IO.ShowMessage("Set Risk Per Trade to {0}%", newRisk);
                 }
                 else
                 {
-                    IO.ShowMessage("Risk Per Trade must be be between 0.1% and 3%");
+                    IO.ShowMessage("Risk Per Trade must be between 0.1% and 3%");
                 }
             }
             else
             {
-                IO.ShowMessage("Set Risk: {0} is not valid", args[0]);
+                IO.ShowMessage("Set Risk: {0} is not valid", newRiskInput);
             }
 
             return Task.CompletedTask;
@@ -348,17 +348,17 @@ namespace TradeBot
 
         public Task SetEquity(string[] args)
         {
-            double newEquity = 0.0;
-            bool canConvert = double.TryParse(args[0], out newEquity);
+            string newEquityInput = IO.PromptForInputIfNecessary(args, 0, Messages.NewEquityPrompt);
+            double newEquity = double.Parse(newEquityInput);
 
-            if (canConvert == true)
+            if (Validation.HasValue(newEquity) && Validation.Positive(newEquity))
             { 
                 service.TotalEquity = newEquity;
                 IO.ShowMessage("Set Equity to {0}", newEquity.ToCurrencyString());
             }
             else
             {
-                IO.ShowMessage("Set Equity: {0} is not valid", args[0]);
+                IO.ShowMessage("Set Equity: {0} is not valid", newEquityInput);
             }           
 
             return Task.CompletedTask;

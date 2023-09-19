@@ -89,6 +89,10 @@
 
   "limitTakeProfitPrompt": "Take Profit Price: ",
 
+  "newRiskPrompt": "New Risk Per Trade (%): ",
+
+  "newEquityPrompt": "New Equity: ",
+
   "listPositionsFormat": "{0} {1}, AvgCost: {2}, MktPrice: {3}, MktValue: {4}, UnPnL: {5}, RePnL: {6}, A: {7}",
   "positionNotFoundError": "Position not found",
   "positionsNotFoundError": "No positions found",

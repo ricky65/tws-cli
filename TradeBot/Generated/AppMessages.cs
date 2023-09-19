@@ -207,6 +207,12 @@ namespace TradeBot.Generated
         [JsonProperty("limitTakeProfitPrompt")]
         public string LimitTakeProfitPrompt { get; set; }
 
+        [JsonProperty("newRiskPrompt")]
+        public string NewRiskPrompt { get; set; }
+
+        [JsonProperty("newEquityPrompt")]
+        public string NewEquityPrompt { get; set; }
+
         [JsonProperty("sharesSetFormat")]
         public string SharesSetFormat { get; set; }
 
