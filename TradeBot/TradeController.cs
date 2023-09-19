@@ -159,11 +159,14 @@ namespace TradeBot
             }
         }
 
+        //Rick: Long at the current price with attached Sell Stop
         public Task BuyCommand(string[] args)
         {
-            double sellStopPrice = Double.Parse(args[0]);
+            string sellStopPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.SellStopPrompt);
+            double sellStopPrice = Double.Parse(sellStopPriceInput);
 
-            if (Validation.TickerSet(service)
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(service)
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
@@ -173,13 +176,35 @@ namespace TradeBot
             return Task.CompletedTask;
         }
 
+        //Rick: Short at the current price with attached BuyStop
+        public Task SellCommand(string[] args)
+        {
+            string buyStopPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.BuyStopPrompt);
+            double buyStopPrice = Double.Parse(buyStopPriceInput);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.TickerSet(service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(service, COMMON_TICKS))
+            {
+                service.PlaceSellLimitOrder(Shares, TickType.BID, buyStopPrice);
+            }
+
+            return Task.CompletedTask;
+        }
+
         //rick
         public Task BuyStopCommand(string[] args)
         {
+            string buyStopPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.BuyStopPrompt);
+            double buyStopPrice = Double.Parse(buyStopPriceInput);
 
-            double buyStopPrice = Double.Parse(args[0]);
-            double sellStopPrice = Double.Parse(args[1]);
-            if (Validation.TickerSet(service)
+            string sellStopPriceInput = IO.PromptForInputIfNecessary(args, 1, Messages.SellStopPrompt);
+            double sellStopPrice = Double.Parse(sellStopPriceInput);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(service)
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
@@ -192,28 +217,19 @@ namespace TradeBot
         //rick
         public Task SellStopCommand(string[] args)
         {
+            string sellStopPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.SellStopPrompt);
+            double sellStopPrice = Double.Parse(sellStopPriceInput);
 
-            double sellStopPrice = Double.Parse(args[0]);
-            double buyStopPrice = Double.Parse(args[1]);
-            if (Validation.TickerSet(service)
+            string buyStopPriceInput = IO.PromptForInputIfNecessary(args, 1, Messages.BuyStopPrompt);
+            double buyStopPrice = Double.Parse(buyStopPriceInput);
+
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.HasValue(buyStopPrice)
+                && Validation.TickerSet(service)
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
                 service.PlaceSellStopLimitOrder(Shares, TickType.BID, sellStopPrice, buyStopPrice);
-            }
-
-            return Task.CompletedTask;
-        }
-
-        public Task SellCommand(string[] args)
-        {
-            double sellStopPrice = Double.Parse(args[0]);
-
-            if (Validation.TickerSet(service)
-                //&& Validation.SharesSet(Shares)
-                && Validation.TickDataAvailable(service, COMMON_TICKS))
-            {
-                service.PlaceSellLimitOrder(Shares, TickType.BID, sellStopPrice);
             }
 
             return Task.CompletedTask;
@@ -251,10 +267,10 @@ namespace TradeBot
 
         public async Task LimitTakeProfitHalfCommand(string[] args)
         {
-            double limitPrice = 0.0;
-            bool canConvert = double.TryParse(args[0], out limitPrice);
+            string limitPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.LimitTakeProfitPrompt);
+            double limitPrice = Double.Parse(limitPriceInput);
 
-            if (canConvert)
+            if (Validation.HasValue(limitPrice))
             {
                 await LimitTakeProfitAsync(0.5, limitPrice);
             }
@@ -266,10 +282,10 @@ namespace TradeBot
 
         public async Task LimitTakeProfitThirdCommand(string[] args)
         {
-            double limitPrice = 0.0;
-            bool canConvert = double.TryParse(args[0], out limitPrice);
+            string limitPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.LimitTakeProfitPrompt);
+            double limitPrice = Double.Parse(limitPriceInput);
 
-            if (canConvert)
+            if (Validation.HasValue(limitPrice))
             {
                 await LimitTakeProfitAsync(0.33, limitPrice);
             }
@@ -281,10 +297,10 @@ namespace TradeBot
 
         public async Task LimitTakeProfitQuarterCommand(string[] args)
         {
-            double limitPrice = 0.0;
-            bool canConvert = double.TryParse(args[0], out limitPrice);
+            string limitPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.LimitTakeProfitPrompt);
+            double limitPrice = Double.Parse(limitPriceInput);
 
-            if (canConvert)
+            if (Validation.HasValue(limitPrice))
             {
                 await LimitTakeProfitAsync(0.25, limitPrice);
             }
@@ -310,24 +326,24 @@ namespace TradeBot
 
         public Task SetRisk(string[] args)
         {
-            double newRisk = 0.0;
-            bool canConvert = double.TryParse(args[0], out newRisk);
+            string newRiskInput = IO.PromptForInputIfNecessary(args, 0, Messages.NewRiskPrompt);
+            double newRisk = Double.Parse(newRiskInput);
 
-            if (canConvert == true)
+            if (Validation.HasValue(newRisk))
             {
-                if (newRisk > 0.1 && newRisk <= 3.0)
+                if (newRisk >= 0.1 && newRisk <= 3.0)
                 {
                     service.RiskPercent = newRisk;
                     IO.ShowMessage("Set Risk Per Trade to {0}%", newRisk);
                 }
                 else
                 {
-                    IO.ShowMessage("Risk Per Trade must be be between 0.1% and 3%");
+                    IO.ShowMessage("Risk Per Trade must be between 0.1% and 3%");
                 }
             }
             else
             {
-                IO.ShowMessage("Set Risk: {0} is not valid", args[0]);
+                IO.ShowMessage("Set Risk: {0} is not valid", newRiskInput);
             }
 
             return Task.CompletedTask;
@@ -335,17 +351,17 @@ namespace TradeBot
 
         public Task SetEquity(string[] args)
         {
-            double newEquity = 0.0;
-            bool canConvert = double.TryParse(args[0], out newEquity);
+            string newEquityInput = IO.PromptForInputIfNecessary(args, 0, Messages.NewEquityPrompt);
+            double newEquity = double.Parse(newEquityInput);
 
-            if (canConvert == true)
+            if (Validation.HasValue(newEquity) && Validation.Positive(newEquity))
             { 
                 service.TotalEquity = newEquity;
                 IO.ShowMessage("Set Equity to {0}", newEquity.ToCurrencyString());
             }
             else
             {
-                IO.ShowMessage("Set Equity: {0} is not valid", args[0]);
+                IO.ShowMessage("Set Equity: {0} is not valid", newEquityInput);
             }           
 
             return Task.CompletedTask;
