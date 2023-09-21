@@ -58,7 +58,7 @@
     "clearScreen": [ ".", "Clear screen" ],
     "showMenu": [ "?", "Show menu" ]
   },
-  "longestMenuOptionKey": "r",
+  "longestMenuOptionKey": "equity",
   "invalidMenuOption": "Invalid menu option",
 
   "welcomeMessage": "Welcome to TradeBot. Enter '?' to show the menu.",
