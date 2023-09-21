@@ -324,6 +324,11 @@ namespace TradeBot
             }
         }
 
+        public async Task ListActiveOrdersCommand(string[] args)
+        {
+
+        }
+
         public Task SetRisk(string[] args)
         {
             string newRiskInput = IO.PromptForInputIfNecessary(args, 0, Messages.NewRiskPrompt);

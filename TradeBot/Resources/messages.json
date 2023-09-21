@@ -48,6 +48,8 @@
 
     "listPositions": [ "a", "List positions" ],
 
+    "listActiveOrders": [ "o", "List Active Orders" ],
+
     "setRisk": [ "r", "Modify Risk Per Trade Percentage. Default: 1.25%" ],
     "setEquity": [ "equity", "Modify Equity (N% of Equity is Risk Per Trade) Default: Available Funds of account" ],
 
@@ -96,6 +98,10 @@
   "listPositionsFormat": "{0} {1}, AvgCost: {2}, MktPrice: {3}, MktValue: {4}, UnPnL: {5}, RePnL: {6}, A: {7}",
   "positionNotFoundError": "Position not found",
   "positionsNotFoundError": "No positions found",
+
+  "activeOrdersFormat": "OrderID: {0} Contract: {1}, Order: {2}, OrderState: {3}",
+  "activeOrdersNotFoundError": "Active Orders not found error",
+  "activeOrdersNone": "No Active Orders found",
 
   "loadedStateFormat": "Loaded state from {0}",
   "savedStateFormat": "Saved state to {0}",

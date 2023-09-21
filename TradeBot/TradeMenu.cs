@@ -64,12 +64,16 @@ namespace TradeBot
             addMenuOption(entries.LimitTakeProfitThird, controller.LimitTakeProfitThirdCommand);
             addMenuOption(entries.LimitTakeProfitQuarter, controller.LimitTakeProfitQuarterCommand);
 
-           addMenuOptionDivider();
+            addMenuOptionDivider();
             //Rick
             addMenuOption(entries.CancelLastOrder, controller.CancelLastOrderCommand);
             addMenuOptionDivider();
 
             addMenuOption(entries.ListPositions, controller.ListPositionsCommand);
+            addMenuOptionDivider();
+
+            //Rick
+            addMenuOption(entries.ListActiveOrders, controller.ListActiveOrdersCommand);
             addMenuOptionDivider();
 
             addMenuOption(entries.SetRisk, controller.SetRisk);
