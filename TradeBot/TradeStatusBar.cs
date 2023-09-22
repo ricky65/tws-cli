@@ -32,6 +32,7 @@ namespace TradeBot
                 case nameof(controller.Shares):
                 case nameof(controller.Cash):
                 case nameof(service.TickerSymbol):
+                case nameof(service.RiskPercent):
                     await UpdateHeaderAsync();
                     break;
             }

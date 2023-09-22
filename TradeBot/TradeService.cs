@@ -73,11 +73,11 @@ namespace TradeBot
 
         #region Properties
 
-        private double totalEquity = 5_500;
+        private double totalEquity = 5_100;
         public double TotalEquity { get => totalEquity; set => totalEquity = value; }
         
         private double riskPercent = 1.25;
-        public double RiskPercent { get => riskPercent; set => riskPercent = value; }
+        public double RiskPercent { get => riskPercent; set => PropertyChanged.SetPropertyAndRaiseEvent(ref riskPercent, value); }
 
         public int ClientId { get; }
 
