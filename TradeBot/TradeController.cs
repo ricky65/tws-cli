@@ -326,7 +326,7 @@ namespace TradeBot
 
         public async Task ListActiveOrdersCommand(string[] args)
         {
-
+            await service.ListActiveOrders();
         }
 
         public Task SetRisk(string[] args)

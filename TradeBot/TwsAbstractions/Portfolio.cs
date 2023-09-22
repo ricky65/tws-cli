@@ -16,7 +16,7 @@ namespace TradeBot.TwsAbstractions
             return position;
         }
 
-        public void Update(Position position)
+        public void Update(Position position, TradeService ts)
         {
             string tickerSymbol = position.Symbol;
             if (position.PositionSize == 0)

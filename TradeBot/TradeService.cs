@@ -20,6 +20,9 @@ namespace TradeBot
         private Portfolio portfolio;
         private TaskCompletionSource<string> accountDownloadEndTCS;
 
+        private List<OpenOrder> OpenOrdersList = new List<OpenOrder>();
+        private TaskCompletionSource openOrderEndTCS = new TaskCompletionSource();
+
         private int tickerId;
         private Contract stockContract;
         private Contract CFDContract;
@@ -63,12 +66,15 @@ namespace TradeBot
             AccountSummaryEnd += OnAccountSummaryEnd;//Rick
             ContractDetails += OnContractDetails;//rick
             ContractDetailsEnd += OnContractDetailsEnd;//rick
+            OpenOrder += OnOpenOrder;//Rick
+            OpenOrderEnd += OnOpenOrderEnd;//Rick
         }
 
         #region Events
         public event PropertyChangedEventHandler PropertyChanged;
         public event TickUpdatedEventHandler TickUpdated;
         public event PositionUpdatedEventHandler PositionUpdated;
+        public event OpenOrderUpdatedEventHandler OpenOrderUpdated;
         #endregion
 
         #region Properties
@@ -486,6 +492,20 @@ namespace TradeBot
             return portfolio;
         }
 
+        //Rick: Request Open Orders for only current contract
+        public async Task<IEnumerable<OpenOrder>> RequestCurrentOpenOrdersAsync()
+        {
+            IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
+            return openOrders.Where(o => o.Symbol == TickerSymbol);
+        }
+
+        //Rick
+        public async Task<List<OpenOrder>> RequestOpenOrdersListAsync()
+        {
+            await openOrderEndTCS.Task;
+            return OpenOrdersList;
+        }
+
         public void RequestStockContractDetails(string tickerSymbol)
         {
             clientSocket.reqContractDetails(NumberGenerator.NextRandomInt(), ContractFactory.CreateStockContract(tickerSymbol));
@@ -708,7 +728,7 @@ namespace TradeBot
         private void OnUpdatePortfolio(Contract contract, double positionSize, double marketPrice, double marketValue, double avgCost, double unrealisedPNL, double realisedPNL, string account)
         {
             var position = new Position(account, contract, positionSize, avgCost, marketPrice, marketValue, unrealisedPNL, realisedPNL);
-            portfolio.Update(position);
+            portfolio.Update(position, this);
             PositionUpdated?.Invoke(position);
         }
 
@@ -780,6 +800,35 @@ namespace TradeBot
         {
             //IO.ShowMessage("OnContractDetailsEnd. Req Id: " + reqId);
         }
+
+        private void OnOpenOrder(int orderId, Contract contract, Order order, OrderState orderState)
+        {
+            var openOrder = new OpenOrder(orderId, contract, order, orderState);
+            OpenOrdersList.Add(openOrder);
+            OpenOrderUpdated?.Invoke(openOrder);
+        }
+
+        private void OnOpenOrderEnd()
+        {
+            openOrderEndTCS.TrySetResult();
+        }
+
+        public async Task ListActiveOrders()
+        {
+            OpenOrdersList = new List<OpenOrder>();
+
+            clientSocket.reqAllOpenOrders();           
+
+            openOrderEndTCS = new TaskCompletionSource();
+
+            IEnumerable<OpenOrder> openOrder = await RequestOpenOrdersListAsync();
+
+            foreach (var order in openOrder)
+            {
+                IO.ShowMessage(order.ToString());
+            }
+        }
+
 
         #endregion
     }
