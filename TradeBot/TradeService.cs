@@ -239,10 +239,18 @@ namespace TradeBot
         public void PlaceLimitOrder(OrderActions action, double quantity, int tickType, double stopPrice)
         {
             double? price = GetTick(tickType);
+            
+            if (!price.HasValue)
+            {
+                return;
+            }
+
             //Rick: Have +/- 3 cent offset
+            double offsetPrice = 0.0;
+
             if (action == OrderActions.BUY)
             {
-                price += limitOffset;
+                offsetPrice = price.Value + limitOffset;
 
                 if (!(stopPrice < price))
                 {
@@ -252,7 +260,7 @@ namespace TradeBot
             }
             else if (action == OrderActions.SELL)
             {
-                price -= limitOffset;
+                offsetPrice = price.Value - limitOffset;
 
                 if (!(stopPrice > price))
                 {
@@ -261,15 +269,10 @@ namespace TradeBot
             }
             }
 
-            if (!price.HasValue)
-            {
-                return;
+            PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice);
             }
 
-            PlaceLimitOrder(action, quantity, price.Value, stopPrice);
-        }
-
-        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double stopPrice)
+        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double offsetPrice, double stopPrice)
         {
             if (stockContract == null || price <= 0)
             {
@@ -294,7 +297,7 @@ namespace TradeBot
             IO.ShowMessage(riskStr);
 
             //parent order
-            Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, price, false);//Rick: Was user set quantity before
+            Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, offsetPrice, false);//Rick: Was user set quantity before
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract: CFDContract, parentOrder);
