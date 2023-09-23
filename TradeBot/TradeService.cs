@@ -262,7 +262,7 @@ namespace TradeBot
                 {
                     IO.ShowMessage("LONG Stop: Sell Stop must be less than ASK + 3 cents");
                     return;
-            }
+                }
             }
             else if (action == OrderActions.SELL)
             {
@@ -272,11 +272,11 @@ namespace TradeBot
                 {
                     IO.ShowMessage("SHORT Stop: Buy Stop must be greater than BID - 3 cents");
                     return;
-            }
+                }
             }
 
             PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice);
-            }
+        }
 
         public void PlaceLimitOrder(OrderActions action, double quantity, double price, double offsetPrice, double stopPrice)
         {
@@ -469,7 +469,7 @@ namespace TradeBot
             return nextValidOrderId;
         }
 
-        public void ModifyOrderSize(int id, Contract contract, Order order) 
+        public void ModifyOrder(int id, Contract contract, Order order) 
         {
             clientSocket.placeOrder(id, contract, order);
         }
@@ -500,6 +500,14 @@ namespace TradeBot
             return portfolio;
         }
 
+        //Rick
+        public async Task<IEnumerable<OpenOrder>> RequestOpenOrdersForTickerAsync(string ticker)
+        {
+            IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
+            return openOrders.Where(o => o.Symbol == ticker);
+        }
+
+
         //Rick: Request Open Orders for only current contract
         public async Task<IEnumerable<OpenOrder>> RequestCurrentOpenOrdersAsync()
         {
@@ -523,8 +531,6 @@ namespace TradeBot
         {
             clientSocket.reqContractDetails(NumberGenerator.NextRandomInt(), ContractFactory.CreateCFDContract(tickerSymbol));
         }
-
-        //Rick TODO: Request Live Orders
 
         public bool HasTicks(params int[] tickTypes)
         {
@@ -769,7 +775,9 @@ namespace TradeBot
             //Find account with maximum Available Funds
             var largestAcc = accountAvailableFunds.Aggregate((l, r) => l.Value > r.Value ? l : r);
             totalEquity = largestAcc.Value; //Make Total Equity Available Funds
-            MaxAvailableFundsAccount = largestAcc.Key;            
+            MaxAvailableFundsAccount = largestAcc.Key;
+
+            clientSocket.reqAutoOpenOrders(true);  // Rick: Bind all future orders manually submitted in TWS Client (API client Id must be 0)
         }
 
         public void OnContractDetails(int reqId, ContractDetails contractDetails)
@@ -826,7 +834,6 @@ namespace TradeBot
             OpenOrdersList = new List<OpenOrder>();
 
             clientSocket.reqOpenOrders(); // Bind previous opened orders
-            clientSocket.reqAutoOpenOrders(true);  // Bind all future orders
 
             openOrderEndTCS = new TaskCompletionSource();
 
@@ -834,6 +841,7 @@ namespace TradeBot
 
             foreach (var order in openOrders)
             {
+                //Rick TODO: Display the important things - Order type, quantity etc
                 IO.ShowMessage(order.ToString());
             }
         }

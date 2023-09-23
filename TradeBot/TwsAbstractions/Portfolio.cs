@@ -29,12 +29,10 @@ namespace TradeBot.TwsAbstractions
                 ts.OpenOrdersList = new List<OpenOrder>();
 
                 ts.clientSocket.reqOpenOrders(); // Bind previous opened orders
-                ts.clientSocket.reqAutoOpenOrders(true);  //Rick TODO This prob just needs calling once early on // Bind all future orders
 
                 ts.openOrderEndTCS = new TaskCompletionSource();
 
-
-                IEnumerable<OpenOrder> openOrders = await ts.RequestCurrentOpenOrdersAsync();
+                IEnumerable<OpenOrder> openOrders = await ts.RequestOpenOrdersForTickerAsync(tickerSymbol);
 
                 foreach (OpenOrder openOrder in openOrders)
                 {
@@ -47,30 +45,28 @@ namespace TradeBot.TwsAbstractions
             {
                 if (ContainsKey(tickerSymbol))
                 {
-                    //TODO: Rick: Need to figure out this logic
-
-                    if (position.Symbol == this[tickerSymbol].Symbol && position.PositionSize != this[tickerSymbol].PositionSize)
+                    //Rick: TODO: Test this Monday morning
+                    double absNewPosSize = Math.Abs(position.PositionSize);
+                    if (absNewPosSize < Math.Abs(this[tickerSymbol].PositionSize))
                     {
-                        //Rick: Position size has changed so modify any active orders (Stop Loss/Limit Take Profit) to the new size
-                         ts.OpenOrdersList = new List<OpenOrder>();
+                        //Rick: New position size is now less than previous position size (part of position closed) so reduce any active orders (Stop Loss/Limit Take Profit) > New Pos Size to the New Pos Size
+                        ts.OpenOrdersList = new List<OpenOrder>();
 
                         ts.clientSocket.reqOpenOrders(); // Bind previous opened orders
-                        ts.clientSocket.reqAutoOpenOrders(true);  // Bind all future orders
 
                         ts.openOrderEndTCS = new TaskCompletionSource();
 
-
-                        IEnumerable<OpenOrder> openOrders = await ts.RequestCurrentOpenOrdersAsync();
+                        IEnumerable<OpenOrder> openOrders = await ts.RequestOpenOrdersForTickerAsync(tickerSymbol);
 
                         foreach (OpenOrder openOrder in openOrders)
                         {
-                            openOrder.Order.TotalQuantity = Math.Abs(position.PositionSize);
-                            openOrder.Order.ParentId = 0;//Rick: Need to set ParentId to 0 as it was a child 
-                            ts.ModifyOrderSize(openOrder.OrderID, openOrder.Contract, openOrder.Order);
+                            if (openOrder.Order.TotalQuantity > absNewPosSize) { 
+                                openOrder.Order.TotalQuantity = absNewPosSize;
+                                openOrder.Order.ParentId = 0;//Rick: Need to set ParentId to 0 as Stop was probably a child 
+                                ts.ModifyOrder(openOrder.OrderID, openOrder.Contract, openOrder.Order);
+                            }
                         }      
                     }
-
-
 
                     this[tickerSymbol] = position;
                     

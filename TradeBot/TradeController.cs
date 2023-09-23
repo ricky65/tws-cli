@@ -628,7 +628,6 @@ namespace TradeBot
             double lastCommission = lastReport.Commission;
             double totalCommission = reports.Sum(report => report.Commission);
 
-            //RICK: TODO Investigate -  this seems to clash with input currently in the console
             IO.ShowMessage(Messages.CommissionFormat,
                 lastCommission.ToCurrencyString(),
                 totalCommission.ToCurrencyString());
