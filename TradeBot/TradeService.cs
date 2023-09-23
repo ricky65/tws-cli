@@ -15,13 +15,13 @@ namespace TradeBot
     public class TradeService : EWrapperImpl
     {
         private EReaderSignal readerSignal;
-        private EClientSocket clientSocket;
+        public EClientSocket clientSocket;
 
         private Portfolio portfolio;
         private TaskCompletionSource<string> accountDownloadEndTCS;
 
-        private List<OpenOrder> OpenOrdersList = new List<OpenOrder>();
-        private TaskCompletionSource openOrderEndTCS = new TaskCompletionSource();
+        public List<OpenOrder> OpenOrdersList = new List<OpenOrder>();
+        public TaskCompletionSource openOrderEndTCS = new TaskCompletionSource();
 
         private int tickerId;
         private Contract stockContract;
@@ -466,6 +466,11 @@ namespace TradeBot
             return nextValidOrderId;
         }
 
+        public void ModifyOrderSize(int id, Contract contract, Order order) 
+        {
+            clientSocket.placeOrder(id, contract, order);
+        }
+
         public async Task<Position> RequestCurrentPositionAsync()
         {
             Portfolio positions = await RequestPortfolioAsync();
@@ -817,13 +822,14 @@ namespace TradeBot
         {
             OpenOrdersList = new List<OpenOrder>();
 
-            clientSocket.reqAllOpenOrders();           
+            clientSocket.reqOpenOrders(); // Bind previous opened orders
+            clientSocket.reqAutoOpenOrders(true);  // Bind all future orders
 
             openOrderEndTCS = new TaskCompletionSource();
 
-            IEnumerable<OpenOrder> openOrder = await RequestOpenOrdersListAsync();
+            IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
 
-            foreach (var order in openOrder)
+            foreach (var order in openOrders)
             {
                 IO.ShowMessage(order.ToString());
             }
