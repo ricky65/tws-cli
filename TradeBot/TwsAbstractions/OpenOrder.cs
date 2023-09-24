@@ -12,7 +12,7 @@ namespace TradeBot.TwsAbstractions
     {
         public OpenOrder(int orderId, Contract contract, Order order, OrderState orderState)
         {
-            OrderID = orderId;
+            OrderId = orderId;
             Contract = contract;
             Order = order;
             OrderState = orderState;            
@@ -26,7 +26,7 @@ namespace TradeBot.TwsAbstractions
             }
         }
 
-        public int OrderID { get; }
+        public int OrderId { get; }
 
         public Contract Contract { get; }
 
@@ -36,7 +36,12 @@ namespace TradeBot.TwsAbstractions
 
         public override string ToString()
         {
-            return this.ToPrettyString(maxIndentLevel: 0);
+            //return this.ToPrettyString(maxIndentLevel: 0);
+            return "OpenOrder: OrderId: " + Util.IntMaxString(OrderId) + ", ClientId: " + Util.IntMaxString(Order.ClientId) +", PermID: " + Util.IntMaxString(Order.PermId) +
+            ", Account: " + Order.Account + ", Symbol: " + Contract.Symbol + ", SecType: " + Contract.SecType + " , Exchange: " + Contract.Exchange + ", Action: " + Order.Action +
+            ", OrderType: " + Order.OrderType + ", TotalQty: " + Util.DoubleMaxString(Order.TotalQuantity) + ", CashQty: " + Util.DoubleMaxString(Order.CashQty) +
+            ", LmtPrice: " + Util.DoubleMaxString(Order.LmtPrice) + ", AuxPrice: " + Util.DoubleMaxString(Order.AuxPrice) + ", Status: " + OrderState.Status;
+
         }
     }
 }

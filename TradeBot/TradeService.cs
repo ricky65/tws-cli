@@ -20,8 +20,12 @@ namespace TradeBot
         private Portfolio portfolio;
         private TaskCompletionSource<string> accountDownloadEndTCS;
 
-        public List<OpenOrder> OpenOrdersList = new List<OpenOrder>();
+       
+        public Dictionary<int, OpenOrder> openOrdersDict = new(); //Rick: Map orderId to OpenOrder
+        public Dictionary<int, OrderStatus> orderStatusDict = new();//Rick: Map orderId to OrderStatus      
+        //public List<OpenOrder> OpenOrdersList = new List<OpenOrder>(); //TODO: Remove once Dict working as duplicates
         public TaskCompletionSource openOrderEndTCS = new TaskCompletionSource();
+        
 
         private int tickerId;
         private Contract stockContract;
@@ -67,6 +71,7 @@ namespace TradeBot
             ContractDetails += OnContractDetails;//rick
             ContractDetailsEnd += OnContractDetailsEnd;//rick
             OpenOrder += OnOpenOrder;//Rick
+            OrderStatus += OnOrderStatus; //Rick
             OpenOrderEnd += OnOpenOrderEnd;//Rick
         }
 
@@ -75,6 +80,7 @@ namespace TradeBot
         public event TickUpdatedEventHandler TickUpdated;
         public event PositionUpdatedEventHandler PositionUpdated;
         public event OpenOrderUpdatedEventHandler OpenOrderUpdated;
+        public event OrderStatusUpdatedEventHandler OrderStatusUpdated;
         #endregion
 
         #region Properties
@@ -501,26 +507,32 @@ namespace TradeBot
         }
 
         //Rick
-        public async Task<IEnumerable<OpenOrder>> RequestOpenOrdersForTickerAsync(string ticker)
+        public async Task WaitForOpenOrderEnd()
         {
-            IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
-            return openOrders.Where(o => o.Symbol == ticker);
-        }
-
-
-        //Rick: Request Open Orders for only current contract
-        public async Task<IEnumerable<OpenOrder>> RequestCurrentOpenOrdersAsync()
-        {
-            IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
-            return openOrders.Where(o => o.Symbol == TickerSymbol);
+            await openOrderEndTCS.Task;
         }
 
         //Rick
-        public async Task<List<OpenOrder>> RequestOpenOrdersListAsync()
-        {
-            await openOrderEndTCS.Task;
-            return OpenOrdersList;
-        }
+        //public async Task<IEnumerable<OpenOrder>> RequestOpenOrdersForTickerAsync(string ticker)
+        //{
+        //    IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
+        //    return openOrders.Where(o => o.Symbol == ticker);
+        //}
+
+
+        ////Rick: Request Open Orders for only current contract
+        //public async Task<IEnumerable<OpenOrder>> RequestCurrentOpenOrdersAsync()
+        //{
+        //    IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
+        //    return openOrders.Where(o => o.Symbol == TickerSymbol);
+        //}
+
+        //Rick
+        //public async Task<List<OpenOrder>> RequestOpenOrdersListAsync()
+        //{
+        //    await openOrderEndTCS.Task;
+        //    return OpenOrdersList;
+        //}
 
         public void RequestStockContractDetails(string tickerSymbol)
         {
@@ -820,8 +832,16 @@ namespace TradeBot
         private void OnOpenOrder(int orderId, Contract contract, Order order, OrderState orderState)
         {
             var openOrder = new OpenOrder(orderId, contract, order, orderState);
-            OpenOrdersList.Add(openOrder);
+            openOrdersDict[orderId] = openOrder;//Rick TODO: Migrate to dict
+            //OpenOrdersList.Add(openOrder);            
             OpenOrderUpdated?.Invoke(openOrder);
+        }
+
+        private void OnOrderStatus(int orderId, string status, double filled, double remaining, double avgFillPrice, int permId, int parentId, double lastFillPrice, int clientId, string whyHeld, double mktCapPrice)
+        {
+            var orderStatus = new OrderStatus(orderId, status, filled, remaining, avgFillPrice, permId, parentId, lastFillPrice, clientId, whyHeld, mktCapPrice);
+            orderStatusDict[orderId] = orderStatus;
+            OrderStatusUpdated?.Invoke(orderStatus);
         }
 
         private void OnOpenOrderEnd()
@@ -831,18 +851,29 @@ namespace TradeBot
 
         public async Task ListActiveOrders()
         {
-            OpenOrdersList = new List<OpenOrder>();
+            //OpenOrdersList = new List<OpenOrder>();
+
+            openOrdersDict = new();
+            orderStatusDict = new();
 
             clientSocket.reqOpenOrders(); // Bind previous opened orders
 
             openOrderEndTCS = new TaskCompletionSource();
 
-            IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
 
-            foreach (var order in openOrders)
+            await WaitForOpenOrderEnd();
+
+            //IEnumerable<OpenOrder> openOrders = await RequestOpenOrdersListAsync();
+
+            //foreach (var order in openOrders)
+            //{
+            //    //Rick TODO: Display the important things - Order type, quantity etc
+            //    IO.ShowMessage(order.ToString());
+            //}
+
+            foreach ((var openOrder, var orderStatus) in openOrdersDict.Values.Zip(orderStatusDict.Values))
             {
-                //Rick TODO: Display the important things - Order type, quantity etc
-                IO.ShowMessage(order.ToString());
+                Console.WriteLine($"[{openOrder.ToString()}\n{orderStatus.ToString()}]\n");
             }
         }
 
