@@ -834,10 +834,16 @@ namespace TradeBot
 
             await WaitForOpenOrderEnd();
 
-
-            foreach ((var openOrder, var orderStatus) in openOrdersDict.Values.Zip(orderStatusDict.Values))
+            if (openOrdersDict.Count > 0)
             {
-                Console.WriteLine($"[{openOrder.ToString()}\n{orderStatus.ToString()}]\n");
+                foreach ((var openOrder, var orderStatus) in openOrdersDict.Values.Zip(orderStatusDict.Values))
+                {
+                    Console.WriteLine($"[{openOrder.ToString()}\n{orderStatus.ToString()}]\n");
+                }
+            }
+            else
+            {
+                IO.ShowMessage("No Active Orders Found");
             }
         }
 
