@@ -14,7 +14,7 @@ namespace TradeBot.TwsAbstractions
                 OrderType = OrderTypes.Limit,
                 Tif = nameof(TimeInForce.DAY),
                 Transmit = transmitNow, //Rick: only last child in the bracket has Transmit = true
-                OutsideRth = true //Rick: Temp 
+                OutsideRth = false 
             };
         }
 
@@ -31,11 +31,11 @@ namespace TradeBot.TwsAbstractions
                 Tif = nameof(TimeInForce.DAY),
                 Transmit = false, //Rick: only last child in the bracket has Transmit = true
                 TriggerMethod = (int)TriggerMethod.LastOfBidAsk, 
-                OutsideRth = true  //Rick: Temp             
+                OutsideRth = false             
             };
         }
         //Rick
-        public static Order CreateStopOrder(OrderActions action, double quantity,double stopPrice)
+        public static Order CreateStopOrder(OrderActions action, double quantity, double stopPrice)
         {
             return new Order()
             {
@@ -46,7 +46,7 @@ namespace TradeBot.TwsAbstractions
                 Tif = nameof(TimeInForce.DAY),
                 Transmit = true, //Rick: only last child in the bracket has Transmit = true
                 TriggerMethod = (int)TriggerMethod.LastOfBidAsk, 
-                OutsideRth = true //Rick: Temp 
+                OutsideRth = false
             };
         }
     }
