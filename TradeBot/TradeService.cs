@@ -22,7 +22,7 @@ namespace TradeBot
        
         public Dictionary<int, OpenOrder> openOrdersDict = new(); //Rick: Map orderId to OpenOrder
         public Dictionary<int, OrderStatus> orderStatusDict = new();//Rick: Map orderId to OrderStatus      
-        public TaskCompletionSource openOrderEndTCS = new TaskCompletionSource();        
+        //public TaskCompletionSource openOrderEndTCS = new TaskCompletionSource();        
 
         private int tickerId;
         private Contract stockContract;
@@ -504,10 +504,10 @@ namespace TradeBot
         }
 
         //Rick
-        public async Task WaitForOpenOrderEnd()
-        {
-            await openOrderEndTCS.Task;
-        }
+        //public async Task WaitForOpenOrderEnd()
+        //{
+        //    await openOrderEndTCS.Task;
+        //}
 
         public void RequestStockContractDetails(string tickerSymbol)
         {
@@ -852,29 +852,29 @@ namespace TradeBot
             //openOrderEndTCS.TrySetResult();
         }
 
-        public async Task ListActiveOrders()
-        {
-            openOrdersDict.Clear();
-            orderStatusDict.Clear();
+        //public async Task ListActiveOrders()
+        //{
+            //openOrdersDict.Clear();
+            //orderStatusDict.Clear();
 
-            clientSocket.reqOpenOrders(); // Bind previous opened orders
+            //clientSocket.reqOpenOrders(); // Bind previous opened orders
 
-            openOrderEndTCS = new TaskCompletionSource();
+            //openOrderEndTCS = new TaskCompletionSource();
 
-            await WaitForOpenOrderEnd();
+            //await WaitForOpenOrderEnd();
 
-            if (openOrdersDict.Count > 0)
-            {
-                foreach ((var openOrder, var orderStatus) in openOrdersDict.Values.Zip(orderStatusDict.Values))
-                {
-                    Console.WriteLine($"[{openOrder.ToString()}\n{orderStatus.ToString()}]\n");
-                }
-            }
-            else
-            {
-                IO.ShowMessage("No Active Orders Found");
-            }
-        }
+            //if (openOrdersDict.Count > 0)
+            //{
+            //    foreach ((var openOrder, var orderStatus) in openOrdersDict.Values.Zip(orderStatusDict.Values))
+            //    {
+            //        Console.WriteLine($"[{openOrder.ToString()}\n{orderStatus.ToString()}]\n");
+            //    }
+            //}
+            //else
+            //{
+            //    IO.ShowMessage("No Active Orders Found");
+            //}
+        //}
 
 
         #endregion

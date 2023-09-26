@@ -73,8 +73,8 @@ namespace TradeBot
             addMenuOptionDivider();
 
             //Rick
-            addMenuOption(entries.ListActiveOrders, controller.ListActiveOrdersCommand);
-            addMenuOptionDivider();
+            //addMenuOption(entries.ListActiveOrders, controller.ListActiveOrdersCommand);
+            //addMenuOptionDivider();
 
             addMenuOption(entries.SetRisk, controller.SetRisk);
             addMenuOption(entries.SetEquity, controller.SetEquity);
