@@ -820,7 +820,36 @@ namespace TradeBot
 
         private void OnOpenOrderEnd()
         {
-            openOrderEndTCS.TrySetResult();
+            //Rick:
+
+            foreach (var openOrder in openOrdersDict.Values)
+            {
+                if (portfolio != null)
+                {
+                    //Rick: Removed from portfolio - cancel all outstanding orders for contract
+                    if (!portfolio.ContainsKey(openOrder.Symbol))
+                    {
+                        CancelOrder(openOrder.OrderId);
+                    }
+                    //Rick: New position size is now less than previous position size (part of position closed) so reduce any active orders (Stop Loss/Limit Take Profit) > New Pos Size to the New Pos Size
+                    else  
+                    {
+                        double AbsPositionSize = Math.Abs(portfolio[openOrder.Symbol].PositionSize);
+
+                        if (openOrder.Order.TotalQuantity > AbsPositionSize)
+                        {
+                            openOrder.Order.TotalQuantity = AbsPositionSize;
+                            openOrder.Order.ParentId = 0;//Rick: Need to set ParentId to 0 as Stop was probably a child 
+                            ModifyOrder(openOrder.OrderId, openOrder.Contract, openOrder.Order);
+                        }
+                    }
+                }
+            }
+
+            openOrdersDict.Clear();
+            orderStatusDict.Clear(); 
+
+            //openOrderEndTCS.TrySetResult();
         }
 
         public async Task ListActiveOrders()

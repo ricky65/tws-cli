@@ -32,16 +32,16 @@ namespace TradeBot.TwsAbstractions
 
                 ts.clientSocket.reqOpenOrders(); // Bind previous opened orders
 
-                ts.openOrderEndTCS = new TaskCompletionSource();
+                //ts.openOrderEndTCS = new TaskCompletionSource();
 
-                await ts.WaitForOpenOrderEnd();
+                //await ts.WaitForOpenOrderEnd();
 
-                var openOrdersForTicker = ts.openOrdersDict.Values.Where(o => o.Symbol == tickerSymbol);
+                //var openOrdersForTicker = ts.openOrdersDict.Values.Where(o => o.Symbol == tickerSymbol);
 
-                foreach (OpenOrder openOrder in openOrdersForTicker)
-                {
-                    ts.CancelOrder(openOrder.OrderId);
-                }
+                //foreach (OpenOrder openOrder in openOrdersForTicker)
+                //{
+                //    ts.CancelOrder(openOrder.OrderId);
+                //}
 
                 Remove(tickerSymbol);
             }            
@@ -50,30 +50,30 @@ namespace TradeBot.TwsAbstractions
                 if (ContainsKey(tickerSymbol))
                 {
                     //Rick: TODO: Test this Monday morning
-                    double absNewPosSize = Math.Abs(position.PositionSize);
-                    if (absNewPosSize < Math.Abs(this[tickerSymbol].PositionSize))
-                    {
-                        //Rick: New position size is now less than previous position size (part of position closed) so reduce any active orders (Stop Loss/Limit Take Profit) > New Pos Size to the New Pos Size
+                    //double absNewPosSize = Math.Abs(position.PositionSize);
+                    //if (absNewPosSize < Math.Abs(this[tickerSymbol].PositionSize))
+                    //{
+                    //    //Rick: New position size is now less than previous position size (part of position closed) so reduce any active orders (Stop Loss/Limit Take Profit) > New Pos Size to the New Pos Size
                         ts.openOrdersDict.Clear();
                         ts.orderStatusDict.Clear();
 
                         ts.clientSocket.reqOpenOrders(); // Bind previous opened orders
 
-                        ts.openOrderEndTCS = new TaskCompletionSource();
+                    //    ts.openOrderEndTCS = new TaskCompletionSource();
 
-                        await ts.WaitForOpenOrderEnd();
+                    //    await ts.WaitForOpenOrderEnd();
 
-                        var openOrdersForTicker = ts.openOrdersDict.Values.Where(o => o.Symbol == tickerSymbol);
+                    //    var openOrdersForTicker = ts.openOrdersDict.Values.Where(o => o.Symbol == tickerSymbol);
 
-                        foreach (OpenOrder openOrder in openOrdersForTicker)
-                        {
-                            if (openOrder.Order.TotalQuantity > absNewPosSize) { 
-                                openOrder.Order.TotalQuantity = absNewPosSize;
-                                openOrder.Order.ParentId = 0;//Rick: Need to set ParentId to 0 as Stop was probably a child 
-                                ts.ModifyOrder(openOrder.OrderId, openOrder.Contract, openOrder.Order);
-                            }
-                        }      
-                    }
+                    //    foreach (OpenOrder openOrder in openOrdersForTicker)
+                    //    {
+                    //        if (openOrder.Order.TotalQuantity > absNewPosSize) { 
+                    //            openOrder.Order.TotalQuantity = absNewPosSize;
+                    //            openOrder.Order.ParentId = 0;//Rick: Need to set ParentId to 0 as Stop was probably a child 
+                    //            ts.ModifyOrder(openOrder.OrderId, openOrder.Contract, openOrder.Order);
+                    //        }
+                    //    }      
+                    //}
 
                     this[tickerSymbol] = position;
                     
