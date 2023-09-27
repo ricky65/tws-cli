@@ -76,10 +76,17 @@ namespace TradeBot
         {
             IO.ShowMessage(Messages.WelcomeMessage);
             service.Connect(Preferences.ClientUrl, Preferences.ClientPort);
+
+            //Rick: GUI
+
+            var tradePanelGuiForm = new TradePanel();
+            tradePanelGuiForm.ShowDialog();
+
             while (service.IsConnected)
             {
                 await menu.Run();
             }
+
         }
         #endregion
 
