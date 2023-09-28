@@ -14,7 +14,7 @@ namespace TradeBot.TwsAbstractions
                 OrderType = OrderTypes.Limit,
                 Tif = nameof(TimeInForce.DAY),
                 Transmit = transmitNow, //Rick: only last child in the bracket has Transmit = true
-                OutsideRth = false
+                OutsideRth = true
             };
         }
 
@@ -31,7 +31,7 @@ namespace TradeBot.TwsAbstractions
                 Tif = nameof(TimeInForce.DAY),
                 Transmit = transmitNow, //Rick: only last child in the bracket has Transmit = true
                 TriggerMethod = (int)TriggerMethod.LastOfBidAsk, 
-                OutsideRth = false               
+                OutsideRth = true               
             };
         }
         //Rick
