@@ -1,6 +1,7 @@
 ﻿{
   "appName": "",
 
+  //Rick: TODO: Don't think we need these for GUI
   "titleRiskPerTrade": "Risk: {0}%",
   "titleTickerSymbol": "Symbol: {0}",
   "titleShares": "Shares: {0}",
