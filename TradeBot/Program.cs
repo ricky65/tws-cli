@@ -24,7 +24,7 @@ namespace TradeBot
                 //Rick: GUI
                 ApplicationConfiguration.Initialize();
                 var tradePanel = new TradePanel();
-                await tradePanel.controller.Run();
+                tradePanel.controller.Run();
                 Application.Run(tradePanel);
             }
             catch (Exception e)

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TradeBot.Events;
 using TradeBot.Extensions;
 using TradeBot.TwsAbstractions;
@@ -14,10 +15,13 @@ namespace TradeBot
         private TradeController controller;
         private TradeService service;
 
-        public TradeStatusBar(TradeController controller, TradeService service)
+        public TradePanel tradePanel;
+
+        public TradeStatusBar(TradeController controller, TradeService service, TradePanel tradePanel)
         {
             this.controller = controller;
             this.service = service;
+            this.tradePanel = tradePanel;
 
             controller.PropertyChanged += OnPropertyChanged;
             service.PropertyChanged += OnPropertyChanged;
@@ -33,22 +37,57 @@ namespace TradeBot
                 case nameof(controller.Cash):
                 case nameof(service.TickerSymbol):
                 case nameof(service.RiskPercent):
-                    await UpdateHeaderAsync();
+                    await UpdateHeaderAsyncGUI();
                     break;
             }
         }
 
         private async void OnTickUpdated(int tickType, double value)
         {
-            await UpdateHeaderAsync();
+            await UpdateHeaderAsyncGUI();
         }
 
         private async void OnPositionUpdated(Position position)
         {
-            await UpdateHeaderAsync();
+            await UpdateHeaderAsyncGUI();
         }
 
-        private async Task UpdateHeaderAsync()
+        //private async Task UpdateHeaderAsync()
+        //{
+        //    IList<string> infoStrings = new List<string>();
+
+        //    string appName = Messages.AppName;
+        //    if (!string.IsNullOrWhiteSpace(appName))
+        //    {
+        //        infoStrings.Add(appName);
+        //    }
+
+        //    bool hasTickerSymbol = service.HasTickerSymbol;
+        //    string tickerSymbol = service.TickerSymbol;
+        //    string tickerDisplayValue = hasTickerSymbol ? tickerSymbol : Messages.TitleUnavailable;
+        //    infoStrings.Add(string.Format(Messages.TitleRiskPerTrade, service.RiskPercent));
+        //    infoStrings.Add(string.Format(Messages.TitleTickerSymbol, tickerDisplayValue));
+
+        //    infoStrings.Add(string.Format(Messages.TitleShares, controller.Shares));
+
+        //    if (hasTickerSymbol)
+        //    {
+        //        Position currentPosition = await service.RequestCurrentPositionAsync();
+        //        double positionSize = currentPosition?.PositionSize ?? 0;
+        //        infoStrings.Add(string.Format(Messages.TitlePositionSize, positionSize));
+
+        //        infoStrings.Add(string.Format(Messages.TitleLastFormat, GetTickAsCurrencyString(TickType.LAST)));
+        //        infoStrings.Add(string.Format(Messages.TitleBidAskFormat, GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK), GetTickAsCommaFormattedString(TickType.BID_SIZE), GetTickAsCommaFormattedString(TickType.ASK_SIZE)));
+        //        infoStrings.Add(string.Format(Messages.TitleVolumeFormat, GetTickAsCommaFormattedString(TickType.VOLUME)));
+        //        infoStrings.Add(string.Format(Messages.TitleCloseFormat, GetTickAsCurrencyString(TickType.CLOSE)));
+        //        infoStrings.Add(string.Format(Messages.TitleOpenFormat, GetTickAsCurrencyString(TickType.OPEN)));
+        //    }
+
+        //    //Console.Title = string.Join(Messages.TitleDivider, infoStrings);
+        //}
+
+        //Rick: TODO UpdateHeaderAsync() for GUI
+        private async Task UpdateHeaderAsyncGUI()
         {
             IList<string> infoStrings = new List<string>();
 
@@ -79,10 +118,10 @@ namespace TradeBot
                 infoStrings.Add(string.Format(Messages.TitleOpenFormat, GetTickAsCurrencyString(TickType.OPEN)));
             }
 
-            //Console.Title = string.Join(Messages.TitleDivider, infoStrings);
+            if (tradePanel.InvokeRequired) { 
+                tradePanel.BeginInvoke(() => { tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings); });
+            }
         }
-
-        //Rick: TODO UpdateHeaderAsync() for GUI
 
 
 

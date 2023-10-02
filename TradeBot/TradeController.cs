@@ -26,9 +26,9 @@ namespace TradeBot
             TickType.BID
         };
 
-        private TradeService service;
+        public TradeService service;
         private TradeMenu menu;
-        private TradeStatusBar statusBar;
+        public TradeStatusBar statusBar;
 
         private System.Windows.Forms.TextBox textBox1;
 
@@ -36,9 +36,9 @@ namespace TradeBot
         {
 
             service = new TradeService(Preferences.ClientId);
-            menu = new TradeMenu(this);//Rick TODO: remove this for GUI 
-            //Rick TODO: Move statusBar to TradePanel  
-            statusBar = new TradeStatusBar(this, service);
+            //menu = new TradeMenu(this);//Rick TODO: remove this for GUI 
+            //Rick TODO: Moved TradePanel  
+            //statusBar = new TradeStatusBar(this, service);
 
             //Rick: GUI
             textBox1 = textBox;
@@ -81,7 +81,7 @@ namespace TradeBot
         #endregion
 
         #region Public methods
-        public async Task Run()
+        public void Run()
         {
             IO.ShowMessageTextBox(textBox1, Messages.WelcomeMessage);//Rick:GUI
             IO.ShowMessage(Messages.WelcomeMessage);
