@@ -1,6 +1,7 @@
 ﻿using NLog;
 using System;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TradeBot.Gui;
 using static TradeBot.AppProperties;
 
@@ -15,22 +16,28 @@ namespace TradeBot
 
         public static async Task MainAsync()
         {
-            var controller = new TradeController();
+            //var controller = new TradeController();
             try
             {
-                await controller.Run();
+               // await controller.Run();
+
+                //Rick: GUI
+                ApplicationConfiguration.Initialize();
+                var tradePanel = new TradePanel();
+                await tradePanel.controller.Run();
+                Application.Run(tradePanel);
             }
             catch (Exception e)
             {
                 IO.ShowMessage(LogLevel.Fatal, e.ToString());
             }
-            finally
-            {
-                if (OS.IsWindows())
-                {
-                    IO.PromptForChar(Messages.PressAnyKeyToExit);
-                }
-            }
+           //finally
+           //{
+               //if (OS.IsWindows())
+           //     {
+                    //IO.PromptForChar(Messages.PressAnyKeyToExit);
+           //     }
+           // }
         }
     }
 }

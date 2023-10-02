@@ -4,12 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TradeBot.Events;
 using TradeBot.Extensions;
 using TradeBot.FileIO;
 using TradeBot.Generated;
 using TradeBot.Gui;
 using TradeBot.TwsAbstractions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static TradeBot.AppProperties;
 
 namespace TradeBot
@@ -28,11 +30,18 @@ namespace TradeBot
         private TradeMenu menu;
         private TradeStatusBar statusBar;
 
-        public TradeController()
+        private System.Windows.Forms.TextBox textBox1;
+
+        public TradeController(System.Windows.Forms.TextBox textBox)
         {
+
             service = new TradeService(Preferences.ClientId);
-            menu = new TradeMenu(this);
+            menu = new TradeMenu(this);//Rick TODO: remove this for GUI 
+            //Rick TODO: Move statusBar to TradePanel  
             statusBar = new TradeStatusBar(this, service);
+
+            //Rick: GUI
+            textBox1 = textBox;
 
             PropertyChanged += OnPropertyChanged;
             service.PropertyChanged += OnPropertyChanged;
@@ -74,18 +83,16 @@ namespace TradeBot
         #region Public methods
         public async Task Run()
         {
+            IO.ShowMessageTextBox(textBox1, Messages.WelcomeMessage);//Rick:GUI
             IO.ShowMessage(Messages.WelcomeMessage);
             service.Connect(Preferences.ClientUrl, Preferences.ClientPort);
 
-            //Rick: GUI
-
-            var tradePanelGuiForm = new TradePanel();
-            tradePanelGuiForm.ShowDialog();
-
-            while (service.IsConnected)
-            {
-                await menu.Run();
-            }
+            
+            //Rick: Not using Console menu in GUI mode 
+            //while (service.IsConnected)
+            //{
+            //    await menu.Run();
+            //}
 
         }
         #endregion
@@ -670,6 +677,11 @@ namespace TradeBot
                     Shares = 10;
                     break;
             }
+        }
+
+        internal void SetTextBox()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

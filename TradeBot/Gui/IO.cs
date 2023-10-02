@@ -1,5 +1,6 @@
 using NLog;
 using System;
+using System.Windows.Forms;
 
 namespace TradeBot.Gui
 {
@@ -37,6 +38,11 @@ namespace TradeBot.Gui
             return input;
         }
 
+        public static void ShowMessageTextBox(TextBox textbox, string message)
+        {
+            textbox.AppendText(message);
+        }
+
         public static void ShowMessage(string message, params object[] messageArgs)
         {
             logger.Log(LogLevel.Info, message, messageArgs);
@@ -44,6 +50,7 @@ namespace TradeBot.Gui
 
         public static void ShowMessage(LogLevel logLevel, string message, params object[] messageArgs)
         {
+            
             logger.Log(logLevel, message, messageArgs);
         }
 

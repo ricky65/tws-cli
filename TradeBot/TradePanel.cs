@@ -12,9 +12,13 @@ namespace TradeBot
 {
     public partial class TradePanel : Form
     {
+        public TradeController controller;
+
         public TradePanel()
         {
             InitializeComponent();
+
+            controller = new TradeController(textBox1);
         }
     }
 }

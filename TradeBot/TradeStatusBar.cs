@@ -79,8 +79,12 @@ namespace TradeBot
                 infoStrings.Add(string.Format(Messages.TitleOpenFormat, GetTickAsCurrencyString(TickType.OPEN)));
             }
 
-            Console.Title = string.Join(Messages.TitleDivider, infoStrings);
+            //Console.Title = string.Join(Messages.TitleDivider, infoStrings);
         }
+
+        //Rick: TODO UpdateHeaderAsync() for GUI
+
+
 
         private string GetTickAsString(int tickType)
         {

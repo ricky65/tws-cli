@@ -28,12 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "TradePanel";
+            textBox1 = new System.Windows.Forms.TextBox();
+            SuspendLayout();
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new System.Drawing.Point(22, 12);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new System.Drawing.Size(730, 23);
+            textBox1.TabIndex = 0;
+            // 
+            // TradePanel
+            // 
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(800, 450);
+            Controls.Add(textBox1);
+            Name = "TradePanel";
+            Text = "TradePanel";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
