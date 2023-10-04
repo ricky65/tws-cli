@@ -26,5 +26,17 @@ namespace TradeBot.TwsAbstractions
                 Exchange = nameof(Exchanges.SMART)
             };
         }
+
+        public static Contract CreateCMEFuturesContract(string futuresSymbol)
+        {
+            //Rick: Will request the earliest expiring contract for an index e.g. M2K/MNQ/MES
+            return new Contract()
+            {
+                Symbol = futuresSymbol.ToUpper(),
+                SecType = nameof(SecurityTypes.FUT),
+                Currency = nameof(Currencies.USD),
+                Exchange = nameof(Exchanges.CME)
+            };
+        }
     }
 }

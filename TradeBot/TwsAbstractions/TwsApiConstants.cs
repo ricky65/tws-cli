@@ -97,7 +97,8 @@
 
     public enum Exchanges
     {
-        SMART
+        SMART,
+        CME
     }
 
     // Error codes are documented at:

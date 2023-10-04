@@ -499,7 +499,11 @@ namespace TradeBot
             clientSocket.reqContractDetails(NumberGenerator.NextRandomInt(), ContractFactory.CreateCFDContract(tickerSymbol));
         }
 
-        //Rick TODO: Request Live Orders
+        public void RequestCMEFuturesContractDetails(string tickerSymbol)
+        {
+            clientSocket.reqContractDetails(NumberGenerator.NextRandomInt(), ContractFactory.CreateCMEFuturesContract(tickerSymbol));
+        }
+
 
         public bool HasTicks(params int[] tickTypes)
         {
