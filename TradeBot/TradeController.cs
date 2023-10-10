@@ -13,6 +13,7 @@ using TradeBot.Gui;
 using TradeBot.TwsAbstractions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static TradeBot.AppProperties;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace TradeBot
 {
@@ -30,9 +31,9 @@ namespace TradeBot
         private TradeMenu menu;
         public TradeStatusBar statusBar;
 
-        private System.Windows.Forms.TextBox textBox1;
+        private TextBox globalOutputTextBox;
 
-        public TradeController(System.Windows.Forms.TextBox textBox)
+        public TradeController(TextBox textBox)
         {
 
             service = new TradeService(Preferences.ClientId);
@@ -41,7 +42,7 @@ namespace TradeBot
             //statusBar = new TradeStatusBar(this, service);
 
             //Rick: GUI
-            textBox1 = textBox;
+            globalOutputTextBox = textBox;
 
             PropertyChanged += OnPropertyChanged;
             service.PropertyChanged += OnPropertyChanged;
@@ -83,7 +84,7 @@ namespace TradeBot
         #region Public methods
         public void Run()
         {
-            IO.ShowMessageTextBox(textBox1, Messages.WelcomeMessage);//Rick:GUI
+            IO.ShowMessageTextBox(globalOutputTextBox, Messages.WelcomeMessage);//Rick:GUI
             IO.ShowMessage(Messages.WelcomeMessage);
             service.Connect(Preferences.ClientUrl, Preferences.ClientPort);
 

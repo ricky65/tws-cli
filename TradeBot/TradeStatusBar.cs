@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using TradeBot.Events;
 using TradeBot.Extensions;
 using TradeBot.TwsAbstractions;
+using TradeBot.WinGui;
 using static TradeBot.AppProperties;
 
 namespace TradeBot
@@ -15,9 +16,9 @@ namespace TradeBot
         private TradeController controller;
         private TradeService service;
 
-        public TradePanel tradePanel;
+        public TradePanelForm tradePanel;
 
-        public TradeStatusBar(TradeController controller, TradeService service, TradePanel tradePanel)
+        public TradeStatusBar(TradeController controller, TradeService service, TradePanelForm tradePanel)
         {
             this.controller = controller;
             this.service = service;

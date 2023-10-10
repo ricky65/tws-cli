@@ -43,6 +43,7 @@ namespace TradeBot.Gui
             textbox.AppendText(message);
         }
 
+        //Rick: Not used in GUI version
         public static void ShowMessage(string message, params object[] messageArgs)
         {
             logger.Log(LogLevel.Info, message, messageArgs);
@@ -50,7 +51,7 @@ namespace TradeBot.Gui
 
         public static void ShowMessage(LogLevel logLevel, string message, params object[] messageArgs)
         {
-            
+
             logger.Log(logLevel, message, messageArgs);
         }
 

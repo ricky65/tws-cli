@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TradeBot.Gui;
+using TradeBot.WinGui;
 using static TradeBot.AppProperties;
 
 namespace TradeBot
@@ -23,7 +24,7 @@ namespace TradeBot
 
                 //Rick: GUI
                 ApplicationConfiguration.Initialize();
-                var tradePanel = new TradePanel();
+                var tradePanel = new TradePanelForm();
                 tradePanel.controller.Run();
                 Application.Run(tradePanel);
             }

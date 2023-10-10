@@ -82,7 +82,7 @@ namespace TradeBot
         private static bool Validate(bool isValid, string errorMessage)
         {
             if (!isValid)
-            {
+            {                
                 IO.ShowMessage(LogLevel.Error, errorMessage);
                 return false;
             }
