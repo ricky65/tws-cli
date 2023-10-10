@@ -76,8 +76,8 @@ namespace TradeBot
         private double totalEquity = 5_100;
         public double TotalEquity { get => totalEquity; set => totalEquity = value; }
         
-        private double riskPercent = 1.25;
-        public double RiskPercent { get => riskPercent; set => PropertyChanged.SetPropertyAndRaiseEvent(ref riskPercent, value); }
+        private double globalRiskPercent = 1.25;
+        public double RiskPercent { get => globalRiskPercent; set => PropertyChanged.SetPropertyAndRaiseEvent(ref globalRiskPercent, value); }
 
         public int ClientId { get; }
 
@@ -214,29 +214,29 @@ namespace TradeBot
             IsConnected = false;
         }
 
-        public void PlaceBuyLimitOrder(double quantity, int tickType, double sellStopPrice)
+        public void PlaceBuyLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent)
         {
-            PlaceLimitOrder(OrderActions.BUY, quantity, tickType, sellStopPrice);
+            PlaceLimitOrder(OrderActions.BUY, quantity, tickType, sellStopPrice, riskPercent);
         }
 
         //Rick: 
-        public void PlaceBuyStopLimitOrder(double quantity, int tickType, double buyStopPrice, double sellStopPrice)
+        public void PlaceBuyStopLimitOrder(double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent)
         {
-            PlaceBuyStopLimitOrder(OrderActions.BUY, quantity, tickType, buyStopPrice, sellStopPrice);
+            PlaceBuyStopLimitOrder(OrderActions.BUY, quantity, tickType, buyStopPrice, sellStopPrice, riskPercent);
         }
 
         //Rick:
-        public void PlaceSellStopLimitOrder(double quantity, int tickType, double sellStopPrice, double buyStopPrice)
+        public void PlaceSellStopLimitOrder(double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent)
         {
-            PlaceSellStopLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, buyStopPrice);
+            PlaceSellStopLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, buyStopPrice, riskPercent);
         }
 
-        public void PlaceSellLimitOrder(double quantity, int tickType, double sellStopPrice)
+        public void PlaceSellLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent)
         {
-            PlaceLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice);
+            PlaceLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, riskPercent);
         }
 
-        public void PlaceLimitOrder(OrderActions action, double quantity, int tickType, double stopPrice)
+        public void PlaceLimitOrder(OrderActions action, double quantity, int tickType, double stopPrice, double riskPercent)
         {
             double? price = GetTick(tickType);
             
@@ -269,10 +269,10 @@ namespace TradeBot
             }
             }
 
-            PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice);
+            PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice, riskPercent);
             }
 
-        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double offsetPrice, double stopPrice)
+        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double offsetPrice, double stopPrice, double riskPercent)
         {
             if (stockContract == null || price <= 0)
             {
@@ -353,7 +353,7 @@ namespace TradeBot
 
 
         //Rick
-        public void PlaceBuyStopLimitOrder(OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice)
+        public void PlaceBuyStopLimitOrder(OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent)
         {
             if (stockContract == null || buyStopPrice <= 0)
         {
@@ -402,7 +402,7 @@ namespace TradeBot
         }
 
         //Rick
-        public void PlaceSellStopLimitOrder(OrderActions action, double quantity, int tickType, double sellStopPrice, double buyStopPrice)
+        public void PlaceSellStopLimitOrder(OrderActions action, double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent)
         {
             if (stockContract == null || buyStopPrice <= 0)
             {

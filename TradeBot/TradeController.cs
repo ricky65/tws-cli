@@ -185,7 +185,8 @@ namespace TradeBot
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
-                service.PlaceBuyLimitOrder(Shares, TickType.ASK, sellStopPrice);
+                //Rick: Not used in GUI version
+                //service.PlaceBuyLimitOrder(Shares, TickType.ASK, sellStopPrice);
             }
 
             return Task.CompletedTask;
@@ -202,7 +203,8 @@ namespace TradeBot
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
-                service.PlaceSellLimitOrder(Shares, TickType.BID, buyStopPrice);
+                //Rick: Not used in GUI version
+                //service.PlaceSellLimitOrder(Shares, TickType.BID, buyStopPrice);
             }
 
             return Task.CompletedTask;
@@ -223,7 +225,8 @@ namespace TradeBot
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
-                service.PlaceBuyStopLimitOrder(Shares, TickType.ASK, buyStopPrice, sellStopPrice);
+                //Rick: Not used in GUI version
+                //service.PlaceBuyStopLimitOrder(Shares, TickType.ASK, buyStopPrice, sellStopPrice);
             }
 
             return Task.CompletedTask;
@@ -244,7 +247,8 @@ namespace TradeBot
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
             {
-                service.PlaceSellStopLimitOrder(Shares, TickType.BID, sellStopPrice, buyStopPrice);
+                //Rick: Not used in GUI version
+                //service.PlaceSellStopLimitOrder(Shares, TickType.BID, sellStopPrice, buyStopPrice);
             }
 
             return Task.CompletedTask;
