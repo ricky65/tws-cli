@@ -431,7 +431,7 @@ namespace TradeBot
             Shares = position?.PositionSize ?? 10;
         }
 
-        private async Task SetInitialSharesAsync()
+        public async Task SetInitialSharesAsync()
         {
             if (!service.HasTickerSymbol)
             {

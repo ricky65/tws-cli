@@ -1,4 +1,6 @@
+using IBApi;
 using System.Windows.Forms;
+using TradeBot.Gui;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TradeBot.WinGui
@@ -8,6 +10,12 @@ namespace TradeBot.WinGui
 
         public TradeController controller;
         public TradeStatusBar statusBar;
+
+        private static readonly int[] COMMON_TICKS = {
+            TickType.LAST,
+            TickType.ASK,
+            TickType.BID
+        };
 
         public TradePanelForm()
         {
@@ -24,15 +32,17 @@ namespace TradeBot.WinGui
 
         private void long05Percent_Click(object sender, EventArgs e)
         {
-            //string sellStopPriceInput = IO.PromptForInputIfNecessary(args, 0, Messages.SellStopPrompt);
-            double sellStopPrice = Double.Parse(Long05Percent.Text);
+            if (!string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
 
-            //if (Validation.HasValue(sellStopPrice)
-            //    && Validation.TickerSet(service)
-            //    && Validation.TickDataAvailable(service, COMMON_TICKS))
-            ///{
-            //    service.PlaceBuyLimitOrder(TickType.ASK, sellStopPrice, 0.5);
-            //}
+                if (Validation.HasValue(sellStopPrice)
+                    && Validation.TickerSet(controller.service)
+                    && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+                {
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice);//, 0.5);
+                } 
+            }
         }
         private void Long1Percent_Click(object sender, EventArgs e)
         {
@@ -174,17 +184,36 @@ namespace TradeBot.WinGui
 
         private void reverseButton_Click(object sender, EventArgs e)
         {
-
+            
         }
 
-        private void buttonCFD_Click(object sender, EventArgs e)
+        private async void buttonCFD_Click(object sender, EventArgs e)
         {
+            string tickerSymbol = TickerInput.Text;
 
+            if (Validation.NotNullOrWhiteSpace(tickerSymbol))
+            {
+                controller.service.UseCFD = true;
+
+                controller.service.TickerSymbol = tickerSymbol;
+                controller.service.RequestStockContractDetails(tickerSymbol);//Rick: We need stock contract for market data
+                controller.service.RequestCFDContractDetails(tickerSymbol);//Rick
+                await controller.SetInitialSharesAsync();
+            }
         }
 
-        private void buttonStock_Click(object sender, EventArgs e)
+        private async void buttonStock_Click(object sender, EventArgs e)
         {
+            string tickerSymbol = TickerInput.Text;
 
+            if (Validation.NotNullOrWhiteSpace(tickerSymbol))
+            {
+                controller.service.UseCFD = false;
+
+                controller.service.TickerSymbol = tickerSymbol;
+                controller.service.RequestStockContractDetails(tickerSymbol);//Rick
+                await controller.SetInitialSharesAsync();
+            }
         }
 
         private void OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
