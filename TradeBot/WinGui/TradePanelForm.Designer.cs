@@ -781,8 +781,8 @@
         private Label BidAskSizeLabel;
         private Label PercentageChangeLabel;
         private Label LastPriceLabel;
-        private Label BidAskSizeOutput;
-        private Label BidAskOutput;
+        public Label BidAskSizeOutput;
+        public Label BidAskOutput;
 
         private Button BuyStop05Percent;
         private Button BuyStop1Percent;
@@ -830,14 +830,14 @@
         private TextBox SellStopPriceTextBox;
         private Label SellStopPriceLabel;
 
-        private Label PositionOutputLabel;
+        public Label PositionOutputLabel;
         private Label PositionLabel;
         private TextBox GlobalOutputTextBox;
 
         private Button ButtonCFD;
         private Button ButtonStock;
-        private Label PercentageChangeOutputLabel;
-        private Label LastPriceOutputLabel;
+        public Label PercentageChangeOutputLabel;
+        public Label LastPriceOutputLabel;
         private CheckBox OutsideRTHCheckbox;
     }
 }
