@@ -511,22 +511,86 @@ namespace TradeBot.WinGui
             await ScalePositionAsync(-2.0);
         }
 
-        private void TakeProfit50Percent_Click(object sender, EventArgs e)
+        private async Task LimitTakeProfitAsync(double percent, double limitPrice)
         {
+            Position position = await controller.service.RequestCurrentPositionAsync();
+            if (Validation.TickerSet(controller.service)
+                && Validation.PositionExists(position)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                int orderDelta = (int)Math.Round(position.PositionSize * percent);
+                int orderQuantity = Math.Abs(orderDelta);
 
+                if (orderDelta > 0)
+                {
+                    controller.service.PlaceTakeProfitLimitOrder(OrderActions.SELL, orderQuantity, limitPrice);
+                }
+                else if (orderDelta < 0)
+                {
+                    controller.service.PlaceTakeProfitLimitOrder(OrderActions.BUY, orderQuantity, limitPrice);
+                }
+            }
         }
 
-        private void TakeProfit33Percent_Click(object sender, EventArgs e)
+        private async void TakeProfit50Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+
+            if (Validation.HasValue(limitPrice))
+            {
+                await LimitTakeProfitAsync(0.5, limitPrice);
+            }
+            else
+            {
+                //"Invalid Take Profit Limit Price" 
+                return;
+            }
         }
 
-        private void TakeProfit25Percent_Click(object sender, EventArgs e)
+        private async void TakeProfit33Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+
+            if (Validation.HasValue(limitPrice))
+            {
+                await LimitTakeProfitAsync(0.33, limitPrice);
+            }
+            else
+            {
+                //"Invalid Take Profit Limit Price" 
+                return;
+            }
         }
 
+        private async void TakeProfit25Percent_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+
+            if (Validation.HasValue(limitPrice))
+            {
+                await LimitTakeProfitAsync(0.25, limitPrice);
+            }
+            else
+            {
+                //"Invalid Take Profit Limit Price" 
+                return;
+            }
+        }
 
         private async void buttonCFD_Click(object sender, EventArgs e)
         {
