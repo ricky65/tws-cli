@@ -482,7 +482,7 @@ namespace TradeBot
             }
         }
 
-        private async Task ScalePositionAsync(double percent)
+        public async Task ScalePositionAsync(double percent)
         {
             Position position = await service.RequestCurrentPositionAsync();
             if (Validation.TickerSet(service)
@@ -503,7 +503,7 @@ namespace TradeBot
             }
         }
 
-        private async Task LimitTakeProfitAsync(double percent, double limitPrice)
+        public async Task LimitTakeProfitAsync(double percent, double limitPrice)
         {
             Position position = await service.RequestCurrentPositionAsync();
             if (Validation.TickerSet(service)

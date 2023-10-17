@@ -458,79 +458,37 @@ namespace TradeBot.WinGui
             {
                 controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 2.0);
             }
-        }
-
-        private async Task ScalePositionAsync(double percent)
-        {
-            Position position = await controller.service.RequestCurrentPositionAsync();
-            if (Validation.TickerSet(controller.service)
-                && Validation.PositionExists(position)
-                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
-            {
-                int orderDelta = (int)Math.Round(position.PositionSize * percent);
-                int orderQuantity = Math.Abs(orderDelta);
-
-                if (orderDelta > 0)
-                {
-                    controller.service.PlaceCloseLimitOrder(OrderActions.BUY, orderQuantity, TickType.ASK);
-                }
-                else if (orderDelta < 0)
-                {
-                    controller.service.PlaceCloseLimitOrder(OrderActions.SELL, orderQuantity, TickType.BID);
-                }
-            }
-        }
+        }      
 
         private async void Close100Percent_Click(object sender, EventArgs e)
         {
-            await ScalePositionAsync(-1.0);
+            await controller.ScalePositionAsync(-1.0);
         }
 
         private async void Close50Percent_Click(object sender, EventArgs e)
         {
-            await ScalePositionAsync(-0.5);
+            await controller.ScalePositionAsync(-0.5);
         }
 
         private async void Close33Percent_Click(object sender, EventArgs e)
         {
-            await ScalePositionAsync(-0.33);
+            await controller.ScalePositionAsync(-0.33);
         }
 
         private async void Close67Percent_Click(object sender, EventArgs e)
         {
-            await ScalePositionAsync(-0.67);
+            await controller.ScalePositionAsync(-0.67);
         }
 
         private async void Close25Percent_Click(object sender, EventArgs e)
         {
-            await ScalePositionAsync(-0.25);
+            await controller.ScalePositionAsync(-0.25);
         }
         
         private async void reverseButton_Click(object sender, EventArgs e)
         {
-            await ScalePositionAsync(-2.0);
-        }
-
-        private async Task LimitTakeProfitAsync(double percent, double limitPrice)
-        {
-            Position position = await controller.service.RequestCurrentPositionAsync();
-            if (Validation.TickerSet(controller.service)
-                && Validation.PositionExists(position)
-                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
-            {
-                int orderDelta = (int)Math.Round(position.PositionSize * percent);
-                int orderQuantity = Math.Abs(orderDelta);
-
-                if (orderDelta > 0)
-                {
-                    controller.service.PlaceTakeProfitLimitOrder(OrderActions.SELL, orderQuantity, limitPrice);
-                }
-                else if (orderDelta < 0)
-                {
-                    controller.service.PlaceTakeProfitLimitOrder(OrderActions.BUY, orderQuantity, limitPrice);
-                }
-            }
-        }
+            await controller.ScalePositionAsync(-2.0);
+        }       
 
         private async void TakeProfit50Percent_Click(object sender, EventArgs e)
         {
@@ -543,7 +501,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.5, limitPrice);
+                await controller.LimitTakeProfitAsync(0.5, limitPrice);
             }
             else
             {
@@ -563,7 +521,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.33, limitPrice);
+                await controller.LimitTakeProfitAsync(0.33, limitPrice);
             }
             else
             {
@@ -583,7 +541,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.25, limitPrice);
+                await controller.LimitTakeProfitAsync(0.25, limitPrice);
             }
             else
             {
