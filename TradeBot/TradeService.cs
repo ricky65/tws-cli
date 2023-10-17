@@ -76,7 +76,7 @@ namespace TradeBot
         private double totalEquity = 5_100;
         public double TotalEquity { get => totalEquity; set => totalEquity = value; }
         
-        private double riskPercent = 1.25;
+        private double riskPercent = 1.50;
         public double RiskPercent { get => riskPercent; set => PropertyChanged.SetPropertyAndRaiseEvent(ref riskPercent, value); }
 
         public int ClientId { get; }
