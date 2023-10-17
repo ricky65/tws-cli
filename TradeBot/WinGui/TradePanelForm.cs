@@ -193,55 +193,270 @@ namespace TradeBot.WinGui
 
         private void BuyStop05Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text); 
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 0.5);
+            }
         }
+
         private void BuyStop1Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.0);
+            }
         }
 
         private void BuyStop125Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.25);
+            }
         }
 
         private void BuyStop15Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.5);
+            }
         }
 
         private void BuyStop2Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.0);
+            }
         }
 
         private void BuyStop25Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+
+            if (Validation.HasValue(buyStopPrice)
+                && Validation.HasValue(sellStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.5);
+            }
         }
 
         private void SellStop05Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.HasValue(buyStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 0.5);
+            }
         }
         private void SellStop1Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.HasValue(buyStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.0);
+            }
         }
 
         private void SellStop125Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.HasValue(buyStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.25);
+            }
         }
 
         private void SellStop15Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.HasValue(buyStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.5);
+            }
         }
 
         private void SellStop2Percent_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            {
+                return;
+            }
 
+            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            {
+                return;
+            }
+
+            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+
+            if (Validation.HasValue(sellStopPrice)
+                && Validation.HasValue(buyStopPrice)
+                && Validation.TickerSet(controller.service)
+                //&& Validation.SharesSet(Shares)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 2.0);
+            }
         }
 
         private void Close100Percent_Click(object sender, EventArgs e)
