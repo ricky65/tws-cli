@@ -1,6 +1,7 @@
 using IBApi;
 using System.Windows.Forms;
 using TradeBot.Gui;
+using TradeBot.TwsAbstractions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TradeBot.WinGui
@@ -459,29 +460,55 @@ namespace TradeBot.WinGui
             }
         }
 
-        private void Close100Percent_Click(object sender, EventArgs e)
+        private async Task ScalePositionAsync(double percent)
         {
+            Position position = await controller.service.RequestCurrentPositionAsync();
+            if (Validation.TickerSet(controller.service)
+                && Validation.PositionExists(position)
+                && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
+            {
+                int orderDelta = (int)Math.Round(position.PositionSize * percent);
+                int orderQuantity = Math.Abs(orderDelta);
 
+                if (orderDelta > 0)
+                {
+                    controller.service.PlaceCloseLimitOrder(OrderActions.BUY, orderQuantity, TickType.ASK);
+                }
+                else if (orderDelta < 0)
+                {
+                    controller.service.PlaceCloseLimitOrder(OrderActions.SELL, orderQuantity, TickType.BID);
+                }
+            }
         }
 
-        private void Close50Percent_Click(object sender, EventArgs e)
+        private async void Close100Percent_Click(object sender, EventArgs e)
         {
-
+            await ScalePositionAsync(-1.0);
         }
 
-        private void Close33Percent_Click(object sender, EventArgs e)
+        private async void Close50Percent_Click(object sender, EventArgs e)
         {
-
+            await ScalePositionAsync(-0.5);
         }
 
-        private void Close67Percent_Click(object sender, EventArgs e)
+        private async void Close33Percent_Click(object sender, EventArgs e)
         {
-
+            await ScalePositionAsync(-0.33);
         }
 
-        private void Close25Percent_Click(object sender, EventArgs e)
+        private async void Close67Percent_Click(object sender, EventArgs e)
         {
+            await ScalePositionAsync(-0.67);
+        }
 
+        private async void Close25Percent_Click(object sender, EventArgs e)
+        {
+            await ScalePositionAsync(-0.25);
+        }
+        
+        private async void reverseButton_Click(object sender, EventArgs e)
+        {
+            await ScalePositionAsync(-2.0);
         }
 
         private void TakeProfit50Percent_Click(object sender, EventArgs e)
@@ -499,10 +526,7 @@ namespace TradeBot.WinGui
 
         }
 
-        private void reverseButton_Click(object sender, EventArgs e)
-        {
-            
-        }
+
 
         private async void buttonCFD_Click(object sender, EventArgs e)
         {
