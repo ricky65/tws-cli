@@ -124,7 +124,7 @@ namespace TradeBot
                     {
                         tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings);
 
-                        tradePanel.PositionOutputLabel.Text = positionSize.ToString();
+                        tradePanel.PositionOutputLabel.Text = positionSize.ToString("N0");
                         tradePanel.LastPriceOutputLabel.Text = GetTickAsCurrencyString(TickType.LAST);
                         tradePanel.PercentageChangeOutputLabel.Text = "todo";
                         tradePanel.BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK));
