@@ -586,17 +586,17 @@ namespace TradeBot.WinGui
 
         private void SellStopPriceTextBox_TextChanged(object sender, EventArgs e)
         {
-            GlobalOutputTextBox.AppendText("SellStop Updated");
+            //GlobalOutputTextBox.AppendText("SellStop Updated");
         }
 
         private void BuyStopPriceTextBox_TextChanged(object sender, EventArgs e)
         {
-            GlobalOutputTextBox.AppendText("BuyStop Updated");
+            //GlobalOutputTextBox.AppendText("BuyStop Updated");
         }
 
         private void TakeProfitLimitPriceTextBox_TextChanged(object sender, EventArgs e)
         {
-            GlobalOutputTextBox.AppendText("TakeProfitLimitPrice Updated");
+            //GlobalOutputTextBox.AppendText("TakeProfitLimitPrice Updated");
         }
     }
 }
