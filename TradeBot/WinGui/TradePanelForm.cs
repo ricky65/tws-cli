@@ -22,7 +22,7 @@ namespace TradeBot.WinGui
         {
             InitializeComponent();
 
-            controller = new TradeController(GlobalOutputTextBox);
+            controller = new TradeController(GlobalOutputTextBox, stock1GroupBox);
             statusBar = new TradeStatusBar(controller, controller.service, this);
         }
 

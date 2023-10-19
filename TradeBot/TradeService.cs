@@ -37,12 +37,18 @@ namespace TradeBot
 
         //Rick - number of orders cancelled, so we can jump to a fresh order id when required
         private int canceledOrderCount = 0;
-        public TradeService(int clientId)
+
+        private TextBox globalOutputTextBox;
+        private GroupBox stock1GroupBoxx;
+        public TradeService(int clientId, TextBox textBox, GroupBox stock1GroupBox)
         {
             ClientId = clientId;
 
             readerSignal = new EReaderMonitorSignal();
             clientSocket = new EClientSocket(this, readerSignal);
+
+            globalOutputTextBox = textBox;
+            stock1GroupBoxx = stock1GroupBox;
 
             // TradeBot events
             PropertyChanged += OnPropertyChanged;
@@ -254,9 +260,10 @@ namespace TradeBot
 
                 if (!(stopPrice < price))
                 {
+                    IO.ShowMessageTextBox(globalOutputTextBox, "LONG Stop: Sell Stop must be less than ASK + 3 cents");//GUI
                     IO.ShowMessage("LONG Stop: Sell Stop must be less than ASK + 3 cents");
                     return;
-            }
+                }
             }
             else if (action == OrderActions.SELL)
             {
@@ -264,9 +271,10 @@ namespace TradeBot
 
                 if (!(stopPrice > price))
                 {
+                    IO.ShowMessageTextBox(globalOutputTextBox, "SHORT Stop: Buy Stop must be greater than BID - 3 cents");//GUI
                     IO.ShowMessage("SHORT Stop: Buy Stop must be greater than BID - 3 cents");
                     return;
-            }
+                }
             }
 
             PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice, riskPercent);
@@ -294,6 +302,7 @@ namespace TradeBot
 
             var riskStr = String.Format("{0} Limit {1} - Price {2} - Stop {3} - Risk: {4}% (${5}) - {6} shares (Half: {7}) (${8}) ({9:0.00}% of ${10})",
                  stockContract.Symbol, action.ToString(), price, stopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+            IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             IO.ShowMessage(riskStr);
 
             //parent order
@@ -381,6 +390,7 @@ namespace TradeBot
 
             var riskStr = String.Format("{0} BUY Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7}) ({8:0.00}% of ${9})",
                  stockContract.Symbol, buyStopPrice, sellStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+            IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             IO.ShowMessage(riskStr);
 
 
@@ -424,6 +434,7 @@ namespace TradeBot
 
             var riskStr = String.Format("{0} SELL Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7}) ({8:0.00}% of ${9})",
                  stockContract.Symbol, sellStopPrice, buyStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+            IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             IO.ShowMessage(riskStr);
 
 
@@ -667,9 +678,11 @@ namespace TradeBot
                 .ToArray();
 
             //Rick: Print accounts found
+            IO.ShowMessageTextBox(globalOutputTextBox, "Accounts found:");//GUI
             IO.ShowMessage("Accounts found:");
             foreach (var acct in Accounts)
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, acct);//GUI
                 IO.ShowMessage(acct);
             }
 
@@ -729,6 +742,7 @@ namespace TradeBot
         //Rick: Use Account summary to get AvailableFunds from each account and choose account with highest amount
         private void OnAccountSummary(int reqId, string account, string tag, string value, string currency)
         {
+            IO.ShowMessageTextBox(globalOutputTextBox, "Acct Summary. ReqId: " + reqId + ", Acct: " + account + ", Tag: " + tag + ", Value: " + value + ", Currency: " + currency);//GUI
             IO.ShowMessage("Acct Summary. ReqId: " + reqId + ", Acct: " + account + ", Tag: " + tag + ", Value: " + value + ", Currency: " + currency);
 
             accountAvailableFunds[account] = double.Parse(value);
@@ -749,8 +763,26 @@ namespace TradeBot
 
         public void OnContractDetails(int reqId, ContractDetails contractDetails)
         {
-            //IO.ShowMessage("OnContractDetails. Req Id: " + reqId);            
-            IO.ShowMessage("OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")");
+            //IO.ShowMessage("OnContractDetails. Req Id: " + reqId);
+            
+            string stock1str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
+            IO.ShowMessageTextBox(globalOutputTextBox, "OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);//GUI
+            IO.ShowMessage("OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);
+            
+            if (!UseCFD)
+                stock1str += " (Stock)";
+            else
+                stock1str += " (CFD)";
+
+            if (stock1GroupBoxx.InvokeRequired) 
+            {
+                stock1GroupBoxx.BeginInvoke(() => { stock1GroupBoxx.Text = stock1str; });
+                
+            }
+            else
+            {
+                stock1GroupBoxx.Text = stock1GroupBoxx.Text = stock1str; 
+            }
 
             //Rick: USD Stock returned is always the first one. TWS Doc says:
             //"Invoking reqContractDetails with a Contract object which has currency = USD will only return US contracts, even if there are non-US instruments which have the USD currency."

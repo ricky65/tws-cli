@@ -33,10 +33,10 @@ namespace TradeBot
 
         private TextBox globalOutputTextBox;
 
-        public TradeController(TextBox textBox)
+        public TradeController(TextBox textBox, GroupBox stock1GroupBox)
         {
 
-            service = new TradeService(Preferences.ClientId);
+            service = new TradeService(Preferences.ClientId, textBox, stock1GroupBox);
             //menu = new TradeMenu(this);//Rick TODO: remove this for GUI 
             //Rick TODO: Moved TradePanel  
             //statusBar = new TradeStatusBar(this, service);
@@ -477,6 +477,7 @@ namespace TradeBot
             }
             catch (TimeoutException)
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TimeoutErrorFormat, TimeSpan.FromMilliseconds(REQUEST_TIMEOUT).TotalSeconds));//GUI
                 IO.ShowMessage(LogLevel.Error, Messages.TimeoutErrorFormat,
                                TimeSpan.FromMilliseconds(REQUEST_TIMEOUT).TotalSeconds);
             }
@@ -573,10 +574,12 @@ namespace TradeBot
         {
             if (service.IsConnected)
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, Messages.TwsConnected); //GUI
                 IO.ShowMessage(LogLevel.Trace, Messages.TwsConnected);
             }
             else
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, Messages.TwsDisconnected);//GUI
                 IO.ShowMessage(LogLevel.Fatal, Messages.TwsDisconnected);
             }
         }
@@ -592,22 +595,27 @@ namespace TradeBot
             // Warn about multiple accounts
             if (service.Accounts.Length > 1)
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString()));//GUI
                 IO.ShowMessage(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());                
             }
             else
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.SingleAccountFoundFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString()));//GUI
                 IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());
             }
-            
+
+            IO.ShowMessageTextBox(globalOutputTextBox, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size with " + service.RiskPercent + "% Risk Per Trade");//GUI
             IO.ShowMessage(LogLevel.Warn, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size with " + service.RiskPercent + "% Risk Per Trade");
 
             // Show account type message
             if (service.TradedAccount.StartsWith(Messages.PaperAccountPrefix, StringComparison.InvariantCulture))
             {
+                IO.ShowMessageTextBox(globalOutputTextBox,Messages.AccountTypePaper); //GUI
                 IO.ShowMessage(LogLevel.Warn, Messages.AccountTypePaper);
             }
             else
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, Messages.AccountTypeLive); //GUI
                 IO.ShowMessage(LogLevel.Warn, Messages.AccountTypeLive);
             }
 
@@ -621,11 +629,13 @@ namespace TradeBot
 
             if (!string.IsNullOrWhiteSpace(oldValue))
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TickerSymbolClearedFormat, oldValue));//GUI
                 IO.ShowMessage(LogLevel.Trace, Messages.TickerSymbolClearedFormat, oldValue);
             }
 
             if (!string.IsNullOrWhiteSpace(newValue))
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TickerSymbolSetFormat, newValue));//GUI
                 IO.ShowMessage(Messages.TickerSymbolSetFormat, newValue);
             }
         }
@@ -642,7 +652,7 @@ namespace TradeBot
             double lastCommission = lastReport.Commission;
             double totalCommission = reports.Sum(report => report.Commission);
 
-            //RICK: TODO Investigate -  this seems to clash with input currently in the console
+            IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.CommissionFormat, lastCommission.ToCurrencyString(), totalCommission.ToCurrencyString()));//GUI
             IO.ShowMessage(Messages.CommissionFormat,
                 lastCommission.ToCurrencyString(),
                 totalCommission.ToCurrencyString());
@@ -668,10 +678,12 @@ namespace TradeBot
             // Output
             if (!string.IsNullOrWhiteSpace(errorMessage))
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TwsErrorFormat, errorMessage)); //GUI
                 IO.ShowMessage(LogLevel.Error, Messages.TwsErrorFormat, errorMessage);
             }
             if (exception != null)
             {
+                IO.ShowMessageTextBox(globalOutputTextBox, exception.ToString());//GUI
                 IO.ShowMessage(LogLevel.Error, exception.ToString());
             }
 

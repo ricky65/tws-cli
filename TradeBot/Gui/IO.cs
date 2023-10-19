@@ -40,7 +40,17 @@ namespace TradeBot.Gui
 
         public static void ShowMessageTextBox(TextBox textbox, string message)
         {
-            textbox.AppendText(message);
+            if (textbox.InvokeRequired)
+            {
+                textbox.BeginInvoke(() =>
+                {
+                    textbox.AppendText(message + "\r\n");
+                });
+            }
+            else
+            {
+                textbox.AppendText(message + "\r\n");
+            }
         }
 
         //Rick: Not used in GUI version

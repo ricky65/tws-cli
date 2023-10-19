@@ -145,7 +145,7 @@
             stock1GroupBox.Size = new Size(711, 587);
             stock1GroupBox.TabIndex = 1;
             stock1GroupBox.TabStop = false;
-            stock1GroupBox.Text = "THE TRADE DESK INC";
+            stock1GroupBox.Text = "Stock 1";
             stock1GroupBox.Enter += stock1GroupBox_Enter;
             // 
             // BidAskLabel
