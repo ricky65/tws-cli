@@ -85,7 +85,7 @@ namespace TradeBot
         public void Run()
         {
             IO.ShowMessageTextBox(globalOutputTextBox, Messages.WelcomeMessage);//Rick:GUI
-            IO.ShowMessage(Messages.WelcomeMessage);
+            //IO.ShowMessageCLI(Messages.WelcomeMessage);
             service.Connect(Preferences.ClientUrl, Preferences.ClientPort);
 
             
@@ -338,7 +338,7 @@ namespace TradeBot
             {
                 foreach (var position in positions)
                 {
-                    IO.ShowMessage(position.ToString());
+                    IO.ShowMessageCLI(position.ToString());
                 }
             }
         }
@@ -353,16 +353,16 @@ namespace TradeBot
                 if (newRisk >= 0.1 && newRisk <= 3.0)
                 {
                     service.RiskPercent = newRisk;
-                    IO.ShowMessage("Set Risk Per Trade to {0}%", newRisk);
+                    IO.ShowMessageCLI("Set Risk Per Trade to {0}%", newRisk);
                 }
                 else
                 {
-                    IO.ShowMessage("Risk Per Trade must be between 0.1% and 3%");
+                    IO.ShowMessageCLI("Risk Per Trade must be between 0.1% and 3%");
                 }
             }
             else
             {
-                IO.ShowMessage("Set Risk: {0} is not valid", newRiskInput);
+                IO.ShowMessageCLI("Set Risk: {0} is not valid", newRiskInput);
             }
 
             return Task.CompletedTask;
@@ -376,11 +376,11 @@ namespace TradeBot
             if (Validation.HasValue(newEquity) && Validation.Positive(newEquity))
             { 
                 service.TotalEquity = newEquity;
-                IO.ShowMessage("Set Equity to {0}", newEquity.ToCurrencyString());
+                IO.ShowMessageCLI("Set Equity to {0}", newEquity.ToCurrencyString());
             }
             else
             {
-                IO.ShowMessage("Set Equity: {0} is not valid", newEquityInput);
+                IO.ShowMessageCLI("Set Equity: {0} is not valid", newEquityInput);
             }           
 
             return Task.CompletedTask;
@@ -394,7 +394,7 @@ namespace TradeBot
             Cash = state.Cash ?? 0;
             Shares = state.Shares ?? 10;
 
-            IO.ShowMessage(Messages.LoadedStateFormat, PropertyFiles.STATE_FILE);
+            IO.ShowMessageCLI(Messages.LoadedStateFormat, PropertyFiles.STATE_FILE);
 
             return Task.CompletedTask;
         }
@@ -408,7 +408,7 @@ namespace TradeBot
 
             PropertySerializer.Serialize(state, PropertyFiles.STATE_FILE);
 
-            IO.ShowMessage(Messages.SavedStateFormat, PropertyFiles.STATE_FILE);
+            IO.ShowMessageCLI(Messages.SavedStateFormat, PropertyFiles.STATE_FILE);
 
             return Task.CompletedTask;
         }
@@ -422,7 +422,7 @@ namespace TradeBot
 
         public Task ShowMenuCommand(string[] args)
         {
-            IO.ShowMessage(menu.Render());
+            IO.ShowMessageCLI(menu.Render());
 
             return Task.CompletedTask;
         }
@@ -478,8 +478,7 @@ namespace TradeBot
             catch (TimeoutException)
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TimeoutErrorFormat, TimeSpan.FromMilliseconds(REQUEST_TIMEOUT).TotalSeconds));//GUI
-                IO.ShowMessage(LogLevel.Error, Messages.TimeoutErrorFormat,
-                               TimeSpan.FromMilliseconds(REQUEST_TIMEOUT).TotalSeconds);
+                //IO.ShowMessageCLI(LogLevel.Error, Messages.TimeoutErrorFormat, TimeSpan.FromMilliseconds(REQUEST_TIMEOUT).TotalSeconds);
             }
         }
 
@@ -562,12 +561,12 @@ namespace TradeBot
 
         private void OnSharesChanged(PropertyChangedEventArgs eventArgs)
         {
-            IO.ShowMessage(Messages.SharesSetFormat, Shares);
+            //IO.ShowMessageCLI(Messages.SharesSetFormat, Shares);
         }
 
         private void OnCashChanged(PropertyChangedEventArgs eventArgs)
         {
-            IO.ShowMessage(Messages.CashSetFormat, Cash.ToCurrencyString());
+            //IO.ShowMessageCLI(Messages.CashSetFormat, Cash.ToCurrencyString());
         }
 
         private void OnIsConnectedChanged(PropertyChangedEventArgs eventArgs)
@@ -575,12 +574,12 @@ namespace TradeBot
             if (service.IsConnected)
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, Messages.TwsConnected); //GUI
-                IO.ShowMessage(LogLevel.Trace, Messages.TwsConnected);
+                //IO.ShowMessageCLI(LogLevel.Trace, Messages.TwsConnected);
             }
             else
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, Messages.TwsDisconnected);//GUI
-                IO.ShowMessage(LogLevel.Fatal, Messages.TwsDisconnected);
+                //IO.ShowMessageCLI(LogLevel.Fatal, Messages.TwsDisconnected);
             }
         }
 
@@ -596,27 +595,27 @@ namespace TradeBot
             if (service.Accounts.Length > 1)
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString()));//GUI
-                IO.ShowMessage(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());                
+                //IO.ShowMessageCLI(LogLevel.Warn, Messages.MultipleAccountsWarningFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());                
             }
             else
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.SingleAccountFoundFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString()));//GUI
-                IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());
+                //IO.ShowMessageCLI(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());
             }
 
             IO.ShowMessageTextBox(globalOutputTextBox, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size");//GUI
-            IO.ShowMessage(LogLevel.Warn, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size with " + service.RiskPercent + "% Risk Per Trade");
+            //IO.ShowMessageCLI(LogLevel.Warn, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size with " + service.RiskPercent + "% Risk Per Trade");
 
             // Show account type message
             if (service.TradedAccount.StartsWith(Messages.PaperAccountPrefix, StringComparison.InvariantCulture))
             {
                 IO.ShowMessageTextBox(globalOutputTextBox,Messages.AccountTypePaper); //GUI
-                IO.ShowMessage(LogLevel.Warn, Messages.AccountTypePaper);
+                //IO.ShowMessageCLI(LogLevel.Warn, Messages.AccountTypePaper);
             }
             else
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, Messages.AccountTypeLive); //GUI
-                IO.ShowMessage(LogLevel.Warn, Messages.AccountTypeLive);
+                //IO.ShowMessageCLI(LogLevel.Warn, Messages.AccountTypeLive);
             }
 
         }
@@ -630,13 +629,13 @@ namespace TradeBot
             if (!string.IsNullOrWhiteSpace(oldValue))
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TickerSymbolClearedFormat, oldValue));//GUI
-                IO.ShowMessage(LogLevel.Trace, Messages.TickerSymbolClearedFormat, oldValue);
+                //IO.ShowMessageCLI(LogLevel.Trace, Messages.TickerSymbolClearedFormat, oldValue);
             }
 
             if (!string.IsNullOrWhiteSpace(newValue))
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TickerSymbolSetFormat, newValue));//GUI
-                IO.ShowMessage(Messages.TickerSymbolSetFormat, newValue);
+                //IO.ShowMessageCLI(Messages.TickerSymbolSetFormat, newValue);
             }
         }
 
@@ -653,9 +652,7 @@ namespace TradeBot
             double totalCommission = reports.Sum(report => report.Commission);
 
             IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.CommissionFormat, lastCommission.ToCurrencyString(), totalCommission.ToCurrencyString()));//GUI
-            IO.ShowMessage(Messages.CommissionFormat,
-                lastCommission.ToCurrencyString(),
-                totalCommission.ToCurrencyString());
+            //IO.ShowMessageCLI(Messages.CommissionFormat, lastCommission.ToCurrencyString(), totalCommission.ToCurrencyString());
         }
 
         private void OnError(int id, int errorCode, string errorMessage, Exception exception)
@@ -679,12 +676,12 @@ namespace TradeBot
             if (!string.IsNullOrWhiteSpace(errorMessage))
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TwsErrorFormat, errorMessage)); //GUI
-                IO.ShowMessage(LogLevel.Error, Messages.TwsErrorFormat, errorMessage);
+                //IO.ShowMessageCLI(LogLevel.Error, Messages.TwsErrorFormat, errorMessage);
             }
             if (exception != null)
             {
                 IO.ShowMessageTextBox(globalOutputTextBox, exception.ToString());//GUI
-                IO.ShowMessage(LogLevel.Error, exception.ToString());
+                //IO.ShowMessageCLI(LogLevel.Error, exception.ToString());
             }
 
             // Post-output

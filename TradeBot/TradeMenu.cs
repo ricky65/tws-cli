@@ -120,7 +120,7 @@ namespace TradeBot
             }
             else
             {
-                IO.ShowMessage(LogLevel.Error, Messages.InvalidMenuOption);
+                IO.ShowMessageCLI(LogLevel.Error, Messages.InvalidMenuOption);
             }
         }
 

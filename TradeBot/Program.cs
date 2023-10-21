@@ -30,7 +30,7 @@ namespace TradeBot
             }
             catch (Exception e)
             {
-                IO.ShowMessage(LogLevel.Fatal, e.ToString());
+                IO.ShowMessageCLI(LogLevel.Fatal, e.ToString());
             }
            //finally
            //{

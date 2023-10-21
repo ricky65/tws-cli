@@ -23,7 +23,7 @@ namespace TradeBot.Gui
                 ShowInlineMessage(promptMessage);
             }
             string input = Console.ReadLine() ?? string.Empty;
-            ShowMessage(LogLevel.Trace, input);
+            ShowMessageCLI(LogLevel.Trace, input);
             return input;
         }
 
@@ -34,7 +34,7 @@ namespace TradeBot.Gui
                 ShowInlineMessage(promptMessage);
             }
             char input = Console.ReadKey().KeyChar;
-            ShowMessage(LogLevel.Trace, input.ToString());
+            ShowMessageCLI(LogLevel.Trace, input.ToString());
             return input;
         }
 
@@ -54,12 +54,12 @@ namespace TradeBot.Gui
         }
 
         //Rick: Not used in GUI version
-        public static void ShowMessage(string message, params object[] messageArgs)
+        public static void ShowMessageCLI(string message, params object[] messageArgs)
         {
             logger.Log(LogLevel.Info, message, messageArgs);
         }
-
-        public static void ShowMessage(LogLevel logLevel, string message, params object[] messageArgs)
+        //Rick: Not used in GUI version
+        public static void ShowMessageCLI(LogLevel logLevel, string message, params object[] messageArgs)
         {
 
             logger.Log(logLevel, message, messageArgs);
@@ -73,7 +73,7 @@ namespace TradeBot.Gui
             // Console.Write to hide the message from the logs
             Console.Write(message, messageArgs);
             // Trace the message to hide the message from the console
-            ShowMessage(LogLevel.Trace, message, messageArgs);
+            ShowMessageCLI(LogLevel.Trace, message, messageArgs);
         }
     }
 }

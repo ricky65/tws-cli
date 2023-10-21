@@ -83,7 +83,7 @@ namespace TradeBot
         {
             if (!isValid)
             {                
-                IO.ShowMessage(LogLevel.Error, errorMessage);
+                IO.ShowMessageCLI(LogLevel.Error, errorMessage);
                 return false;
             }
 

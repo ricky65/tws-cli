@@ -722,7 +722,7 @@ namespace TradeBot.TwsAbstractions
                 var parameters = callingMethod.GetParameters().Select((p, i) =>
                     new KeyValuePair<string, object>(p.Name, parameterValues[i]));
 
-                IO.ShowMessage(
+                IO.ShowMessageCLI(
                     LogLevel.Debug,
                     "{0} : {1}",
                     methodName,
