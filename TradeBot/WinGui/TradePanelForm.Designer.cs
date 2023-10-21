@@ -164,7 +164,7 @@
             BidAskOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             BidAskOutput.Location = new Point(124, 140);
             BidAskOutput.Name = "BidAskOutput";
-            BidAskOutput.Size = new Size(200, 25);
+            BidAskOutput.Size = new Size(300, 25);
             BidAskOutput.TabIndex = 12;
             BidAskOutput.Text = "";
             BidAskOutput.TextAlign = ContentAlignment.MiddleCenter;
@@ -185,7 +185,7 @@
             BidAskSizeOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             BidAskSizeOutput.Location = new Point(124, 165);
             BidAskSizeOutput.Name = "BidAskSizeOutput";
-            BidAskSizeOutput.Size = new Size(200, 25);
+            BidAskSizeOutput.Size = new Size(300, 25);
             BidAskSizeOutput.TabIndex = 13;
             BidAskSizeOutput.Text = "";
             BidAskSizeOutput.TextAlign = ContentAlignment.MiddleCenter;
