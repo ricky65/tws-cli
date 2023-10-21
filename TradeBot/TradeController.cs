@@ -604,7 +604,7 @@ namespace TradeBot
                 IO.ShowMessage(LogLevel.Warn, Messages.SingleAccountFoundFormat, service.TradedAccount, service.TotalEquity.ToCurrencyString());
             }
 
-            IO.ShowMessageTextBox(globalOutputTextBox, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size with " + service.RiskPercent + "% Risk Per Trade");//GUI
+            IO.ShowMessageTextBox(globalOutputTextBox, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size");//GUI
             IO.ShowMessage(LogLevel.Warn, "Using " + service.TotalEquity.ToCurrencyString() + " as Account Size with " + service.RiskPercent + "% Risk Per Trade");
 
             // Show account type message

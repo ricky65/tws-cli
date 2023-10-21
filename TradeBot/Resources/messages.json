@@ -62,7 +62,7 @@
   "longestMenuOptionKey": "equity",
   "invalidMenuOption": "Invalid menu option",
 
-  "welcomeMessage": "Welcome to TradeBot. Enter '?' to show the menu.",
+  "welcomeMessage": "Welcome to TradeBot.",
   "twsConnected": "Connection to TWS established",
   "twsDisconnected": "Connection to TWS closed",
   "multipleAccountsWarningFormat": "Multiple accounts found so account with highest Available Funds selected: {0} with {1} Available Funds.",

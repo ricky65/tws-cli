@@ -42,7 +42,7 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
                     controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 0.5);
-                } 
+                }
             }
         }
         private void Long1Percent_Click(object sender, EventArgs e)
@@ -203,7 +203,7 @@ namespace TradeBot.WinGui
                 return;
             }
 
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text); 
+            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
             double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
 
             if (Validation.HasValue(buyStopPrice)
@@ -458,7 +458,7 @@ namespace TradeBot.WinGui
             {
                 controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 2.0);
             }
-        }      
+        }
 
         private async void Close100Percent_Click(object sender, EventArgs e)
         {
@@ -484,11 +484,11 @@ namespace TradeBot.WinGui
         {
             await controller.ScalePositionAsync(-0.25);
         }
-        
+
         private async void reverseButton_Click(object sender, EventArgs e)
         {
             await controller.ScalePositionAsync(-2.0);
-        }       
+        }
 
         private async void TakeProfit50Percent_Click(object sender, EventArgs e)
         {
@@ -581,7 +581,7 @@ namespace TradeBot.WinGui
 
         private void OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            GlobalOutputTextBox.AppendText("OutsideRTH: " + OutsideRTHCheckbox.Checked);
+            GlobalOutputTextBox.AppendText("OutsideRTH: " + OutsideRTHCheckbox.Checked + "\r\n");
         }
 
         private void SellStopPriceTextBox_TextChanged(object sender, EventArgs e)
