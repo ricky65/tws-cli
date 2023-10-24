@@ -300,7 +300,7 @@ namespace TradeBot
                 numShares = Math.Floor(totalEquity / price);
             }
 
-            var riskStr = String.Format("{0} Limit {1} - Price {2} - Stop {3} - Risk: {4}% (${5}) - {6} shares (Half: {7}) (${8}) ({9:0.00}% of ${10})",
+            var riskStr = String.Format("{0} Limit {1} - Price {2} - Stop {3} - Risk: {4}% (${5}) - {6} shares (Half: {7}) (${8:0.00}) ({9:0.00}% of ${10})",
                  stockContract.Symbol, action.ToString(), price, stopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
@@ -389,7 +389,7 @@ namespace TradeBot
                 numShares = Math.Floor(totalEquity / (buyStopPrice + 0.05));
             }
 
-            var riskStr = String.Format("{0} BUY Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7}) ({8:0.00}% of ${9})",
+            var riskStr = String.Format("{0} BUY Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7:0.00}) ({8:0.00}% of ${9})",
                  stockContract.Symbol, buyStopPrice, sellStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
@@ -434,7 +434,7 @@ namespace TradeBot
             double dollarAmount = numShares * buyStopPrice;
             double percentageOfTotalEquity = dollarAmount / totalEquity * 100.00;
 
-            var riskStr = String.Format("{0} SELL Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7}) ({8:0.00}% of ${9})",
+            var riskStr = String.Format("{0} SELL Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7:0.00}) ({8:0.00}% of ${9})",
                  stockContract.Symbol, sellStopPrice, buyStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
