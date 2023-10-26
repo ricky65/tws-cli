@@ -489,6 +489,45 @@ namespace TradeBot.WinGui
         {
             await controller.ScalePositionAsync(-2.0);
         }
+        private async void TakeProfit100Percent_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            {
+                return;
+            }
+
+            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+
+            if (Validation.HasValue(limitPrice))
+            {
+                await controller.LimitTakeProfitAsync(1.0, limitPrice);
+            }
+            else
+            {
+                //"Invalid Take Profit Limit Price" 
+                return;
+            }
+        }
+
+        private async void TakeProfit67Percent_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            {
+                return;
+            }
+
+            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+
+            if (Validation.HasValue(limitPrice))
+            {
+                await controller.LimitTakeProfitAsync(0.67, limitPrice);
+            }
+            else
+            {
+                //"Invalid Take Profit Limit Price" 
+                return;
+            }
+        }
 
         private async void TakeProfit50Percent_Click(object sender, EventArgs e)
         {

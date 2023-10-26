@@ -77,6 +77,8 @@
             TakeProfit25Percent = new Button();
             TakeProfit33Percent = new Button();
             TakeProfit50Percent = new Button();
+            TakeProfit67Percent = new Button();
+            TakeProfit100Percent = new Button();
             TakeProfitLimitPriceLabel = new Label();
             TakeProfitLimitPriceTextBox = new TextBox();
             TickerInput = new TextBox();
@@ -135,6 +137,8 @@
             stock1GroupBox.Controls.Add(TakeProfit25Percent);
             stock1GroupBox.Controls.Add(TakeProfit33Percent);
             stock1GroupBox.Controls.Add(TakeProfit50Percent);
+            stock1GroupBox.Controls.Add(TakeProfit67Percent);
+            stock1GroupBox.Controls.Add(TakeProfit100Percent);
             stock1GroupBox.Controls.Add(TakeProfitLimitPriceLabel);
             stock1GroupBox.Controls.Add(TakeProfitLimitPriceTextBox);
             stock1GroupBox.Controls.Add(TickerInput);
@@ -160,13 +164,11 @@
             // 
             // BidAskOutput
             // 
-            BidAskOutput.AutoSize = false;
             BidAskOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             BidAskOutput.Location = new Point(124, 140);
             BidAskOutput.Name = "BidAskOutput";
             BidAskOutput.Size = new Size(300, 25);
             BidAskOutput.TabIndex = 12;
-            BidAskOutput.Text = "";
             BidAskOutput.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // BidAskSizeLabel
@@ -181,13 +183,11 @@
             // 
             // BidAskSizeOutput
             // 
-            BidAskSizeOutput.AutoSize = false;
             BidAskSizeOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             BidAskSizeOutput.Location = new Point(124, 165);
             BidAskSizeOutput.Name = "BidAskSizeOutput";
             BidAskSizeOutput.Size = new Size(300, 25);
             BidAskSizeOutput.TabIndex = 13;
-            BidAskSizeOutput.Text = "";
             BidAskSizeOutput.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ButtonCFD
@@ -673,7 +673,7 @@
             // 
             TakeProfit25Percent.BackColor = Color.FromArgb(255, 253, 174);
             TakeProfit25Percent.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            TakeProfit25Percent.Location = new Point(299, 535);
+            TakeProfit25Percent.Location = new Point(286, 535);
             TakeProfit25Percent.Name = "TakeProfit25Percent";
             TakeProfit25Percent.Size = new Size(133, 40);
             TakeProfit25Percent.TabIndex = 37;
@@ -685,7 +685,7 @@
             // 
             TakeProfit33Percent.BackColor = Color.FromArgb(255, 255, 128);
             TakeProfit33Percent.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            TakeProfit33Percent.Location = new Point(156, 535);
+            TakeProfit33Percent.Location = new Point(149, 535);
             TakeProfit33Percent.Name = "TakeProfit33Percent";
             TakeProfit33Percent.Size = new Size(133, 40);
             TakeProfit33Percent.TabIndex = 36;
@@ -704,6 +704,30 @@
             TakeProfit50Percent.Text = "Take Profit 50%";
             TakeProfit50Percent.UseVisualStyleBackColor = false;
             TakeProfit50Percent.Click += TakeProfit50Percent_Click;
+            // 
+            // TakeProfit67Percent
+            // 
+            TakeProfit67Percent.BackColor = Color.Khaki;
+            TakeProfit67Percent.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            TakeProfit67Percent.Location = new Point(423, 535);
+            TakeProfit67Percent.Name = "TakeProfit67Percent";
+            TakeProfit67Percent.Size = new Size(133, 40);
+            TakeProfit67Percent.TabIndex = 69;
+            TakeProfit67Percent.Text = "Take Profit 67%";
+            TakeProfit67Percent.UseVisualStyleBackColor = false;
+            TakeProfit67Percent.Click += TakeProfit67Percent_Click;
+            // 
+            // TakeProfit100Percent
+            // 
+            TakeProfit100Percent.BackColor = Color.FromArgb(255, 253, 174);
+            TakeProfit100Percent.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            TakeProfit100Percent.Location = new Point(561, 535);
+            TakeProfit100Percent.Name = "TakeProfit100Percent";
+            TakeProfit100Percent.Size = new Size(138, 40);
+            TakeProfit100Percent.TabIndex = 70;
+            TakeProfit100Percent.Text = "Take Profit 100%";
+            TakeProfit100Percent.UseVisualStyleBackColor = false;
+            TakeProfit100Percent.Click += TakeProfit100Percent_Click;
             // 
             // TakeProfitLimitPriceLabel
             // 
@@ -804,6 +828,8 @@
         private Button TakeProfit25Percent;
         private Button TakeProfit33Percent;
         private Button TakeProfit50Percent;
+        private Button TakeProfit67Percent;
+        private Button TakeProfit100Percent;
 
         private Button Close25Percent;
         private Button Close33Percent;
