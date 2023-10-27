@@ -41,7 +41,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 0.5);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 0.5, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -55,7 +55,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.0);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.0, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -69,7 +69,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.25);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.25, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.5);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.5, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -97,7 +97,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.0);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.0, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.5);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.5, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 0.5);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 0.5, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -141,7 +141,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.0);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.0, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -156,7 +156,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.25);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.25, OutsideRTHCheckbox.Checked);
                 }
             }
 
@@ -172,7 +172,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.5);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.5, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -187,7 +187,7 @@ namespace TradeBot.WinGui
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 2.0);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 2.0, OutsideRTHCheckbox.Checked);
                 }
             }
         }
@@ -212,7 +212,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 0.5);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 0.5, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -236,7 +236,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.0);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.0, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -260,7 +260,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.25);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.25, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -284,7 +284,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.5);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.5, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -308,7 +308,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.0);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.0, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -332,7 +332,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.5);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.5, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -357,7 +357,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 0.5);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 0.5, OutsideRTHCheckbox.Checked);
             }
         }
         private void SellStop1Percent_Click(object sender, EventArgs e)
@@ -381,7 +381,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.0);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.0, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -406,7 +406,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.25);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.25, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -431,7 +431,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.5);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.5, OutsideRTHCheckbox.Checked);
             }
         }
 
@@ -456,38 +456,38 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 2.0);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 2.0, OutsideRTHCheckbox.Checked);
             }
         }
 
         private async void Close100Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-1.0);
+            await controller.ScalePositionAsync(-1.0, OutsideRTHCheckbox.Checked);
         }
 
         private async void Close50Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.5);
+            await controller.ScalePositionAsync(-0.5, OutsideRTHCheckbox.Checked);
         }
 
         private async void Close33Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.33);
+            await controller.ScalePositionAsync(-0.33, OutsideRTHCheckbox.Checked);
         }
 
         private async void Close67Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.67);
+            await controller.ScalePositionAsync(-0.67, OutsideRTHCheckbox.Checked);
         }
 
         private async void Close25Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.25);
+            await controller.ScalePositionAsync(-0.25, OutsideRTHCheckbox.Checked);
         }
 
         private async void reverseButton_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-2.0);
+            await controller.ScalePositionAsync(-2.0, OutsideRTHCheckbox.Checked);
         }
         private async void TakeProfit100Percent_Click(object sender, EventArgs e)
         {
@@ -500,7 +500,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(1.0, limitPrice);
+                await controller.LimitTakeProfitAsync(1.0, limitPrice, OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -520,7 +520,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.67, limitPrice);
+                await controller.LimitTakeProfitAsync(0.67, limitPrice, OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -540,7 +540,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.5, limitPrice);
+                await controller.LimitTakeProfitAsync(0.5, limitPrice, OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -560,7 +560,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.33, limitPrice);
+                await controller.LimitTakeProfitAsync(0.33, limitPrice, OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -580,7 +580,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.25, limitPrice);
+                await controller.LimitTakeProfitAsync(0.25, limitPrice, OutsideRTHCheckbox.Checked);
             }
             else
             {

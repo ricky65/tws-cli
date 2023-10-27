@@ -4,7 +4,7 @@ namespace TradeBot.TwsAbstractions
 {
     public static class OrderFactory
     {
-        public static Order CreateLimitOrder(OrderActions action, double quantity, double limitPrice, bool transmitNow)
+        public static Order CreateLimitOrder(OrderActions action, double quantity, double limitPrice, bool transmitNow, bool outsideRth)
         {
             return new Order()
             {
@@ -14,12 +14,12 @@ namespace TradeBot.TwsAbstractions
                 OrderType = OrderTypes.Limit,
                 Tif = nameof(TimeInForce.DAY),
                 Transmit = transmitNow, //Rick: only last child in the bracket has Transmit = true
-                OutsideRth = false
+                OutsideRth = outsideRth
             };
         }
 
         //Rick
-        public static Order CreateStopLimitOrder(OrderActions action, double quantity, double limitPrice, double stopPrice, bool transmitNow)
+        public static Order CreateStopLimitOrder(OrderActions action, double quantity, double limitPrice, double stopPrice, bool transmitNow, bool outsideRth)
         {
             return new Order()
             {
@@ -31,7 +31,7 @@ namespace TradeBot.TwsAbstractions
                 Tif = nameof(TimeInForce.DAY),
                 Transmit = transmitNow, //Rick: only last child in the bracket has Transmit = true
                 TriggerMethod = (int)TriggerMethod.LastOfBidAsk, 
-                OutsideRth = false               
+                OutsideRth = outsideRth
             };
         }
         //Rick

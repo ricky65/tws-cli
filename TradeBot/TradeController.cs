@@ -254,34 +254,35 @@ namespace TradeBot
             return Task.CompletedTask;
         }
 
+        //TODO: Remove old menu functions
         public async Task ReversePositionCommand(string[] args)
         {
-            await ScalePositionAsync(-2);
+            await ScalePositionAsync(-2.0, true);
         }
 
         public async Task ClosePositionCommand(string[] args)
         {
-            await ScalePositionAsync(-1);
+            await ScalePositionAsync(-1.0, true);
         }
 
         public async Task CloseTwoThirdsPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.67);
+            await ScalePositionAsync(-0.67, true);
         }     
 
         public async Task CloseHalfPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.5);
+            await ScalePositionAsync(-0.5, true);
         }
 
         public async Task CloseThirdPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.33);
+            await ScalePositionAsync(-0.33, true);
         }
 
         public async Task CloseQuarterPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.25);
+            await ScalePositionAsync(-0.25, true);
         }
 
         public async Task LimitTakeProfitHalfCommand(string[] args)
@@ -291,7 +292,7 @@ namespace TradeBot
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.5, limitPrice);
+                await LimitTakeProfitAsync(0.5, limitPrice, true);
             }
             else
             {
@@ -306,7 +307,7 @@ namespace TradeBot
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.33, limitPrice);
+                await LimitTakeProfitAsync(0.33, limitPrice, true);
             }
             else
             {
@@ -321,7 +322,7 @@ namespace TradeBot
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.25, limitPrice);
+                await LimitTakeProfitAsync(0.25, limitPrice, true);
             }
             else
             {
@@ -482,7 +483,7 @@ namespace TradeBot
             }
         }
 
-        public async Task ScalePositionAsync(double percent)
+        public async Task ScalePositionAsync(double percent, bool outsideRth)
         {
             Position position = await service.RequestCurrentPositionAsync();
             if (Validation.TickerSet(service)
@@ -494,16 +495,16 @@ namespace TradeBot
 
                 if (orderDelta > 0)
                 {
-                    service.PlaceCloseLimitOrder(OrderActions.BUY, orderQuantity, TickType.ASK);
+                    service.PlaceCloseLimitOrder(OrderActions.BUY, orderQuantity, TickType.ASK, outsideRth);
                 }
                 else if (orderDelta < 0)
                 {
-                    service.PlaceCloseLimitOrder(OrderActions.SELL, orderQuantity, TickType.BID);
+                    service.PlaceCloseLimitOrder(OrderActions.SELL, orderQuantity, TickType.BID, outsideRth);
                 }
             }
         }
 
-        public async Task LimitTakeProfitAsync(double percent, double limitPrice)
+        public async Task LimitTakeProfitAsync(double percent, double limitPrice, bool outsideRth)
         {
             Position position = await service.RequestCurrentPositionAsync();
             if (Validation.TickerSet(service)
@@ -515,11 +516,11 @@ namespace TradeBot
 
                 if (orderDelta > 0)
                 {
-                    service.PlaceTakeProfitLimitOrder(OrderActions.SELL, orderQuantity, limitPrice);
+                    service.PlaceTakeProfitLimitOrder(OrderActions.SELL, orderQuantity, limitPrice, outsideRth);
                 }
                 else if (orderDelta < 0)
                 {
-                    service.PlaceTakeProfitLimitOrder(OrderActions.BUY, orderQuantity, limitPrice);
+                    service.PlaceTakeProfitLimitOrder(OrderActions.BUY, orderQuantity, limitPrice, outsideRth);
                 }
             }
         }

@@ -220,29 +220,29 @@ namespace TradeBot
             IsConnected = false;
         }
 
-        public void PlaceBuyLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent)
+        public void PlaceBuyLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent, bool outsideRth)
         {
-            PlaceLimitOrder(OrderActions.BUY, quantity, tickType, sellStopPrice, riskPercent);
+            PlaceLimitOrder(OrderActions.BUY, quantity, tickType, sellStopPrice, riskPercent, outsideRth);
+        }
+        
+        public void PlaceSellLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent, bool outsideRth)
+        {
+            PlaceLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, riskPercent, outsideRth);
         }
 
         //Rick: 
-        public void PlaceBuyStopLimitOrder(double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent)
+        public void PlaceBuyStopLimitOrder(double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent, bool outsideRth)
         {
-            PlaceBuyStopLimitOrder(OrderActions.BUY, quantity, tickType, buyStopPrice, sellStopPrice, riskPercent);
+            PlaceBuyStopLimitOrder(OrderActions.BUY, quantity, tickType, buyStopPrice, sellStopPrice, riskPercent, outsideRth);
         }
 
         //Rick:
-        public void PlaceSellStopLimitOrder(double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent)
+        public void PlaceSellStopLimitOrder(double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent, bool outsideRth)
         {
-            PlaceSellStopLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, buyStopPrice, riskPercent);
+            PlaceSellStopLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, buyStopPrice, riskPercent, outsideRth);
         }
 
-        public void PlaceSellLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent)
-        {
-            PlaceLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, riskPercent);
-        }
-
-        public void PlaceLimitOrder(OrderActions action, double quantity, int tickType, double stopPrice, double riskPercent)
+        public void PlaceLimitOrder(OrderActions action, double quantity, int tickType, double stopPrice, double riskPercent, bool outsideRth)
         {
             double? price = GetTick(tickType);
             
@@ -277,10 +277,10 @@ namespace TradeBot
                 }
             }
 
-            PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice, riskPercent);
-            }
+            PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice, riskPercent, outsideRth);
+        }
 
-        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double offsetPrice, double stopPrice, double riskPercent)
+        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double offsetPrice, double stopPrice, double riskPercent, bool outsideRth)
         {
             if (stockContract == null || price <= 0)
             {
@@ -306,7 +306,7 @@ namespace TradeBot
             //IO.ShowMessageCLI(riskStr);
 
             //parent order
-            Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, offsetPrice, false);//Rick: Was user set quantity before
+            Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, offsetPrice, false, outsideRth);//Rick: Was user set quantity before
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract: CFDContract, parentOrder);
@@ -320,7 +320,7 @@ namespace TradeBot
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, sellStopChildOrder);
         }
 
-        public void PlaceCloseLimitOrder(OrderActions action, double quantity, int tickType)
+        public void PlaceCloseLimitOrder(OrderActions action, double quantity, int tickType, bool outsideRth)
         {
             double? price = GetTick(tickType);
 
@@ -340,13 +340,13 @@ namespace TradeBot
             }
 
 
-            Order order = OrderFactory.CreateLimitOrder(action, quantity, price.Value, true);
+            Order order = OrderFactory.CreateLimitOrder(action, quantity, price.Value, true, outsideRth);
             order.Account = TradedAccount;
             order.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, order);
         }
 
-        public void PlaceTakeProfitLimitOrder(OrderActions action, double quantity, double limitPrice)
+        public void PlaceTakeProfitLimitOrder(OrderActions action, double quantity, double limitPrice, bool outsideRth)
         {
             if (stockContract == null)
             {
@@ -354,7 +354,7 @@ namespace TradeBot
             } 
 
 
-            Order order = OrderFactory.CreateLimitOrder(action, quantity, limitPrice, true);
+            Order order = OrderFactory.CreateLimitOrder(action, quantity, limitPrice, true, outsideRth);
             order.Account = TradedAccount;
             order.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, order);
@@ -362,7 +362,7 @@ namespace TradeBot
 
 
         //Rick
-        public void PlaceBuyStopLimitOrder(OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent)
+        public void PlaceBuyStopLimitOrder(OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent, bool outsideRth)
         {
             if (stockContract == null || buyStopPrice <= 0)
         {
@@ -399,7 +399,7 @@ namespace TradeBot
             double limitPrce = buyStopPrice + buyStopOffset;
 
             //Rick: Create parent order
-            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, buyStopPrice, false);
+            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, buyStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, parentOrder);
@@ -413,7 +413,7 @@ namespace TradeBot
         }
 
         //Rick
-        public void PlaceSellStopLimitOrder(OrderActions action, double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent)
+        public void PlaceSellStopLimitOrder(OrderActions action, double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent, bool outsideRth)
         {
             if (stockContract == null || buyStopPrice <= 0)
             {
@@ -444,7 +444,7 @@ namespace TradeBot
             double limitPrce = sellStopPrice - sellStopOffset;
 
             //Rick: Create parent order
-            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, sellStopPrice, false);
+            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, sellStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, parentOrder);
