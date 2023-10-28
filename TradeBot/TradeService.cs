@@ -306,14 +306,15 @@ namespace TradeBot
             //IO.ShowMessageCLI(riskStr);
 
             //parent order
-            Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, offsetPrice, false, outsideRth);//Rick: Was user set quantity before
+            Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, offsetPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract: CFDContract, parentOrder);
 
             //child stop order
             OrderActions stopAction = action == OrderActions.BUY ? OrderActions.SELL : OrderActions.BUY;
-            Order sellStopChildOrder = OrderFactory.CreateStopOrder(stopAction, numShares, stopPrice, true);//Rick: Was user set quantity before
+            Order sellStopChildOrder = !outsideRth ? OrderFactory.CreateStopOrder(stopAction, numShares, stopPrice, true) :
+                OrderFactory.CreateStopLimitOrder(stopAction, numShares, stopAction == OrderActions.SELL ? stopPrice - sellStopOffset : stopPrice + buyStopOffset, stopPrice, true, outsideRth);
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
@@ -394,18 +395,18 @@ namespace TradeBot
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
 
-
             //Rick: Buy Stop Limit is StopPrice + 11 cents
-            double limitPrce = buyStopPrice + buyStopOffset;
+            double limitPrice = buyStopPrice + buyStopOffset;
 
             //Rick: Create parent order
-            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, buyStopPrice, false, outsideRth);
+            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, buyStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, parentOrder);
 
             //Rick: Create child stop order
-            Order sellStopChildOrder = OrderFactory.CreateStopOrder(OrderActions.SELL, numShares, sellStopPrice, true);
+            Order sellStopChildOrder = !outsideRth ? OrderFactory.CreateStopOrder(OrderActions.SELL, numShares, sellStopPrice, true) :
+                OrderFactory.CreateStopLimitOrder(OrderActions.SELL, numShares, sellStopPrice - sellStopOffset, sellStopPrice, true, outsideRth);
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
@@ -439,22 +440,22 @@ namespace TradeBot
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
 
-
-            //Rick: Selll Stop Limit is StopPrice - 11 cents
-            double limitPrce = sellStopPrice - sellStopOffset;
+            //Rick: Sell Stop Limit is StopPrice - 11 cents
+            double limitPrice = sellStopPrice - sellStopOffset;
 
             //Rick: Create parent order
-            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrce, sellStopPrice, false, outsideRth);
+            Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, sellStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
             clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, parentOrder);
 
             //Rick: Create child stop order
-            Order sellStopChildOrder = OrderFactory.CreateStopOrder(OrderActions.BUY, numShares, buyStopPrice, true);
-            sellStopChildOrder.Account = TradedAccount;
-            sellStopChildOrder.ParentId = parentOrder.OrderId;
-            sellStopChildOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, sellStopChildOrder);
+            Order buyStopChildOrder = !outsideRth ?  OrderFactory.CreateStopOrder(OrderActions.BUY, numShares, buyStopPrice, true)
+                : OrderFactory.CreateStopLimitOrder(OrderActions.BUY, numShares, buyStopPrice + buyStopOffset, buyStopPrice, true, outsideRth);
+            buyStopChildOrder.Account = TradedAccount;
+            buyStopChildOrder.ParentId = parentOrder.OrderId;
+            buyStopChildOrder.OrderId = GetNextValidOrderId();
+            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, buyStopChildOrder);
         }
 
         public void CancelLastOrder()
