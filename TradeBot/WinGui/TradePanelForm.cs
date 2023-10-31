@@ -31,180 +31,180 @@ namespace TradeBot.WinGui
 
         }
 
-        private void long05Percent_Click(object sender, EventArgs e)
+        private void stock1Long05Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
-                double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+                double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
                 if (Validation.HasValue(sellStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 0.5, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 0.5, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
-        private void Long1Percent_Click(object sender, EventArgs e)
+        private void stock1Long1Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
-                double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+                double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
                 if (Validation.HasValue(sellStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.0, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.0, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
-        private void Long125percent_Click(object sender, EventArgs e)
+        private void stock1Long125percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
-                double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+                double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
                 if (Validation.HasValue(sellStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.25, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.25, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
-        private void Long15Percent_Click(object sender, EventArgs e)
+        private void stock1Long15Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
-                double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+                double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
                 if (Validation.HasValue(sellStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.5, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 1.5, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
-        private void Long2Percent_Click(object sender, EventArgs e)
+        private void stock1Long2Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
-                double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+                double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
                 if (Validation.HasValue(sellStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.0, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.0, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
-        private void Long25Percent_Click(object sender, EventArgs e)
+        private void stock1Long25Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
-                double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+                double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
                 if (Validation.HasValue(sellStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.5, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceBuyLimitOrder(10, TickType.ASK, sellStopPrice, 2.5, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
 
-        private void short05Percent_Click(object sender, EventArgs e)
+        private void stock1Short05Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
-                double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+                double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
                 if (Validation.HasValue(buyStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 0.5, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 0.5, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
 
-        private void Short1Percent_Click(object sender, EventArgs e)
+        private void stock1Short1Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
-                double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+                double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
                 if (Validation.HasValue(buyStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.0, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.0, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
 
-        private void Short125Percent_Click(object sender, EventArgs e)
+        private void stock1Short125Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
-                double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+                double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
                 if (Validation.HasValue(buyStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.25, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.25, stock1OutsideRTHCheckbox.Checked);
                 }
             }
 
         }
 
-        private void Short15Percent_Click(object sender, EventArgs e)
+        private void stock1Short15Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
-                double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+                double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
                 if (Validation.HasValue(buyStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.5, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 1.5, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
 
-        private void Short2Percent_Click(object sender, EventArgs e)
+        private void stock1Short2Percent_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (!string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
-                double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+                double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
                 if (Validation.HasValue(buyStopPrice)
                     && Validation.TickerSet(controller.service)
                     && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
                 {
-                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 2.0, OutsideRTHCheckbox.Checked);
+                    controller.service.PlaceSellLimitOrder(10, TickType.BID, buyStopPrice, 2.0, stock1OutsideRTHCheckbox.Checked);
                 }
             }
         }
 
-        private void BuyStop05Percent_Click(object sender, EventArgs e)
+        private void stock1BuyStop05Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
             if (Validation.HasValue(buyStopPrice)
                 && Validation.HasValue(sellStopPrice)
@@ -212,23 +212,23 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 0.5, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 0.5, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void BuyStop1Percent_Click(object sender, EventArgs e)
+        private void stock1BuyStop1Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
             if (Validation.HasValue(buyStopPrice)
                 && Validation.HasValue(sellStopPrice)
@@ -236,23 +236,23 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.0, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.0, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void BuyStop125Percent_Click(object sender, EventArgs e)
+        private void stock1BuyStop125Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
             if (Validation.HasValue(buyStopPrice)
                 && Validation.HasValue(sellStopPrice)
@@ -260,23 +260,23 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.25, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.25, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void BuyStop15Percent_Click(object sender, EventArgs e)
+        private void stock1BuyStop15Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
             if (Validation.HasValue(buyStopPrice)
                 && Validation.HasValue(sellStopPrice)
@@ -284,23 +284,23 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.5, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 1.5, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void BuyStop2Percent_Click(object sender, EventArgs e)
+        private void stock1BuyStop2Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
             if (Validation.HasValue(buyStopPrice)
                 && Validation.HasValue(sellStopPrice)
@@ -308,23 +308,23 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.0, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.0, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void BuyStop25Percent_Click(object sender, EventArgs e)
+        private void stock1BuyStop25Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
 
             if (Validation.HasValue(buyStopPrice)
                 && Validation.HasValue(sellStopPrice)
@@ -332,24 +332,24 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.5, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceBuyStopLimitOrder(10, TickType.ASK, buyStopPrice, sellStopPrice, 2.5, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void SellStop05Percent_Click(object sender, EventArgs e)
+        private void stock1SellStop05Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
             if (Validation.HasValue(sellStopPrice)
                 && Validation.HasValue(buyStopPrice)
@@ -357,23 +357,23 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 0.5, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 0.5, stock1OutsideRTHCheckbox.Checked);
             }
         }
-        private void SellStop1Percent_Click(object sender, EventArgs e)
+        private void stock1SellStop1Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
             if (Validation.HasValue(sellStopPrice)
                 && Validation.HasValue(buyStopPrice)
@@ -381,24 +381,24 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.0, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.0, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void SellStop125Percent_Click(object sender, EventArgs e)
+        private void stock1SellStop125Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
             if (Validation.HasValue(sellStopPrice)
                 && Validation.HasValue(buyStopPrice)
@@ -406,24 +406,24 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.25, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.25, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void SellStop15Percent_Click(object sender, EventArgs e)
+        private void stock1SellStop15Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
             if (Validation.HasValue(sellStopPrice)
                 && Validation.HasValue(buyStopPrice)
@@ -431,24 +431,24 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.5, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 1.5, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private void SellStop2Percent_Click(object sender, EventArgs e)
+        private void stock1SellStop2Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(SellStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1SellStopPriceTextBox.Text))
             {
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(BuyStopPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1BuyStopPriceTextBox.Text))
             {
                 return;
             }
 
-            double sellStopPrice = Double.Parse(SellStopPriceTextBox.Text);
-            double buyStopPrice = Double.Parse(BuyStopPriceTextBox.Text);
+            double sellStopPrice = Double.Parse(stock1SellStopPriceTextBox.Text);
+            double buyStopPrice = Double.Parse(stock1BuyStopPriceTextBox.Text);
 
             if (Validation.HasValue(sellStopPrice)
                 && Validation.HasValue(buyStopPrice)
@@ -456,51 +456,51 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailable(controller.service, COMMON_TICKS))
             {
-                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 2.0, OutsideRTHCheckbox.Checked);
+                controller.service.PlaceSellStopLimitOrder(10, TickType.BID, sellStopPrice, buyStopPrice, 2.0, stock1OutsideRTHCheckbox.Checked);
             }
         }
 
-        private async void Close100Percent_Click(object sender, EventArgs e)
+        private async void stock1Close100Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-1.0, OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(-1.0, stock1OutsideRTHCheckbox.Checked);
         }
 
-        private async void Close50Percent_Click(object sender, EventArgs e)
+        private async void stock1Close50Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.5, OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(-0.5, stock1OutsideRTHCheckbox.Checked);
         }
 
-        private async void Close33Percent_Click(object sender, EventArgs e)
+        private async void stock1Close33Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.33, OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(-0.33, stock1OutsideRTHCheckbox.Checked);
         }
 
-        private async void Close67Percent_Click(object sender, EventArgs e)
+        private async void stock1Close67Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.67, OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(-0.67, stock1OutsideRTHCheckbox.Checked);
         }
 
-        private async void Close25Percent_Click(object sender, EventArgs e)
+        private async void stock1Close25Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.25, OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(-0.25, stock1OutsideRTHCheckbox.Checked);
         }
 
-        private async void reverseButton_Click(object sender, EventArgs e)
+        private async void stock1ReverseButton_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-2.0, OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(-2.0, stock1OutsideRTHCheckbox.Checked);
         }
-        private async void TakeProfit100Percent_Click(object sender, EventArgs e)
+        private async void stock1TakeProfit100Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1TakeProfitLimitPriceTextBox.Text))
             {
                 return;
             }
 
-            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+            double limitPrice = Double.Parse(stock1TakeProfitLimitPriceTextBox.Text);
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(1.0, limitPrice, OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(1.0, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -509,18 +509,18 @@ namespace TradeBot.WinGui
             }
         }
 
-        private async void TakeProfit67Percent_Click(object sender, EventArgs e)
+        private async void stock1TakeProfit67Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1TakeProfitLimitPriceTextBox.Text))
             {
                 return;
             }
 
-            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+            double limitPrice = Double.Parse(stock1TakeProfitLimitPriceTextBox.Text);
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.67, limitPrice, OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(0.67, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -529,18 +529,18 @@ namespace TradeBot.WinGui
             }
         }
 
-        private async void TakeProfit50Percent_Click(object sender, EventArgs e)
+        private async void stock1TakeProfit50Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1TakeProfitLimitPriceTextBox.Text))
             {
                 return;
             }
 
-            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+            double limitPrice = Double.Parse(stock1TakeProfitLimitPriceTextBox.Text);
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.5, limitPrice, OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(0.5, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -549,18 +549,18 @@ namespace TradeBot.WinGui
             }
         }
 
-        private async void TakeProfit33Percent_Click(object sender, EventArgs e)
+        private async void stock1TakeProfit33Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1TakeProfitLimitPriceTextBox.Text))
             {
                 return;
             }
 
-            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+            double limitPrice = Double.Parse(stock1TakeProfitLimitPriceTextBox.Text);
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.33, limitPrice, OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(0.33, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -569,18 +569,18 @@ namespace TradeBot.WinGui
             }
         }
 
-        private async void TakeProfit25Percent_Click(object sender, EventArgs e)
+        private async void stock1TakeProfit25Percent_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TakeProfitLimitPriceTextBox.Text))
+            if (string.IsNullOrWhiteSpace(stock1TakeProfitLimitPriceTextBox.Text))
             {
                 return;
             }
 
-            double limitPrice = Double.Parse(TakeProfitLimitPriceTextBox.Text);
+            double limitPrice = Double.Parse(stock1TakeProfitLimitPriceTextBox.Text);
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.25, limitPrice, OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(0.25, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -589,9 +589,9 @@ namespace TradeBot.WinGui
             }
         }
 
-        private async void buttonCFD_Click(object sender, EventArgs e)
+        private async void stock1ButtonCFD_Click(object sender, EventArgs e)
         {
-            string tickerSymbol = TickerInput.Text;
+            string tickerSymbol = stock1TickerInput.Text;
 
             if (Validation.NotNullOrWhiteSpace(tickerSymbol))
             {
@@ -604,9 +604,9 @@ namespace TradeBot.WinGui
             }
         }
 
-        private async void buttonStock_Click(object sender, EventArgs e)
+        private async void stock1ButtonStock_Click(object sender, EventArgs e)
         {
-            string tickerSymbol = TickerInput.Text;
+            string tickerSymbol = stock1TickerInput.Text;
 
             if (Validation.NotNullOrWhiteSpace(tickerSymbol))
             {
@@ -618,22 +618,22 @@ namespace TradeBot.WinGui
             }
         }
 
-        private void OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
+        private void stock1OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            GlobalOutputTextBox.AppendText("OutsideRTH: " + OutsideRTHCheckbox.Checked + "\r\n");
+            GlobalOutputTextBox.AppendText("OutsideRTH: " + stock1OutsideRTHCheckbox.Checked + "\r\n");
         }
 
-        private void SellStopPriceTextBox_TextChanged(object sender, EventArgs e)
+        private void stock1SellStopPriceTextBox_TextChanged(object sender, EventArgs e)
         {
             //GlobalOutputTextBox.AppendText("SellStop Updated");
         }
 
-        private void BuyStopPriceTextBox_TextChanged(object sender, EventArgs e)
+        private void stock1BuyStopPriceTextBox_TextChanged(object sender, EventArgs e)
         {
             //GlobalOutputTextBox.AppendText("BuyStop Updated");
         }
 
-        private void TakeProfitLimitPriceTextBox_TextChanged(object sender, EventArgs e)
+        private void stock1TakeProfitLimitPriceTextBox_TextChanged(object sender, EventArgs e)
         {
             //GlobalOutputTextBox.AppendText("TakeProfitLimitPrice Updated");
         }

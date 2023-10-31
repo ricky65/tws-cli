@@ -124,22 +124,22 @@ namespace TradeBot
                     {
                         tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings);
 
-                        tradePanel.PositionOutputLabel.Text = positionSize.ToString("N0");
-                        tradePanel.LastPriceOutputLabel.Text = GetTickAsCurrencyString(TickType.LAST);
-                        tradePanel.PercentageChangeOutputLabel.Text = "todo";
-                        tradePanel.BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK));
-                        tradePanel.BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(TickType.BID_SIZE), GetTickAsCommaFormattedString(TickType.ASK_SIZE));
+                        tradePanel.stock1PositionOutputLabel.Text = positionSize.ToString("N0");
+                        tradePanel.stock1LastPriceOutputLabel.Text = GetTickAsCurrencyString(TickType.LAST);
+                        tradePanel.stock1PercentageChangeOutputLabel.Text = "todo";
+                        tradePanel.stock1BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK));
+                        tradePanel.stock1BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(TickType.BID_SIZE), GetTickAsCommaFormattedString(TickType.ASK_SIZE));
                     });
                 }
                 else
                 {
                     tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings);
 
-                    tradePanel.PositionOutputLabel.Text = positionSize.ToString("N0");
-                    tradePanel.LastPriceOutputLabel.Text = GetTickAsCurrencyString(TickType.LAST);
-                    tradePanel.PercentageChangeOutputLabel.Text = "todo";
-                    tradePanel.BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK));
-                    tradePanel.BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(TickType.BID_SIZE), GetTickAsCommaFormattedString(TickType.ASK_SIZE));
+                    tradePanel.stock1PositionOutputLabel.Text = positionSize.ToString("N0");
+                    tradePanel.stock1LastPriceOutputLabel.Text = GetTickAsCurrencyString(TickType.LAST);
+                    tradePanel.stock1PercentageChangeOutputLabel.Text = "todo";
+                    tradePanel.stock1BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(TickType.BID), GetTickAsCurrencyString(TickType.ASK));
+                    tradePanel.stock1BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(TickType.BID_SIZE), GetTickAsCommaFormattedString(TickType.ASK_SIZE));
                 }
             }           
         }
