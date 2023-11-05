@@ -166,16 +166,29 @@ namespace TradeBot
         }
 
         //Rick
-        private bool _useCFD = false;
-        public bool UseCFD
+        private bool _stock1UseCFD = false;
+        public bool Stock1UseCFD
         {
             get
             {
-                return _useCFD;
+                return _stock1UseCFD;
             }
             set
             {
-                _useCFD = value;
+                _stock1UseCFD = value;
+            }
+        }
+
+        private bool _stock2UseCFD = false;
+        public bool Stock2UseCFD
+        {
+            get
+            {
+                return _stock2UseCFD;
+            }
+            set
+            {
+                _stock2UseCFD = value;
             }
         }
 
@@ -330,7 +343,7 @@ namespace TradeBot
             Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, offsetPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract: CFDContract, parentOrder);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract: CFDContract, parentOrder);
 
             //child stop order
             OrderActions stopAction = action == OrderActions.BUY ? OrderActions.SELL : OrderActions.BUY;
@@ -339,7 +352,7 @@ namespace TradeBot
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, sellStopChildOrder);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, sellStopChildOrder);
         }
 
         public void PlaceCloseLimitOrder(OrderActions action, double quantity, int tickType, bool outsideRth)
@@ -365,7 +378,7 @@ namespace TradeBot
             Order order = OrderFactory.CreateLimitOrder(action, quantity, price.Value, true, outsideRth);
             order.Account = TradedAccount;
             order.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, order);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, order);
         }
 
         public void PlaceTakeProfitLimitOrder(OrderActions action, double quantity, double limitPrice, bool outsideRth)
@@ -379,7 +392,7 @@ namespace TradeBot
             Order order = OrderFactory.CreateLimitOrder(action, quantity, limitPrice, true, outsideRth);
             order.Account = TradedAccount;
             order.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, order);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, order);
         }
 
 
@@ -423,7 +436,7 @@ namespace TradeBot
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, buyStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, parentOrder);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, parentOrder);
 
             //Rick: Create child stop order
             Order sellStopChildOrder = !outsideRth ? OrderFactory.CreateStopOrder(OrderActions.SELL, numShares, sellStopPrice, true) :
@@ -431,7 +444,7 @@ namespace TradeBot
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, sellStopChildOrder);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, sellStopChildOrder);
         }
 
         //Rick
@@ -468,7 +481,7 @@ namespace TradeBot
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, sellStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, parentOrder);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, parentOrder);
 
             //Rick: Create child stop order
             Order buyStopChildOrder = !outsideRth ?  OrderFactory.CreateStopOrder(OrderActions.BUY, numShares, buyStopPrice, true)
@@ -476,7 +489,7 @@ namespace TradeBot
             buyStopChildOrder.Account = TradedAccount;
             buyStopChildOrder.ParentId = parentOrder.OrderId;
             buyStopChildOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !UseCFD ? stockContract : CFDContract, buyStopChildOrder);
+            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, buyStopChildOrder);
         }
 
         public void CancelLastOrder()
@@ -793,7 +806,7 @@ namespace TradeBot
             IO.ShowMessageTextBox(globalOutputTextBox, "OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);//GUI
             //IO.ShowMessageCLI("OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);
             
-            if (!UseCFD)
+            if (!Stock1UseCFD)
                 stock1str += " (Stock)";
             else
                 stock1str += " (CFD)";
@@ -817,7 +830,7 @@ namespace TradeBot
             {
                 stockContract = contractDetails.Contract;
             }
-            else if (UseCFD && contractSecType == "CFD")
+            else if (Stock1UseCFD && contractSecType == "CFD")
             {
                 CFDContract = contractDetails.Contract;
                 return;

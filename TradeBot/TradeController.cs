@@ -105,7 +105,7 @@ namespace TradeBot
 
             if (Validation.NotNullOrWhiteSpace(tickerSymbol))
             {
-                service.UseCFD = false;
+                service.Stock1UseCFD = false;
 
                 service.Stock1TickerSymbol = tickerSymbol;
                 service.RequestStockContractDetails(tickerSymbol);//Rick
@@ -120,7 +120,7 @@ namespace TradeBot
 
             if (Validation.NotNullOrWhiteSpace(tickerSymbol))
             {
-                service.UseCFD = true;
+                service.Stock1UseCFD = true;
 
                 service.Stock1TickerSymbol = tickerSymbol;
                 service.RequestStockContractDetails(tickerSymbol);//Rick: We need stock contract for market data
