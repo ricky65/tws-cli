@@ -12,7 +12,7 @@ namespace TradeBot
         public static bool TickerSet(TradeService service)
         {
             return Validate(
-                service.HasTickerSymbol,
+                service.HasStock1TickerSymbol,
                 Messages.TickerSymbolNotSetError);
         }
 

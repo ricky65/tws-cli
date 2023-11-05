@@ -139,7 +139,7 @@ namespace TradeBot
             {
                 Cash = cash.Value;
 
-                if (service.HasTickerSymbol)
+                if (service.HasStock1TickerSymbol)
                 {
                     await SetSharesFromCashAsync();
                 }
@@ -165,7 +165,7 @@ namespace TradeBot
             if (Validation.TickerSet(service))
             {
                 Position currentPosition = await service
-                    .RequestCurrentPositionAsync();
+                    .RequestCurrentPositionAsync(service.Stock1TickerSymbol);
 
                 if (Validation.PositionExists(currentPosition))
                 {
@@ -257,32 +257,32 @@ namespace TradeBot
         //TODO: Remove old menu functions
         public async Task ReversePositionCommand(string[] args)
         {
-            await ScalePositionAsync(-2.0, true);
+            //await ScalePositionAsync(-2.0, true);
         }
 
         public async Task ClosePositionCommand(string[] args)
         {
-            await ScalePositionAsync(-1.0, true);
+            //await ScalePositionAsync(-1.0, true);
         }
 
         public async Task CloseTwoThirdsPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.67, true);
-        }     
+            //await ScalePositionAsync(-0.67, true);
+        }
 
         public async Task CloseHalfPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.5, true);
+            //await ScalePositionAsync(-0.5, true);
         }
 
         public async Task CloseThirdPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.33, true);
+            //await ScalePositionAsync(-0.33, true);
         }
 
         public async Task CloseQuarterPositionCommand(string[] args)
         {
-            await ScalePositionAsync(-0.25, true);
+            //await ScalePositionAsync(-0.25, true);
         }
 
         public async Task LimitTakeProfitHalfCommand(string[] args)
@@ -292,7 +292,7 @@ namespace TradeBot
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.5, limitPrice, true);
+               // await LimitTakeProfitAsync(0.5, limitPrice, true);
             }
             else
             {
@@ -307,7 +307,7 @@ namespace TradeBot
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.33, limitPrice, true);
+              //  await LimitTakeProfitAsync(0.33, limitPrice, true);
             }
             else
             {
@@ -322,7 +322,7 @@ namespace TradeBot
 
             if (Validation.HasValue(limitPrice))
             {
-                await LimitTakeProfitAsync(0.25, limitPrice, true);
+              //  await LimitTakeProfitAsync(0.25, limitPrice, true);
             }
             else
             {
@@ -438,12 +438,12 @@ namespace TradeBot
 
         public async Task SetInitialSharesAsync()
         {
-            if (!service.HasTickerSymbol)
+            if (!service.HasStock1TickerSymbol)
             {
                 return;
             }
 
-            Position existingPosition = await service.RequestCurrentPositionAsync();
+            Position existingPosition = await service.RequestCurrentPositionAsync(service.Stock1TickerSymbol);
             double existingPositionSize = existingPosition?.PositionSize ?? 0;
             if (existingPositionSize > 0)
             {
@@ -483,9 +483,9 @@ namespace TradeBot
             }
         }
 
-        public async Task ScalePositionAsync(double percent, bool outsideRth)
+        public async Task ScalePositionAsync(string tickerSymbol, double percent, bool outsideRth)
         {
-            Position position = await service.RequestCurrentPositionAsync();
+            Position position = await service.RequestCurrentPositionAsync(tickerSymbol);
             if (Validation.TickerSet(service)
                 && Validation.PositionExists(position)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
@@ -504,9 +504,9 @@ namespace TradeBot
             }
         }
 
-        public async Task LimitTakeProfitAsync(double percent, double limitPrice, bool outsideRth)
+        public async Task LimitTakeProfitAsync(string tickerSymbol, double percent, double limitPrice, bool outsideRth)
         {
-            Position position = await service.RequestCurrentPositionAsync();
+            Position position = await service.RequestCurrentPositionAsync(tickerSymbol);
             if (Validation.TickerSet(service)
                 && Validation.PositionExists(position)
                 && Validation.TickDataAvailable(service, COMMON_TICKS))
@@ -552,6 +552,9 @@ namespace TradeBot
                     OnAccountsChanged(eventArgs);
                     break;
                 case nameof(service.Stock1TickerSymbol):
+                    OnTickerSymbolChanged(eventArgs);
+                    break;
+                case nameof(service.Stock2TickerSymbol): 
                     OnTickerSymbolChanged(eventArgs);
                     break;
                 case nameof(service.CommissionReports):

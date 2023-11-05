@@ -462,32 +462,32 @@ namespace TradeBot.WinGui
 
         private async void stock1Close100Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-1.0, stock1OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(controller.service.Stock1TickerSymbol, -1.0, stock1OutsideRTHCheckbox.Checked);
         }
 
         private async void stock1Close50Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.5, stock1OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(controller.service.Stock1TickerSymbol, -0.5, stock1OutsideRTHCheckbox.Checked);
         }
 
         private async void stock1Close33Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.33, stock1OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(controller.service.Stock1TickerSymbol, -0.33, stock1OutsideRTHCheckbox.Checked);
         }
 
         private async void stock1Close67Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.67, stock1OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(controller.service.Stock1TickerSymbol, -0.67, stock1OutsideRTHCheckbox.Checked);
         }
 
         private async void stock1Close25Percent_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-0.25, stock1OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(controller.service.Stock1TickerSymbol, -0.25, stock1OutsideRTHCheckbox.Checked);
         }
 
         private async void stock1ReverseButton_Click(object sender, EventArgs e)
         {
-            await controller.ScalePositionAsync(-2.0, stock1OutsideRTHCheckbox.Checked);
+            await controller.ScalePositionAsync(controller.service.Stock1TickerSymbol, -2.0, stock1OutsideRTHCheckbox.Checked);
         }
         private async void stock1TakeProfit100Percent_Click(object sender, EventArgs e)
         {
@@ -500,7 +500,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(1.0, limitPrice, stock1OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(controller.service.Stock1TickerSymbol, 1.0, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -520,7 +520,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.67, limitPrice, stock1OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(controller.service.Stock1TickerSymbol, 0.67, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -540,7 +540,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.5, limitPrice, stock1OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(controller.service.Stock1TickerSymbol, 0.5, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -560,7 +560,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.33, limitPrice, stock1OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(controller.service.Stock1TickerSymbol, 0.33, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {
@@ -580,7 +580,7 @@ namespace TradeBot.WinGui
 
             if (Validation.HasValue(limitPrice))
             {
-                await controller.LimitTakeProfitAsync(0.25, limitPrice, stock1OutsideRTHCheckbox.Checked);
+                await controller.LimitTakeProfitAsync(controller.service.Stock1TickerSymbol, 0.25, limitPrice, stock1OutsideRTHCheckbox.Checked);
             }
             else
             {

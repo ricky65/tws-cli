@@ -152,6 +152,19 @@ namespace TradeBot
             }
         }
 
+        private string _stock2TickerSymbol;
+        public string Stock2TickerSymbol
+        {
+            get
+            {
+                return _stock2TickerSymbol;
+            }
+            set
+            {
+                PropertyChanged.SetPropertyAndRaiseEvent(ref _stock2TickerSymbol, value?.Trim().ToUpper());
+            }
+        }
+
         //Rick
         private bool _useCFD = false;
         public bool UseCFD
@@ -166,11 +179,19 @@ namespace TradeBot
             }
         }
 
-        public bool HasTickerSymbol
+        public bool HasStock1TickerSymbol
         {
             get
             {
                 return !string.IsNullOrWhiteSpace(Stock1TickerSymbol);
+            }
+        }
+
+        public bool HasStock2TickerSymbol
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Stock2TickerSymbol);
             }
         }
 
@@ -477,10 +498,10 @@ namespace TradeBot
             return nextValidOrderId;
         }
 
-        public async Task<Position> RequestCurrentPositionAsync()
+        public async Task<Position> RequestCurrentPositionAsync(string tickerSymbol)
         {
             Portfolio positions = await RequestPortfolioAsync();
-            return positions.Get(Stock1TickerSymbol);
+            return positions.Get(tickerSymbol);
         }
 
         public async Task<Position> RequestLargestPosition()
