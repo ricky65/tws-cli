@@ -16,6 +16,20 @@ namespace TradeBot
                 Messages.TickerSymbolNotSetError);
         }
 
+        public static bool TickerSetGUI(int stockNum, TradeService service)
+        {
+            bool tickerSet = false;
+
+            if (stockNum == 1)
+                tickerSet = service.HasStock1TickerSymbol;
+            else if (stockNum == 2)
+                tickerSet = service.HasStock2TickerSymbol;
+        
+            return Validate(
+                tickerSet,
+                Messages.TickerSymbolNotSetError);
+        }
+
         public static bool SharesSet(double shares)
         {
             return Validate(
@@ -27,6 +41,12 @@ namespace TradeBot
         {
             return Validate(
                 service.HasTicks(tickTypes),
+                Messages.PriceDataUnavailableError);
+        }
+        public static bool TickDataAvailableGUI(int stockNum, TradeService service, params int[] tickTypes)
+        {
+            return Validate(
+                service.HasTicks(stockNum, tickTypes),
                 Messages.PriceDataUnavailableError);
         }
 

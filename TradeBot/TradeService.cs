@@ -20,10 +20,17 @@ namespace TradeBot
         private Portfolio portfolio;
         private TaskCompletionSource<string> accountDownloadEndTCS;
 
-        private int tickerId;
-        private Contract stockContract;
-        private Contract CFDContract;
-        private TickData tickData;
+        private int stock1ReqContractDetailsId;
+        private int stock1ReqMktDataId;
+        private Contract stock1Contract;
+        private Contract stock1CFDContract;
+        private TickData stock1TickData;
+
+        private int stock2ReqContractDetailsId;
+        private int stock2ReqMktDataId;
+        private Contract stock2Contract;
+        private Contract stock2CFDContract;
+        private TickData stock2TickData;
 
         private int nextValidOrderId;
 
@@ -40,7 +47,8 @@ namespace TradeBot
 
         private TextBox globalOutputTextBox;
         private GroupBox stock1GroupBoxx;
-        public TradeService(int clientId, TextBox textBox, GroupBox stock1GroupBox)
+        private GroupBox stock2GroupBoxx;
+        public TradeService(int clientId, TextBox textBox, GroupBox stock1GroupBox, GroupBox stock2GroupBox)
         {
             ClientId = clientId;
 
@@ -49,6 +57,7 @@ namespace TradeBot
 
             globalOutputTextBox = textBox;
             stock1GroupBoxx = stock1GroupBox;
+            stock2GroupBoxx = stock2GroupBox;
 
             // TradeBot events
             PropertyChanged += OnPropertyChanged;
@@ -254,31 +263,31 @@ namespace TradeBot
             IsConnected = false;
         }
 
-        public void PlaceBuyLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent, bool outsideRth)
+        public void PlaceBuyLimitOrder(int stockNum, double quantity, int tickType, double sellStopPrice, double riskPercent, bool outsideRth)
         {
-            PlaceLimitOrder(OrderActions.BUY, quantity, tickType, sellStopPrice, riskPercent, outsideRth);
+            PlaceLimitOrder(stockNum, OrderActions.BUY, quantity, tickType, sellStopPrice, riskPercent, outsideRth);
         }
         
-        public void PlaceSellLimitOrder(double quantity, int tickType, double sellStopPrice, double riskPercent, bool outsideRth)
+        public void PlaceSellLimitOrder(int stockNum, double quantity, int tickType, double sellStopPrice, double riskPercent, bool outsideRth)
         {
-            PlaceLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, riskPercent, outsideRth);
+            PlaceLimitOrder(stockNum, OrderActions.SELL, quantity, tickType, sellStopPrice, riskPercent, outsideRth);
         }
 
         //Rick: 
-        public void PlaceBuyStopLimitOrder(double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent, bool outsideRth)
+        public void PlaceBuyStopLimitOrder(int stockNum, double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent, bool outsideRth)
         {
-            PlaceBuyStopLimitOrder(OrderActions.BUY, quantity, tickType, buyStopPrice, sellStopPrice, riskPercent, outsideRth);
+            PlaceBuyStopLimitOrder(stockNum, OrderActions.BUY, quantity, tickType, buyStopPrice, sellStopPrice, riskPercent, outsideRth);
         }
 
         //Rick:
-        public void PlaceSellStopLimitOrder(double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent, bool outsideRth)
+        public void PlaceSellStopLimitOrder(int stockNum, double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent, bool outsideRth)
         {
-            PlaceSellStopLimitOrder(OrderActions.SELL, quantity, tickType, sellStopPrice, buyStopPrice, riskPercent, outsideRth);
+            PlaceSellStopLimitOrder(stockNum, OrderActions.SELL, quantity, tickType, sellStopPrice, buyStopPrice, riskPercent, outsideRth);
         }
 
-        public void PlaceLimitOrder(OrderActions action, double quantity, int tickType, double stopPrice, double riskPercent, bool outsideRth)
+        public void PlaceLimitOrder(int stockNum, OrderActions action, double quantity, int tickType, double stopPrice, double riskPercent, bool outsideRth)
         {
-            double? price = GetTick(tickType);
+            double? price = GetTick(stockNum, tickType);
             
             if (!price.HasValue)
             {
@@ -311,12 +320,13 @@ namespace TradeBot
                 }
             }
 
-            PlaceLimitOrder(action, quantity, price.Value, offsetPrice, stopPrice, riskPercent, outsideRth);
+            PlaceLimitOrder(stockNum, action, quantity, price.Value, offsetPrice, stopPrice, riskPercent, outsideRth);
         }
 
-        public void PlaceLimitOrder(OrderActions action, double quantity, double price, double offsetPrice, double stopPrice, double riskPercent, bool outsideRth)
+        public void PlaceLimitOrder(int stockNum, OrderActions action, double quantity, double price, double offsetPrice, double stopPrice, double riskPercent, bool outsideRth)
         {
-            if (stockContract == null || price <= 0)
+            Contract contract = GetContract(stockNum);
+            if (contract == null || price <= 0)
             {
                 return;
             }
@@ -335,7 +345,7 @@ namespace TradeBot
             }
 
             var riskStr = String.Format("{0} Limit {1} - Price {2} - Stop {3} - Risk: {4}% (${5}) - {6} shares (Half: {7}) (${8:0.00}) ({9:0.00}% of ${10})",
-                 stockContract.Symbol, action.ToString(), price, stopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+                 contract.Symbol, action.ToString(), price, stopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
 
@@ -343,7 +353,7 @@ namespace TradeBot
             Order parentOrder = OrderFactory.CreateLimitOrder(action, numShares, offsetPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract: CFDContract, parentOrder);
+            clientSocket.placeOrder(nextValidOrderId++, contract, parentOrder);
 
             //child stop order
             OrderActions stopAction = action == OrderActions.BUY ? OrderActions.SELL : OrderActions.BUY;
@@ -352,14 +362,13 @@ namespace TradeBot
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, sellStopChildOrder);
+            clientSocket.placeOrder(nextValidOrderId++, contract, sellStopChildOrder);
         }
 
-        public void PlaceCloseLimitOrder(OrderActions action, double quantity, int tickType, bool outsideRth)
+        public void PlaceCloseLimitOrder(int stockNum, OrderActions action, double quantity, int tickType, bool outsideRth)
         {
-            double? price = GetTick(tickType);
-
-            if (stockContract == null || !price.HasValue)
+            double? price = GetTick(stockNum, tickType);
+            if (!price.HasValue)
             {
                 return;
             }
@@ -374,33 +383,40 @@ namespace TradeBot
                 price -= limitOffset;             
             }
 
-
             Order order = OrderFactory.CreateLimitOrder(action, quantity, price.Value, true, outsideRth);
             order.Account = TradedAccount;
             order.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, order);
+            
+            Contract contract = GetContract(stockNum);
+            if (contract == null)
+            {
+                return;
+            }
+
+            clientSocket.placeOrder(nextValidOrderId++, contract, order);
         }
 
-        public void PlaceTakeProfitLimitOrder(OrderActions action, double quantity, double limitPrice, bool outsideRth)
+        public void PlaceTakeProfitLimitOrder(int stockNum, OrderActions action, double quantity, double limitPrice, bool outsideRth)
         {
-            if (stockContract == null)
+            Contract contract = GetContract(stockNum);
+            if (contract == null)
             {
                 return;
             } 
 
-
             Order order = OrderFactory.CreateLimitOrder(action, quantity, limitPrice, true, outsideRth);
             order.Account = TradedAccount;
             order.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, order);
+            clientSocket.placeOrder(nextValidOrderId++, contract, order);
         }
 
 
         //Rick
-        public void PlaceBuyStopLimitOrder(OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent, bool outsideRth)
+        public void PlaceBuyStopLimitOrder(int stockNum, OrderActions action, double quantity, int tickType, double buyStopPrice, double sellStopPrice, double riskPercent, bool outsideRth)
         {
-            if (stockContract == null || buyStopPrice <= 0)
-        {
+            Contract contract = GetContract(stockNum);
+            if (contract == null || buyStopPrice <= 0)
+            {
                 return;
             }
 
@@ -425,7 +441,7 @@ namespace TradeBot
             }
 
             var riskStr = String.Format("{0} BUY Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7:0.00}) ({8:0.00}% of ${9})",
-                 stockContract.Symbol, buyStopPrice, sellStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+                 contract.Symbol, buyStopPrice, sellStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
 
@@ -436,7 +452,7 @@ namespace TradeBot
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, buyStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, parentOrder);
+            clientSocket.placeOrder(nextValidOrderId++, contract, parentOrder);
 
             //Rick: Create child stop order
             Order sellStopChildOrder = !outsideRth ? OrderFactory.CreateStopOrder(OrderActions.SELL, numShares, sellStopPrice, true) :
@@ -444,13 +460,14 @@ namespace TradeBot
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, sellStopChildOrder);
+            clientSocket.placeOrder(nextValidOrderId++, contract, sellStopChildOrder);
         }
 
         //Rick
-        public void PlaceSellStopLimitOrder(OrderActions action, double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent, bool outsideRth)
+        public void PlaceSellStopLimitOrder(int stockNum, OrderActions action, double quantity, int tickType, double sellStopPrice, double buyStopPrice, double riskPercent, bool outsideRth)
         {
-            if (stockContract == null || buyStopPrice <= 0)
+            Contract contract = GetContract(stockNum);
+            if (contract == null || buyStopPrice <= 0)
             {
                 return;
             }
@@ -470,7 +487,7 @@ namespace TradeBot
             double percentageOfTotalEquity = dollarAmount / totalEquity * 100.00;
 
             var riskStr = String.Format("{0} SELL Stop Limit - Price {1} - Stop {2} - Risk: {3}% (${4}) - {5} shares (Half: {6}) (${7:0.00}) ({8:0.00}% of ${9})",
-                 stockContract.Symbol, sellStopPrice, buyStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
+                 contract.Symbol, sellStopPrice, buyStopPrice, riskPercent, Math.Round(riskAmount), numShares, Math.Round(numShares / 2.0), dollarAmount, percentageOfTotalEquity, totalEquity);
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
 
@@ -481,7 +498,7 @@ namespace TradeBot
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, sellStopPrice, false, outsideRth);
             parentOrder.Account = TradedAccount;
             parentOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, parentOrder);
+            clientSocket.placeOrder(nextValidOrderId++, contract, parentOrder);
 
             //Rick: Create child stop order
             Order buyStopChildOrder = !outsideRth ?  OrderFactory.CreateStopOrder(OrderActions.BUY, numShares, buyStopPrice, true)
@@ -489,7 +506,7 @@ namespace TradeBot
             buyStopChildOrder.Account = TradedAccount;
             buyStopChildOrder.ParentId = parentOrder.OrderId;
             buyStopChildOrder.OrderId = GetNextValidOrderId();
-            clientSocket.placeOrder(nextValidOrderId++, !Stock1UseCFD ? stockContract : CFDContract, buyStopChildOrder);
+            clientSocket.placeOrder(nextValidOrderId++, contract, buyStopChildOrder);
         }
 
         public void CancelLastOrder()
@@ -537,31 +554,64 @@ namespace TradeBot
             return portfolio;
         }
 
-        public void RequestStockContractDetails(string tickerSymbol)
+        public void RequestStockContractDetails(string tickerSymbol, int stockNum)
         {
-            clientSocket.reqContractDetails(NumberGenerator.NextRandomInt(), ContractFactory.CreateStockContract(tickerSymbol));
+            int reqContractDetailsId = NumberGenerator.NextRandomInt();
+            if (stockNum == 1)
+                stock1ReqContractDetailsId = reqContractDetailsId;
+            else if (stockNum == 2)
+                stock2ReqContractDetailsId = reqContractDetailsId;
+
+            clientSocket.reqContractDetails(reqContractDetailsId, ContractFactory.CreateStockContract(tickerSymbol));
         }
 
-        public void RequestCFDContractDetails(string tickerSymbol)
+        public void RequestCFDContractDetails(string tickerSymbol, int stockNum)
         {
-            clientSocket.reqContractDetails(NumberGenerator.NextRandomInt(), ContractFactory.CreateCFDContract(tickerSymbol));
-        }
+            int reqContractDetailsId = NumberGenerator.NextRandomInt();
+            if (stockNum == 1)
+                stock1ReqContractDetailsId = reqContractDetailsId;
+            else if (stockNum == 2)
+                stock2ReqContractDetailsId = reqContractDetailsId;
 
-        //Rick TODO: Request Live Orders
+            clientSocket.reqContractDetails(reqContractDetailsId, ContractFactory.CreateCFDContract(tickerSymbol));
+        }
 
         public bool HasTicks(params int[] tickTypes)
         {
-            if (tickData == null)
+            if (stock1TickData == null)
             {
                 return false;
             }
 
             var withPositiveValue = new Func<int, double, bool>((key, value)
                 => value >= 0);
-            return tickData.HasTicks(withPositiveValue, tickTypes);
+            return stock1TickData.HasTicks(withPositiveValue, tickTypes);
         }
 
-        public Task<bool> HasTicksAsync(params int[] tickTypes)
+        public bool HasTicks(int stockNum, params int[] tickTypes)
+        {
+            var withPositiveValue = new Func<int, double, bool>((key, value)
+                => value >= 0);
+
+            if (stockNum == 1)
+            {
+                if (stock1TickData != null)
+                {
+                    return stock1TickData.HasTicks(withPositiveValue, tickTypes);
+                }                
+            }
+            else if (stockNum == 2)
+            {
+                if (stock2TickData != null)
+                {
+                    return stock2TickData.HasTicks(withPositiveValue, tickTypes);
+                }               
+            }
+
+            return false;
+        }
+
+        public Task<bool> Stock1HasTicksAsync(params int[] tickTypes)
         {
             // If we already have the tick data, then there is no need 
             // to wait for the next round of tick updates.
@@ -585,7 +635,7 @@ namespace TradeBot
             {
                 switch (eventArgs.PropertyName)
                 {
-                    case nameof(tickData):
+                    case nameof(stock1TickData):
                         // If the TickData collection was re-assigned, then abort.
                         tcs.TrySetResult(false);
                         break;
@@ -612,9 +662,35 @@ namespace TradeBot
         }
 
         //Rick: returns bid/ask depending on tickType
-        public double? GetTick(int tickType)
+        public double? GetTick(int stockNum, int tickType)
         {
-            return tickData?.Get(tickType);
+            if (stockNum == 1)
+            {
+                return stock1TickData?.Get(tickType);
+            }
+            else if (stockNum == 2) 
+            {
+                return stock2TickData?.Get(tickType);
+            }
+            return null;
+        }
+
+        public double? Stock1GetTick(int tickType)
+        {
+            return stock1TickData?.Get(tickType);
+        }
+
+        public Contract GetContract(int stockNum) 
+        {
+            if (stockNum == 1) {
+                return !Stock1UseCFD ? stock1Contract : stock1CFDContract;
+            }
+            else if (stockNum == 2)
+            {
+                return !Stock2UseCFD ? stock2Contract : stock2CFDContract;
+            }
+
+            return null;
         }
         #endregion
 
@@ -749,13 +825,20 @@ namespace TradeBot
 
         private void UpdateTickData(int tickId, int tickType, double value)
         {
-            if (tickId != tickerId)
+            if (tickId == stock1ReqMktDataId)
             {
+                stock1TickData.Update(tickType, value);
+                TickUpdated?.Invoke(tickType, value);
+                return;
+            }
+            else if (tickId == stock2ReqMktDataId)
+            {
+                stock2TickData.Update(tickType, value);
+                TickUpdated?.Invoke(tickType, value);
                 return;
             }
 
-            tickData.Update(tickType, value);
-            TickUpdated?.Invoke(tickType, value);
+            
         }
 
         private void OnUpdatePortfolio(Contract contract, double positionSize, double marketPrice, double marketValue, double avgCost, double unrealisedPNL, double realisedPNL, string account)
@@ -801,50 +884,99 @@ namespace TradeBot
         public void OnContractDetails(int reqId, ContractDetails contractDetails)
         {
             //IO.ShowMessage("OnContractDetails. Req Id: " + reqId);
-            
-            string stock1str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
-            IO.ShowMessageTextBox(globalOutputTextBox, "OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);//GUI
-            //IO.ShowMessageCLI("OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);
-            
-            if (!Stock1UseCFD)
-                stock1str += " (Stock)";
-            else
-                stock1str += " (CFD)";
+
+            //Stock 1
+            if (reqId == stock1ReqContractDetailsId)
+            {
+                string stock1str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
+                IO.ShowMessageTextBox(globalOutputTextBox, "Stock 1 - OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);//GUI
+
+                if (!Stock1UseCFD)
+                    stock1str += " (Stock)";
+                else
+                    stock1str += " (CFD)";
 
             if (stock1GroupBoxx.InvokeRequired) 
-            {
+                {
                 stock1GroupBoxx.BeginInvoke(() => { stock1GroupBoxx.Text = stock1str; });
-                
-            }
-            else
-            {
+
+                }
+                else
+                {
                 stock1GroupBoxx.Text = stock1GroupBoxx.Text = stock1str; 
+                }
+
+                //Rick: USD Stock returned is always the first one. TWS Doc says:
+                //"Invoking reqContractDetails with a Contract object which has currency = USD will only return US contracts, even if there are non-US instruments which have the USD currency."
+
+                //Rick: Market data unavailable for CFD contracts so we use the Stock contract for market data. We're only using the CFD contracts for placing orders
+                var contractSecType = contractDetails.Contract.SecType;
+                if (contractSecType == "STK")
+                {
+                    stock1Contract = contractDetails.Contract;
+                }
+                else if (Stock1UseCFD && contractSecType == "CFD")
+                {
+                    stock1CFDContract = contractDetails.Contract;
+                    return;
+                }
+
+                if (stock1ReqMktDataId != 0)
+                {
+                    clientSocket.cancelMktData(stock1ReqMktDataId);
+                }
+
+                stock1TickData = new TickData();
+
+                stock1ReqMktDataId = NumberGenerator.NextRandomInt();
+                clientSocket.reqMktData(stock1ReqMktDataId, stock1Contract, "", false, false, null); 
             }
-
-            //Rick: USD Stock returned is always the first one. TWS Doc says:
-            //"Invoking reqContractDetails with a Contract object which has currency = USD will only return US contracts, even if there are non-US instruments which have the USD currency."
-
-            //Rick: Market data unavailable for CFD contracts so we use the Stock contract for market data. We're only using the CFD contracts for placing orders
-            var contractSecType = contractDetails.Contract.SecType;
-            if (contractSecType == "STK")
+            //Stock 2
+            else if (reqId == stock2ReqContractDetailsId)
             {
-                stockContract = contractDetails.Contract;
-            }
-            else if (Stock1UseCFD && contractSecType == "CFD")
-            {
-                CFDContract = contractDetails.Contract;
-                return;
-            }
+                string stock2str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
+                IO.ShowMessageTextBox(globalOutputTextBox, "Stock 2 - OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock2str);//GUI
 
-            if (tickerId != 0)
-            {
-                clientSocket.cancelMktData(tickerId);
+                if (!Stock2UseCFD)
+                    stock2str += " (Stock)";
+                else
+                    stock2str += " (CFD)";
+
+                if (stock2GroupBoxx.InvokeRequired)
+                {
+                    stock2GroupBoxx.BeginInvoke(() => { stock2GroupBoxx.Text = stock2str; });
+
+                }
+                else
+                {
+                    stock2GroupBoxx.Text = stock2GroupBoxx.Text = stock2str;
+                }
+
+                //Rick: USD Stock returned is always the first one. TWS Doc says:
+                //"Invoking reqContractDetails with a Contract object which has currency = USD will only return US contracts, even if there are non-US instruments which have the USD currency."
+
+                //Rick: Market data unavailable for CFD contracts so we use the Stock contract for market data. We're only using the CFD contracts for placing orders
+                var contractSecType = contractDetails.Contract.SecType;
+                if (contractSecType == "STK")
+                {
+                    stock2Contract = contractDetails.Contract;
+                }
+                else if (Stock2UseCFD && contractSecType == "CFD")
+                {
+                    stock2CFDContract = contractDetails.Contract;
+                    return;
+                }
+
+                if (stock2ReqMktDataId != 0)
+                {
+                    clientSocket.cancelMktData(stock2ReqMktDataId);
+                }
+
+                stock2TickData = new TickData();
+
+                stock2ReqMktDataId = NumberGenerator.NextRandomInt();
+                clientSocket.reqMktData(stock2ReqMktDataId, stock2Contract, "", false, false, null); 
             }
-
-            tickData = new TickData();
-
-            tickerId = NumberGenerator.NextRandomInt();
-            clientSocket.reqMktData(tickerId, stockContract, "", false, false, null);
 
         }
 

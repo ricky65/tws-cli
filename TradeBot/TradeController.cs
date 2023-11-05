@@ -33,10 +33,10 @@ namespace TradeBot
 
         private TextBox globalOutputTextBox;
 
-        public TradeController(TextBox textBox, GroupBox stock1GroupBox)
+        public TradeController(TextBox textBox, GroupBox stock1GroupBox, GroupBox stock2GroupBox)
         {
 
-            service = new TradeService(Preferences.ClientId, textBox, stock1GroupBox);
+            service = new TradeService(Preferences.ClientId, textBox, stock1GroupBox, stock2GroupBox);
             //menu = new TradeMenu(this);//Rick TODO: remove this for GUI 
             //Rick TODO: Moved TradePanel  
             //statusBar = new TradeStatusBar(this, service);
@@ -108,8 +108,8 @@ namespace TradeBot
                 service.Stock1UseCFD = false;
 
                 service.Stock1TickerSymbol = tickerSymbol;
-                service.RequestStockContractDetails(tickerSymbol);//Rick
-                await SetInitialSharesAsync();
+                service.RequestStockContractDetails(tickerSymbol, 1);//Rick
+                await SetInitialSharesAsync(1);
             }
         }
 
@@ -123,9 +123,9 @@ namespace TradeBot
                 service.Stock1UseCFD = true;
 
                 service.Stock1TickerSymbol = tickerSymbol;
-                service.RequestStockContractDetails(tickerSymbol);//Rick: We need stock contract for market data
-                service.RequestCFDContractDetails(tickerSymbol);//Rick
-                await SetInitialSharesAsync();
+                service.RequestStockContractDetails(tickerSymbol, 1);//Rick: We need stock contract for market data
+                service.RequestCFDContractDetails(tickerSymbol, 1);//Rick
+                await SetInitialSharesAsync(1);
             }
         }
 
@@ -436,14 +436,37 @@ namespace TradeBot
             Shares = position?.PositionSize ?? 10;
         }
 
-        public async Task SetInitialSharesAsync()
+        public async Task SetInitialSharesAsync(int stockNum)
         {
-            if (!service.HasStock1TickerSymbol)
+            string tickerSymbol = null;
+            if (stockNum == 1)
+            {
+                if (service.HasStock1TickerSymbol)
+                {
+                    tickerSymbol = service.Stock1TickerSymbol;
+                }
+                else
+                {
+                    return;
+                } 
+            }
+            else if (stockNum == 2)
+            {
+                if (service.HasStock2TickerSymbol)
+                {
+                    tickerSymbol = service.Stock2TickerSymbol;
+                }
+                else
+                { 
+                    return;
+                }
+            }  
+            else
             {
                 return;
             }
 
-            Position existingPosition = await service.RequestCurrentPositionAsync(service.Stock1TickerSymbol);
+            Position existingPosition = await service.RequestCurrentPositionAsync(tickerSymbol);
             double existingPositionSize = existingPosition?.PositionSize ?? 0;
             if (existingPositionSize > 0)
             {
@@ -457,12 +480,12 @@ namespace TradeBot
 
         private async Task SetSharesFromCashAsync()
         {
-            await Timeout(service.HasTicksAsync(COMMON_TICKS));
+            await Timeout(service.Stock1HasTicksAsync(COMMON_TICKS));
 
             int tickType = TickType.LAST;
             if (Validation.TickDataAvailable(service, tickType))
             {
-                double sharePrice = service.GetTick(tickType).Value;
+                double sharePrice = service.Stock1GetTick(tickType).Value;
                 if (sharePrice > 0)
                 {
                     Shares = (int)Math.Floor(Cash / sharePrice);
@@ -483,7 +506,7 @@ namespace TradeBot
             }
         }
 
-        public async Task ScalePositionAsync(string tickerSymbol, double percent, bool outsideRth)
+        public async Task ScalePositionAsync(int stockNum, string tickerSymbol, double percent, bool outsideRth)
         {
             Position position = await service.RequestCurrentPositionAsync(tickerSymbol);
             if (Validation.TickerSet(service)
@@ -495,16 +518,16 @@ namespace TradeBot
 
                 if (orderDelta > 0)
                 {
-                    service.PlaceCloseLimitOrder(OrderActions.BUY, orderQuantity, TickType.ASK, outsideRth);
+                    service.PlaceCloseLimitOrder(stockNum, OrderActions.BUY, orderQuantity, TickType.ASK, outsideRth);
                 }
                 else if (orderDelta < 0)
                 {
-                    service.PlaceCloseLimitOrder(OrderActions.SELL, orderQuantity, TickType.BID, outsideRth);
+                    service.PlaceCloseLimitOrder(stockNum, OrderActions.SELL, orderQuantity, TickType.BID, outsideRth);
                 }
             }
         }
 
-        public async Task LimitTakeProfitAsync(string tickerSymbol, double percent, double limitPrice, bool outsideRth)
+        public async Task LimitTakeProfitAsync(int stockNum, string tickerSymbol, double percent, double limitPrice, bool outsideRth)
         {
             Position position = await service.RequestCurrentPositionAsync(tickerSymbol);
             if (Validation.TickerSet(service)
@@ -516,11 +539,11 @@ namespace TradeBot
 
                 if (orderDelta > 0)
                 {
-                    service.PlaceTakeProfitLimitOrder(OrderActions.SELL, orderQuantity, limitPrice, outsideRth);
+                    service.PlaceTakeProfitLimitOrder(stockNum, OrderActions.SELL, orderQuantity, limitPrice, outsideRth);
                 }
                 else if (orderDelta < 0)
                 {
-                    service.PlaceTakeProfitLimitOrder(OrderActions.BUY, orderQuantity, limitPrice, outsideRth);
+                    service.PlaceTakeProfitLimitOrder(stockNum, OrderActions.BUY, orderQuantity, limitPrice, outsideRth);
                 }
             }
         }
