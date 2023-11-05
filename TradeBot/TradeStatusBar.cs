@@ -36,7 +36,7 @@ namespace TradeBot
             {
                 case nameof(controller.Shares):
                 case nameof(controller.Cash):
-                case nameof(service.TickerSymbol):
+                case nameof(service.Stock1TickerSymbol):
                 case nameof(service.RiskPercent):
                     await UpdateHeaderAsyncGUI();
                     break;
@@ -99,7 +99,7 @@ namespace TradeBot
             }
 
             bool hasTickerSymbol = service.HasTickerSymbol;
-            string tickerSymbol = service.TickerSymbol;
+            string tickerSymbol = service.Stock1TickerSymbol;
             string tickerDisplayValue = hasTickerSymbol ? tickerSymbol : Messages.TitleUnavailable;
             infoStrings.Add(string.Format(Messages.TitleRiskPerTrade, service.RiskPercent));
             infoStrings.Add(string.Format(Messages.TitleTickerSymbol, tickerDisplayValue));

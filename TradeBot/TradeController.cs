@@ -107,7 +107,7 @@ namespace TradeBot
             {
                 service.UseCFD = false;
 
-                service.TickerSymbol = tickerSymbol;
+                service.Stock1TickerSymbol = tickerSymbol;
                 service.RequestStockContractDetails(tickerSymbol);//Rick
                 await SetInitialSharesAsync();
             }
@@ -122,7 +122,7 @@ namespace TradeBot
             {
                 service.UseCFD = true;
 
-                service.TickerSymbol = tickerSymbol;
+                service.Stock1TickerSymbol = tickerSymbol;
                 service.RequestStockContractDetails(tickerSymbol);//Rick: We need stock contract for market data
                 service.RequestCFDContractDetails(tickerSymbol);//Rick
                 await SetInitialSharesAsync();
@@ -391,7 +391,7 @@ namespace TradeBot
         {
             AppState state = PropertySerializer.Deserialize<AppState>(PropertyFiles.STATE_FILE);
 
-            service.TickerSymbol = state.TickerSymbol;
+            service.Stock1TickerSymbol = state.TickerSymbol;
             Cash = state.Cash ?? 0;
             Shares = state.Shares ?? 10;
 
@@ -403,7 +403,7 @@ namespace TradeBot
         public Task SaveStateCommand(string[] args)
         {
             AppState state = new AppState();
-            state.TickerSymbol = service.TickerSymbol;
+            state.TickerSymbol = service.Stock1TickerSymbol;
             state.Shares = Shares;
             state.Cash = Cash;
 
@@ -432,7 +432,7 @@ namespace TradeBot
         #region Private helper methods
         private void SetPosition(Position position)
         {
-            service.TickerSymbol = position?.Symbol ?? null;
+            service.Stock1TickerSymbol = position?.Symbol ?? null;
             Shares = position?.PositionSize ?? 10;
         }
 
@@ -551,7 +551,7 @@ namespace TradeBot
                 case nameof(service.MaxAvailableFundsAccount): //Rick: formerly nameof(service.Accounts):
                     OnAccountsChanged(eventArgs);
                     break;
-                case nameof(service.TickerSymbol):
+                case nameof(service.Stock1TickerSymbol):
                     OnTickerSymbolChanged(eventArgs);
                     break;
                 case nameof(service.CommissionReports):

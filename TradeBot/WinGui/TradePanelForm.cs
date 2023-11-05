@@ -597,7 +597,7 @@ namespace TradeBot.WinGui
             {
                 controller.service.UseCFD = true;
 
-                controller.service.TickerSymbol = tickerSymbol;
+                controller.service.Stock1TickerSymbol = tickerSymbol;
                 controller.service.RequestStockContractDetails(tickerSymbol);//Rick: We need stock contract for market data
                 controller.service.RequestCFDContractDetails(tickerSymbol);//Rick
                 await controller.SetInitialSharesAsync();
@@ -612,7 +612,7 @@ namespace TradeBot.WinGui
             {
                 controller.service.UseCFD = false;
 
-                controller.service.TickerSymbol = tickerSymbol;
+                controller.service.Stock1TickerSymbol = tickerSymbol;
                 controller.service.RequestStockContractDetails(tickerSymbol);//Rick
                 await controller.SetInitialSharesAsync();
             }

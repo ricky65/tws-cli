@@ -139,16 +139,16 @@ namespace TradeBot
             }
         }
 
-        private string _tickerSymbol;
-        public string TickerSymbol
+        private string _stock1TickerSymbol;
+        public string Stock1TickerSymbol
         {
             get
             {
-                return _tickerSymbol;
+                return _stock1TickerSymbol;
             }
             set
             {
-                PropertyChanged.SetPropertyAndRaiseEvent(ref _tickerSymbol, value?.Trim().ToUpper());
+                PropertyChanged.SetPropertyAndRaiseEvent(ref _stock1TickerSymbol, value?.Trim().ToUpper());
             }
         }
 
@@ -170,7 +170,7 @@ namespace TradeBot
         {
             get
             {
-                return !string.IsNullOrWhiteSpace(TickerSymbol);
+                return !string.IsNullOrWhiteSpace(Stock1TickerSymbol);
             }
         }
 
@@ -480,7 +480,7 @@ namespace TradeBot
         public async Task<Position> RequestCurrentPositionAsync()
         {
             Portfolio positions = await RequestPortfolioAsync();
-            return positions.Get(TickerSymbol);
+            return positions.Get(Stock1TickerSymbol);
         }
 
         public async Task<Position> RequestLargestPosition()
@@ -651,7 +651,7 @@ namespace TradeBot
             switch (errorCode)
             {
                 case ErrorCodes.TICKER_NOT_FOUND:
-                    TickerSymbol = null;
+                    Stock1TickerSymbol = null;
                     break;
             }
         }
