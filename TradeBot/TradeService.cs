@@ -836,9 +836,7 @@ namespace TradeBot
                 stock2TickData.Update(tickType, value);
                 TickUpdated?.Invoke(tickType, value);
                 return;
-            }
-
-            
+            }            
         }
 
         private void OnUpdatePortfolio(Contract contract, double positionSize, double marketPrice, double marketValue, double avgCost, double unrealisedPNL, double realisedPNL, string account)
@@ -896,14 +894,13 @@ namespace TradeBot
                 else
                     stock1str += " (CFD)";
 
-            if (stock1GroupBoxx.InvokeRequired) 
+                if (stock1GroupBoxx.InvokeRequired)
                 {
-                stock1GroupBoxx.BeginInvoke(() => { stock1GroupBoxx.Text = stock1str; });
-
+                    stock1GroupBoxx.BeginInvoke(() => { stock1GroupBoxx.Text = stock1str; });
                 }
                 else
                 {
-                stock1GroupBoxx.Text = stock1GroupBoxx.Text = stock1str; 
+                    stock1GroupBoxx.Text = stock1GroupBoxx.Text = stock1str;
                 }
 
                 //Rick: USD Stock returned is always the first one. TWS Doc says:
@@ -929,7 +926,7 @@ namespace TradeBot
                 stock1TickData = new TickData();
 
                 stock1ReqMktDataId = NumberGenerator.NextRandomInt();
-                clientSocket.reqMktData(stock1ReqMktDataId, stock1Contract, "", false, false, null); 
+                clientSocket.reqMktData(stock1ReqMktDataId, stock1Contract, "", false, false, null);
             }
             //Stock 2
             else if (reqId == stock2ReqContractDetailsId)
@@ -975,7 +972,7 @@ namespace TradeBot
                 stock2TickData = new TickData();
 
                 stock2ReqMktDataId = NumberGenerator.NextRandomInt();
-                clientSocket.reqMktData(stock2ReqMktDataId, stock2Contract, "", false, false, null); 
+                clientSocket.reqMktData(stock2ReqMktDataId, stock2Contract, "", false, false, null);
             }
 
         }

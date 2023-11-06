@@ -1201,7 +1201,7 @@ namespace TradeBot.WinGui
             {
                 controller.service.Stock2UseCFD = false;
 
-                controller.service.Stock1TickerSymbol = tickerSymbol;
+                controller.service.Stock2TickerSymbol = tickerSymbol;
                 controller.service.RequestStockContractDetails(tickerSymbol, 2);//Rick
                 await controller.SetInitialSharesAsync(2);
             }
