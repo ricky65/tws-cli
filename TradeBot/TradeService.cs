@@ -20,13 +20,17 @@ namespace TradeBot
         private Portfolio portfolio;
         private TaskCompletionSource<string> accountDownloadEndTCS;
 
-        private int stock1ReqContractDetailsId;
+        //Stock 1
+        private int stock1StockReqContractDetailsId;
+        private int stock1CFDReqContractDetailsId;
         private int stock1ReqMktDataId;
         private Contract stock1Contract;
         private Contract stock1CFDContract;
         private TickData stock1TickData;
 
-        private int stock2ReqContractDetailsId;
+        //Stock 2
+        private int stock2StockReqContractDetailsId;
+        private int stock2CFDReqContractDetailsId;
         private int stock2ReqMktDataId;
         private Contract stock2Contract;
         private Contract stock2CFDContract;
@@ -558,9 +562,9 @@ namespace TradeBot
         {
             int reqContractDetailsId = NumberGenerator.NextRandomInt();
             if (stockNum == 1)
-                stock1ReqContractDetailsId = reqContractDetailsId;
+                stock1StockReqContractDetailsId = reqContractDetailsId;
             else if (stockNum == 2)
-                stock2ReqContractDetailsId = reqContractDetailsId;
+                stock2StockReqContractDetailsId = reqContractDetailsId;
 
             clientSocket.reqContractDetails(reqContractDetailsId, ContractFactory.CreateStockContract(tickerSymbol));
         }
@@ -569,9 +573,9 @@ namespace TradeBot
         {
             int reqContractDetailsId = NumberGenerator.NextRandomInt();
             if (stockNum == 1)
-                stock1ReqContractDetailsId = reqContractDetailsId;
+                stock1CFDReqContractDetailsId = reqContractDetailsId;
             else if (stockNum == 2)
-                stock2ReqContractDetailsId = reqContractDetailsId;
+                stock2CFDReqContractDetailsId = reqContractDetailsId;
 
             clientSocket.reqContractDetails(reqContractDetailsId, ContractFactory.CreateCFDContract(tickerSymbol));
         }
@@ -884,7 +888,7 @@ namespace TradeBot
             //IO.ShowMessage("OnContractDetails. Req Id: " + reqId);
 
             //Stock 1
-            if (reqId == stock1ReqContractDetailsId)
+            if (reqId == stock1StockReqContractDetailsId || reqId == stock1CFDReqContractDetailsId)
             {
                 string stock1str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
                 IO.ShowMessageTextBox(globalOutputTextBox, "Stock 1 - OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock1str);//GUI
@@ -929,7 +933,7 @@ namespace TradeBot
                 clientSocket.reqMktData(stock1ReqMktDataId, stock1Contract, "", false, false, null);
             }
             //Stock 2
-            else if (reqId == stock2ReqContractDetailsId)
+            else if (reqId == stock2StockReqContractDetailsId || reqId == stock2CFDReqContractDetailsId)
             {
                 string stock2str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
                 IO.ShowMessageTextBox(globalOutputTextBox, "Stock 2 - OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock2str);//GUI
