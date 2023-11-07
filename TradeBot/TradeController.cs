@@ -575,10 +575,10 @@ namespace TradeBot
                     OnAccountsChanged(eventArgs);
                     break;
                 case nameof(service.Stock1TickerSymbol):
-                    OnTickerSymbolChanged(eventArgs);
+                    OnTickerSymbolChanged(1, eventArgs);
                     break;
                 case nameof(service.Stock2TickerSymbol): 
-                    OnTickerSymbolChanged(eventArgs);
+                    OnTickerSymbolChanged(2, eventArgs);
                     break;
                 case nameof(service.CommissionReports):
                     OnCommissionReportsChanged(eventArgs);
@@ -647,7 +647,7 @@ namespace TradeBot
 
         }
 
-        private void OnTickerSymbolChanged(PropertyChangedEventArgs eventArgs)
+        private void OnTickerSymbolChanged(int stockNum, PropertyChangedEventArgs eventArgs)
         {
             var args = eventArgs as PropertyValueChangedEventArgs<string>;
             var oldValue = args.OldValue;
@@ -655,13 +655,13 @@ namespace TradeBot
 
             if (!string.IsNullOrWhiteSpace(oldValue))
             {
-                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TickerSymbolClearedFormat, oldValue));//GUI
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format("Stock " + stockNum.ToString() + " - " + Messages.TickerSymbolClearedFormat, oldValue));//GUI
                 //IO.ShowMessageCLI(LogLevel.Trace, Messages.TickerSymbolClearedFormat, oldValue);
             }
 
             if (!string.IsNullOrWhiteSpace(newValue))
             {
-                IO.ShowMessageTextBox(globalOutputTextBox, string.Format(Messages.TickerSymbolSetFormat, newValue));//GUI
+                IO.ShowMessageTextBox(globalOutputTextBox, string.Format("Stock " + stockNum.ToString() + " - " + Messages.TickerSymbolSetFormat, newValue));//GUI
                 //IO.ShowMessageCLI(Messages.TickerSymbolSetFormat, newValue);
             }
         }
