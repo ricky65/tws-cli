@@ -1521,6 +1521,7 @@
             Name = "TradePanelForm";
             Text = "IBKR Trade Panel";
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            MaximizeBox = false;
             stock1GroupBox.ResumeLayout(false);
             stock1GroupBox.PerformLayout();
             stock2GroupBox.ResumeLayout(false);
