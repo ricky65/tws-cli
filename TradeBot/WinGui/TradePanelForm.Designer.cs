@@ -349,7 +349,7 @@
             stock1BuyStopPriceLabel.Name = "stock1BuyStopPriceLabel";
             stock1BuyStopPriceLabel.Size = new Size(101, 21);
             stock1BuyStopPriceLabel.TabIndex = 54;
-            stock1BuyStopPriceLabel.Text = "BuyStopPrice";
+            stock1BuyStopPriceLabel.Text = "Buy Stop Price";
             // 
             // stock1BuyStopPriceTextBox
             // 
@@ -648,7 +648,7 @@
             stock1SellStopPriceLabel.Name = "stock1SellStopPriceLabel";
             stock1SellStopPriceLabel.Size = new Size(100, 21);
             stock1SellStopPriceLabel.TabIndex = 52;
-            stock1SellStopPriceLabel.Text = "SellStopPrice";
+            stock1SellStopPriceLabel.Text = "Sell Stop Price";
             // 
             // stock1SellStopPriceTextBox
             // 
@@ -1038,7 +1038,7 @@
             stock2BuyStopPriceLabel.Name = "stock2BuyStopPriceLabel";
             stock2BuyStopPriceLabel.Size = new Size(101, 21);
             stock2BuyStopPriceLabel.TabIndex = 54;
-            stock2BuyStopPriceLabel.Text = "BuyStopPrice";
+            stock2BuyStopPriceLabel.Text = "Buy Stop Price";
             // 
             // stock2BuyStopPriceTextBox
             // 
@@ -1337,7 +1337,7 @@
             stock2SellStopPriceLabel.Name = "stock2SellStopPriceLabel";
             stock2SellStopPriceLabel.Size = new Size(100, 21);
             stock2SellStopPriceLabel.TabIndex = 52;
-            stock2SellStopPriceLabel.Text = "SellStopPrice";
+            stock2SellStopPriceLabel.Text = "Sell Stop Price";
             // 
             // stock2SellStopPriceTextBox
             // 
