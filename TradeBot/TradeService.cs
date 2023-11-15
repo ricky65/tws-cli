@@ -832,7 +832,7 @@ namespace TradeBot
             if (tickId == stock1ReqMktDataId)
             {
                 stock1TickData.Update(tickType, value);
-                TickUpdated?.Invoke(tickType, value);
+                TickUpdated?.Invoke(tickType, value); //Rick TODO: Don't think this is necessary 
                 return;
             }
             else if (tickId == stock2ReqMktDataId)

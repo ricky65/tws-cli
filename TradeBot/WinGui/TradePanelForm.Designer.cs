@@ -796,7 +796,7 @@
             // stock1TakeProfitLimitPriceTextBox
             // 
             stock1TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            stock1TakeProfitLimitPriceTextBox.Location = new Point(161, 498);
+            stock1TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
             stock1TakeProfitLimitPriceTextBox.Name = "stock1TakeProfitLimitPriceTextBox";
             stock1TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
             stock1TakeProfitLimitPriceTextBox.TabIndex = 34;
@@ -1485,7 +1485,7 @@
             // stock2TakeProfitLimitPriceTextBox
             // 
             stock2TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            stock2TakeProfitLimitPriceTextBox.Location = new Point(161, 498);
+            stock2TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
             stock2TakeProfitLimitPriceTextBox.Name = "stock2TakeProfitLimitPriceTextBox";
             stock2TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
             stock2TakeProfitLimitPriceTextBox.TabIndex = 34;
