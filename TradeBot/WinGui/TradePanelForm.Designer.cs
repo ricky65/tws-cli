@@ -791,7 +791,7 @@
             stock1TakeProfitLimitPriceLabel.Name = "stock1TakeProfitLimitPriceLabel";
             stock1TakeProfitLimitPriceLabel.Size = new Size(147, 21);
             stock1TakeProfitLimitPriceLabel.TabIndex = 42;
-            stock1TakeProfitLimitPriceLabel.Text = "TakeProfitLimitPrice";
+            stock1TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
             // 
             // stock1TakeProfitLimitPriceTextBox
             // 
@@ -1480,7 +1480,7 @@
             stock2TakeProfitLimitPriceLabel.Name = "stock2TakeProfitLimitPriceLabel";
             stock2TakeProfitLimitPriceLabel.Size = new Size(147, 21);
             stock2TakeProfitLimitPriceLabel.TabIndex = 42;
-            stock2TakeProfitLimitPriceLabel.Text = "TakeProfitLimitPrice";
+            stock2TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
             // 
             // stock2TakeProfitLimitPriceTextBox
             // 
