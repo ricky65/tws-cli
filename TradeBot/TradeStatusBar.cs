@@ -91,40 +91,40 @@ namespace TradeBot
         //Rick: UpdateHeaderAsync() for GUI
         private async Task UpdateHeaderAsyncGUI()
         {
-            IList<string> infoStrings = new List<string>();
+            //IList<string> infoStrings = new List<string>();
 
             string appName = Messages.AppName;
-            if (!string.IsNullOrWhiteSpace(appName))
-            {
-                infoStrings.Add(appName);
-            }
+            //if (!string.IsNullOrWhiteSpace(appName))
+            //{
+            //    infoStrings.Add(appName);
+            //}
 
             //Stock 1
             bool hasStock1TickerSymbol = service.HasStock1TickerSymbol;
             string stock1TickerSymbol = service.Stock1TickerSymbol;
             string stock1TickerDisplayValue = hasStock1TickerSymbol ? stock1TickerSymbol : Messages.TitleUnavailable;
-            infoStrings.Add(string.Format(Messages.TitleRiskPerTrade, service.RiskPercent));
-            infoStrings.Add(string.Format(Messages.TitleTickerSymbol, stock1TickerDisplayValue));
+            //infoStrings.Add(string.Format(Messages.TitleRiskPerTrade, service.RiskPercent));
+            //infoStrings.Add(string.Format(Messages.TitleTickerSymbol, stock1TickerDisplayValue));
 
-            infoStrings.Add(string.Format(Messages.TitleShares, controller.Shares));
+            //infoStrings.Add(string.Format(Messages.TitleShares, controller.Shares));
 
             if (hasStock1TickerSymbol)
             {
                 Position stock1CurrentPosition = await service.RequestCurrentPositionAsync(stock1TickerSymbol);
                 double stock1PositionSize = stock1CurrentPosition?.PositionSize ?? 0;
-                infoStrings.Add(string.Format(Messages.TitlePositionSize, stock1PositionSize));
+                //infoStrings.Add(string.Format(Messages.TitlePositionSize, stock1PositionSize));
 
-                infoStrings.Add(string.Format(Messages.TitleLastFormat, GetTickAsCurrencyString(1, TickType.LAST)));
-                infoStrings.Add(string.Format(Messages.TitleBidAskFormat, GetTickAsCurrencyString(1, TickType.BID), GetTickAsCurrencyString(1, TickType.ASK), GetTickAsCommaFormattedString(1, TickType.BID_SIZE), GetTickAsCommaFormattedString(1, TickType.ASK_SIZE)));
-                infoStrings.Add(string.Format(Messages.TitleVolumeFormat, GetTickAsCommaFormattedString(1, TickType.VOLUME)));
-                infoStrings.Add(string.Format(Messages.TitleCloseFormat, GetTickAsCurrencyString(1, TickType.CLOSE)));
-                infoStrings.Add(string.Format(Messages.TitleOpenFormat, GetTickAsCurrencyString(1, TickType.OPEN)));
+                //infoStrings.Add(string.Format(Messages.TitleLastFormat, GetTickAsCurrencyString(1, TickType.LAST)));
+                //infoStrings.Add(string.Format(Messages.TitleBidAskFormat, GetTickAsCurrencyString(1, TickType.BID), GetTickAsCurrencyString(1, TickType.ASK), GetTickAsCommaFormattedString(1, TickType.BID_SIZE), GetTickAsCommaFormattedString(1, TickType.ASK_SIZE)));
+                //infoStrings.Add(string.Format(Messages.TitleVolumeFormat, GetTickAsCommaFormattedString(1, TickType.VOLUME)));
+                //infoStrings.Add(string.Format(Messages.TitleCloseFormat, GetTickAsCurrencyString(1, TickType.CLOSE)));
+                //infoStrings.Add(string.Format(Messages.TitleOpenFormat, GetTickAsCurrencyString(1, TickType.OPEN)));
 
                 if (tradePanel.InvokeRequired)
                 {
                     tradePanel.BeginInvoke(() =>
                     {
-                        tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings);
+                        //tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings);
 
                         tradePanel.stock1PositionOutputLabel.Text = stock1PositionSize.ToString("N0");
                         tradePanel.stock1LastPriceOutputLabel.Text = GetTickAsCurrencyString(1, TickType.LAST);
@@ -135,7 +135,7 @@ namespace TradeBot
                 }
                 else
                 {
-                    tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings);
+                    //tradePanel.Text = string.Join(Messages.TitleDivider, infoStrings);
 
                     tradePanel.stock1PositionOutputLabel.Text = stock1PositionSize.ToString("N0");
                     tradePanel.stock1LastPriceOutputLabel.Text = GetTickAsCurrencyString(1, TickType.LAST);
