@@ -18,14 +18,17 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 		<Optimize>True</Optimize>
 		<NoWarn>1701;1702;CA1416</NoWarn>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
 		<Optimize>True</Optimize>
 		<NoWarn>1701;1702;CA1416</NoWarn>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
 		<Optimize>True</Optimize>
 		<NoWarn>1701;1702;CA1416</NoWarn>
+		<DebugType>none</DebugType>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DebugType>full</DebugType>
