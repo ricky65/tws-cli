@@ -30,7 +30,7 @@ namespace TradeBot.WinGui
             controller = new TradeController(GlobalOutputTextBox, stock1GroupBox, stock2GroupBox);
             statusBar = new TradeStatusBar(controller, controller.service, this);
 
-            buttonSoundWavFileName = @"\button11.wav";
+            buttonSoundWavFileName = @"\button37a.wav";
             soundPlayer = new SoundPlayer(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + buttonSoundWavFileName);
         }
 
