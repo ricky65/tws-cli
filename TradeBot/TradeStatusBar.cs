@@ -129,7 +129,7 @@ namespace TradeBot
                         tradePanel.stock1PositionOutputLabel.Text = stock1PositionSize.ToString("N0");
                         tradePanel.stock1LastPriceOutputLabel.Text = GetTickAsCurrencyString(1, TickType.LAST);
                         tradePanel.stock1PercentageChangeOutputLabel.Text = "todo";
-                        tradePanel.stock1BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(1, TickType.BID), GetTickAsCurrencyString(1, TickType.ASK));
+                        tradePanel.stock1BidAskOutput.Text = string.Format("{0} x {1} ({2}%)", GetTickAsCurrencyString(1, TickType.BID), GetTickAsCurrencyString(1, TickType.ASK), GetAskBidPercentageDifference(1, TickType.BID, TickType.ASK));
                         tradePanel.stock1BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(1, TickType.BID_SIZE), GetTickAsCommaFormattedString(1, TickType.ASK_SIZE));
                     });
                 }
@@ -140,7 +140,7 @@ namespace TradeBot
                     tradePanel.stock1PositionOutputLabel.Text = stock1PositionSize.ToString("N0");
                     tradePanel.stock1LastPriceOutputLabel.Text = GetTickAsCurrencyString(1, TickType.LAST);
                     tradePanel.stock1PercentageChangeOutputLabel.Text = "todo";
-                    tradePanel.stock1BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(1, TickType.BID), GetTickAsCurrencyString(1, TickType.ASK));
+                    tradePanel.stock1BidAskOutput.Text = string.Format("{0} x {1} ({2}%)", GetTickAsCurrencyString(1, TickType.BID), GetTickAsCurrencyString(1, TickType.ASK), GetAskBidPercentageDifference(1, TickType.BID, TickType.ASK));
                     tradePanel.stock1BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(1, TickType.BID_SIZE), GetTickAsCommaFormattedString(1, TickType.ASK_SIZE));
                 }
             }
@@ -175,7 +175,7 @@ namespace TradeBot
                         tradePanel.stock2PositionOutputLabel.Text = stock2PositionSize.ToString("N0");
                         tradePanel.stock2LastPriceOutputLabel.Text = GetTickAsCurrencyString(2, TickType.LAST);
                         tradePanel.stock2PercentageChangeOutputLabel.Text = "todo";
-                        tradePanel.stock2BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(2, TickType.BID), GetTickAsCurrencyString(2, TickType.ASK));
+                        tradePanel.stock2BidAskOutput.Text = string.Format("{0} x {1} ({2}%)", GetTickAsCurrencyString(2, TickType.BID), GetTickAsCurrencyString(2, TickType.ASK), GetAskBidPercentageDifference(2, TickType.BID, TickType.ASK));
                         tradePanel.stock2BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(2, TickType.BID_SIZE), GetTickAsCommaFormattedString(2, TickType.ASK_SIZE));
                     });
                 }
@@ -186,7 +186,7 @@ namespace TradeBot
                     tradePanel.stock2PositionOutputLabel.Text = stock2PositionSize.ToString("N0");
                     tradePanel.stock2LastPriceOutputLabel.Text = GetTickAsCurrencyString(2, TickType.LAST);
                     tradePanel.stock2PercentageChangeOutputLabel.Text = "todo";
-                    tradePanel.stock2BidAskOutput.Text = string.Format("{0} x {1}", GetTickAsCurrencyString(2, TickType.BID), GetTickAsCurrencyString(2, TickType.ASK));
+                    tradePanel.stock2BidAskOutput.Text = string.Format("{0} x {1} ({2}%)", GetTickAsCurrencyString(2, TickType.BID), GetTickAsCurrencyString(2, TickType.ASK), GetAskBidPercentageDifference(2, TickType.BID, TickType.ASK));
                     tradePanel.stock2BidAskSizeOutput.Text = string.Format("{0} x {1}", GetTickAsCommaFormattedString(2, TickType.BID_SIZE), GetTickAsCommaFormattedString(2,TickType.ASK_SIZE));
                 }
             }
@@ -210,11 +210,29 @@ namespace TradeBot
         }
 
         private string GetTickAsFormattedString(int stockNum, int tickType, Func<double, string> messageFormatter)
-            {
+        {
             double? tick = service.GetTick(stockNum, tickType);
             return tick.HasValue && tick.Value >= 0
                 ? messageFormatter(tick.Value)
                 : Messages.TitleUnavailable;
         }
+
+        private string GetAskBidPercentageDifference(int stockNum, int bidTickType, int askTickType)
+        {
+            double? bidTick = service.GetTick(stockNum, bidTickType);
+            double? askTick = service.GetTick(stockNum, askTickType);
+
+            if (bidTick.HasValue && askTick.HasValue)
+            {
+                double askBidPercentageDiff = ((askTick.Value - bidTick.Value) / askTick.Value * 100);
+                string askBidPercentageDiffStr = Math.Round(askBidPercentageDiff, 2).ToString();
+                return askBidPercentageDiffStr;
+            }
+            else
+            {
+                return "N/A";
+            }
+        }
+
     }
 }

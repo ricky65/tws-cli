@@ -220,7 +220,7 @@
             // stock1BidAskOutput
             // 
             stock1BidAskOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            stock1BidAskOutput.Location = new Point(124, 140);
+            stock1BidAskOutput.Location = new Point(160, 140);
             stock1BidAskOutput.Name = "stock1BidAskOutput";
             stock1BidAskOutput.Size = new Size(300, 25);
             stock1BidAskOutput.TabIndex = 12;
@@ -908,7 +908,7 @@
             // stock2BidAskOutput
             // 
             stock2BidAskOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            stock2BidAskOutput.Location = new Point(124, 140);
+            stock2BidAskOutput.Location = new Point(160, 140);
             stock2BidAskOutput.Name = "stock2BidAskOutput";
             stock2BidAskOutput.Size = new Size(300, 25);
             stock2BidAskOutput.TabIndex = 12;
