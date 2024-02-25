@@ -139,8 +139,120 @@
             stock2TakeProfitLimitPriceTextBox = new TextBox();
             stock2TickerInput = new TextBox();
             stock2TickerLabel = new Label();
+            stock3GroupBox = new GroupBox();
+            stock3BidAskLabel = new Label();
+            stock3BidAskOutput = new Label();
+            stock3BidAskSizeLabel = new Label();
+            stock3BidAskSizeOutput = new Label();
+            stock3ButtonCFD = new Button();
+            stock3ButtonStock = new Button();
+            stock3BuyStop05Percent = new Button();
+            stock3BuyStop125Percent = new Button();
+            stock3BuyStop15Percent = new Button();
+            stock3BuyStop1Percent = new Button();
+            stock3BuyStop25Percent = new Button();
+            stock3BuyStop2Percent = new Button();
+            stock3BuyStopPriceLabel = new Label();
+            stock3BuyStopPriceTextBox = new TextBox();
+            stock3Close100Percent = new Button();
+            stock3Close25Percent = new Button();
+            stock3Close33Percent = new Button();
+            stock3Close50Percent = new Button();
+            stock3Close67Percent = new Button();
+            stock3LastPriceLabel = new Label();
+            stock3LastPriceOutputLabel = new Label();
+            stock3Long05Percent = new Button();
+            stock3Long125percent = new Button();
+            stock3Long15Percent = new Button();
+            stock3Long1Percent = new Button();
+            stock3Long25Percent = new Button();
+            stock3Long2Percent = new Button();
+            stock3OutsideRTHCheckbox = new CheckBox();
+            stock3PercentageChangeLabel = new Label();
+            stock3PercentageChangeOutputLabel = new Label();
+            stock3PositionLabel = new Label();
+            stock3PositionOutputLabel = new Label();
+            stock3ReverseButton = new Button();
+            stock3SellStop05Percent = new Button();
+            stock3SellStop125Percent = new Button();
+            stock3SellStop15Percent = new Button();
+            stock3SellStop1Percent = new Button();
+            stock3SellStop2Percent = new Button();
+            stock3SellStopPriceLabel = new Label();
+            stock3SellStopPriceTextBox = new TextBox();
+            stock3Short05Percent = new Button();
+            stock3Short125Percent = new Button();
+            stock3Short15Percent = new Button();
+            stock3Short1Percent = new Button();
+            stock3Short2Percent = new Button();
+            stock3TakeProfit25Percent = new Button();
+            stock3TakeProfit33Percent = new Button();
+            stock3TakeProfit50Percent = new Button();
+            stock3TakeProfit67Percent = new Button();
+            stock3TakeProfit100Percent = new Button();
+            stock3TakeProfitLimitPriceLabel = new Label();
+            stock3TakeProfitLimitPriceTextBox = new TextBox();
+            stock3TickerInput = new TextBox();
+            stock3TickerLabel = new Label();
+            stock4GroupBox = new GroupBox();
+            stock4BidAskLabel = new Label();
+            stock4BidAskOutput = new Label();
+            stock4BidAskSizeLabel = new Label();
+            stock4BidAskSizeOutput = new Label();
+            stock4ButtonCFD = new Button();
+            stock4ButtonStock = new Button();
+            stock4BuyStop05Percent = new Button();
+            stock4BuyStop125Percent = new Button();
+            stock4BuyStop15Percent = new Button();
+            stock4BuyStop1Percent = new Button();
+            stock4BuyStop25Percent = new Button();
+            stock4BuyStop2Percent = new Button();
+            stock4BuyStopPriceLabel = new Label();
+            stock4BuyStopPriceTextBox = new TextBox();
+            stock4Close100Percent = new Button();
+            stock4Close25Percent = new Button();
+            stock4Close33Percent = new Button();
+            stock4Close50Percent = new Button();
+            stock4Close67Percent = new Button();
+            stock4LastPriceLabel = new Label();
+            stock4LastPriceOutputLabel = new Label();
+            stock4Long05Percent = new Button();
+            stock4Long125percent = new Button();
+            stock4Long15Percent = new Button();
+            stock4Long1Percent = new Button();
+            stock4Long25Percent = new Button();
+            stock4Long2Percent = new Button();
+            stock4OutsideRTHCheckbox = new CheckBox();
+            stock4PercentageChangeLabel = new Label();
+            stock4PercentageChangeOutputLabel = new Label();
+            stock4PositionLabel = new Label();
+            stock4PositionOutputLabel = new Label();
+            stock4ReverseButton = new Button();
+            stock4SellStop05Percent = new Button();
+            stock4SellStop125Percent = new Button();
+            stock4SellStop15Percent = new Button();
+            stock4SellStop1Percent = new Button();
+            stock4SellStop2Percent = new Button();
+            stock4SellStopPriceLabel = new Label();
+            stock4SellStopPriceTextBox = new TextBox();
+            stock4Short05Percent = new Button();
+            stock4Short125Percent = new Button();
+            stock4Short15Percent = new Button();
+            stock4Short1Percent = new Button();
+            stock4Short2Percent = new Button();
+            stock4TakeProfit25Percent = new Button();
+            stock4TakeProfit33Percent = new Button();
+            stock4TakeProfit50Percent = new Button();
+            stock4TakeProfit67Percent = new Button();
+            stock4TakeProfit100Percent = new Button();
+            stock4TakeProfitLimitPriceLabel = new Label();
+            stock4TakeProfitLimitPriceTextBox = new TextBox();
+            stock4TickerInput = new TextBox();
+            stock4TickerLabel = new Label();
             stock1GroupBox.SuspendLayout();
             stock2GroupBox.SuspendLayout();
+            stock3GroupBox.SuspendLayout();
+            stock4GroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // stock1GroupBox
@@ -828,7 +940,7 @@
             GlobalOutputTextBox.Name = "GlobalOutputTextBox";
             GlobalOutputTextBox.ReadOnly = true;
             GlobalOutputTextBox.ScrollBars = ScrollBars.Vertical;
-            GlobalOutputTextBox.Size = new Size(711, 88);
+            GlobalOutputTextBox.Size = new Size(1440, 88);
             GlobalOutputTextBox.TabIndex = 38;
             // 
             // stock2GroupBox
@@ -1507,14 +1619,1369 @@
             stock2TickerLabel.TabIndex = 0;
             stock2TickerLabel.Text = "Ticker";
             // 
+            // stock3GroupBox
+            // 
+            stock3GroupBox.Controls.Add(stock3BidAskLabel);
+            stock3GroupBox.Controls.Add(stock3BidAskOutput);
+            stock3GroupBox.Controls.Add(stock3BidAskSizeLabel);
+            stock3GroupBox.Controls.Add(stock3BidAskSizeOutput);
+            stock3GroupBox.Controls.Add(stock3ButtonCFD);
+            stock3GroupBox.Controls.Add(stock3ButtonStock);
+            stock3GroupBox.Controls.Add(stock3BuyStop05Percent);
+            stock3GroupBox.Controls.Add(stock3BuyStop125Percent);
+            stock3GroupBox.Controls.Add(stock3BuyStop15Percent);
+            stock3GroupBox.Controls.Add(stock3BuyStop1Percent);
+            stock3GroupBox.Controls.Add(stock3BuyStop25Percent);
+            stock3GroupBox.Controls.Add(stock3BuyStop2Percent);
+            stock3GroupBox.Controls.Add(stock3BuyStopPriceLabel);
+            stock3GroupBox.Controls.Add(stock3BuyStopPriceTextBox);
+            stock3GroupBox.Controls.Add(stock3Close100Percent);
+            stock3GroupBox.Controls.Add(stock3Close25Percent);
+            stock3GroupBox.Controls.Add(stock3Close33Percent);
+            stock3GroupBox.Controls.Add(stock3Close50Percent);
+            stock3GroupBox.Controls.Add(stock3Close67Percent);
+            stock3GroupBox.Controls.Add(stock3LastPriceLabel);
+            stock3GroupBox.Controls.Add(stock3LastPriceOutputLabel);
+            stock3GroupBox.Controls.Add(stock3Long05Percent);
+            stock3GroupBox.Controls.Add(stock3Long125percent);
+            stock3GroupBox.Controls.Add(stock3Long15Percent);
+            stock3GroupBox.Controls.Add(stock3Long1Percent);
+            stock3GroupBox.Controls.Add(stock3Long25Percent);
+            stock3GroupBox.Controls.Add(stock3Long2Percent);
+            stock3GroupBox.Controls.Add(stock3OutsideRTHCheckbox);
+            stock3GroupBox.Controls.Add(stock3PercentageChangeLabel);
+            stock3GroupBox.Controls.Add(stock3PercentageChangeOutputLabel);
+            stock3GroupBox.Controls.Add(stock3PositionLabel);
+            stock3GroupBox.Controls.Add(stock3PositionOutputLabel);
+            stock3GroupBox.Controls.Add(stock3ReverseButton);
+            stock3GroupBox.Controls.Add(stock3SellStop05Percent);
+            stock3GroupBox.Controls.Add(stock3SellStop125Percent);
+            stock3GroupBox.Controls.Add(stock3SellStop15Percent);
+            stock3GroupBox.Controls.Add(stock3SellStop1Percent);
+            stock3GroupBox.Controls.Add(stock3SellStop2Percent);
+            stock3GroupBox.Controls.Add(stock3SellStopPriceLabel);
+            stock3GroupBox.Controls.Add(stock3SellStopPriceTextBox);
+            stock3GroupBox.Controls.Add(stock3Short05Percent);
+            stock3GroupBox.Controls.Add(stock3Short125Percent);
+            stock3GroupBox.Controls.Add(stock3Short15Percent);
+            stock3GroupBox.Controls.Add(stock3Short1Percent);
+            stock3GroupBox.Controls.Add(stock3Short2Percent);
+            stock3GroupBox.Controls.Add(stock3TakeProfit25Percent);
+            stock3GroupBox.Controls.Add(stock3TakeProfit33Percent);
+            stock3GroupBox.Controls.Add(stock3TakeProfit50Percent);
+            stock3GroupBox.Controls.Add(stock3TakeProfit67Percent);
+            stock3GroupBox.Controls.Add(stock3TakeProfit100Percent);
+            stock3GroupBox.Controls.Add(stock3TakeProfitLimitPriceLabel);
+            stock3GroupBox.Controls.Add(stock3TakeProfitLimitPriceTextBox);
+            stock3GroupBox.Controls.Add(stock3TickerInput);
+            stock3GroupBox.Controls.Add(stock3TickerLabel);
+            stock3GroupBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            stock3GroupBox.Location = new Point(741, 106);
+            stock3GroupBox.Name = "stock3GroupBox";
+            stock3GroupBox.Size = new Size(711, 587);
+            stock3GroupBox.TabIndex = 40;
+            stock3GroupBox.TabStop = false;
+            stock3GroupBox.Text = "Stock 3";
+            // 
+            // stock3BidAskLabel
+            // 
+            stock3BidAskLabel.AutoSize = true;
+            stock3BidAskLabel.Font = new Font("Segoe UI", 12F);
+            stock3BidAskLabel.Location = new Point(12, 145);
+            stock3BidAskLabel.Name = "stock3BidAskLabel";
+            stock3BidAskLabel.Size = new Size(63, 21);
+            stock3BidAskLabel.TabIndex = 11;
+            stock3BidAskLabel.Text = "Bid/Ask";
+            // 
+            // stock3BidAskOutput
+            // 
+            stock3BidAskOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            stock3BidAskOutput.Location = new Point(160, 140);
+            stock3BidAskOutput.Name = "stock3BidAskOutput";
+            stock3BidAskOutput.Size = new Size(300, 25);
+            stock3BidAskOutput.TabIndex = 12;
+            stock3BidAskOutput.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stock3BidAskSizeLabel
+            // 
+            stock3BidAskSizeLabel.AutoSize = true;
+            stock3BidAskSizeLabel.Font = new Font("Segoe UI", 12F);
+            stock3BidAskSizeLabel.Location = new Point(12, 169);
+            stock3BidAskSizeLabel.Name = "stock3BidAskSizeLabel";
+            stock3BidAskSizeLabel.Size = new Size(38, 21);
+            stock3BidAskSizeLabel.TabIndex = 10;
+            stock3BidAskSizeLabel.Text = "Size";
+            // 
+            // stock3BidAskSizeOutput
+            // 
+            stock3BidAskSizeOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            stock3BidAskSizeOutput.Location = new Point(124, 165);
+            stock3BidAskSizeOutput.Name = "stock3BidAskSizeOutput";
+            stock3BidAskSizeOutput.Size = new Size(300, 25);
+            stock3BidAskSizeOutput.TabIndex = 13;
+            stock3BidAskSizeOutput.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stock3ButtonCFD
+            // 
+            stock3ButtonCFD.FlatAppearance.MouseDownBackColor = SystemColors.Control;
+            stock3ButtonCFD.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock3ButtonCFD.Location = new Point(241, 32);
+            stock3ButtonCFD.Name = "stock3ButtonCFD";
+            stock3ButtonCFD.Size = new Size(71, 40);
+            stock3ButtonCFD.TabIndex = 3;
+            stock3ButtonCFD.Text = "CFD";
+            stock3ButtonCFD.UseVisualStyleBackColor = true;
+            stock3ButtonCFD.Click += stock3ButtonCFD_Click;
+            // 
+            // stock3ButtonStock
+            // 
+            stock3ButtonStock.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock3ButtonStock.Location = new Point(318, 32);
+            stock3ButtonStock.Name = "stock3ButtonStock";
+            stock3ButtonStock.Size = new Size(71, 40);
+            stock3ButtonStock.TabIndex = 2;
+            stock3ButtonStock.Text = "Stock";
+            stock3ButtonStock.UseVisualStyleBackColor = true;
+            stock3ButtonStock.Click += stock3ButtonStock_Click;
+            // 
+            // stock3BuyStop05Percent
+            // 
+            stock3BuyStop05Percent.BackColor = Color.Lime;
+            stock3BuyStop05Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3BuyStop05Percent.Location = new Point(8, 346);
+            stock3BuyStop05Percent.Name = "stock3BuyStop05Percent";
+            stock3BuyStop05Percent.Size = new Size(114, 40);
+            stock3BuyStop05Percent.TabIndex = 17;
+            stock3BuyStop05Percent.Text = "Buy Stop 0.5%";
+            stock3BuyStop05Percent.UseVisualStyleBackColor = false;
+            stock3BuyStop05Percent.Click += stock3BuyStop05Percent_Click;
+            // 
+            // stock3BuyStop125Percent
+            // 
+            stock3BuyStop125Percent.BackColor = Color.Lime;
+            stock3BuyStop125Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3BuyStop125Percent.Location = new Point(241, 346);
+            stock3BuyStop125Percent.Name = "stock3BuyStop125Percent";
+            stock3BuyStop125Percent.Size = new Size(126, 40);
+            stock3BuyStop125Percent.TabIndex = 19;
+            stock3BuyStop125Percent.Text = "Buy Stop 1.25%";
+            stock3BuyStop125Percent.UseVisualStyleBackColor = false;
+            stock3BuyStop125Percent.Click += stock3BuyStop125Percent_Click;
+            // 
+            // stock3BuyStop15Percent
+            // 
+            stock3BuyStop15Percent.BackColor = Color.Lime;
+            stock3BuyStop15Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3BuyStop15Percent.Location = new Point(373, 346);
+            stock3BuyStop15Percent.Name = "stock3BuyStop15Percent";
+            stock3BuyStop15Percent.Size = new Size(111, 40);
+            stock3BuyStop15Percent.TabIndex = 20;
+            stock3BuyStop15Percent.Text = "Buy Stop 1.5%";
+            stock3BuyStop15Percent.UseVisualStyleBackColor = false;
+            stock3BuyStop15Percent.Click += stock3BuyStop15Percent_Click;
+            // 
+            // stock3BuyStop1Percent
+            // 
+            stock3BuyStop1Percent.BackColor = Color.Lime;
+            stock3BuyStop1Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3BuyStop1Percent.Location = new Point(128, 346);
+            stock3BuyStop1Percent.Name = "stock3BuyStop1Percent";
+            stock3BuyStop1Percent.Size = new Size(107, 40);
+            stock3BuyStop1Percent.TabIndex = 18;
+            stock3BuyStop1Percent.Text = "Buy Stop 1%";
+            stock3BuyStop1Percent.UseVisualStyleBackColor = false;
+            stock3BuyStop1Percent.Click += stock3BuyStop1Percent_Click;
+            // 
+            // stock3BuyStop25Percent
+            // 
+            stock3BuyStop25Percent.BackColor = Color.Lime;
+            stock3BuyStop25Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3BuyStop25Percent.Location = new Point(595, 346);
+            stock3BuyStop25Percent.Name = "stock3BuyStop25Percent";
+            stock3BuyStop25Percent.Size = new Size(111, 40);
+            stock3BuyStop25Percent.TabIndex = 22;
+            stock3BuyStop25Percent.Text = "Buy Stop 2.5%";
+            stock3BuyStop25Percent.UseVisualStyleBackColor = false;
+            stock3BuyStop25Percent.Click += stock3BuyStop25Percent_Click;
+            // 
+            // stock3BuyStop2Percent
+            // 
+            stock3BuyStop2Percent.BackColor = Color.Lime;
+            stock3BuyStop2Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3BuyStop2Percent.Location = new Point(490, 346);
+            stock3BuyStop2Percent.Name = "stock3BuyStop2Percent";
+            stock3BuyStop2Percent.Size = new Size(101, 40);
+            stock3BuyStop2Percent.TabIndex = 21;
+            stock3BuyStop2Percent.Text = "Buy Stop 2%";
+            stock3BuyStop2Percent.UseVisualStyleBackColor = false;
+            stock3BuyStop2Percent.Click += stock3BuyStop2Percent_Click;
+            // 
+            // stock3BuyStopPriceLabel
+            // 
+            stock3BuyStopPriceLabel.AutoSize = true;
+            stock3BuyStopPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock3BuyStopPriceLabel.Location = new Point(241, 208);
+            stock3BuyStopPriceLabel.Name = "stock3BuyStopPriceLabel";
+            stock3BuyStopPriceLabel.Size = new Size(101, 21);
+            stock3BuyStopPriceLabel.TabIndex = 54;
+            stock3BuyStopPriceLabel.Text = "Buy Stop Price";
+            // 
+            // stock3BuyStopPriceTextBox
+            // 
+            stock3BuyStopPriceTextBox.Font = new Font("Segoe UI", 12F);
+            stock3BuyStopPriceTextBox.Location = new Point(356, 205);
+            stock3BuyStopPriceTextBox.Name = "stock3BuyStopPriceTextBox";
+            stock3BuyStopPriceTextBox.Size = new Size(100, 29);
+            stock3BuyStopPriceTextBox.TabIndex = 5;
+            // 
+            // stock3Close100Percent
+            // 
+            stock3Close100Percent.BackColor = Color.DarkOrange;
+            stock3Close100Percent.Font = new Font("Segoe UI", 12F);
+            stock3Close100Percent.Location = new Point(8, 443);
+            stock3Close100Percent.Name = "stock3Close100Percent";
+            stock3Close100Percent.Size = new Size(107, 40);
+            stock3Close100Percent.TabIndex = 28;
+            stock3Close100Percent.Text = "Close 100%";
+            stock3Close100Percent.UseVisualStyleBackColor = false;
+            stock3Close100Percent.Click += stock3Close100Percent_Click;
+            // 
+            // stock3Close25Percent
+            // 
+            stock3Close25Percent.BackColor = Color.DarkOrange;
+            stock3Close25Percent.Font = new Font("Segoe UI", 12F);
+            stock3Close25Percent.Location = new Point(438, 443);
+            stock3Close25Percent.Name = "stock3Close25Percent";
+            stock3Close25Percent.Size = new Size(99, 40);
+            stock3Close25Percent.TabIndex = 32;
+            stock3Close25Percent.Text = "Close 25%";
+            stock3Close25Percent.UseVisualStyleBackColor = false;
+            stock3Close25Percent.Click += stock3Close25Percent_Click;
+            // 
+            // stock3Close33Percent
+            // 
+            stock3Close33Percent.BackColor = Color.DarkOrange;
+            stock3Close33Percent.Font = new Font("Segoe UI", 12F);
+            stock3Close33Percent.Location = new Point(229, 443);
+            stock3Close33Percent.Name = "stock3Close33Percent";
+            stock3Close33Percent.Size = new Size(99, 40);
+            stock3Close33Percent.TabIndex = 30;
+            stock3Close33Percent.Text = "Close 33%";
+            stock3Close33Percent.UseVisualStyleBackColor = false;
+            stock3Close33Percent.Click += stock3Close33Percent_Click;
+            // 
+            // stock3Close50Percent
+            // 
+            stock3Close50Percent.BackColor = Color.DarkOrange;
+            stock3Close50Percent.Font = new Font("Segoe UI", 12F);
+            stock3Close50Percent.Location = new Point(125, 443);
+            stock3Close50Percent.Name = "stock3Close50Percent";
+            stock3Close50Percent.Size = new Size(99, 40);
+            stock3Close50Percent.TabIndex = 29;
+            stock3Close50Percent.Text = "Close 50%";
+            stock3Close50Percent.UseVisualStyleBackColor = false;
+            stock3Close50Percent.Click += stock3Close50Percent_Click;
+            // 
+            // stock3Close67Percent
+            // 
+            stock3Close67Percent.BackColor = Color.DarkOrange;
+            stock3Close67Percent.Font = new Font("Segoe UI", 12F);
+            stock3Close67Percent.Location = new Point(333, 443);
+            stock3Close67Percent.Name = "stock3Close67Percent";
+            stock3Close67Percent.Size = new Size(99, 40);
+            stock3Close67Percent.TabIndex = 31;
+            stock3Close67Percent.Text = "Close 67%";
+            stock3Close67Percent.UseVisualStyleBackColor = false;
+            stock3Close67Percent.Click += stock3Close67Percent_Click;
+            // 
+            // stock3LastPriceLabel
+            // 
+            stock3LastPriceLabel.AutoSize = true;
+            stock3LastPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock3LastPriceLabel.Location = new Point(12, 98);
+            stock3LastPriceLabel.Name = "stock3LastPriceLabel";
+            stock3LastPriceLabel.Size = new Size(38, 21);
+            stock3LastPriceLabel.TabIndex = 8;
+            stock3LastPriceLabel.Text = "Last";
+            // 
+            // stock3LastPriceOutputLabel
+            // 
+            stock3LastPriceOutputLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            stock3LastPriceOutputLabel.Location = new Point(124, 98);
+            stock3LastPriceOutputLabel.Name = "stock3LastPriceOutputLabel";
+            stock3LastPriceOutputLabel.Size = new Size(300, 25);
+            stock3LastPriceOutputLabel.TabIndex = 66;
+            stock3LastPriceOutputLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stock3Long05Percent
+            // 
+            stock3Long05Percent.BackColor = Color.Lime;
+            stock3Long05Percent.Font = new Font("Segoe UI", 12F);
+            stock3Long05Percent.Location = new Point(8, 245);
+            stock3Long05Percent.Name = "stock3Long05Percent";
+            stock3Long05Percent.Size = new Size(110, 40);
+            stock3Long05Percent.TabIndex = 6;
+            stock3Long05Percent.Text = "Long 0.5%";
+            stock3Long05Percent.UseVisualStyleBackColor = false;
+            stock3Long05Percent.Click += stock3Long05Percent_Click;
+            // 
+            // stock3Long125percent
+            // 
+            stock3Long125percent.BackColor = Color.Lime;
+            stock3Long125percent.Font = new Font("Segoe UI", 12F);
+            stock3Long125percent.Location = new Point(240, 245);
+            stock3Long125percent.Name = "stock3Long125percent";
+            stock3Long125percent.Size = new Size(110, 40);
+            stock3Long125percent.TabIndex = 8;
+            stock3Long125percent.Text = "Long 1.25%";
+            stock3Long125percent.UseVisualStyleBackColor = false;
+            stock3Long125percent.Click += stock3Long125percent_Click;
+            // 
+            // stock3Long15Percent
+            // 
+            stock3Long15Percent.BackColor = Color.Lime;
+            stock3Long15Percent.Font = new Font("Segoe UI", 12F);
+            stock3Long15Percent.Location = new Point(356, 245);
+            stock3Long15Percent.Name = "stock3Long15Percent";
+            stock3Long15Percent.Size = new Size(110, 40);
+            stock3Long15Percent.TabIndex = 9;
+            stock3Long15Percent.Text = "Long 1.5%";
+            stock3Long15Percent.UseVisualStyleBackColor = false;
+            stock3Long15Percent.Click += stock3Long15Percent_Click;
+            // 
+            // stock3Long1Percent
+            // 
+            stock3Long1Percent.BackColor = Color.Lime;
+            stock3Long1Percent.Font = new Font("Segoe UI", 12F);
+            stock3Long1Percent.Location = new Point(124, 245);
+            stock3Long1Percent.Name = "stock3Long1Percent";
+            stock3Long1Percent.Size = new Size(110, 40);
+            stock3Long1Percent.TabIndex = 7;
+            stock3Long1Percent.Text = "Long 1%";
+            stock3Long1Percent.UseVisualStyleBackColor = false;
+            stock3Long1Percent.Click += stock3Long1Percent_Click;
+            // 
+            // stock3Long25Percent
+            // 
+            stock3Long25Percent.BackColor = Color.Lime;
+            stock3Long25Percent.Font = new Font("Segoe UI", 12F);
+            stock3Long25Percent.Location = new Point(588, 245);
+            stock3Long25Percent.Name = "stock3Long25Percent";
+            stock3Long25Percent.Size = new Size(110, 40);
+            stock3Long25Percent.TabIndex = 11;
+            stock3Long25Percent.Text = "Long 2.5%";
+            stock3Long25Percent.UseVisualStyleBackColor = false;
+            stock3Long25Percent.Click += stock3Long25Percent_Click;
+            // 
+            // stock3Long2Percent
+            // 
+            stock3Long2Percent.BackColor = Color.Lime;
+            stock3Long2Percent.Font = new Font("Segoe UI", 12F);
+            stock3Long2Percent.Location = new Point(472, 245);
+            stock3Long2Percent.Name = "stock3Long2Percent";
+            stock3Long2Percent.Size = new Size(110, 40);
+            stock3Long2Percent.TabIndex = 10;
+            stock3Long2Percent.Text = "Long 2%";
+            stock3Long2Percent.UseVisualStyleBackColor = false;
+            stock3Long2Percent.Click += stock3Long2Percent_Click;
+            // 
+            // stock3OutsideRTHCheckbox
+            // 
+            stock3OutsideRTHCheckbox.AutoSize = true;
+            stock3OutsideRTHCheckbox.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            stock3OutsideRTHCheckbox.Location = new Point(416, 41);
+            stock3OutsideRTHCheckbox.Name = "stock3OutsideRTHCheckbox";
+            stock3OutsideRTHCheckbox.Size = new Size(121, 25);
+            stock3OutsideRTHCheckbox.TabIndex = 68;
+            stock3OutsideRTHCheckbox.Text = "Outside RTH";
+            stock3OutsideRTHCheckbox.UseVisualStyleBackColor = true;
+            stock3OutsideRTHCheckbox.CheckedChanged += stock3OutsideRTHCheckbox_CheckedChanged;
+            // 
+            // stock3PercentageChangeLabel
+            // 
+            stock3PercentageChangeLabel.AutoSize = true;
+            stock3PercentageChangeLabel.Font = new Font("Segoe UI", 12F);
+            stock3PercentageChangeLabel.Location = new Point(12, 119);
+            stock3PercentageChangeLabel.Name = "stock3PercentageChangeLabel";
+            stock3PercentageChangeLabel.Size = new Size(83, 21);
+            stock3PercentageChangeLabel.TabIndex = 9;
+            stock3PercentageChangeLabel.Text = "PctChange";
+            // 
+            // stock3PercentageChangeOutputLabel
+            // 
+            stock3PercentageChangeOutputLabel.AutoSize = true;
+            stock3PercentageChangeOutputLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            stock3PercentageChangeOutputLabel.Location = new Point(124, 119);
+            stock3PercentageChangeOutputLabel.Name = "stock3PercentageChangeOutputLabel";
+            stock3PercentageChangeOutputLabel.Size = new Size(65, 21);
+            stock3PercentageChangeOutputLabel.TabIndex = 67;
+            stock3PercentageChangeOutputLabel.Text = "+0.56%";
+            // 
+            // stock3PositionLabel
+            // 
+            stock3PositionLabel.AutoSize = true;
+            stock3PositionLabel.Font = new Font("Segoe UI", 12F);
+            stock3PositionLabel.Location = new Point(12, 74);
+            stock3PositionLabel.Name = "stock3PositionLabel";
+            stock3PositionLabel.Size = new Size(65, 21);
+            stock3PositionLabel.TabIndex = 57;
+            stock3PositionLabel.Text = "Position";
+            // 
+            // stock3PositionOutputLabel
+            // 
+            stock3PositionOutputLabel.AutoSize = true;
+            stock3PositionOutputLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            stock3PositionOutputLabel.Location = new Point(124, 74);
+            stock3PositionOutputLabel.Name = "stock3PositionOutputLabel";
+            stock3PositionOutputLabel.Size = new Size(71, 21);
+            stock3PositionOutputLabel.TabIndex = 58;
+            stock3PositionOutputLabel.Text = "0 Shares";
+            // 
+            // stock3ReverseButton
+            // 
+            stock3ReverseButton.BackColor = Color.Tomato;
+            stock3ReverseButton.Font = new Font("Segoe UI", 12F);
+            stock3ReverseButton.Location = new Point(570, 443);
+            stock3ReverseButton.Name = "stock3ReverseButton";
+            stock3ReverseButton.Size = new Size(99, 40);
+            stock3ReverseButton.TabIndex = 33;
+            stock3ReverseButton.Text = "Reverse";
+            stock3ReverseButton.UseVisualStyleBackColor = false;
+            stock3ReverseButton.Click += stock3ReverseButton_Click;
+            // 
+            // stock3SellStop05Percent
+            // 
+            stock3SellStop05Percent.BackColor = Color.Red;
+            stock3SellStop05Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3SellStop05Percent.ForeColor = Color.White;
+            stock3SellStop05Percent.Location = new Point(9, 392);
+            stock3SellStop05Percent.Name = "stock3SellStop05Percent";
+            stock3SellStop05Percent.Size = new Size(114, 40);
+            stock3SellStop05Percent.TabIndex = 23;
+            stock3SellStop05Percent.Text = "Sell Stop 0.5%";
+            stock3SellStop05Percent.UseVisualStyleBackColor = false;
+            stock3SellStop05Percent.Click += stock3SellStop05Percent_Click;
+            // 
+            // stock3SellStop125Percent
+            // 
+            stock3SellStop125Percent.BackColor = Color.Red;
+            stock3SellStop125Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3SellStop125Percent.ForeColor = Color.White;
+            stock3SellStop125Percent.Location = new Point(241, 392);
+            stock3SellStop125Percent.Name = "stock3SellStop125Percent";
+            stock3SellStop125Percent.Size = new Size(126, 40);
+            stock3SellStop125Percent.TabIndex = 25;
+            stock3SellStop125Percent.Text = "Sell Stop 1.25%";
+            stock3SellStop125Percent.UseVisualStyleBackColor = false;
+            stock3SellStop125Percent.Click += stock3SellStop125Percent_Click;
+            // 
+            // stock3SellStop15Percent
+            // 
+            stock3SellStop15Percent.BackColor = Color.Red;
+            stock3SellStop15Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3SellStop15Percent.ForeColor = Color.White;
+            stock3SellStop15Percent.Location = new Point(373, 392);
+            stock3SellStop15Percent.Name = "stock3SellStop15Percent";
+            stock3SellStop15Percent.Size = new Size(111, 40);
+            stock3SellStop15Percent.TabIndex = 26;
+            stock3SellStop15Percent.Text = "Sell Stop 1.5%";
+            stock3SellStop15Percent.UseVisualStyleBackColor = false;
+            stock3SellStop15Percent.Click += stock3SellStop15Percent_Click;
+            // 
+            // stock3SellStop1Percent
+            // 
+            stock3SellStop1Percent.BackColor = Color.Red;
+            stock3SellStop1Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3SellStop1Percent.ForeColor = Color.White;
+            stock3SellStop1Percent.Location = new Point(128, 392);
+            stock3SellStop1Percent.Name = "stock3SellStop1Percent";
+            stock3SellStop1Percent.Size = new Size(107, 40);
+            stock3SellStop1Percent.TabIndex = 24;
+            stock3SellStop1Percent.Text = "Sell Stop 1%";
+            stock3SellStop1Percent.UseVisualStyleBackColor = false;
+            stock3SellStop1Percent.Click += stock3SellStop1Percent_Click;
+            // 
+            // stock3SellStop2Percent
+            // 
+            stock3SellStop2Percent.BackColor = Color.Red;
+            stock3SellStop2Percent.Font = new Font("Segoe UI", 11.25F);
+            stock3SellStop2Percent.ForeColor = Color.White;
+            stock3SellStop2Percent.Location = new Point(490, 392);
+            stock3SellStop2Percent.Name = "stock3SellStop2Percent";
+            stock3SellStop2Percent.Size = new Size(101, 40);
+            stock3SellStop2Percent.TabIndex = 27;
+            stock3SellStop2Percent.Text = "Sell Stop 2%";
+            stock3SellStop2Percent.UseVisualStyleBackColor = false;
+            stock3SellStop2Percent.Click += stock3SellStop2Percent_Click;
+            // 
+            // stock3SellStopPriceLabel
+            // 
+            stock3SellStopPriceLabel.AutoSize = true;
+            stock3SellStopPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock3SellStopPriceLabel.Location = new Point(9, 208);
+            stock3SellStopPriceLabel.Name = "stock3SellStopPriceLabel";
+            stock3SellStopPriceLabel.Size = new Size(100, 21);
+            stock3SellStopPriceLabel.TabIndex = 52;
+            stock3SellStopPriceLabel.Text = "Sell Stop Price";
+            // 
+            // stock3SellStopPriceTextBox
+            // 
+            stock3SellStopPriceTextBox.Font = new Font("Segoe UI", 12F);
+            stock3SellStopPriceTextBox.Location = new Point(125, 205);
+            stock3SellStopPriceTextBox.Name = "stock3SellStopPriceTextBox";
+            stock3SellStopPriceTextBox.Size = new Size(100, 29);
+            stock3SellStopPriceTextBox.TabIndex = 4;
+            // 
+            // stock3Short05Percent
+            // 
+            stock3Short05Percent.BackColor = Color.Red;
+            stock3Short05Percent.Font = new Font("Segoe UI", 12F);
+            stock3Short05Percent.ForeColor = Color.White;
+            stock3Short05Percent.Location = new Point(8, 291);
+            stock3Short05Percent.Name = "stock3Short05Percent";
+            stock3Short05Percent.Size = new Size(110, 40);
+            stock3Short05Percent.TabIndex = 12;
+            stock3Short05Percent.Text = "Short 0.5%";
+            stock3Short05Percent.UseVisualStyleBackColor = false;
+            stock3Short05Percent.Click += stock3Short05Percent_Click;
+            // 
+            // stock3Short125Percent
+            // 
+            stock3Short125Percent.BackColor = Color.Red;
+            stock3Short125Percent.Font = new Font("Segoe UI", 12F);
+            stock3Short125Percent.ForeColor = Color.White;
+            stock3Short125Percent.Location = new Point(240, 291);
+            stock3Short125Percent.Name = "stock3Short125Percent";
+            stock3Short125Percent.Size = new Size(110, 40);
+            stock3Short125Percent.TabIndex = 14;
+            stock3Short125Percent.Text = "Short 1.25%";
+            stock3Short125Percent.UseVisualStyleBackColor = false;
+            stock3Short125Percent.Click += stock3Short125Percent_Click;
+            // 
+            // stock3Short15Percent
+            // 
+            stock3Short15Percent.BackColor = Color.Red;
+            stock3Short15Percent.Font = new Font("Segoe UI", 12F);
+            stock3Short15Percent.ForeColor = Color.White;
+            stock3Short15Percent.Location = new Point(356, 291);
+            stock3Short15Percent.Name = "stock3Short15Percent";
+            stock3Short15Percent.Size = new Size(110, 40);
+            stock3Short15Percent.TabIndex = 15;
+            stock3Short15Percent.Text = "Short 1.5%";
+            stock3Short15Percent.UseVisualStyleBackColor = false;
+            stock3Short15Percent.Click += stock3Short15Percent_Click;
+            // 
+            // stock3Short1Percent
+            // 
+            stock3Short1Percent.BackColor = Color.Red;
+            stock3Short1Percent.Font = new Font("Segoe UI", 12F);
+            stock3Short1Percent.ForeColor = Color.White;
+            stock3Short1Percent.Location = new Point(124, 291);
+            stock3Short1Percent.Name = "stock3Short1Percent";
+            stock3Short1Percent.Size = new Size(110, 40);
+            stock3Short1Percent.TabIndex = 13;
+            stock3Short1Percent.Text = "Short 1%";
+            stock3Short1Percent.UseVisualStyleBackColor = false;
+            stock3Short1Percent.Click += stock3Short1Percent_Click;
+            // 
+            // stock3Short2Percent
+            // 
+            stock3Short2Percent.BackColor = Color.Red;
+            stock3Short2Percent.Font = new Font("Segoe UI", 12F);
+            stock3Short2Percent.ForeColor = Color.White;
+            stock3Short2Percent.Location = new Point(472, 291);
+            stock3Short2Percent.Name = "stock3Short2Percent";
+            stock3Short2Percent.Size = new Size(110, 40);
+            stock3Short2Percent.TabIndex = 16;
+            stock3Short2Percent.Text = "Short 2%";
+            stock3Short2Percent.UseVisualStyleBackColor = false;
+            stock3Short2Percent.Click += stock3Short2Percent_Click;
+            // 
+            // stock3TakeProfit25Percent
+            // 
+            stock3TakeProfit25Percent.BackColor = Color.FromArgb(255, 253, 174);
+            stock3TakeProfit25Percent.Font = new Font("Segoe UI", 12F);
+            stock3TakeProfit25Percent.Location = new Point(286, 535);
+            stock3TakeProfit25Percent.Name = "stock3TakeProfit25Percent";
+            stock3TakeProfit25Percent.Size = new Size(133, 40);
+            stock3TakeProfit25Percent.TabIndex = 37;
+            stock3TakeProfit25Percent.Text = "Take Profit 25%";
+            stock3TakeProfit25Percent.UseVisualStyleBackColor = false;
+            stock3TakeProfit25Percent.Click += stock3TakeProfit25Percent_Click;
+            // 
+            // stock3TakeProfit33Percent
+            // 
+            stock3TakeProfit33Percent.BackColor = Color.FromArgb(255, 255, 128);
+            stock3TakeProfit33Percent.Font = new Font("Segoe UI", 12F);
+            stock3TakeProfit33Percent.Location = new Point(149, 535);
+            stock3TakeProfit33Percent.Name = "stock3TakeProfit33Percent";
+            stock3TakeProfit33Percent.Size = new Size(133, 40);
+            stock3TakeProfit33Percent.TabIndex = 36;
+            stock3TakeProfit33Percent.Text = "Take Profit 33%";
+            stock3TakeProfit33Percent.UseVisualStyleBackColor = false;
+            stock3TakeProfit33Percent.Click += stock3TakeProfit33Percent_Click;
+            // 
+            // stock3TakeProfit50Percent
+            // 
+            stock3TakeProfit50Percent.BackColor = Color.Khaki;
+            stock3TakeProfit50Percent.Font = new Font("Segoe UI", 12F);
+            stock3TakeProfit50Percent.Location = new Point(11, 535);
+            stock3TakeProfit50Percent.Name = "stock3TakeProfit50Percent";
+            stock3TakeProfit50Percent.Size = new Size(133, 40);
+            stock3TakeProfit50Percent.TabIndex = 35;
+            stock3TakeProfit50Percent.Text = "Take Profit 50%";
+            stock3TakeProfit50Percent.UseVisualStyleBackColor = false;
+            stock3TakeProfit50Percent.Click += stock3TakeProfit50Percent_Click;
+            // 
+            // stock3TakeProfit67Percent
+            // 
+            stock3TakeProfit67Percent.BackColor = Color.Khaki;
+            stock3TakeProfit67Percent.Font = new Font("Segoe UI", 12F);
+            stock3TakeProfit67Percent.Location = new Point(423, 535);
+            stock3TakeProfit67Percent.Name = "stock3TakeProfit67Percent";
+            stock3TakeProfit67Percent.Size = new Size(133, 40);
+            stock3TakeProfit67Percent.TabIndex = 69;
+            stock3TakeProfit67Percent.Text = "Take Profit 67%";
+            stock3TakeProfit67Percent.UseVisualStyleBackColor = false;
+            stock3TakeProfit67Percent.Click += stock3TakeProfit67Percent_Click;
+            // 
+            // stock3TakeProfit100Percent
+            // 
+            stock3TakeProfit100Percent.BackColor = Color.FromArgb(255, 253, 174);
+            stock3TakeProfit100Percent.Font = new Font("Segoe UI", 12F);
+            stock3TakeProfit100Percent.Location = new Point(561, 535);
+            stock3TakeProfit100Percent.Name = "stock3TakeProfit100Percent";
+            stock3TakeProfit100Percent.Size = new Size(138, 40);
+            stock3TakeProfit100Percent.TabIndex = 70;
+            stock3TakeProfit100Percent.Text = "Take Profit 100%";
+            stock3TakeProfit100Percent.UseVisualStyleBackColor = false;
+            stock3TakeProfit100Percent.Click += stock3TakeProfit100Percent_Click;
+            // 
+            // stock3TakeProfitLimitPriceLabel
+            // 
+            stock3TakeProfitLimitPriceLabel.AutoSize = true;
+            stock3TakeProfitLimitPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock3TakeProfitLimitPriceLabel.Location = new Point(8, 501);
+            stock3TakeProfitLimitPriceLabel.Name = "stock3TakeProfitLimitPriceLabel";
+            stock3TakeProfitLimitPriceLabel.Size = new Size(147, 21);
+            stock3TakeProfitLimitPriceLabel.TabIndex = 42;
+            stock3TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
+            // 
+            // stock3TakeProfitLimitPriceTextBox
+            // 
+            stock3TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F);
+            stock3TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
+            stock3TakeProfitLimitPriceTextBox.Name = "stock3TakeProfitLimitPriceTextBox";
+            stock3TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
+            stock3TakeProfitLimitPriceTextBox.TabIndex = 34;
+            // 
+            // stock3TickerInput
+            // 
+            stock3TickerInput.BorderStyle = BorderStyle.FixedSingle;
+            stock3TickerInput.CharacterCasing = CharacterCasing.Upper;
+            stock3TickerInput.Font = new Font("Segoe UI", 12F);
+            stock3TickerInput.Location = new Point(128, 37);
+            stock3TickerInput.Name = "stock3TickerInput";
+            stock3TickerInput.Size = new Size(100, 29);
+            stock3TickerInput.TabIndex = 1;
+            // 
+            // stock3TickerLabel
+            // 
+            stock3TickerLabel.AutoSize = true;
+            stock3TickerLabel.Font = new Font("Segoe UI", 12F);
+            stock3TickerLabel.Location = new Point(12, 37);
+            stock3TickerLabel.Name = "stock3TickerLabel";
+            stock3TickerLabel.Size = new Size(51, 21);
+            stock3TickerLabel.TabIndex = 0;
+            stock3TickerLabel.Text = "Ticker";            
+            // 
+            // stock4GroupBox
+            // 
+            stock4GroupBox.Controls.Add(stock4BidAskLabel);
+            stock4GroupBox.Controls.Add(stock4BidAskOutput);
+            stock4GroupBox.Controls.Add(stock4BidAskSizeLabel);
+            stock4GroupBox.Controls.Add(stock4BidAskSizeOutput);
+            stock4GroupBox.Controls.Add(stock4ButtonCFD);
+            stock4GroupBox.Controls.Add(stock4ButtonStock);
+            stock4GroupBox.Controls.Add(stock4BuyStop05Percent);
+            stock4GroupBox.Controls.Add(stock4BuyStop125Percent);
+            stock4GroupBox.Controls.Add(stock4BuyStop15Percent);
+            stock4GroupBox.Controls.Add(stock4BuyStop1Percent);
+            stock4GroupBox.Controls.Add(stock4BuyStop25Percent);
+            stock4GroupBox.Controls.Add(stock4BuyStop2Percent);
+            stock4GroupBox.Controls.Add(stock4BuyStopPriceLabel);
+            stock4GroupBox.Controls.Add(stock4BuyStopPriceTextBox);
+            stock4GroupBox.Controls.Add(stock4Close100Percent);
+            stock4GroupBox.Controls.Add(stock4Close25Percent);
+            stock4GroupBox.Controls.Add(stock4Close33Percent);
+            stock4GroupBox.Controls.Add(stock4Close50Percent);
+            stock4GroupBox.Controls.Add(stock4Close67Percent);
+            stock4GroupBox.Controls.Add(stock4LastPriceLabel);
+            stock4GroupBox.Controls.Add(stock4LastPriceOutputLabel);
+            stock4GroupBox.Controls.Add(stock4Long05Percent);
+            stock4GroupBox.Controls.Add(stock4Long125percent);
+            stock4GroupBox.Controls.Add(stock4Long15Percent);
+            stock4GroupBox.Controls.Add(stock4Long1Percent);
+            stock4GroupBox.Controls.Add(stock4Long25Percent);
+            stock4GroupBox.Controls.Add(stock4Long2Percent);
+            stock4GroupBox.Controls.Add(stock4OutsideRTHCheckbox);
+            stock4GroupBox.Controls.Add(stock4PercentageChangeLabel);
+            stock4GroupBox.Controls.Add(stock4PercentageChangeOutputLabel);
+            stock4GroupBox.Controls.Add(stock4PositionLabel);
+            stock4GroupBox.Controls.Add(stock4PositionOutputLabel);
+            stock4GroupBox.Controls.Add(stock4ReverseButton);
+            stock4GroupBox.Controls.Add(stock4SellStop05Percent);
+            stock4GroupBox.Controls.Add(stock4SellStop125Percent);
+            stock4GroupBox.Controls.Add(stock4SellStop15Percent);
+            stock4GroupBox.Controls.Add(stock4SellStop1Percent);
+            stock4GroupBox.Controls.Add(stock4SellStop2Percent);
+            stock4GroupBox.Controls.Add(stock4SellStopPriceLabel);
+            stock4GroupBox.Controls.Add(stock4SellStopPriceTextBox);
+            stock4GroupBox.Controls.Add(stock4Short05Percent);
+            stock4GroupBox.Controls.Add(stock4Short125Percent);
+            stock4GroupBox.Controls.Add(stock4Short15Percent);
+            stock4GroupBox.Controls.Add(stock4Short1Percent);
+            stock4GroupBox.Controls.Add(stock4Short2Percent);
+            stock4GroupBox.Controls.Add(stock4TakeProfit25Percent);
+            stock4GroupBox.Controls.Add(stock4TakeProfit33Percent);
+            stock4GroupBox.Controls.Add(stock4TakeProfit50Percent);
+            stock4GroupBox.Controls.Add(stock4TakeProfit67Percent);
+            stock4GroupBox.Controls.Add(stock4TakeProfit100Percent);
+            stock4GroupBox.Controls.Add(stock4TakeProfitLimitPriceLabel);
+            stock4GroupBox.Controls.Add(stock4TakeProfitLimitPriceTextBox);
+            stock4GroupBox.Controls.Add(stock4TickerInput);
+            stock4GroupBox.Controls.Add(stock4TickerLabel);
+            stock4GroupBox.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            stock4GroupBox.Location = new Point(741, 699);
+            stock4GroupBox.Name = "stock4GroupBox";
+            stock4GroupBox.Size = new Size(711, 587);
+            stock4GroupBox.TabIndex = 41;
+            stock4GroupBox.TabStop = false;
+            stock4GroupBox.Text = "Stock 4";
+            // 
+            // stock4BidAskLabel
+            // 
+            stock4BidAskLabel.AutoSize = true;
+            stock4BidAskLabel.Font = new Font("Segoe UI", 12F);
+            stock4BidAskLabel.Location = new Point(12, 145);
+            stock4BidAskLabel.Name = "stock4BidAskLabel";
+            stock4BidAskLabel.Size = new Size(63, 21);
+            stock4BidAskLabel.TabIndex = 11;
+            stock4BidAskLabel.Text = "Bid/Ask";
+            // 
+            // stock4BidAskOutput
+            // 
+            stock4BidAskOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            stock4BidAskOutput.Location = new Point(160, 140);
+            stock4BidAskOutput.Name = "stock4BidAskOutput";
+            stock4BidAskOutput.Size = new Size(300, 25);
+            stock4BidAskOutput.TabIndex = 12;
+            stock4BidAskOutput.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stock4BidAskSizeLabel
+            // 
+            stock4BidAskSizeLabel.AutoSize = true;
+            stock4BidAskSizeLabel.Font = new Font("Segoe UI", 12F);
+            stock4BidAskSizeLabel.Location = new Point(12, 169);
+            stock4BidAskSizeLabel.Name = "stock4BidAskSizeLabel";
+            stock4BidAskSizeLabel.Size = new Size(38, 21);
+            stock4BidAskSizeLabel.TabIndex = 10;
+            stock4BidAskSizeLabel.Text = "Size";
+            // 
+            // stock4BidAskSizeOutput
+            // 
+            stock4BidAskSizeOutput.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            stock4BidAskSizeOutput.Location = new Point(124, 165);
+            stock4BidAskSizeOutput.Name = "stock4BidAskSizeOutput";
+            stock4BidAskSizeOutput.Size = new Size(300, 25);
+            stock4BidAskSizeOutput.TabIndex = 13;
+            stock4BidAskSizeOutput.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stock4ButtonCFD
+            // 
+            stock4ButtonCFD.FlatAppearance.MouseDownBackColor = SystemColors.Control;
+            stock4ButtonCFD.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock4ButtonCFD.Location = new Point(241, 32);
+            stock4ButtonCFD.Name = "stock4ButtonCFD";
+            stock4ButtonCFD.Size = new Size(71, 40);
+            stock4ButtonCFD.TabIndex = 3;
+            stock4ButtonCFD.Text = "CFD";
+            stock4ButtonCFD.UseVisualStyleBackColor = true;
+            stock4ButtonCFD.Click += stock4ButtonCFD_Click;
+            // 
+            // stock4ButtonStock
+            // 
+            stock4ButtonStock.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock4ButtonStock.Location = new Point(318, 32);
+            stock4ButtonStock.Name = "stock4ButtonStock";
+            stock4ButtonStock.Size = new Size(71, 40);
+            stock4ButtonStock.TabIndex = 2;
+            stock4ButtonStock.Text = "Stock";
+            stock4ButtonStock.UseVisualStyleBackColor = true;
+            stock4ButtonStock.Click += stock4ButtonStock_Click;
+            // 
+            // stock4BuyStop05Percent
+            // 
+            stock4BuyStop05Percent.BackColor = Color.Lime;
+            stock4BuyStop05Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4BuyStop05Percent.Location = new Point(8, 346);
+            stock4BuyStop05Percent.Name = "stock4BuyStop05Percent";
+            stock4BuyStop05Percent.Size = new Size(114, 40);
+            stock4BuyStop05Percent.TabIndex = 17;
+            stock4BuyStop05Percent.Text = "Buy Stop 0.5%";
+            stock4BuyStop05Percent.UseVisualStyleBackColor = false;
+            stock4BuyStop05Percent.Click += stock4BuyStop05Percent_Click;
+            // 
+            // stock4BuyStop125Percent
+            // 
+            stock4BuyStop125Percent.BackColor = Color.Lime;
+            stock4BuyStop125Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4BuyStop125Percent.Location = new Point(241, 346);
+            stock4BuyStop125Percent.Name = "stock4BuyStop125Percent";
+            stock4BuyStop125Percent.Size = new Size(126, 40);
+            stock4BuyStop125Percent.TabIndex = 19;
+            stock4BuyStop125Percent.Text = "Buy Stop 1.25%";
+            stock4BuyStop125Percent.UseVisualStyleBackColor = false;
+            stock4BuyStop125Percent.Click += stock4BuyStop125Percent_Click;
+            // 
+            // stock4BuyStop15Percent
+            // 
+            stock4BuyStop15Percent.BackColor = Color.Lime;
+            stock4BuyStop15Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4BuyStop15Percent.Location = new Point(373, 346);
+            stock4BuyStop15Percent.Name = "stock4BuyStop15Percent";
+            stock4BuyStop15Percent.Size = new Size(111, 40);
+            stock4BuyStop15Percent.TabIndex = 20;
+            stock4BuyStop15Percent.Text = "Buy Stop 1.5%";
+            stock4BuyStop15Percent.UseVisualStyleBackColor = false;
+            stock4BuyStop15Percent.Click += stock4BuyStop15Percent_Click;
+            // 
+            // stock4BuyStop1Percent
+            // 
+            stock4BuyStop1Percent.BackColor = Color.Lime;
+            stock4BuyStop1Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4BuyStop1Percent.Location = new Point(128, 346);
+            stock4BuyStop1Percent.Name = "stock4BuyStop1Percent";
+            stock4BuyStop1Percent.Size = new Size(107, 40);
+            stock4BuyStop1Percent.TabIndex = 18;
+            stock4BuyStop1Percent.Text = "Buy Stop 1%";
+            stock4BuyStop1Percent.UseVisualStyleBackColor = false;
+            stock4BuyStop1Percent.Click += stock4BuyStop1Percent_Click;
+            // 
+            // stock4BuyStop25Percent
+            // 
+            stock4BuyStop25Percent.BackColor = Color.Lime;
+            stock4BuyStop25Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4BuyStop25Percent.Location = new Point(595, 346);
+            stock4BuyStop25Percent.Name = "stock4BuyStop25Percent";
+            stock4BuyStop25Percent.Size = new Size(111, 40);
+            stock4BuyStop25Percent.TabIndex = 22;
+            stock4BuyStop25Percent.Text = "Buy Stop 2.5%";
+            stock4BuyStop25Percent.UseVisualStyleBackColor = false;
+            stock4BuyStop25Percent.Click += stock4BuyStop25Percent_Click;
+            // 
+            // stock4BuyStop2Percent
+            // 
+            stock4BuyStop2Percent.BackColor = Color.Lime;
+            stock4BuyStop2Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4BuyStop2Percent.Location = new Point(490, 346);
+            stock4BuyStop2Percent.Name = "stock4BuyStop2Percent";
+            stock4BuyStop2Percent.Size = new Size(101, 40);
+            stock4BuyStop2Percent.TabIndex = 21;
+            stock4BuyStop2Percent.Text = "Buy Stop 2%";
+            stock4BuyStop2Percent.UseVisualStyleBackColor = false;
+            stock4BuyStop2Percent.Click += stock4BuyStop2Percent_Click;
+            // 
+            // stock4BuyStopPriceLabel
+            // 
+            stock4BuyStopPriceLabel.AutoSize = true;
+            stock4BuyStopPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock4BuyStopPriceLabel.Location = new Point(241, 208);
+            stock4BuyStopPriceLabel.Name = "stock4BuyStopPriceLabel";
+            stock4BuyStopPriceLabel.Size = new Size(101, 21);
+            stock4BuyStopPriceLabel.TabIndex = 54;
+            stock4BuyStopPriceLabel.Text = "Buy Stop Price";
+            // 
+            // stock4BuyStopPriceTextBox
+            // 
+            stock4BuyStopPriceTextBox.Font = new Font("Segoe UI", 12F);
+            stock4BuyStopPriceTextBox.Location = new Point(356, 205);
+            stock4BuyStopPriceTextBox.Name = "stock4BuyStopPriceTextBox";
+            stock4BuyStopPriceTextBox.Size = new Size(100, 29);
+            stock4BuyStopPriceTextBox.TabIndex = 5;
+            // 
+            // stock4Close100Percent
+            // 
+            stock4Close100Percent.BackColor = Color.DarkOrange;
+            stock4Close100Percent.Font = new Font("Segoe UI", 12F);
+            stock4Close100Percent.Location = new Point(8, 443);
+            stock4Close100Percent.Name = "stock4Close100Percent";
+            stock4Close100Percent.Size = new Size(107, 40);
+            stock4Close100Percent.TabIndex = 28;
+            stock4Close100Percent.Text = "Close 100%";
+            stock4Close100Percent.UseVisualStyleBackColor = false;
+            stock4Close100Percent.Click += stock4Close100Percent_Click;
+            // 
+            // stock4Close25Percent
+            // 
+            stock4Close25Percent.BackColor = Color.DarkOrange;
+            stock4Close25Percent.Font = new Font("Segoe UI", 12F);
+            stock4Close25Percent.Location = new Point(438, 443);
+            stock4Close25Percent.Name = "stock4Close25Percent";
+            stock4Close25Percent.Size = new Size(99, 40);
+            stock4Close25Percent.TabIndex = 32;
+            stock4Close25Percent.Text = "Close 25%";
+            stock4Close25Percent.UseVisualStyleBackColor = false;
+            stock4Close25Percent.Click += stock4Close25Percent_Click;
+            // 
+            // stock4Close33Percent
+            // 
+            stock4Close33Percent.BackColor = Color.DarkOrange;
+            stock4Close33Percent.Font = new Font("Segoe UI", 12F);
+            stock4Close33Percent.Location = new Point(229, 443);
+            stock4Close33Percent.Name = "stock4Close33Percent";
+            stock4Close33Percent.Size = new Size(99, 40);
+            stock4Close33Percent.TabIndex = 30;
+            stock4Close33Percent.Text = "Close 33%";
+            stock4Close33Percent.UseVisualStyleBackColor = false;
+            stock4Close33Percent.Click += stock4Close33Percent_Click;
+            // 
+            // stock4Close50Percent
+            // 
+            stock4Close50Percent.BackColor = Color.DarkOrange;
+            stock4Close50Percent.Font = new Font("Segoe UI", 12F);
+            stock4Close50Percent.Location = new Point(125, 443);
+            stock4Close50Percent.Name = "stock4Close50Percent";
+            stock4Close50Percent.Size = new Size(99, 40);
+            stock4Close50Percent.TabIndex = 29;
+            stock4Close50Percent.Text = "Close 50%";
+            stock4Close50Percent.UseVisualStyleBackColor = false;
+            stock4Close50Percent.Click += stock4Close50Percent_Click;
+            // 
+            // stock4Close67Percent
+            // 
+            stock4Close67Percent.BackColor = Color.DarkOrange;
+            stock4Close67Percent.Font = new Font("Segoe UI", 12F);
+            stock4Close67Percent.Location = new Point(333, 443);
+            stock4Close67Percent.Name = "stock4Close67Percent";
+            stock4Close67Percent.Size = new Size(99, 40);
+            stock4Close67Percent.TabIndex = 31;
+            stock4Close67Percent.Text = "Close 67%";
+            stock4Close67Percent.UseVisualStyleBackColor = false;
+            stock4Close67Percent.Click += stock4Close67Percent_Click;
+            // 
+            // stock4LastPriceLabel
+            // 
+            stock4LastPriceLabel.AutoSize = true;
+            stock4LastPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock4LastPriceLabel.Location = new Point(12, 98);
+            stock4LastPriceLabel.Name = "stock4LastPriceLabel";
+            stock4LastPriceLabel.Size = new Size(38, 21);
+            stock4LastPriceLabel.TabIndex = 8;
+            stock4LastPriceLabel.Text = "Last";
+            // 
+            // stock4LastPriceOutputLabel
+            // 
+            stock4LastPriceOutputLabel.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            stock4LastPriceOutputLabel.Location = new Point(124, 98);
+            stock4LastPriceOutputLabel.Name = "stock4LastPriceOutputLabel";
+            stock4LastPriceOutputLabel.Size = new Size(300, 25);
+            stock4LastPriceOutputLabel.TabIndex = 66;
+            stock4LastPriceOutputLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // stock4Long05Percent
+            // 
+            stock4Long05Percent.BackColor = Color.Lime;
+            stock4Long05Percent.Font = new Font("Segoe UI", 12F);
+            stock4Long05Percent.Location = new Point(8, 245);
+            stock4Long05Percent.Name = "stock4Long05Percent";
+            stock4Long05Percent.Size = new Size(110, 40);
+            stock4Long05Percent.TabIndex = 6;
+            stock4Long05Percent.Text = "Long 0.5%";
+            stock4Long05Percent.UseVisualStyleBackColor = false;
+            stock4Long05Percent.Click += stock4Long05Percent_Click;
+            // 
+            // stock4Long125percent
+            // 
+            stock4Long125percent.BackColor = Color.Lime;
+            stock4Long125percent.Font = new Font("Segoe UI", 12F);
+            stock4Long125percent.Location = new Point(240, 245);
+            stock4Long125percent.Name = "stock4Long125percent";
+            stock4Long125percent.Size = new Size(110, 40);
+            stock4Long125percent.TabIndex = 8;
+            stock4Long125percent.Text = "Long 1.25%";
+            stock4Long125percent.UseVisualStyleBackColor = false;
+            stock4Long125percent.Click += stock4Long125percent_Click;
+            // 
+            // stock4Long15Percent
+            // 
+            stock4Long15Percent.BackColor = Color.Lime;
+            stock4Long15Percent.Font = new Font("Segoe UI", 12F);
+            stock4Long15Percent.Location = new Point(356, 245);
+            stock4Long15Percent.Name = "stock4Long15Percent";
+            stock4Long15Percent.Size = new Size(110, 40);
+            stock4Long15Percent.TabIndex = 9;
+            stock4Long15Percent.Text = "Long 1.5%";
+            stock4Long15Percent.UseVisualStyleBackColor = false;
+            stock4Long15Percent.Click += stock4Long15Percent_Click;
+            // 
+            // stock4Long1Percent
+            // 
+            stock4Long1Percent.BackColor = Color.Lime;
+            stock4Long1Percent.Font = new Font("Segoe UI", 12F);
+            stock4Long1Percent.Location = new Point(124, 245);
+            stock4Long1Percent.Name = "stock4Long1Percent";
+            stock4Long1Percent.Size = new Size(110, 40);
+            stock4Long1Percent.TabIndex = 7;
+            stock4Long1Percent.Text = "Long 1%";
+            stock4Long1Percent.UseVisualStyleBackColor = false;
+            stock4Long1Percent.Click += stock4Long1Percent_Click;
+            // 
+            // stock4Long25Percent
+            // 
+            stock4Long25Percent.BackColor = Color.Lime;
+            stock4Long25Percent.Font = new Font("Segoe UI", 12F);
+            stock4Long25Percent.Location = new Point(588, 245);
+            stock4Long25Percent.Name = "stock4Long25Percent";
+            stock4Long25Percent.Size = new Size(110, 40);
+            stock4Long25Percent.TabIndex = 11;
+            stock4Long25Percent.Text = "Long 2.5%";
+            stock4Long25Percent.UseVisualStyleBackColor = false;
+            stock4Long25Percent.Click += stock4Long25Percent_Click;
+            // 
+            // stock4Long2Percent
+            // 
+            stock4Long2Percent.BackColor = Color.Lime;
+            stock4Long2Percent.Font = new Font("Segoe UI", 12F);
+            stock4Long2Percent.Location = new Point(472, 245);
+            stock4Long2Percent.Name = "stock4Long2Percent";
+            stock4Long2Percent.Size = new Size(110, 40);
+            stock4Long2Percent.TabIndex = 10;
+            stock4Long2Percent.Text = "Long 2%";
+            stock4Long2Percent.UseVisualStyleBackColor = false;
+            stock4Long2Percent.Click += stock4Long2Percent_Click;
+            // 
+            // stock4OutsideRTHCheckbox
+            // 
+            stock4OutsideRTHCheckbox.AutoSize = true;
+            stock4OutsideRTHCheckbox.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            stock4OutsideRTHCheckbox.Location = new Point(416, 41);
+            stock4OutsideRTHCheckbox.Name = "stock4OutsideRTHCheckbox";
+            stock4OutsideRTHCheckbox.Size = new Size(121, 25);
+            stock4OutsideRTHCheckbox.TabIndex = 68;
+            stock4OutsideRTHCheckbox.Text = "Outside RTH";
+            stock4OutsideRTHCheckbox.UseVisualStyleBackColor = true;
+            stock4OutsideRTHCheckbox.CheckedChanged += stock4OutsideRTHCheckbox_CheckedChanged;
+            // 
+            // stock4PercentageChangeLabel
+            // 
+            stock4PercentageChangeLabel.AutoSize = true;
+            stock4PercentageChangeLabel.Font = new Font("Segoe UI", 12F);
+            stock4PercentageChangeLabel.Location = new Point(12, 119);
+            stock4PercentageChangeLabel.Name = "stock4PercentageChangeLabel";
+            stock4PercentageChangeLabel.Size = new Size(83, 21);
+            stock4PercentageChangeLabel.TabIndex = 9;
+            stock4PercentageChangeLabel.Text = "PctChange";
+            // 
+            // stock4PercentageChangeOutputLabel
+            // 
+            stock4PercentageChangeOutputLabel.AutoSize = true;
+            stock4PercentageChangeOutputLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            stock4PercentageChangeOutputLabel.Location = new Point(124, 119);
+            stock4PercentageChangeOutputLabel.Name = "stock4PercentageChangeOutputLabel";
+            stock4PercentageChangeOutputLabel.Size = new Size(65, 21);
+            stock4PercentageChangeOutputLabel.TabIndex = 67;
+            stock4PercentageChangeOutputLabel.Text = "+0.56%";
+            // 
+            // stock4PositionLabel
+            // 
+            stock4PositionLabel.AutoSize = true;
+            stock4PositionLabel.Font = new Font("Segoe UI", 12F);
+            stock4PositionLabel.Location = new Point(12, 74);
+            stock4PositionLabel.Name = "stock4PositionLabel";
+            stock4PositionLabel.Size = new Size(65, 21);
+            stock4PositionLabel.TabIndex = 57;
+            stock4PositionLabel.Text = "Position";
+            // 
+            // stock4PositionOutputLabel
+            // 
+            stock4PositionOutputLabel.AutoSize = true;
+            stock4PositionOutputLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            stock4PositionOutputLabel.Location = new Point(124, 74);
+            stock4PositionOutputLabel.Name = "stock4PositionOutputLabel";
+            stock4PositionOutputLabel.Size = new Size(71, 21);
+            stock4PositionOutputLabel.TabIndex = 58;
+            stock4PositionOutputLabel.Text = "0 Shares";
+            // 
+            // stock4ReverseButton
+            // 
+            stock4ReverseButton.BackColor = Color.Tomato;
+            stock4ReverseButton.Font = new Font("Segoe UI", 12F);
+            stock4ReverseButton.Location = new Point(570, 443);
+            stock4ReverseButton.Name = "stock4ReverseButton";
+            stock4ReverseButton.Size = new Size(99, 40);
+            stock4ReverseButton.TabIndex = 33;
+            stock4ReverseButton.Text = "Reverse";
+            stock4ReverseButton.UseVisualStyleBackColor = false;
+            stock4ReverseButton.Click += stock4ReverseButton_Click;
+            // 
+            // stock4SellStop05Percent
+            // 
+            stock4SellStop05Percent.BackColor = Color.Red;
+            stock4SellStop05Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4SellStop05Percent.ForeColor = Color.White;
+            stock4SellStop05Percent.Location = new Point(9, 392);
+            stock4SellStop05Percent.Name = "stock4SellStop05Percent";
+            stock4SellStop05Percent.Size = new Size(114, 40);
+            stock4SellStop05Percent.TabIndex = 23;
+            stock4SellStop05Percent.Text = "Sell Stop 0.5%";
+            stock4SellStop05Percent.UseVisualStyleBackColor = false;
+            stock4SellStop05Percent.Click += stock4SellStop05Percent_Click;
+            // 
+            // stock4SellStop125Percent
+            // 
+            stock4SellStop125Percent.BackColor = Color.Red;
+            stock4SellStop125Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4SellStop125Percent.ForeColor = Color.White;
+            stock4SellStop125Percent.Location = new Point(241, 392);
+            stock4SellStop125Percent.Name = "stock4SellStop125Percent";
+            stock4SellStop125Percent.Size = new Size(126, 40);
+            stock4SellStop125Percent.TabIndex = 25;
+            stock4SellStop125Percent.Text = "Sell Stop 1.25%";
+            stock4SellStop125Percent.UseVisualStyleBackColor = false;
+            stock4SellStop125Percent.Click += stock4SellStop125Percent_Click;
+            // 
+            // stock4SellStop15Percent
+            // 
+            stock4SellStop15Percent.BackColor = Color.Red;
+            stock4SellStop15Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4SellStop15Percent.ForeColor = Color.White;
+            stock4SellStop15Percent.Location = new Point(373, 392);
+            stock4SellStop15Percent.Name = "stock4SellStop15Percent";
+            stock4SellStop15Percent.Size = new Size(111, 40);
+            stock4SellStop15Percent.TabIndex = 26;
+            stock4SellStop15Percent.Text = "Sell Stop 1.5%";
+            stock4SellStop15Percent.UseVisualStyleBackColor = false;
+            stock4SellStop15Percent.Click += stock4SellStop15Percent_Click;
+            // 
+            // stock4SellStop1Percent
+            // 
+            stock4SellStop1Percent.BackColor = Color.Red;
+            stock4SellStop1Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4SellStop1Percent.ForeColor = Color.White;
+            stock4SellStop1Percent.Location = new Point(128, 392);
+            stock4SellStop1Percent.Name = "stock4SellStop1Percent";
+            stock4SellStop1Percent.Size = new Size(107, 40);
+            stock4SellStop1Percent.TabIndex = 24;
+            stock4SellStop1Percent.Text = "Sell Stop 1%";
+            stock4SellStop1Percent.UseVisualStyleBackColor = false;
+            stock4SellStop1Percent.Click += stock4SellStop1Percent_Click;
+            // 
+            // stock4SellStop2Percent
+            // 
+            stock4SellStop2Percent.BackColor = Color.Red;
+            stock4SellStop2Percent.Font = new Font("Segoe UI", 11.25F);
+            stock4SellStop2Percent.ForeColor = Color.White;
+            stock4SellStop2Percent.Location = new Point(490, 392);
+            stock4SellStop2Percent.Name = "stock4SellStop2Percent";
+            stock4SellStop2Percent.Size = new Size(101, 40);
+            stock4SellStop2Percent.TabIndex = 27;
+            stock4SellStop2Percent.Text = "Sell Stop 2%";
+            stock4SellStop2Percent.UseVisualStyleBackColor = false;
+            stock4SellStop2Percent.Click += stock4SellStop2Percent_Click;
+            // 
+            // stock4SellStopPriceLabel
+            // 
+            stock4SellStopPriceLabel.AutoSize = true;
+            stock4SellStopPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock4SellStopPriceLabel.Location = new Point(9, 208);
+            stock4SellStopPriceLabel.Name = "stock4SellStopPriceLabel";
+            stock4SellStopPriceLabel.Size = new Size(100, 21);
+            stock4SellStopPriceLabel.TabIndex = 52;
+            stock4SellStopPriceLabel.Text = "Sell Stop Price";
+            // 
+            // stock4SellStopPriceTextBox
+            // 
+            stock4SellStopPriceTextBox.Font = new Font("Segoe UI", 12F);
+            stock4SellStopPriceTextBox.Location = new Point(125, 205);
+            stock4SellStopPriceTextBox.Name = "stock4SellStopPriceTextBox";
+            stock4SellStopPriceTextBox.Size = new Size(100, 29);
+            stock4SellStopPriceTextBox.TabIndex = 4;
+            // 
+            // stock4Short05Percent
+            // 
+            stock4Short05Percent.BackColor = Color.Red;
+            stock4Short05Percent.Font = new Font("Segoe UI", 12F);
+            stock4Short05Percent.ForeColor = Color.White;
+            stock4Short05Percent.Location = new Point(8, 291);
+            stock4Short05Percent.Name = "stock4Short05Percent";
+            stock4Short05Percent.Size = new Size(110, 40);
+            stock4Short05Percent.TabIndex = 12;
+            stock4Short05Percent.Text = "Short 0.5%";
+            stock4Short05Percent.UseVisualStyleBackColor = false;
+            stock4Short05Percent.Click += stock4Short05Percent_Click;
+            // 
+            // stock4Short125Percent
+            // 
+            stock4Short125Percent.BackColor = Color.Red;
+            stock4Short125Percent.Font = new Font("Segoe UI", 12F);
+            stock4Short125Percent.ForeColor = Color.White;
+            stock4Short125Percent.Location = new Point(240, 291);
+            stock4Short125Percent.Name = "stock4Short125Percent";
+            stock4Short125Percent.Size = new Size(110, 40);
+            stock4Short125Percent.TabIndex = 14;
+            stock4Short125Percent.Text = "Short 1.25%";
+            stock4Short125Percent.UseVisualStyleBackColor = false;
+            stock4Short125Percent.Click += stock4Short125Percent_Click;
+            // 
+            // stock4Short15Percent
+            // 
+            stock4Short15Percent.BackColor = Color.Red;
+            stock4Short15Percent.Font = new Font("Segoe UI", 12F);
+            stock4Short15Percent.ForeColor = Color.White;
+            stock4Short15Percent.Location = new Point(356, 291);
+            stock4Short15Percent.Name = "stock4Short15Percent";
+            stock4Short15Percent.Size = new Size(110, 40);
+            stock4Short15Percent.TabIndex = 15;
+            stock4Short15Percent.Text = "Short 1.5%";
+            stock4Short15Percent.UseVisualStyleBackColor = false;
+            stock4Short15Percent.Click += stock4Short15Percent_Click;
+            // 
+            // stock4Short1Percent
+            // 
+            stock4Short1Percent.BackColor = Color.Red;
+            stock4Short1Percent.Font = new Font("Segoe UI", 12F);
+            stock4Short1Percent.ForeColor = Color.White;
+            stock4Short1Percent.Location = new Point(124, 291);
+            stock4Short1Percent.Name = "stock4Short1Percent";
+            stock4Short1Percent.Size = new Size(110, 40);
+            stock4Short1Percent.TabIndex = 13;
+            stock4Short1Percent.Text = "Short 1%";
+            stock4Short1Percent.UseVisualStyleBackColor = false;
+            stock4Short1Percent.Click += stock4Short1Percent_Click;
+            // 
+            // stock4Short2Percent
+            // 
+            stock4Short2Percent.BackColor = Color.Red;
+            stock4Short2Percent.Font = new Font("Segoe UI", 12F);
+            stock4Short2Percent.ForeColor = Color.White;
+            stock4Short2Percent.Location = new Point(472, 291);
+            stock4Short2Percent.Name = "stock4Short2Percent";
+            stock4Short2Percent.Size = new Size(110, 40);
+            stock4Short2Percent.TabIndex = 16;
+            stock4Short2Percent.Text = "Short 2%";
+            stock4Short2Percent.UseVisualStyleBackColor = false;
+            stock4Short2Percent.Click += stock4Short2Percent_Click;
+            // 
+            // stock4TakeProfit25Percent
+            // 
+            stock4TakeProfit25Percent.BackColor = Color.FromArgb(255, 253, 174);
+            stock4TakeProfit25Percent.Font = new Font("Segoe UI", 12F);
+            stock4TakeProfit25Percent.Location = new Point(286, 535);
+            stock4TakeProfit25Percent.Name = "stock4TakeProfit25Percent";
+            stock4TakeProfit25Percent.Size = new Size(133, 40);
+            stock4TakeProfit25Percent.TabIndex = 37;
+            stock4TakeProfit25Percent.Text = "Take Profit 25%";
+            stock4TakeProfit25Percent.UseVisualStyleBackColor = false;
+            stock4TakeProfit25Percent.Click += stock4TakeProfit25Percent_Click;
+            // 
+            // stock4TakeProfit33Percent
+            // 
+            stock4TakeProfit33Percent.BackColor = Color.FromArgb(255, 255, 128);
+            stock4TakeProfit33Percent.Font = new Font("Segoe UI", 12F);
+            stock4TakeProfit33Percent.Location = new Point(149, 535);
+            stock4TakeProfit33Percent.Name = "stock4TakeProfit33Percent";
+            stock4TakeProfit33Percent.Size = new Size(133, 40);
+            stock4TakeProfit33Percent.TabIndex = 36;
+            stock4TakeProfit33Percent.Text = "Take Profit 33%";
+            stock4TakeProfit33Percent.UseVisualStyleBackColor = false;
+            stock4TakeProfit33Percent.Click += stock4TakeProfit33Percent_Click;
+            // 
+            // stock4TakeProfit50Percent
+            // 
+            stock4TakeProfit50Percent.BackColor = Color.Khaki;
+            stock4TakeProfit50Percent.Font = new Font("Segoe UI", 12F);
+            stock4TakeProfit50Percent.Location = new Point(11, 535);
+            stock4TakeProfit50Percent.Name = "stock4TakeProfit50Percent";
+            stock4TakeProfit50Percent.Size = new Size(133, 40);
+            stock4TakeProfit50Percent.TabIndex = 35;
+            stock4TakeProfit50Percent.Text = "Take Profit 50%";
+            stock4TakeProfit50Percent.UseVisualStyleBackColor = false;
+            stock4TakeProfit50Percent.Click += stock4TakeProfit50Percent_Click;
+            // 
+            // stock4TakeProfit67Percent
+            // 
+            stock4TakeProfit67Percent.BackColor = Color.Khaki;
+            stock4TakeProfit67Percent.Font = new Font("Segoe UI", 12F);
+            stock4TakeProfit67Percent.Location = new Point(423, 535);
+            stock4TakeProfit67Percent.Name = "stock4TakeProfit67Percent";
+            stock4TakeProfit67Percent.Size = new Size(133, 40);
+            stock4TakeProfit67Percent.TabIndex = 69;
+            stock4TakeProfit67Percent.Text = "Take Profit 67%";
+            stock4TakeProfit67Percent.UseVisualStyleBackColor = false;
+            stock4TakeProfit67Percent.Click += stock4TakeProfit67Percent_Click;
+            // 
+            // stock4TakeProfit100Percent
+            // 
+            stock4TakeProfit100Percent.BackColor = Color.FromArgb(255, 253, 174);
+            stock4TakeProfit100Percent.Font = new Font("Segoe UI", 12F);
+            stock4TakeProfit100Percent.Location = new Point(561, 535);
+            stock4TakeProfit100Percent.Name = "stock4TakeProfit100Percent";
+            stock4TakeProfit100Percent.Size = new Size(138, 40);
+            stock4TakeProfit100Percent.TabIndex = 70;
+            stock4TakeProfit100Percent.Text = "Take Profit 100%";
+            stock4TakeProfit100Percent.UseVisualStyleBackColor = false;
+            stock4TakeProfit100Percent.Click += stock4TakeProfit100Percent_Click;
+            // 
+            // stock4TakeProfitLimitPriceLabel
+            // 
+            stock4TakeProfitLimitPriceLabel.AutoSize = true;
+            stock4TakeProfitLimitPriceLabel.Font = new Font("Segoe UI", 12F);
+            stock4TakeProfitLimitPriceLabel.Location = new Point(8, 501);
+            stock4TakeProfitLimitPriceLabel.Name = "stock4TakeProfitLimitPriceLabel";
+            stock4TakeProfitLimitPriceLabel.Size = new Size(147, 21);
+            stock4TakeProfitLimitPriceLabel.TabIndex = 42;
+            stock4TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
+            // 
+            // stock4TakeProfitLimitPriceTextBox
+            // 
+            stock4TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F);
+            stock4TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
+            stock4TakeProfitLimitPriceTextBox.Name = "stock4TakeProfitLimitPriceTextBox";
+            stock4TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
+            stock4TakeProfitLimitPriceTextBox.TabIndex = 34;
+            // 
+            // stock4TickerInput
+            // 
+            stock4TickerInput.BorderStyle = BorderStyle.FixedSingle;
+            stock4TickerInput.CharacterCasing = CharacterCasing.Upper;
+            stock4TickerInput.Font = new Font("Segoe UI", 12F);
+            stock4TickerInput.Location = new Point(128, 37);
+            stock4TickerInput.Name = "stock4TickerInput";
+            stock4TickerInput.Size = new Size(100, 29);
+            stock4TickerInput.TabIndex = 1;
+            // 
+            // stock4TickerLabel
+            // 
+            stock4TickerLabel.AutoSize = true;
+            stock4TickerLabel.Font = new Font("Segoe UI", 12F);
+            stock4TickerLabel.Location = new Point(12, 37);
+            stock4TickerLabel.Name = "stock4TickerLabel";
+            stock4TickerLabel.Size = new Size(51, 21);
+            stock4TickerLabel.TabIndex = 0;
+            stock4TickerLabel.Text = "Ticker";
+            // 
             // TradePanelForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(735, 1295);
-            Controls.Add(stock2GroupBox);
+            ClientSize = new Size(1464, 1295);        
+            
             Controls.Add(GlobalOutputTextBox);
             Controls.Add(stock1GroupBox);
+            Controls.Add(stock2GroupBox);
+            Controls.Add(stock4GroupBox);
+            Controls.Add(stock3GroupBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "TradePanelForm";
@@ -1523,6 +2990,10 @@
             stock1GroupBox.PerformLayout();
             stock2GroupBox.ResumeLayout(false);
             stock2GroupBox.PerformLayout();
+            stock3GroupBox.ResumeLayout(false);
+            stock3GroupBox.PerformLayout();
+            stock4GroupBox.ResumeLayout(false);
+            stock4GroupBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1654,5 +3125,115 @@
         private TextBox stock2TakeProfitLimitPriceTextBox;
         private TextBox stock2TickerInput;
         private Label stock2TickerLabel;
+        private GroupBox stock3GroupBox;
+        private Label stock3BidAskLabel;
+        public Label stock3BidAskOutput;
+        private Label stock3BidAskSizeLabel;
+        public Label stock3BidAskSizeOutput;
+        private Button stock3ButtonCFD;
+        private Button stock3ButtonStock;
+        private Button stock3BuyStop05Percent;
+        private Button stock3BuyStop125Percent;
+        private Button stock3BuyStop15Percent;
+        private Button stock3BuyStop1Percent;
+        private Button stock3BuyStop25Percent;
+        private Button stock3BuyStop2Percent;
+        private Label stock3BuyStopPriceLabel;
+        private TextBox stock3BuyStopPriceTextBox;
+        private Button stock3Close100Percent;
+        private Button stock3Close25Percent;
+        private Button stock3Close33Percent;
+        private Button stock3Close50Percent;
+        private Button stock3Close67Percent;
+        private Label stock3LastPriceLabel;
+        public Label stock3LastPriceOutputLabel;
+        private Button stock3Long05Percent;
+        private Button stock3Long125percent;
+        private Button stock3Long15Percent;
+        private Button stock3Long1Percent;
+        private Button stock3Long25Percent;
+        private Button stock3Long2Percent;
+        private CheckBox stock3OutsideRTHCheckbox;
+        private Label stock3PercentageChangeLabel;
+        public Label stock3PercentageChangeOutputLabel;
+        private Label stock3PositionLabel;
+        public Label stock3PositionOutputLabel;
+        private Button stock3ReverseButton;
+        private Button stock3SellStop05Percent;
+        private Button stock3SellStop125Percent;
+        private Button stock3SellStop15Percent;
+        private Button stock3SellStop1Percent;
+        private Button stock3SellStop2Percent;
+        private Label stock3SellStopPriceLabel;
+        private TextBox stock3SellStopPriceTextBox;
+        private Button stock3Short05Percent;
+        private Button stock3Short125Percent;
+        private Button stock3Short15Percent;
+        private Button stock3Short1Percent;
+        private Button stock3Short2Percent;
+        private Button stock3TakeProfit25Percent;
+        private Button stock3TakeProfit33Percent;
+        private Button stock3TakeProfit50Percent;
+        private Button stock3TakeProfit67Percent;
+        private Button stock3TakeProfit100Percent;
+        private Label stock3TakeProfitLimitPriceLabel;
+        private TextBox stock3TakeProfitLimitPriceTextBox;
+        private TextBox stock3TickerInput;
+        private Label stock3TickerLabel;
+        private GroupBox stock4GroupBox;
+        private Label stock4BidAskLabel;
+        public Label stock4BidAskOutput;
+        private Label stock4BidAskSizeLabel;
+        public Label stock4BidAskSizeOutput;
+        private Button stock4ButtonCFD;
+        private Button stock4ButtonStock;
+        private Button stock4BuyStop05Percent;
+        private Button stock4BuyStop125Percent;
+        private Button stock4BuyStop15Percent;
+        private Button stock4BuyStop1Percent;
+        private Button stock4BuyStop25Percent;
+        private Button stock4BuyStop2Percent;
+        private Label stock4BuyStopPriceLabel;
+        private TextBox stock4BuyStopPriceTextBox;
+        private Button stock4Close100Percent;
+        private Button stock4Close25Percent;
+        private Button stock4Close33Percent;
+        private Button stock4Close50Percent;
+        private Button stock4Close67Percent;
+        private Label stock4LastPriceLabel;
+        public Label stock4LastPriceOutputLabel;
+        private Button stock4Long05Percent;
+        private Button stock4Long125percent;
+        private Button stock4Long15Percent;
+        private Button stock4Long1Percent;
+        private Button stock4Long25Percent;
+        private Button stock4Long2Percent;
+        private CheckBox stock4OutsideRTHCheckbox;
+        private Label stock4PercentageChangeLabel;
+        public Label stock4PercentageChangeOutputLabel;
+        private Label stock4PositionLabel;
+        public Label stock4PositionOutputLabel;
+        private Button stock4ReverseButton;
+        private Button stock4SellStop05Percent;
+        private Button stock4SellStop125Percent;
+        private Button stock4SellStop15Percent;
+        private Button stock4SellStop1Percent;
+        private Button stock4SellStop2Percent;
+        private Label stock4SellStopPriceLabel;
+        private TextBox stock4SellStopPriceTextBox;
+        private Button stock4Short05Percent;
+        private Button stock4Short125Percent;
+        private Button stock4Short15Percent;
+        private Button stock4Short1Percent;
+        private Button stock4Short2Percent;
+        private Button stock4TakeProfit25Percent;
+        private Button stock4TakeProfit33Percent;
+        private Button stock4TakeProfit50Percent;
+        private Button stock4TakeProfit67Percent;
+        private Button stock4TakeProfit100Percent;
+        private Label stock4TakeProfitLimitPriceLabel;
+        private TextBox stock4TakeProfitLimitPriceTextBox;
+        private TextBox stock4TickerInput;
+        private Label stock4TickerLabel;
     }
 }
