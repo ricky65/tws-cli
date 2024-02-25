@@ -27,7 +27,9 @@ namespace TradeBot.WinGui
         {
             InitializeComponent();
 
-            controller = new TradeController(GlobalOutputTextBox, stock1GroupBox, stock2GroupBox);
+            controller = new TradeController(GlobalOutputTextBox, stock1GroupBox, stock2GroupBox, null, null);
+            //TODO: Uncomment when GUI done
+            //controller = new TradeController(GlobalOutputTextBox, stock1GroupBox, stock2GroupBox, stock3GroupBox, stock4GroupBox);
             statusBar = new TradeStatusBar(controller, controller.service, this);
 
             buttonSoundWavFileName = @"\button37a.wav";

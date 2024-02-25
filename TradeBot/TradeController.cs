@@ -33,10 +33,10 @@ namespace TradeBot
 
         private TextBox globalOutputTextBox;
 
-        public TradeController(TextBox textBox, GroupBox stock1GroupBox, GroupBox stock2GroupBox)
+        public TradeController(TextBox textBox, GroupBox stock1GroupBox, GroupBox stock2GroupBox, GroupBox stock3GroupBox, GroupBox stock4GroupBox)
         {
 
-            service = new TradeService(Preferences.ClientId, textBox, stock1GroupBox, stock2GroupBox);
+            service = new TradeService(Preferences.ClientId, textBox, stock1GroupBox, stock2GroupBox, stock3GroupBox, stock4GroupBox);
             //menu = new TradeMenu(this);//Rick TODO: remove this for GUI 
             //Rick TODO: Moved TradePanel  
             //statusBar = new TradeStatusBar(this, service);
@@ -460,7 +460,29 @@ namespace TradeBot
                 { 
                     return;
                 }
-            }  
+            }
+            else if (stockNum == 3)
+            {
+                if (service.HasStock3TickerSymbol)
+                {
+                    tickerSymbol = service.Stock3TickerSymbol;
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else if (stockNum == 4)
+            {
+                if (service.HasStock4TickerSymbol)
+                {
+                    tickerSymbol = service.Stock4TickerSymbol;
+                }
+                else
+                {
+                    return;
+                }
+            }
             else
             {
                 return;
@@ -579,6 +601,12 @@ namespace TradeBot
                     break;
                 case nameof(service.Stock2TickerSymbol): 
                     OnTickerSymbolChanged(2, eventArgs);
+                    break;
+                case nameof(service.Stock3TickerSymbol):
+                    OnTickerSymbolChanged(3, eventArgs);
+                    break;
+                case nameof(service.Stock4TickerSymbol):
+                    OnTickerSymbolChanged(4, eventArgs);
                     break;
                 case nameof(service.CommissionReports):
                     OnCommissionReportsChanged(eventArgs);

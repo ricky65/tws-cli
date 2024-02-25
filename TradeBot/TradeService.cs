@@ -36,6 +36,23 @@ namespace TradeBot
         private Contract stock2CFDContract;
         private TickData stock2TickData;
 
+        //Stock 3
+        private int stock3StockReqContractDetailsId;
+        private int stock3CFDReqContractDetailsId;
+        private int stock3ReqMktDataId;
+        private Contract stock3Contract;
+        private Contract stock3CFDContract;
+        private TickData stock3TickData;
+
+        //Stock 4
+        private int stock4StockReqContractDetailsId;
+        private int stock4CFDReqContractDetailsId;
+        private int stock4ReqMktDataId;
+        private Contract stock4Contract;
+        private Contract stock4CFDContract;
+        private TickData stock4TickData;
+
+
         private int nextValidOrderId;
 
         //Offsets in cents for order types
@@ -52,7 +69,9 @@ namespace TradeBot
         private TextBox globalOutputTextBox;
         private GroupBox stock1GroupBoxx;
         private GroupBox stock2GroupBoxx;
-        public TradeService(int clientId, TextBox textBox, GroupBox stock1GroupBox, GroupBox stock2GroupBox)
+        private GroupBox stock3GroupBoxx;
+        private GroupBox stock4GroupBoxx;
+        public TradeService(int clientId, TextBox textBox, GroupBox stock1GroupBox, GroupBox stock2GroupBox, GroupBox stock3GroupBox, GroupBox stock4GroupBox)
         {
             ClientId = clientId;
 
@@ -62,6 +81,8 @@ namespace TradeBot
             globalOutputTextBox = textBox;
             stock1GroupBoxx = stock1GroupBox;
             stock2GroupBoxx = stock2GroupBox;
+            stock3GroupBoxx = stock3GroupBox;
+            stock4GroupBoxx = stock4GroupBox;
 
             // TradeBot events
             PropertyChanged += OnPropertyChanged;
@@ -178,6 +199,33 @@ namespace TradeBot
             }
         }
 
+        private string _stock3TickerSymbol;
+        public string Stock3TickerSymbol
+        {
+            get
+            {
+                return _stock3TickerSymbol;
+            }
+            set
+            {
+                PropertyChanged.SetPropertyAndRaiseEvent(ref _stock3TickerSymbol, value?.Trim().ToUpper());
+            }
+        }
+
+
+        private string _stock4TickerSymbol;
+        public string Stock4TickerSymbol
+        {
+            get
+            {
+                return _stock4TickerSymbol;
+            }
+            set
+            {
+                PropertyChanged.SetPropertyAndRaiseEvent(ref _stock4TickerSymbol, value?.Trim().ToUpper());
+            }
+        }
+
         //Rick
         private bool _stock1UseCFD = false;
         public bool Stock1UseCFD
@@ -205,6 +253,32 @@ namespace TradeBot
             }
         }
 
+        private bool _stock3UseCFD = false;
+        public bool Stock3UseCFD
+        {
+            get
+            {
+                return _stock3UseCFD;
+            }
+            set
+            {
+                _stock3UseCFD = value;
+            }
+        }
+
+        private bool _stock4UseCFD = false;
+        public bool Stock4UseCFD
+        {
+            get
+            {
+                return _stock4UseCFD;
+            }
+            set
+            {
+                _stock4UseCFD = value;
+            }
+        }
+
         public bool HasStock1TickerSymbol
         {
             get
@@ -218,6 +292,22 @@ namespace TradeBot
             get
             {
                 return !string.IsNullOrWhiteSpace(Stock2TickerSymbol);
+            }
+        }
+
+        public bool HasStock3TickerSymbol
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Stock3TickerSymbol);
+            }
+        }
+
+        public bool HasStock4TickerSymbol
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Stock4TickerSymbol);
             }
         }
 
@@ -565,6 +655,10 @@ namespace TradeBot
                 stock1StockReqContractDetailsId = reqContractDetailsId;
             else if (stockNum == 2)
                 stock2StockReqContractDetailsId = reqContractDetailsId;
+            else if (stockNum == 3)
+                stock3StockReqContractDetailsId = reqContractDetailsId;
+            else if (stockNum == 4)
+                stock4StockReqContractDetailsId = reqContractDetailsId;
 
             clientSocket.reqContractDetails(reqContractDetailsId, ContractFactory.CreateStockContract(tickerSymbol));
         }
@@ -576,6 +670,10 @@ namespace TradeBot
                 stock1CFDReqContractDetailsId = reqContractDetailsId;
             else if (stockNum == 2)
                 stock2CFDReqContractDetailsId = reqContractDetailsId;
+            else if (stockNum == 3)
+                stock3CFDReqContractDetailsId = reqContractDetailsId;
+            else if (stockNum == 4)
+                stock4CFDReqContractDetailsId = reqContractDetailsId;
 
             clientSocket.reqContractDetails(reqContractDetailsId, ContractFactory.CreateCFDContract(tickerSymbol));
         }
@@ -610,6 +708,20 @@ namespace TradeBot
                 {
                     return stock2TickData.HasTicks(withPositiveValue, tickTypes);
                 }               
+            }
+            else if (stockNum == 3)
+            {
+                if (stock3TickData != null)
+                {
+                    return stock3TickData.HasTicks(withPositiveValue, tickTypes);
+                }
+            }
+            else if (stockNum == 4)
+            {
+                if (stock4TickData != null)
+                {
+                    return stock4TickData.HasTicks(withPositiveValue, tickTypes);
+                }
             }
 
             return false;
@@ -676,6 +788,14 @@ namespace TradeBot
             {
                 return stock2TickData?.Get(tickType);
             }
+            else if (stockNum == 3)
+            {
+                return stock3TickData?.Get(tickType);
+            }
+            else if (stockNum == 4)
+            {
+                return stock4TickData?.Get(tickType);
+            }
             return null;
         }
 
@@ -692,6 +812,14 @@ namespace TradeBot
             else if (stockNum == 2)
             {
                 return !Stock2UseCFD ? stock2Contract : stock2CFDContract;
+            }
+            else if (stockNum == 3)
+            {
+                return !Stock3UseCFD ? stock3Contract : stock3CFDContract;
+            }
+            else if (stockNum == 4)
+            {
+                return !Stock4UseCFD ? stock4Contract : stock4CFDContract;
             }
 
             return null;
@@ -840,7 +968,19 @@ namespace TradeBot
                 stock2TickData.Update(tickType, value);
                 TickUpdated?.Invoke(tickType, value);
                 return;
-            }            
+            }
+            else if (tickId == stock3ReqMktDataId)
+            {
+                stock3TickData.Update(tickType, value);
+                TickUpdated?.Invoke(tickType, value);
+                return;
+            }
+            else if (tickId == stock4ReqMktDataId)
+            {
+                stock4TickData.Update(tickType, value);
+                TickUpdated?.Invoke(tickType, value);
+                return;
+            }
         }
 
         private void OnUpdatePortfolio(Contract contract, double positionSize, double marketPrice, double marketValue, double avgCost, double unrealisedPNL, double realisedPNL, string account)
@@ -977,6 +1117,90 @@ namespace TradeBot
 
                 stock2ReqMktDataId = NumberGenerator.NextRandomInt();
                 clientSocket.reqMktData(stock2ReqMktDataId, stock2Contract, "", false, false, null);
+            }
+            //Stock3
+            else if (reqId == stock3StockReqContractDetailsId || reqId == stock3CFDReqContractDetailsId)
+            {
+                string stock3str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
+                IO.ShowMessageTextBox(globalOutputTextBox, "Stock 3 - OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock3str);//GUI
+
+                if (!Stock3UseCFD)
+                    stock3str += " (Stock)";
+                else
+                    stock3str += " (CFD)";
+
+                if (stock3GroupBoxx.InvokeRequired)
+                {
+                    stock3GroupBoxx.BeginInvoke(() => { stock3GroupBoxx.Text = stock3str; });
+
+                }
+                else
+                {
+                    stock3GroupBoxx.Text = stock3GroupBoxx.Text = stock3str;
+                }
+
+                var contractSecType = contractDetails.Contract.SecType;
+                if (contractSecType == "STK")
+                {
+                    stock3Contract = contractDetails.Contract;
+                }
+                else if (Stock3UseCFD && contractSecType == "CFD")
+                {
+                    stock3CFDContract = contractDetails.Contract;
+                    return;
+                }
+
+                if (stock3ReqMktDataId != 0)
+                {
+                    clientSocket.cancelMktData(stock3ReqMktDataId);
+                }
+
+                stock3TickData = new TickData();
+
+                stock3ReqMktDataId = NumberGenerator.NextRandomInt();
+                clientSocket.reqMktData(stock3ReqMktDataId, stock3Contract, "", false, false, null);
+            }
+            //Stock 4
+            else if (reqId == stock4StockReqContractDetailsId || reqId == stock4CFDReqContractDetailsId)
+            {
+                string stock4str = contractDetails.Contract.Symbol + " (" + contractDetails.LongName + ")";
+                IO.ShowMessageTextBox(globalOutputTextBox, "Stock 4 - OnContractDetails: " + contractDetails.Contract.SecType + " Contract Details retrieved for: " + stock4str);//GUI
+
+                if (!Stock4UseCFD)
+                    stock4str += " (Stock)";
+                else
+                    stock4str += " (CFD)";
+
+                if (stock4GroupBoxx.InvokeRequired)
+                {
+                    stock4GroupBoxx.BeginInvoke(() => { stock4GroupBoxx.Text = stock4str; });
+
+                }
+                else
+                {
+                    stock4GroupBoxx.Text = stock4GroupBoxx.Text = stock4str;
+                }
+
+                var contractSecType = contractDetails.Contract.SecType;
+                if (contractSecType == "STK")
+                {
+                    stock4Contract = contractDetails.Contract;
+                }
+                else if (Stock4UseCFD && contractSecType == "CFD")
+                {
+                    stock4CFDContract = contractDetails.Contract;
+                    return;
+                }
+
+                if (stock4ReqMktDataId != 0)
+                {
+                    clientSocket.cancelMktData(stock4ReqMktDataId);
+                }
+
+                stock4TickData = new TickData();
+
+                stock4ReqMktDataId = NumberGenerator.NextRandomInt();
+                clientSocket.reqMktData(stock4ReqMktDataId, stock4Contract, "", false, false, null);
             }
 
         }

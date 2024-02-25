@@ -24,7 +24,11 @@ namespace TradeBot
                 tickerSet = service.HasStock1TickerSymbol;
             else if (stockNum == 2)
                 tickerSet = service.HasStock2TickerSymbol;
-        
+            else if (stockNum == 3)
+                tickerSet = service.HasStock3TickerSymbol;
+            else if (stockNum == 4)
+                tickerSet = service.HasStock4TickerSymbol;
+
             return Validate(
                 tickerSet,
                 Messages.TickerSymbolNotSetError);
