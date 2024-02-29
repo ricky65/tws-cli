@@ -56,9 +56,9 @@ namespace TradeBot
         private int nextValidOrderId;
 
         //Offsets in cents for order types
-        private double limitOffset = 0.03;
-        private double buyStopOffset = 0.11;
-        private double sellStopOffset = 0.11;
+        private double limitOffset = 0.05;
+        private double buyStopOffset = 0.12;
+        private double sellStopOffset = 0.12;
 
         //maps an Account to Available Funds in account
         Dictionary<string, double> accountAvailableFunds = new Dictionary<string, double>();
