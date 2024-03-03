@@ -631,6 +631,7 @@
             stock1OutsideRTHCheckbox.TabIndex = 68;
             stock1OutsideRTHCheckbox.Text = "Outside RTH";
             stock1OutsideRTHCheckbox.UseVisualStyleBackColor = true;
+            stock1OutsideRTHCheckbox.Checked = true;
             stock1OutsideRTHCheckbox.CheckedChanged += stock1OutsideRTHCheckbox_CheckedChanged;
             // 
             // stock1PercentageChangeLabel
