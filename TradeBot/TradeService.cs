@@ -388,7 +388,7 @@ namespace TradeBot
                 return;
             }
 
-            //Rick: Have +/- 3 cent offset
+            //Rick: +/- N cent offset
             double offsetPrice = 0.0;
 
             if (action == OrderActions.BUY)
@@ -397,7 +397,7 @@ namespace TradeBot
 
                 if (!(stopPrice < price))
                 {
-                    IO.ShowMessageTextBox(globalOutputTextBox, "LONG Stop: Sell Stop must be less than ASK + 3 cents");//GUI
+                    IO.ShowMessageTextBox(globalOutputTextBox, "LONG Stop: Sell Stop must be less than ASK + " + limitOffset);//GUI
                     //IO.ShowMessageCLI("LONG Stop: Sell Stop must be less than ASK + 3 cents");
                     return;
                 }
@@ -408,7 +408,7 @@ namespace TradeBot
 
                 if (!(stopPrice > price))
                 {
-                    IO.ShowMessageTextBox(globalOutputTextBox, "SHORT Stop: Buy Stop must be greater than BID - 3 cents");//GUI
+                    IO.ShowMessageTextBox(globalOutputTextBox, "SHORT Stop: Buy Stop must be greater than BID - " + limitOffset);//GUI
                     //IO.ShowMessageCLI("SHORT Stop: Buy Stop must be greater than BID - 3 cents");
                     return;
                 }
@@ -467,7 +467,7 @@ namespace TradeBot
                 return;
             }
 
-            //Rick: Have +/- 3 cent offset
+            //Rick: +/- N cent offset
             if (action == OrderActions.BUY)
             {
                 price += limitOffset;               
@@ -539,7 +539,7 @@ namespace TradeBot
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
 
-            //Rick: Buy Stop Limit is StopPrice + 11 cents
+            //Rick: Buy Stop Limit is StopPrice + N cents
             double limitPrice = buyStopPrice + buyStopOffset;
 
             //Rick: Create parent order
@@ -585,7 +585,7 @@ namespace TradeBot
             IO.ShowMessageTextBox(globalOutputTextBox, riskStr);//GUI
             //IO.ShowMessageCLI(riskStr);
 
-            //Rick: Sell Stop Limit is StopPrice - 11 cents
+            //Rick: Sell Stop Limit is StopPrice - N cents
             double limitPrice = sellStopPrice - sellStopOffset;
 
             //Rick: Create parent order
