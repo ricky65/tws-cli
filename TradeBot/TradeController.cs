@@ -531,9 +531,9 @@ namespace TradeBot
         public async Task ScalePositionAsync(int stockNum, string tickerSymbol, double percent, bool outsideRth)
         {
             Position position = await service.RequestCurrentPositionAsync(tickerSymbol);
-            if (Validation.TickerSet(service)
+            if (Validation.TickerSetGUI(stockNum, service)
                 && Validation.PositionExists(position)
-                && Validation.TickDataAvailable(service, COMMON_TICKS))
+                && Validation.TickDataAvailableGUI(stockNum, service, COMMON_TICKS))
             {
                 int orderDelta = (int)Math.Round(position.PositionSize * percent);
                 int orderQuantity = Math.Abs(orderDelta);
@@ -552,9 +552,9 @@ namespace TradeBot
         public async Task LimitTakeProfitAsync(int stockNum, string tickerSymbol, double percent, double limitPrice, bool outsideRth)
         {
             Position position = await service.RequestCurrentPositionAsync(tickerSymbol);
-            if (Validation.TickerSet(service)
+            if (Validation.TickerSetGUI(stockNum, service)
                 && Validation.PositionExists(position)
-                && Validation.TickDataAvailable(service, COMMON_TICKS))
+                && Validation.TickDataAvailableGUI(stockNum, service, COMMON_TICKS))
             {
                 int orderDelta = (int)Math.Round(position.PositionSize * percent);
                 int orderQuantity = Math.Abs(orderDelta);

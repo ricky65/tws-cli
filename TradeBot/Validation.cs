@@ -18,20 +18,21 @@ namespace TradeBot
 
         public static bool TickerSetGUI(int stockNum, TradeService service)
         {
-            bool tickerSet = false;
+            //bool tickerSet = false;
 
             if (stockNum == 1)
-                tickerSet = service.HasStock1TickerSymbol;
+                return service.HasStock1TickerSymbol;
             else if (stockNum == 2)
-                tickerSet = service.HasStock2TickerSymbol;
+                return service.HasStock2TickerSymbol;
             else if (stockNum == 3)
-                tickerSet = service.HasStock3TickerSymbol;
+                return service.HasStock3TickerSymbol;
             else if (stockNum == 4)
-                tickerSet = service.HasStock4TickerSymbol;
+                return service.HasStock4TickerSymbol;
 
-            return Validate(
-                tickerSet,
-                Messages.TickerSymbolNotSetError);
+            //should never reach here
+            return false;
+
+            //return Validate(tickerSet, Messages.TickerSymbolNotSetError); //was used to give error message in console
         }
 
         public static bool SharesSet(double shares)
