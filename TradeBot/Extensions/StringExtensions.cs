@@ -24,7 +24,13 @@ namespace TradeBot.Extensions
 
         public static string ToCurrencyString(this double currencyValue)
         {
-            return currencyValue.ToString("C", CultureInfo.GetCultureInfo("en-US"));
+            NumberFormatInfo nfi = new CultureInfo("en-US", false).NumberFormat;
+            if (currencyValue < 1.0)
+            { 
+                nfi.CurrencyDecimalDigits = 4;
+            }
+        
+            return currencyValue.ToString("C", nfi);
         }
 
         public static string ToCommaFormattedNumberString(this double value)
