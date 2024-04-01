@@ -432,8 +432,9 @@ namespace TradeBot
         #region Private helper methods
         private void SetPosition(Position position)
         {
-            service.Stock1TickerSymbol = position?.Symbol ?? null;
-            Shares = position?.PositionSize ?? 10;
+            //Rick: Used to be used when it was command line interface
+            //service.Stock1TickerSymbol = position?.Symbol ?? null;
+            //Shares = position?.PositionSize ?? 10;
         }
 
         public async Task SetInitialSharesAsync(int stockNum)
@@ -643,8 +644,9 @@ namespace TradeBot
         {
             service.TradedAccount = service.MaxAvailableFundsAccount;
 
-            Position largestPosition = await service.RequestLargestPosition();
-            SetPosition(largestPosition);
+            //Rick: SetPosition Used to be used when it was command line interface
+            //Position largestPosition = await service.RequestLargestPosition();
+            //SetPosition(largestPosition);
 
             // Warn about multiple accounts
             if (service.Accounts.Length > 1)
