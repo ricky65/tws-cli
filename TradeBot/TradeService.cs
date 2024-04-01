@@ -898,7 +898,7 @@ namespace TradeBot
             switch (errorCode)
             {
                 case ErrorCodes.TICKER_NOT_FOUND:
-                    Stock1TickerSymbol = null;
+                    //Stock1TickerSymbol = null;
                     break;
             }
         }
