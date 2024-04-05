@@ -639,7 +639,7 @@ namespace TradeBot
             }
         }
 
-        //Rick: Called after AccountSummary has found the account with the highest Available Funds
+        //Rick: Called after AccountSummary has found the account with the highest Net Liquidation Value
         private async void OnAccountsChanged(PropertyChangedEventArgs eventArgs)
         {
             service.TradedAccount = service.MaxAvailableFundsAccount;

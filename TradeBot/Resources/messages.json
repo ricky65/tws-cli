@@ -65,8 +65,8 @@
   "welcomeMessage": "Welcome to TradeBot.",
   "twsConnected": "Connection to TWS established",
   "twsDisconnected": "Connection to TWS closed",
-  "multipleAccountsWarningFormat": "Multiple accounts found so account with highest Available Funds selected: {0} with {1} Available Funds.",
-  "singleAccountFoundFormat": "Account found: {0} with {1} Available Funds.",
+  "multipleAccountsWarningFormat": "Multiple accounts found so account with highest Net Liquidation Value selected: {0} with {1} Net Liquidation Value.",
+  "singleAccountFoundFormat": "Account found: {0} with {1} Net Liquidation Value.",
 
   "accountTypeLive": "Live Trading",
   "accountTypePaper": "Paper Trading",

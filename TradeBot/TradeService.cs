@@ -64,8 +64,8 @@ namespace TradeBot
         private double buyStopOffsetLessThanOneDollar = 0.03;
         private double sellStopOffsetLessThanOneDollar = 0.03;
 
-        //maps an Account to Available Funds in account
-        Dictionary<string, double> accountAvailableFunds = new Dictionary<string, double>();
+        //Maps an Account ID to Net Liquidation Value of account
+        Dictionary<string, double> accountNetLiquidationValue = new Dictionary<string, double>();
 
         //Rick - number of orders cancelled, so we can jump to a fresh order id when required
         private int canceledOrderCount = 0;
@@ -936,8 +936,11 @@ namespace TradeBot
                 //IO.ShowMessageCLI(acct);
             }
 
+            //Rick: Get Net Liquidation Value for all accounts - make the account with the largest NLV our traded account - use NLV as our totalEquity to calculate risk % per trade
+            clientSocket.reqAccountSummary(NumberGenerator.NextRandomInt(), "All", AccountSummaryTags.NetLiquidation);
+
             //Rick: Get Available Funds for all accounts - make the account with the largest amount our traded account - use Available Funds value as our totalEquity to calculate risk % per trade
-            clientSocket.reqAccountSummary(NumberGenerator.NextRandomInt(), "All", AccountSummaryTags.AvailableFunds);
+            //clientSocket.reqAccountSummary(NumberGenerator.NextRandomInt(), "All", AccountSummaryTags.AvailableFunds);
         }
 
         private void OnNextValidId(int orderId)
@@ -1012,7 +1015,7 @@ namespace TradeBot
             IO.ShowMessageTextBox(globalOutputTextBox, "Acct Summary. ReqId: " + reqId + ", Acct: " + account + ", Tag: " + tag + ", Value: " + value + ", Currency: " + currency);//GUI
             //IO.ShowMessageCLI("Acct Summary. ReqId: " + reqId + ", Acct: " + account + ", Tag: " + tag + ", Value: " + value + ", Currency: " + currency);
 
-            accountAvailableFunds[account] = double.Parse(value);
+            accountNetLiquidationValue[account] = double.Parse(value);
         }
 
         public void OnAccountSummaryEnd(int reqId)
@@ -1022,9 +1025,9 @@ namespace TradeBot
             //Rick: cancel the account summary request otherwise it updates every 3 minutes
             clientSocket.cancelAccountSummary(reqId);
 
-            //Find account with maximum Available Funds
-            var largestAcc = accountAvailableFunds.Aggregate((l, r) => l.Value > r.Value ? l : r);
-            totalEquity = largestAcc.Value; //Make Total Equity Available Funds
+            //Find account with highest Net Liquidation Value and use that as our Total Equity
+            var largestAcc = accountNetLiquidationValue.Aggregate((l, r) => l.Value > r.Value ? l : r);
+            totalEquity = largestAcc.Value;
             MaxAvailableFundsAccount = largestAcc.Key;            
         }
 
