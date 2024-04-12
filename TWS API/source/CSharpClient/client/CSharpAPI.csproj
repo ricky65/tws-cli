@@ -42,7 +42,4 @@
 		<DebugType>full</DebugType>
 		<NoWarn>1701;1702;CA1416</NoWarn>
 	</PropertyGroup>
-	<ItemGroup>
-		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-	</ItemGroup>
 </Project>
