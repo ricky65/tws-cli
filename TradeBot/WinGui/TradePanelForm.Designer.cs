@@ -35,6 +35,7 @@
             stock1BidAskSizeOutput = new Label();
             stock1ButtonCFD = new Button();
             stock1ButtonStock = new Button();
+            stock1ResetButton = new Button();
             stock1BuyStop05Percent = new Button();
             stock1BuyStop125Percent = new Button();
             stock1BuyStop15Percent = new Button();
@@ -91,6 +92,7 @@
             stock2BidAskSizeOutput = new Label();
             stock2ButtonCFD = new Button();
             stock2ButtonStock = new Button();
+            stock2ResetButton = new Button();
             stock2BuyStop05Percent = new Button();
             stock2BuyStop125Percent = new Button();
             stock2BuyStop15Percent = new Button();
@@ -146,6 +148,7 @@
             stock3BidAskSizeOutput = new Label();
             stock3ButtonCFD = new Button();
             stock3ButtonStock = new Button();
+            stock3ResetButton = new Button();
             stock3BuyStop05Percent = new Button();
             stock3BuyStop125Percent = new Button();
             stock3BuyStop15Percent = new Button();
@@ -201,6 +204,7 @@
             stock4BidAskSizeOutput = new Label();
             stock4ButtonCFD = new Button();
             stock4ButtonStock = new Button();
+            stock4ResetButton = new Button();
             stock4BuyStop05Percent = new Button();
             stock4BuyStop125Percent = new Button();
             stock4BuyStop15Percent = new Button();
@@ -263,6 +267,7 @@
             stock1GroupBox.Controls.Add(stock1BidAskSizeOutput);
             stock1GroupBox.Controls.Add(stock1ButtonCFD);
             stock1GroupBox.Controls.Add(stock1ButtonStock);
+            stock1GroupBox.Controls.Add(stock1ResetButton);
             stock1GroupBox.Controls.Add(stock1BuyStop05Percent);
             stock1GroupBox.Controls.Add(stock1BuyStop125Percent);
             stock1GroupBox.Controls.Add(stock1BuyStop15Percent);
@@ -379,6 +384,17 @@
             stock1ButtonStock.Text = "Stock";
             stock1ButtonStock.UseVisualStyleBackColor = true;
             stock1ButtonStock.Click += stock1ButtonStock_Click;
+            // 
+            // stock1ResetButton
+            // 
+            stock1ResetButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock1ResetButton.Location = new Point(543, 32);
+            stock1ResetButton.Name = "stock1ResetButton";
+            stock1ResetButton.Size = new Size(71, 40);
+            stock1ResetButton.TabIndex = 71;
+            stock1ResetButton.Text = "Reset";
+            stock1ResetButton.UseVisualStyleBackColor = true;
+            stock1ResetButton.Click += stock1ButtonReset_Click;
             // 
             // stock1BuyStop05Percent
             // 
@@ -952,6 +968,7 @@
             stock2GroupBox.Controls.Add(stock2BidAskSizeOutput);
             stock2GroupBox.Controls.Add(stock2ButtonCFD);
             stock2GroupBox.Controls.Add(stock2ButtonStock);
+            stock2GroupBox.Controls.Add(stock2ResetButton);
             stock2GroupBox.Controls.Add(stock2BuyStop05Percent);
             stock2GroupBox.Controls.Add(stock2BuyStop125Percent);
             stock2GroupBox.Controls.Add(stock2BuyStop15Percent);
@@ -1068,6 +1085,18 @@
             stock2ButtonStock.Text = "Stock";
             stock2ButtonStock.UseVisualStyleBackColor = true;
             stock2ButtonStock.Click += stock2ButtonStock_Click;
+            // 
+            // stock1ResetButton
+            // 
+            stock2ResetButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock2ResetButton.Location = new Point(543, 32);
+            stock2ResetButton.Name = "stock2ResetButton";
+            stock2ResetButton.Size = new Size(71, 40);
+            stock2ResetButton.TabIndex = 72;
+            stock2ResetButton.Text = "Reset";
+            stock2ResetButton.UseVisualStyleBackColor = true;
+            stock2ResetButton.Click += stock2ButtonReset_Click;
+
             // 
             // stock2BuyStop05Percent
             // 
@@ -1628,6 +1657,7 @@
             stock3GroupBox.Controls.Add(stock3BidAskSizeOutput);
             stock3GroupBox.Controls.Add(stock3ButtonCFD);
             stock3GroupBox.Controls.Add(stock3ButtonStock);
+            stock3GroupBox.Controls.Add(stock3ResetButton);
             stock3GroupBox.Controls.Add(stock3BuyStop05Percent);
             stock3GroupBox.Controls.Add(stock3BuyStop125Percent);
             stock3GroupBox.Controls.Add(stock3BuyStop15Percent);
@@ -1744,6 +1774,17 @@
             stock3ButtonStock.Text = "Stock";
             stock3ButtonStock.UseVisualStyleBackColor = true;
             stock3ButtonStock.Click += stock3ButtonStock_Click;
+            // 
+            // stock3ResetButton
+            // 
+            stock3ResetButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock3ResetButton.Location = new Point(543, 32);
+            stock3ResetButton.Name = "stock3ResetButton";
+            stock3ResetButton.Size = new Size(71, 40);
+            stock3ResetButton.TabIndex = 73;
+            stock3ResetButton.Text = "Reset";
+            stock3ResetButton.UseVisualStyleBackColor = true;
+            stock3ResetButton.Click += stock3ButtonReset_Click;
             // 
             // stock3BuyStop05Percent
             // 
@@ -2294,7 +2335,7 @@
             stock3TickerLabel.Name = "stock3TickerLabel";
             stock3TickerLabel.Size = new Size(51, 21);
             stock3TickerLabel.TabIndex = 0;
-            stock3TickerLabel.Text = "Ticker";            
+            stock3TickerLabel.Text = "Ticker";
             // 
             // stock4GroupBox
             // 
@@ -2304,6 +2345,7 @@
             stock4GroupBox.Controls.Add(stock4BidAskSizeOutput);
             stock4GroupBox.Controls.Add(stock4ButtonCFD);
             stock4GroupBox.Controls.Add(stock4ButtonStock);
+            stock4GroupBox.Controls.Add(stock4ResetButton);
             stock4GroupBox.Controls.Add(stock4BuyStop05Percent);
             stock4GroupBox.Controls.Add(stock4BuyStop125Percent);
             stock4GroupBox.Controls.Add(stock4BuyStop15Percent);
@@ -2420,6 +2462,17 @@
             stock4ButtonStock.Text = "Stock";
             stock4ButtonStock.UseVisualStyleBackColor = true;
             stock4ButtonStock.Click += stock4ButtonStock_Click;
+            // 
+            // stock4ResetButton
+            // 
+            stock4ResetButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            stock4ResetButton.Location = new Point(543, 32);
+            stock4ResetButton.Name = "stock4ResetButton";
+            stock4ResetButton.Size = new Size(71, 40);
+            stock4ResetButton.TabIndex = 74;
+            stock4ResetButton.Text = "Reset";
+            stock4ResetButton.UseVisualStyleBackColor = true;
+            stock4ResetButton.Click += stock4ButtonReset_Click;
             // 
             // stock4BuyStop05Percent
             // 
@@ -2970,13 +3023,13 @@
             stock4TickerLabel.Name = "stock4TickerLabel";
             stock4TickerLabel.Size = new Size(51, 21);
             stock4TickerLabel.TabIndex = 0;
-            stock4TickerLabel.Text = "Ticker";
+            stock4TickerLabel.Text = "Ticker";            
             // 
             // TradePanelForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1464, 1295);        
+            ClientSize = new Size(1464, 1295);
             
             Controls.Add(GlobalOutputTextBox);
             Controls.Add(stock1GroupBox);
@@ -3067,6 +3120,7 @@
 
         private Button stock1ButtonCFD;
         private Button stock1ButtonStock;
+        private Button stock1ResetButton;
         public Label stock1PercentageChangeOutputLabel;
         public Label stock1LastPriceOutputLabel;
         private CheckBox stock1OutsideRTHCheckbox;
@@ -3078,6 +3132,7 @@
         public Label stock2BidAskSizeOutput;
         private Button stock2ButtonCFD;
         private Button stock2ButtonStock;
+        private Button stock2ResetButton;
         private Button stock2BuyStop05Percent;
         private Button stock2BuyStop125Percent;
         private Button stock2BuyStop15Percent;
@@ -3133,6 +3188,7 @@
         public Label stock3BidAskSizeOutput;
         private Button stock3ButtonCFD;
         private Button stock3ButtonStock;
+        private Button stock3ResetButton;
         private Button stock3BuyStop05Percent;
         private Button stock3BuyStop125Percent;
         private Button stock3BuyStop15Percent;
@@ -3188,6 +3244,7 @@
         public Label stock4BidAskSizeOutput;
         private Button stock4ButtonCFD;
         private Button stock4ButtonStock;
+        private Button stock4ResetButton;
         private Button stock4BuyStop05Percent;
         private Button stock4BuyStop125Percent;
         private Button stock4BuyStop15Percent;

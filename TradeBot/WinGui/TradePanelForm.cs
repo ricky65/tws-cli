@@ -758,6 +758,31 @@ namespace TradeBot.WinGui
             }
         }
 
+        private void stock1ButtonReset_Click(object sender, EventArgs e)
+        {            
+            //Cancel Market Data
+            controller.service.CancelMarketData(STOCK_ONE);
+
+            //Reset Stock 1 in TradeService 
+            controller.service.ResetStock(STOCK_ONE);
+
+            //Reset GUI Strings
+            stock1GroupBox.Text = "Stock 1";
+            stock1PositionOutputLabel.Text = string.Empty;
+            stock1LastPriceOutputLabel.Text = string.Empty;
+            stock1BidAskOutput.Text = string.Empty;
+            stock1BidAskSizeOutput.Text = string.Empty;
+
+            //Reset Ticker Text Box
+            stock1TickerInput.Text = string.Empty;
+
+            //Reset Buy/Sell Stop Text Boxes
+            stock1SellStopPriceTextBox.Text = string.Empty;
+            stock1BuyStopPriceTextBox.Text = string.Empty;
+
+            IO.ShowMessageTextBox(GlobalOutputTextBox, "Stock 1 - Reset");
+        }
+
         private void stock1OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             GlobalOutputTextBox.AppendText("Stock 1 OutsideRTH: " + stock1OutsideRTHCheckbox.Checked + "\r\n");
@@ -1481,6 +1506,31 @@ namespace TradeBot.WinGui
                 controller.service.RequestStockContractDetails(tickerSymbol, STOCK_TWO);//Rick
                 await controller.SetInitialSharesAsync(STOCK_TWO);
             }
+        }
+
+        private void stock2ButtonReset_Click(object sender, EventArgs e)
+        {
+            //Cancel Market Data
+            controller.service.CancelMarketData(STOCK_TWO);
+
+            //Reset Stock 3 in TradeService 
+            controller.service.ResetStock(STOCK_TWO);
+
+            //Reset GUI Strings
+            stock2GroupBox.Text = "Stock 2";
+            stock2PositionOutputLabel.Text = string.Empty;
+            stock2LastPriceOutputLabel.Text = string.Empty;
+            stock2BidAskOutput.Text = string.Empty;
+            stock2BidAskSizeOutput.Text = string.Empty;
+
+            //Reset Ticker Text Box
+            stock2TickerInput.Text = string.Empty;
+
+            //Reset Buy/Sell Stop Text Boxes
+            stock2SellStopPriceTextBox.Text = string.Empty;
+            stock2BuyStopPriceTextBox.Text = string.Empty;
+
+            IO.ShowMessageTextBox(GlobalOutputTextBox, "Stock 2 - Reset");
         }
 
         private void stock2OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -2209,6 +2259,31 @@ namespace TradeBot.WinGui
             }
         }
 
+        private void stock3ButtonReset_Click(object sender, EventArgs e)
+        {
+            //Cancel Market Data
+            controller.service.CancelMarketData(STOCK_THREE);
+
+            //Reset Stock 3 in TradeService 
+            controller.service.ResetStock(STOCK_THREE);
+
+            //Reset GUI Strings
+            stock3GroupBox.Text = "Stock 3";
+            stock3PositionOutputLabel.Text = string.Empty;
+            stock3LastPriceOutputLabel.Text = string.Empty;
+            stock3BidAskOutput.Text = string.Empty;
+            stock3BidAskSizeOutput.Text = string.Empty;
+
+            //Reset Ticker Text Box
+            stock3TickerInput.Text = string.Empty;
+
+            //Reset Buy/Sell Stop Text Boxes
+            stock3SellStopPriceTextBox.Text = string.Empty;
+            stock3BuyStopPriceTextBox.Text = string.Empty;
+
+            IO.ShowMessageTextBox(GlobalOutputTextBox, "Stock 3 - Reset");
+        }
+
         private void stock3OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             GlobalOutputTextBox.AppendText("Stock 3 OutsideRTH: " + stock3OutsideRTHCheckbox.Checked + "\r\n");
@@ -2933,6 +3008,31 @@ namespace TradeBot.WinGui
                 controller.service.RequestStockContractDetails(tickerSymbol, STOCK_FOUR);//Rick
                 await controller.SetInitialSharesAsync(STOCK_FOUR);
             }
+        }
+
+        private void stock4ButtonReset_Click(object sender, EventArgs e)
+        {
+            //Cancel Market Data
+            controller.service.CancelMarketData(STOCK_FOUR);
+
+            //Reset Stock 4 in TradeService 
+            controller.service.ResetStock(STOCK_FOUR);
+
+            //Reset GUI Strings
+            stock4GroupBox.Text = "Stock 4";
+            stock4PositionOutputLabel.Text = string.Empty;
+            stock4LastPriceOutputLabel.Text = string.Empty;
+            stock4BidAskOutput.Text = string.Empty;
+            stock4BidAskSizeOutput.Text = string.Empty;
+
+            //Reset Ticker Text Box
+            stock4TickerInput.Text = string.Empty;
+
+            //Reset Buy/Sell Stop Text Boxes
+            stock4SellStopPriceTextBox.Text = string.Empty;
+            stock4BuyStopPriceTextBox.Text = string.Empty;
+
+            IO.ShowMessageTextBox(GlobalOutputTextBox, "Stock 4 - Reset");
         }
 
         private void stock4OutsideRTHCheckbox_CheckedChanged(object sender, EventArgs e)
