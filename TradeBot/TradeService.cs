@@ -71,26 +71,26 @@ namespace TradeBot
         public double GetLimitOrderOffset(double priceValue) =>
             priceValue switch
             {
-                >= 1.0 and <= 400.00 => limitOffset,
-                >= 400.00 => limitOffsetGreaterThanFourHundredDollars,                
-                < 1.0 => limitOffsetLessThanOneDollar,
+                >= 1.00 and <= 400.00 => limitOffset,
+                > 400.00 => limitOffsetGreaterThanFourHundredDollars,                
+                < 1.00 => limitOffsetLessThanOneDollar,
                 _ => double.NaN
             };
 
         public double GetBuyStopLimitOrderOffset(double priceValue) =>
             priceValue switch
             {
-                >= 1.0 and <= 400.00 => buyStopOffset,
-                >= 400 => buyStopOffsetGreaterThanFourHundredDollars,
-                < 1.0 => buyStopOffsetLessThanOneDollar,
+                >= 1.00 and <= 400.00 => buyStopOffset,
+                > 400.00 => buyStopOffsetGreaterThanFourHundredDollars,
+                < 1.00 => buyStopOffsetLessThanOneDollar,
                 _ => double.NaN
             };
         public double GetSellStopLimitOrderOffset(double priceValue) =>
             priceValue switch
             {
-                >= 1.0 and <= 400.00 => sellStopOffset,
-                >= 400.00 => sellStopOffsetGreaterThanFourHundredDollars,
-                < 1.0 => sellStopOffsetLessThanOneDollar,
+                >= 1.00 and <= 400.00 => sellStopOffset,
+                > 400.00 => sellStopOffsetGreaterThanFourHundredDollars,
+                < 1.00 => sellStopOffsetLessThanOneDollar,
                 _ => double.NaN
             };
 
