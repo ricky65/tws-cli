@@ -64,6 +64,36 @@ namespace TradeBot
         private double buyStopOffsetLessThanOneDollar = 0.03;
         private double sellStopOffsetLessThanOneDollar = 0.03;
 
+        private double limitOffsetGreaterThanFourHundredDollars = 0.30;
+        private double buyStopOffsetGreaterThanFourHundredDollars = 0.30;
+        private double sellStopOffsetGreaterThanFourHundredDollars = 0.30;
+
+        public double GetLimitOrderOffset(double priceValue) =>
+            priceValue switch
+            {
+                >= 1.0 and <= 400.00 => limitOffset,
+                >= 400.00 => limitOffsetGreaterThanFourHundredDollars,                
+                < 1.0 => limitOffsetLessThanOneDollar,
+                _ => double.NaN
+            };
+
+        public double GetBuyStopLimitOrderOffset(double priceValue) =>
+            priceValue switch
+            {
+                >= 1.0 and <= 400.00 => buyStopOffset,
+                >= 400 => buyStopOffsetGreaterThanFourHundredDollars,
+                < 1.0 => buyStopOffsetLessThanOneDollar,
+                _ => double.NaN
+            };
+        public double GetSellStopLimitOrderOffset(double priceValue) =>
+            priceValue switch
+            {
+                >= 1.0 and <= 400.00 => sellStopOffset,
+                >= 400.00 => sellStopOffsetGreaterThanFourHundredDollars,
+                < 1.0 => sellStopOffsetLessThanOneDollar,
+                _ => double.NaN
+            };
+
         //Maps an Account ID to Net Liquidation Value of account
         Dictionary<string, double> accountNetLiquidationValue = new Dictionary<string, double>();
 
@@ -394,7 +424,7 @@ namespace TradeBot
 
             //Rick: +/- N cent offset
             double offsetPrice = 0.0;
-            double orderLimitOffset = (price.Value >= 1.0 ? limitOffset : limitOffsetLessThanOneDollar);
+            double orderLimitOffset = GetLimitOrderOffset(price.Value);
 
             if (action == OrderActions.BUY)
             {
@@ -457,7 +487,7 @@ namespace TradeBot
             //child stop order
             OrderActions stopAction = action == OrderActions.BUY ? OrderActions.SELL : OrderActions.BUY;
             Order sellStopChildOrder = !outsideRth ? OrderFactory.CreateStopOrder(stopAction, numShares, stopPrice, true) :
-                OrderFactory.CreateStopLimitOrder(stopAction, numShares, stopAction == OrderActions.SELL ? stopPrice - (price >= 1.0 ? sellStopOffset : sellStopOffsetLessThanOneDollar) : stopPrice + (price >= 1.0 ? buyStopOffset : buyStopOffsetLessThanOneDollar), stopPrice, true, outsideRth);
+                OrderFactory.CreateStopLimitOrder(stopAction, numShares, stopAction == OrderActions.SELL ? stopPrice - GetSellStopLimitOrderOffset(price) : stopPrice + GetBuyStopLimitOrderOffset(price), stopPrice, true, outsideRth);
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
@@ -475,11 +505,11 @@ namespace TradeBot
             //Rick: +/- N cent offset
             if (action == OrderActions.BUY)
             {
-                price += (price >= 1.0 ? limitOffset : limitOffsetLessThanOneDollar);               
+                price += GetLimitOrderOffset(price.Value);               
             }
             else if (action == OrderActions.SELL)
             {
-                price -= (price >= 1.0 ? limitOffset : limitOffsetLessThanOneDollar);             
+                price -= GetLimitOrderOffset(price.Value);
             }
 
             Order order = OrderFactory.CreateLimitOrder(action, quantity, price.Value, true, outsideRth);
@@ -545,7 +575,7 @@ namespace TradeBot
             //IO.ShowMessageCLI(riskStr);
 
             //Rick: Buy Stop Limit is StopPrice + N cents
-            double limitPrice = buyStopPrice + (buyStopPrice >= 1.0 ? buyStopOffset : buyStopOffsetLessThanOneDollar);
+            double limitPrice = buyStopPrice + GetBuyStopLimitOrderOffset(buyStopPrice);
 
             //Rick: Create parent order
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, buyStopPrice, false, outsideRth);
@@ -555,7 +585,7 @@ namespace TradeBot
 
             //Rick: Create child stop order
             Order sellStopChildOrder = !outsideRth ? OrderFactory.CreateStopOrder(OrderActions.SELL, numShares, sellStopPrice, true) :
-                OrderFactory.CreateStopLimitOrder(OrderActions.SELL, numShares, sellStopPrice - (buyStopPrice >= 1.0 ? sellStopOffset : sellStopOffsetLessThanOneDollar), sellStopPrice, true, outsideRth);
+                OrderFactory.CreateStopLimitOrder(OrderActions.SELL, numShares, sellStopPrice - GetSellStopLimitOrderOffset(buyStopPrice), sellStopPrice, true, outsideRth);
             sellStopChildOrder.Account = TradedAccount;
             sellStopChildOrder.ParentId = parentOrder.OrderId;
             sellStopChildOrder.OrderId = GetNextValidOrderId();
@@ -591,7 +621,7 @@ namespace TradeBot
             //IO.ShowMessageCLI(riskStr);
 
             //Rick: Sell Stop Limit is StopPrice - N cents
-            double limitPrice = sellStopPrice - (sellStopPrice >= 1.0 ? sellStopOffset : sellStopOffsetLessThanOneDollar);
+            double limitPrice = sellStopPrice - GetSellStopLimitOrderOffset(sellStopPrice);
 
             //Rick: Create parent order
             Order parentOrder = OrderFactory.CreateStopLimitOrder(action, numShares, limitPrice, sellStopPrice, false, outsideRth);
@@ -601,7 +631,7 @@ namespace TradeBot
 
             //Rick: Create child stop order
             Order buyStopChildOrder = !outsideRth ?  OrderFactory.CreateStopOrder(OrderActions.BUY, numShares, buyStopPrice, true)
-                : OrderFactory.CreateStopLimitOrder(OrderActions.BUY, numShares, buyStopPrice + (sellStopPrice >= 1.0 ? buyStopOffset : buyStopOffsetLessThanOneDollar), buyStopPrice, true, outsideRth);
+                : OrderFactory.CreateStopLimitOrder(OrderActions.BUY, numShares, buyStopPrice + GetBuyStopLimitOrderOffset(sellStopPrice), buyStopPrice, true, outsideRth);
             buyStopChildOrder.Account = TradedAccount;
             buyStopChildOrder.ParentId = parentOrder.OrderId;
             buyStopChildOrder.OrderId = GetNextValidOrderId();
