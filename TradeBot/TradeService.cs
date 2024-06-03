@@ -1021,6 +1021,90 @@ namespace TradeBot
             }
         }
 
+        public void CancelMarketData(int stockNum)
+        {
+            if (stockNum == 1 && stock1ReqMktDataId != 0)
+            {
+                clientSocket.cancelMktData(stock1ReqMktDataId);
+                return;
+            }
+            else if (stockNum == 2 && stock2ReqMktDataId != 0)
+            {
+                clientSocket.cancelMktData(stock2ReqMktDataId);
+                return;
+            }
+            else if (stockNum == 3 && stock3ReqMktDataId != 0)
+            {
+                clientSocket.cancelMktData(stock3ReqMktDataId);
+                return;
+            }
+            else if (stockNum == 4 && stock4ReqMktDataId != 0) 
+            {
+                clientSocket.cancelMktData(stock4ReqMktDataId);
+                return;
+            }
+        }
+
+        public void ResetStock(int stockNum)
+        {
+            if (stockNum == 1)
+            {
+                Stock1TickerSymbol = string.Empty;
+                Stock1UseCFD = false;
+
+                stock1StockReqContractDetailsId = 0;
+                stock1CFDReqContractDetailsId = 0;
+                stock1ReqMktDataId = 0;
+                stock1Contract = new Contract();
+                stock1CFDContract = new Contract();
+                stock1TickData = new TickData();
+
+                return;
+            }
+            else if (stockNum == 2)
+            {
+                Stock2TickerSymbol = string.Empty;
+                Stock2UseCFD = false;
+
+                stock2StockReqContractDetailsId = 0;
+                stock2CFDReqContractDetailsId = 0;
+                stock2ReqMktDataId = 0;
+                stock2Contract = new Contract();
+                stock2CFDContract = new Contract();
+                stock2TickData = new TickData();
+
+                return;
+            }
+            else if (stockNum == 3)
+            {
+                Stock3TickerSymbol = string.Empty;
+                Stock3UseCFD = false;
+
+                stock3StockReqContractDetailsId = 0;
+                stock3CFDReqContractDetailsId = 0;
+                stock3ReqMktDataId = 0;
+                stock3Contract = new Contract();
+                stock3CFDContract = new Contract();
+                stock3TickData = new TickData();
+
+                return;
+            }
+            else if (stockNum == 4)
+            {
+                Stock4TickerSymbol = string.Empty;
+                Stock4UseCFD = false;
+
+                stock4StockReqContractDetailsId = 0;
+                stock4CFDReqContractDetailsId = 0;
+                stock4ReqMktDataId = 0;
+                stock4Contract = new Contract();
+                stock4CFDContract = new Contract();
+                stock4TickData = new TickData();
+
+                return;
+            }
+        }
+
         private void OnUpdatePortfolio(Contract contract, double positionSize, double marketPrice, double marketValue, double avgCost, double unrealisedPNL, double realisedPNL, string account)
         {
             var position = new Position(account, contract, positionSize, avgCost, marketPrice, marketValue, unrealisedPNL, realisedPNL);
