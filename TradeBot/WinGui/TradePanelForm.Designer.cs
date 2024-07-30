@@ -474,16 +474,16 @@
             stock1BuyStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock1BuyStopPriceLabel.Location = new Point(241, 208);
             stock1BuyStopPriceLabel.Name = "stock1BuyStopPriceLabel";
-            stock1BuyStopPriceLabel.Size = new Size(101, 21);
+            stock1BuyStopPriceLabel.Size = new Size(109, 21);
             stock1BuyStopPriceLabel.TabIndex = 54;
             stock1BuyStopPriceLabel.Text = "Buy Stop Price";
             // 
             // stock1BuyStopPriceTextBox
             // 
-            stock1BuyStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock1BuyStopPriceTextBox.Location = new Point(356, 205);
+            stock1BuyStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            stock1BuyStopPriceTextBox.Location = new Point(356, 200);
             stock1BuyStopPriceTextBox.Name = "stock1BuyStopPriceTextBox";
-            stock1BuyStopPriceTextBox.Size = new Size(100, 29);
+            stock1BuyStopPriceTextBox.Size = new Size(100, 35);
             stock1BuyStopPriceTextBox.TabIndex = 5;
             // 
             // stock1Close100Percent
@@ -640,6 +640,8 @@
             // stock1OutsideRTHCheckbox
             // 
             stock1OutsideRTHCheckbox.AutoSize = true;
+            stock1OutsideRTHCheckbox.Checked = true;
+            stock1OutsideRTHCheckbox.CheckState = CheckState.Checked;
             stock1OutsideRTHCheckbox.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             stock1OutsideRTHCheckbox.Location = new Point(416, 41);
             stock1OutsideRTHCheckbox.Name = "stock1OutsideRTHCheckbox";
@@ -647,7 +649,6 @@
             stock1OutsideRTHCheckbox.TabIndex = 68;
             stock1OutsideRTHCheckbox.Text = "Outside RTH";
             stock1OutsideRTHCheckbox.UseVisualStyleBackColor = true;
-            stock1OutsideRTHCheckbox.Checked = true;
             stock1OutsideRTHCheckbox.CheckedChanged += stock1OutsideRTHCheckbox_CheckedChanged;
             // 
             // stock1PercentageChangeLabel
@@ -773,16 +774,16 @@
             stock1SellStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock1SellStopPriceLabel.Location = new Point(9, 208);
             stock1SellStopPriceLabel.Name = "stock1SellStopPriceLabel";
-            stock1SellStopPriceLabel.Size = new Size(100, 21);
+            stock1SellStopPriceLabel.Size = new Size(108, 21);
             stock1SellStopPriceLabel.TabIndex = 52;
             stock1SellStopPriceLabel.Text = "Sell Stop Price";
             // 
             // stock1SellStopPriceTextBox
             // 
-            stock1SellStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock1SellStopPriceTextBox.Location = new Point(125, 205);
+            stock1SellStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            stock1SellStopPriceTextBox.Location = new Point(125, 200);
             stock1SellStopPriceTextBox.Name = "stock1SellStopPriceTextBox";
-            stock1SellStopPriceTextBox.Size = new Size(100, 29);
+            stock1SellStopPriceTextBox.Size = new Size(100, 35);
             stock1SellStopPriceTextBox.TabIndex = 4;
             // 
             // stock1Short05Percent
@@ -916,26 +917,26 @@
             stock1TakeProfitLimitPriceLabel.Font = new Font("Segoe UI", 12F);
             stock1TakeProfitLimitPriceLabel.Location = new Point(8, 501);
             stock1TakeProfitLimitPriceLabel.Name = "stock1TakeProfitLimitPriceLabel";
-            stock1TakeProfitLimitPriceLabel.Size = new Size(147, 21);
+            stock1TakeProfitLimitPriceLabel.Size = new Size(159, 21);
             stock1TakeProfitLimitPriceLabel.TabIndex = 42;
             stock1TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
             // 
             // stock1TakeProfitLimitPriceTextBox
             // 
-            stock1TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock1TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
+            stock1TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock1TakeProfitLimitPriceTextBox.Location = new Point(169, 493);
             stock1TakeProfitLimitPriceTextBox.Name = "stock1TakeProfitLimitPriceTextBox";
-            stock1TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
+            stock1TakeProfitLimitPriceTextBox.Size = new Size(100, 35);
             stock1TakeProfitLimitPriceTextBox.TabIndex = 34;
             // 
             // stock1TickerInput
             // 
             stock1TickerInput.BorderStyle = BorderStyle.FixedSingle;
             stock1TickerInput.CharacterCasing = CharacterCasing.Upper;
-            stock1TickerInput.Font = new Font("Segoe UI", 12F);
+            stock1TickerInput.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             stock1TickerInput.Location = new Point(128, 37);
             stock1TickerInput.Name = "stock1TickerInput";
-            stock1TickerInput.Size = new Size(100, 29);
+            stock1TickerInput.Size = new Size(100, 33);
             stock1TickerInput.TabIndex = 1;
             // 
             // stock1TickerLabel
@@ -1086,7 +1087,7 @@
             stock2ButtonStock.UseVisualStyleBackColor = true;
             stock2ButtonStock.Click += stock2ButtonStock_Click;
             // 
-            // stock1ResetButton
+            // stock2ResetButton
             // 
             stock2ResetButton.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             stock2ResetButton.Location = new Point(543, 32);
@@ -1096,7 +1097,6 @@
             stock2ResetButton.Text = "Reset";
             stock2ResetButton.UseVisualStyleBackColor = true;
             stock2ResetButton.Click += stock2ButtonReset_Click;
-
             // 
             // stock2BuyStop05Percent
             // 
@@ -1176,16 +1176,16 @@
             stock2BuyStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock2BuyStopPriceLabel.Location = new Point(241, 208);
             stock2BuyStopPriceLabel.Name = "stock2BuyStopPriceLabel";
-            stock2BuyStopPriceLabel.Size = new Size(101, 21);
+            stock2BuyStopPriceLabel.Size = new Size(109, 21);
             stock2BuyStopPriceLabel.TabIndex = 54;
             stock2BuyStopPriceLabel.Text = "Buy Stop Price";
             // 
             // stock2BuyStopPriceTextBox
             // 
-            stock2BuyStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock2BuyStopPriceTextBox.Location = new Point(356, 205);
+            stock2BuyStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock2BuyStopPriceTextBox.Location = new Point(356, 200);
             stock2BuyStopPriceTextBox.Name = "stock2BuyStopPriceTextBox";
-            stock2BuyStopPriceTextBox.Size = new Size(100, 29);
+            stock2BuyStopPriceTextBox.Size = new Size(100, 35);
             stock2BuyStopPriceTextBox.TabIndex = 5;
             // 
             // stock2Close100Percent
@@ -1474,16 +1474,16 @@
             stock2SellStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock2SellStopPriceLabel.Location = new Point(9, 208);
             stock2SellStopPriceLabel.Name = "stock2SellStopPriceLabel";
-            stock2SellStopPriceLabel.Size = new Size(100, 21);
+            stock2SellStopPriceLabel.Size = new Size(108, 21);
             stock2SellStopPriceLabel.TabIndex = 52;
             stock2SellStopPriceLabel.Text = "Sell Stop Price";
             // 
             // stock2SellStopPriceTextBox
             // 
-            stock2SellStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock2SellStopPriceTextBox.Location = new Point(125, 205);
+            stock2SellStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock2SellStopPriceTextBox.Location = new Point(125, 200);
             stock2SellStopPriceTextBox.Name = "stock2SellStopPriceTextBox";
-            stock2SellStopPriceTextBox.Size = new Size(100, 29);
+            stock2SellStopPriceTextBox.Size = new Size(100, 35);
             stock2SellStopPriceTextBox.TabIndex = 4;
             // 
             // stock2Short05Percent
@@ -1617,26 +1617,26 @@
             stock2TakeProfitLimitPriceLabel.Font = new Font("Segoe UI", 12F);
             stock2TakeProfitLimitPriceLabel.Location = new Point(8, 501);
             stock2TakeProfitLimitPriceLabel.Name = "stock2TakeProfitLimitPriceLabel";
-            stock2TakeProfitLimitPriceLabel.Size = new Size(147, 21);
+            stock2TakeProfitLimitPriceLabel.Size = new Size(159, 21);
             stock2TakeProfitLimitPriceLabel.TabIndex = 42;
             stock2TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
             // 
             // stock2TakeProfitLimitPriceTextBox
             // 
-            stock2TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock2TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
+            stock2TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock2TakeProfitLimitPriceTextBox.Location = new Point(169, 493);
             stock2TakeProfitLimitPriceTextBox.Name = "stock2TakeProfitLimitPriceTextBox";
-            stock2TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
+            stock2TakeProfitLimitPriceTextBox.Size = new Size(100, 35);
             stock2TakeProfitLimitPriceTextBox.TabIndex = 34;
             // 
             // stock2TickerInput
             // 
             stock2TickerInput.BorderStyle = BorderStyle.FixedSingle;
             stock2TickerInput.CharacterCasing = CharacterCasing.Upper;
-            stock2TickerInput.Font = new Font("Segoe UI", 12F);
+            stock2TickerInput.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             stock2TickerInput.Location = new Point(128, 37);
             stock2TickerInput.Name = "stock2TickerInput";
-            stock2TickerInput.Size = new Size(100, 29);
+            stock2TickerInput.Size = new Size(100, 33);
             stock2TickerInput.TabIndex = 1;
             // 
             // stock2TickerLabel
@@ -1864,16 +1864,16 @@
             stock3BuyStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock3BuyStopPriceLabel.Location = new Point(241, 208);
             stock3BuyStopPriceLabel.Name = "stock3BuyStopPriceLabel";
-            stock3BuyStopPriceLabel.Size = new Size(101, 21);
+            stock3BuyStopPriceLabel.Size = new Size(109, 21);
             stock3BuyStopPriceLabel.TabIndex = 54;
             stock3BuyStopPriceLabel.Text = "Buy Stop Price";
             // 
             // stock3BuyStopPriceTextBox
             // 
-            stock3BuyStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock3BuyStopPriceTextBox.Location = new Point(356, 205);
+            stock3BuyStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock3BuyStopPriceTextBox.Location = new Point(356, 200);
             stock3BuyStopPriceTextBox.Name = "stock3BuyStopPriceTextBox";
-            stock3BuyStopPriceTextBox.Size = new Size(100, 29);
+            stock3BuyStopPriceTextBox.Size = new Size(100, 35);
             stock3BuyStopPriceTextBox.TabIndex = 5;
             // 
             // stock3Close100Percent
@@ -2162,16 +2162,16 @@
             stock3SellStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock3SellStopPriceLabel.Location = new Point(9, 208);
             stock3SellStopPriceLabel.Name = "stock3SellStopPriceLabel";
-            stock3SellStopPriceLabel.Size = new Size(100, 21);
+            stock3SellStopPriceLabel.Size = new Size(108, 21);
             stock3SellStopPriceLabel.TabIndex = 52;
             stock3SellStopPriceLabel.Text = "Sell Stop Price";
             // 
             // stock3SellStopPriceTextBox
             // 
-            stock3SellStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock3SellStopPriceTextBox.Location = new Point(125, 205);
+            stock3SellStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock3SellStopPriceTextBox.Location = new Point(125, 200);
             stock3SellStopPriceTextBox.Name = "stock3SellStopPriceTextBox";
-            stock3SellStopPriceTextBox.Size = new Size(100, 29);
+            stock3SellStopPriceTextBox.Size = new Size(100, 35);
             stock3SellStopPriceTextBox.TabIndex = 4;
             // 
             // stock3Short05Percent
@@ -2305,26 +2305,26 @@
             stock3TakeProfitLimitPriceLabel.Font = new Font("Segoe UI", 12F);
             stock3TakeProfitLimitPriceLabel.Location = new Point(8, 501);
             stock3TakeProfitLimitPriceLabel.Name = "stock3TakeProfitLimitPriceLabel";
-            stock3TakeProfitLimitPriceLabel.Size = new Size(147, 21);
+            stock3TakeProfitLimitPriceLabel.Size = new Size(159, 21);
             stock3TakeProfitLimitPriceLabel.TabIndex = 42;
             stock3TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
             // 
             // stock3TakeProfitLimitPriceTextBox
             // 
-            stock3TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock3TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
+            stock3TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock3TakeProfitLimitPriceTextBox.Location = new Point(169, 493);
             stock3TakeProfitLimitPriceTextBox.Name = "stock3TakeProfitLimitPriceTextBox";
-            stock3TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
+            stock3TakeProfitLimitPriceTextBox.Size = new Size(100, 35);
             stock3TakeProfitLimitPriceTextBox.TabIndex = 34;
             // 
             // stock3TickerInput
             // 
             stock3TickerInput.BorderStyle = BorderStyle.FixedSingle;
             stock3TickerInput.CharacterCasing = CharacterCasing.Upper;
-            stock3TickerInput.Font = new Font("Segoe UI", 12F);
+            stock3TickerInput.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             stock3TickerInput.Location = new Point(128, 37);
             stock3TickerInput.Name = "stock3TickerInput";
-            stock3TickerInput.Size = new Size(100, 29);
+            stock3TickerInput.Size = new Size(100, 33);
             stock3TickerInput.TabIndex = 1;
             // 
             // stock3TickerLabel
@@ -2552,16 +2552,16 @@
             stock4BuyStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock4BuyStopPriceLabel.Location = new Point(241, 208);
             stock4BuyStopPriceLabel.Name = "stock4BuyStopPriceLabel";
-            stock4BuyStopPriceLabel.Size = new Size(101, 21);
+            stock4BuyStopPriceLabel.Size = new Size(109, 21);
             stock4BuyStopPriceLabel.TabIndex = 54;
             stock4BuyStopPriceLabel.Text = "Buy Stop Price";
             // 
             // stock4BuyStopPriceTextBox
             // 
-            stock4BuyStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock4BuyStopPriceTextBox.Location = new Point(356, 205);
+            stock4BuyStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock4BuyStopPriceTextBox.Location = new Point(356, 200);
             stock4BuyStopPriceTextBox.Name = "stock4BuyStopPriceTextBox";
-            stock4BuyStopPriceTextBox.Size = new Size(100, 29);
+            stock4BuyStopPriceTextBox.Size = new Size(100, 35);
             stock4BuyStopPriceTextBox.TabIndex = 5;
             // 
             // stock4Close100Percent
@@ -2850,16 +2850,16 @@
             stock4SellStopPriceLabel.Font = new Font("Segoe UI", 12F);
             stock4SellStopPriceLabel.Location = new Point(9, 208);
             stock4SellStopPriceLabel.Name = "stock4SellStopPriceLabel";
-            stock4SellStopPriceLabel.Size = new Size(100, 21);
+            stock4SellStopPriceLabel.Size = new Size(108, 21);
             stock4SellStopPriceLabel.TabIndex = 52;
             stock4SellStopPriceLabel.Text = "Sell Stop Price";
             // 
             // stock4SellStopPriceTextBox
             // 
-            stock4SellStopPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock4SellStopPriceTextBox.Location = new Point(125, 205);
+            stock4SellStopPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock4SellStopPriceTextBox.Location = new Point(125, 200);
             stock4SellStopPriceTextBox.Name = "stock4SellStopPriceTextBox";
-            stock4SellStopPriceTextBox.Size = new Size(100, 29);
+            stock4SellStopPriceTextBox.Size = new Size(100, 35);
             stock4SellStopPriceTextBox.TabIndex = 4;
             // 
             // stock4Short05Percent
@@ -2993,26 +2993,26 @@
             stock4TakeProfitLimitPriceLabel.Font = new Font("Segoe UI", 12F);
             stock4TakeProfitLimitPriceLabel.Location = new Point(8, 501);
             stock4TakeProfitLimitPriceLabel.Name = "stock4TakeProfitLimitPriceLabel";
-            stock4TakeProfitLimitPriceLabel.Size = new Size(147, 21);
+            stock4TakeProfitLimitPriceLabel.Size = new Size(159, 21);
             stock4TakeProfitLimitPriceLabel.TabIndex = 42;
             stock4TakeProfitLimitPriceLabel.Text = "Take Profit Limit Price";
             // 
             // stock4TakeProfitLimitPriceTextBox
             // 
-            stock4TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI", 12F);
-            stock4TakeProfitLimitPriceTextBox.Location = new Point(169, 498);
+            stock4TakeProfitLimitPriceTextBox.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold);
+            stock4TakeProfitLimitPriceTextBox.Location = new Point(169, 493);
             stock4TakeProfitLimitPriceTextBox.Name = "stock4TakeProfitLimitPriceTextBox";
-            stock4TakeProfitLimitPriceTextBox.Size = new Size(100, 29);
+            stock4TakeProfitLimitPriceTextBox.Size = new Size(100, 35);
             stock4TakeProfitLimitPriceTextBox.TabIndex = 34;
             // 
             // stock4TickerInput
             // 
             stock4TickerInput.BorderStyle = BorderStyle.FixedSingle;
             stock4TickerInput.CharacterCasing = CharacterCasing.Upper;
-            stock4TickerInput.Font = new Font("Segoe UI", 12F);
+            stock4TickerInput.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             stock4TickerInput.Location = new Point(128, 37);
             stock4TickerInput.Name = "stock4TickerInput";
-            stock4TickerInput.Size = new Size(100, 29);
+            stock4TickerInput.Size = new Size(100, 33);
             stock4TickerInput.TabIndex = 1;
             // 
             // stock4TickerLabel
@@ -3023,14 +3023,13 @@
             stock4TickerLabel.Name = "stock4TickerLabel";
             stock4TickerLabel.Size = new Size(51, 21);
             stock4TickerLabel.TabIndex = 0;
-            stock4TickerLabel.Text = "Ticker";            
+            stock4TickerLabel.Text = "Ticker";
             // 
             // TradePanelForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1464, 1295);
-            
             Controls.Add(GlobalOutputTextBox);
             Controls.Add(stock1GroupBox);
             Controls.Add(stock2GroupBox);
