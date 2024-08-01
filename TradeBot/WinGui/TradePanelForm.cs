@@ -49,10 +49,20 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
                     stock1Long05Percent.Enabled = false;
+                    stock1Long1Percent.Enabled = false;
+                    stock1Long125percent.Enabled = false;
+                    stock1Long15Percent.Enabled = false;
+                    stock1Long2Percent.Enabled = false;
+                    stock1Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_ONE, 10, TickType.ASK, sellStopPrice, 0.5, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock1Long05Percent.Enabled = true;
+                    stock1Long1Percent.Enabled = true;
+                    stock1Long125percent.Enabled = true;
+                    stock1Long15Percent.Enabled = true;
+                    stock1Long2Percent.Enabled = true;
+                    stock1Long25Percent.Enabled = true;
                 }
             }
         }
@@ -66,11 +76,22 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Long05Percent.Enabled = false;
                     stock1Long1Percent.Enabled = false;
+                    stock1Long125percent.Enabled = false;
+                    stock1Long15Percent.Enabled = false;
+                    stock1Long2Percent.Enabled = false;
+                    stock1Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_ONE, 10, TickType.ASK, sellStopPrice, 1.0, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Long05Percent.Enabled = true;
                     stock1Long1Percent.Enabled = true;
+                    stock1Long125percent.Enabled = true;
+                    stock1Long15Percent.Enabled = true;
+                    stock1Long2Percent.Enabled = true;
+                    stock1Long25Percent.Enabled = true;
+
                 }
             }
         }
@@ -84,11 +105,22 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Long05Percent.Enabled = false;
+                    stock1Long1Percent.Enabled = false;
                     stock1Long125percent.Enabled = false;
+                    stock1Long15Percent.Enabled = false;
+                    stock1Long2Percent.Enabled = false;
+                    stock1Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_ONE, 10, TickType.ASK, sellStopPrice, 1.25, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Long05Percent.Enabled = true;
+                    stock1Long1Percent.Enabled = true;
                     stock1Long125percent.Enabled = true;
+                    stock1Long15Percent.Enabled = true;
+                    stock1Long2Percent.Enabled = true;
+                    stock1Long25Percent.Enabled = true;
+
                 }
             }
         }
@@ -102,11 +134,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Long05Percent.Enabled = false;
+                    stock1Long1Percent.Enabled = false;
+                    stock1Long125percent.Enabled = false;
                     stock1Long15Percent.Enabled = false;
+                    stock1Long2Percent.Enabled = false;
+                    stock1Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_ONE, 10, TickType.ASK, sellStopPrice, 1.5, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Long05Percent.Enabled = true;
+                    stock1Long1Percent.Enabled = true;
+                    stock1Long125percent.Enabled = true;
                     stock1Long15Percent.Enabled = true;
+                    stock1Long2Percent.Enabled = true;
+                    stock1Long25Percent.Enabled = true;
                 }
             }
         }
@@ -120,11 +162,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Long05Percent.Enabled = false;
+                    stock1Long1Percent.Enabled = false;
+                    stock1Long125percent.Enabled = false;
+                    stock1Long15Percent.Enabled = false;
                     stock1Long2Percent.Enabled = false;
+                    stock1Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_ONE, 10, TickType.ASK, sellStopPrice, 2.0, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Long05Percent.Enabled = true;
+                    stock1Long1Percent.Enabled = true;
+                    stock1Long125percent.Enabled = true;
+                    stock1Long15Percent.Enabled = true;
                     stock1Long2Percent.Enabled = true;
+                    stock1Long25Percent.Enabled = true;
                 }
             }
         }
@@ -138,10 +190,20 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Long05Percent.Enabled = false;
+                    stock1Long1Percent.Enabled = false;
+                    stock1Long125percent.Enabled = false;
+                    stock1Long15Percent.Enabled = false;
+                    stock1Long2Percent.Enabled = false;
                     stock1Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_ONE, 10, TickType.ASK, sellStopPrice, 2.5, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Long05Percent.Enabled = true;
+                    stock1Long1Percent.Enabled = true;
+                    stock1Long125percent.Enabled = true;
+                    stock1Long15Percent.Enabled = true;
+                    stock1Long2Percent.Enabled = true;
                     stock1Long25Percent.Enabled = true;
                 }
             }
@@ -158,10 +220,18 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
                     stock1Short05Percent.Enabled = false;
+                    stock1Short1Percent.Enabled = false;
+                    stock1Short125Percent.Enabled = false;
+                    stock1Short15Percent.Enabled = false;
+                    stock1Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_ONE, 10, TickType.BID, buyStopPrice, 0.5, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock1Short05Percent.Enabled = true;
+                    stock1Short1Percent.Enabled = true;
+                    stock1Short125Percent.Enabled = true;
+                    stock1Short15Percent.Enabled = true;
+                    stock1Short2Percent.Enabled = true;
                 }
             }
         }
@@ -176,11 +246,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Short05Percent.Enabled = false;
                     stock1Short1Percent.Enabled = false;
+                    stock1Short125Percent.Enabled = false;
+                    stock1Short15Percent.Enabled = false;
+                    stock1Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_ONE, 10, TickType.BID, buyStopPrice, 1.0, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Short05Percent.Enabled = true;
                     stock1Short1Percent.Enabled = true;
+                    stock1Short125Percent.Enabled = true;
+                    stock1Short15Percent.Enabled = true;
+                    stock1Short2Percent.Enabled = true;
                 }
             }
         }
@@ -195,11 +273,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Short05Percent.Enabled = false;
+                    stock1Short1Percent.Enabled = false;
                     stock1Short125Percent.Enabled = false;
+                    stock1Short15Percent.Enabled = false;
+                    stock1Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_ONE, 10, TickType.BID, buyStopPrice, 1.25, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Short05Percent.Enabled = true;
+                    stock1Short1Percent.Enabled = true;
                     stock1Short125Percent.Enabled = true;
+                    stock1Short15Percent.Enabled = true;
+                    stock1Short2Percent.Enabled = true;
                 }
             }
 
@@ -215,11 +301,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Short05Percent.Enabled = false;
+                    stock1Short1Percent.Enabled = false;
+                    stock1Short125Percent.Enabled = false;
                     stock1Short15Percent.Enabled = false;
+                    stock1Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_ONE, 10, TickType.BID, buyStopPrice, 1.5, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Short05Percent.Enabled = true;
+                    stock1Short1Percent.Enabled = true;
+                    stock1Short125Percent.Enabled = true;
                     stock1Short15Percent.Enabled = true;
+                    stock1Short2Percent.Enabled = true;
                 }
             }
         }
@@ -234,10 +328,18 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_ONE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
                 {
+                    stock1Short05Percent.Enabled = false;
+                    stock1Short1Percent.Enabled = false;
+                    stock1Short125Percent.Enabled = false;
+                    stock1Short15Percent.Enabled = false;
                     stock1Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_ONE, 10, TickType.BID, buyStopPrice, 2.0, stock1OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock1Short05Percent.Enabled = true;
+                    stock1Short1Percent.Enabled = true;
+                    stock1Short125Percent.Enabled = true;
+                    stock1Short15Percent.Enabled = true;
                     stock1Short2Percent.Enabled = true;
                 }
             }
@@ -800,10 +902,20 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
                     stock2Long05Percent.Enabled = false;
+                    stock2Long1Percent.Enabled = false;
+                    stock2Long125percent.Enabled = false;
+                    stock2Long15Percent.Enabled = false;
+                    stock2Long2Percent.Enabled = false;
+                    stock2Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_TWO, 10, TickType.ASK, sellStopPrice, 0.5, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock2Long05Percent.Enabled = true;
+                    stock2Long1Percent.Enabled = true;
+                    stock2Long125percent.Enabled = true;
+                    stock2Long15Percent.Enabled = true;
+                    stock2Long2Percent.Enabled = true;
+                    stock2Long25Percent.Enabled = true;
                 }
             }
         }
@@ -817,11 +929,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Long05Percent.Enabled = false;
                     stock2Long1Percent.Enabled = false;
+                    stock2Long125percent.Enabled = false;
+                    stock2Long15Percent.Enabled = false;
+                    stock2Long2Percent.Enabled = false;
+                    stock2Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_TWO, 10, TickType.ASK, sellStopPrice, 1.0, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Long05Percent.Enabled = true;
                     stock2Long1Percent.Enabled = true;
+                    stock2Long125percent.Enabled = true;
+                    stock2Long15Percent.Enabled = true;
+                    stock2Long2Percent.Enabled = true;
+                    stock2Long25Percent.Enabled = true;
                 }
             }
         }
@@ -835,11 +957,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Long05Percent.Enabled = false;
+                    stock2Long1Percent.Enabled = false;
                     stock2Long125percent.Enabled = false;
+                    stock2Long15Percent.Enabled = false;
+                    stock2Long2Percent.Enabled = false;
+                    stock2Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_TWO, 10, TickType.ASK, sellStopPrice, 1.25, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Long05Percent.Enabled = true;
+                    stock2Long1Percent.Enabled = true;
                     stock2Long125percent.Enabled = true;
+                    stock2Long15Percent.Enabled = true;
+                    stock2Long2Percent.Enabled = true;
+                    stock2Long25Percent.Enabled = true;
                 }
             }
         }
@@ -853,11 +985,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Long05Percent.Enabled = false;
+                    stock2Long1Percent.Enabled = false;
+                    stock2Long125percent.Enabled = false;
                     stock2Long15Percent.Enabled = false;
+                    stock2Long2Percent.Enabled = false;
+                    stock2Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_TWO, 10, TickType.ASK, sellStopPrice, 1.5, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Long05Percent.Enabled = true;
+                    stock2Long1Percent.Enabled = true;
+                    stock2Long125percent.Enabled = true;
                     stock2Long15Percent.Enabled = true;
+                    stock2Long2Percent.Enabled = true;
+                    stock2Long25Percent.Enabled = true;
                 }
             }
         }
@@ -871,11 +1013,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Long05Percent.Enabled = false;
+                    stock2Long1Percent.Enabled = false;
+                    stock2Long125percent.Enabled = false;
+                    stock2Long15Percent.Enabled = false;
                     stock2Long2Percent.Enabled = false;
+                    stock2Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_TWO, 10, TickType.ASK, sellStopPrice, 2.0, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Long05Percent.Enabled = true;
+                    stock2Long1Percent.Enabled = true;
+                    stock2Long125percent.Enabled = true;
+                    stock2Long15Percent.Enabled = true;
                     stock2Long2Percent.Enabled = true;
+                    stock2Long25Percent.Enabled = true;
                 }
             }
         }
@@ -889,10 +1041,20 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Long05Percent.Enabled = false;
+                    stock2Long1Percent.Enabled = false;
+                    stock2Long125percent.Enabled = false;
+                    stock2Long15Percent.Enabled = false;
+                    stock2Long2Percent.Enabled = false;
                     stock2Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_TWO, 10, TickType.ASK, sellStopPrice, 2.5, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Long05Percent.Enabled = true;
+                    stock2Long1Percent.Enabled = true;
+                    stock2Long125percent.Enabled = true;
+                    stock2Long15Percent.Enabled = true;
+                    stock2Long2Percent.Enabled = true;
                     stock2Long25Percent.Enabled = true;
                 }
             }
@@ -909,10 +1071,18 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
                     stock2Short05Percent.Enabled = false;
+                    stock2Short1Percent.Enabled = false;
+                    stock2Short125Percent.Enabled = false;
+                    stock2Short15Percent.Enabled = false;
+                    stock2Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_TWO, 10, TickType.BID, buyStopPrice, 0.5, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock2Short05Percent.Enabled = true;
+                    stock2Short1Percent.Enabled = true;
+                    stock2Short125Percent.Enabled = true;
+                    stock2Short15Percent.Enabled = true;
+                    stock2Short2Percent.Enabled = true;
                 }
             }
         }
@@ -927,11 +1097,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Short05Percent.Enabled = false;
                     stock2Short1Percent.Enabled = false;
+                    stock2Short125Percent.Enabled = false;
+                    stock2Short15Percent.Enabled = false;
+                    stock2Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_TWO, 10, TickType.BID, buyStopPrice, 1.0, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Short05Percent.Enabled = true;
                     stock2Short1Percent.Enabled = true;
+                    stock2Short125Percent.Enabled = true;
+                    stock2Short15Percent.Enabled = true;
+                    stock2Short2Percent.Enabled = true;
                 }
             }
         }
@@ -946,11 +1124,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Short05Percent.Enabled = false;
+                    stock2Short1Percent.Enabled = false;
                     stock2Short125Percent.Enabled = false;
+                    stock2Short15Percent.Enabled = false;
+                    stock2Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_TWO, 10, TickType.BID, buyStopPrice, 1.25, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Short05Percent.Enabled = true;
+                    stock2Short1Percent.Enabled = true;
                     stock2Short125Percent.Enabled = true;
+                    stock2Short15Percent.Enabled = true;
+                    stock2Short2Percent.Enabled = true;
                 }
             }
 
@@ -966,11 +1152,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Short05Percent.Enabled = false;
+                    stock2Short1Percent.Enabled = false;
+                    stock2Short125Percent.Enabled = false;
                     stock2Short15Percent.Enabled = false;
+                    stock2Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_TWO, 10, TickType.BID, buyStopPrice, 1.5, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Short05Percent.Enabled = true;
+                    stock2Short1Percent.Enabled = true;
+                    stock2Short125Percent.Enabled = true;
                     stock2Short15Percent.Enabled = true;
+                    stock2Short2Percent.Enabled = true;
                 }
             }
         }
@@ -985,10 +1179,18 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_TWO, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_TWO, controller.service, COMMON_TICKS))
                 {
+                    stock2Short05Percent.Enabled = false;
+                    stock2Short1Percent.Enabled = false;
+                    stock2Short125Percent.Enabled = false;
+                    stock2Short15Percent.Enabled = false;
                     stock2Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_TWO, 10, TickType.BID, buyStopPrice, 2.0, stock2OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock2Short05Percent.Enabled = true;
+                    stock2Short1Percent.Enabled = true;
+                    stock2Short125Percent.Enabled = true;
+                    stock2Short15Percent.Enabled = true;
                     stock2Short2Percent.Enabled = true;
                 }
             }
@@ -1550,10 +1752,20 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
                     stock3Long05Percent.Enabled = false;
+                    stock3Long1Percent.Enabled = false;
+                    stock3Long125percent.Enabled = false;
+                    stock3Long15Percent.Enabled = false;
+                    stock3Long2Percent.Enabled = false;
+                    stock3Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_THREE, 10, TickType.ASK, sellStopPrice, 0.5, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock3Long05Percent.Enabled = true;
+                    stock3Long1Percent.Enabled = true;
+                    stock3Long125percent.Enabled = true;
+                    stock3Long15Percent.Enabled = true;
+                    stock3Long2Percent.Enabled = true;
+                    stock3Long25Percent.Enabled = true;
                 }
             }
         }
@@ -1567,11 +1779,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Long05Percent.Enabled = false;
                     stock3Long1Percent.Enabled = false;
+                    stock3Long125percent.Enabled = false;
+                    stock3Long15Percent.Enabled = false;
+                    stock3Long2Percent.Enabled = false;
+                    stock3Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_THREE, 10, TickType.ASK, sellStopPrice, 1.0, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Long05Percent.Enabled = true;
                     stock3Long1Percent.Enabled = true;
+                    stock3Long125percent.Enabled = true;
+                    stock3Long15Percent.Enabled = true;
+                    stock3Long2Percent.Enabled = true;
+                    stock3Long25Percent.Enabled = true;
                 }
             }
         }
@@ -1585,11 +1807,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Long05Percent.Enabled = false;
+                    stock3Long1Percent.Enabled = false;
                     stock3Long125percent.Enabled = false;
+                    stock3Long15Percent.Enabled = false;
+                    stock3Long2Percent.Enabled = false;
+                    stock3Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_THREE, 10, TickType.ASK, sellStopPrice, 1.25, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Long05Percent.Enabled = true;
+                    stock3Long1Percent.Enabled = true;
                     stock3Long125percent.Enabled = true;
+                    stock3Long15Percent.Enabled = true;
+                    stock3Long2Percent.Enabled = true;
+                    stock3Long25Percent.Enabled = true;
                 }
             }
         }
@@ -1603,11 +1835,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Long05Percent.Enabled = false;
+                    stock3Long1Percent.Enabled = false;
+                    stock3Long125percent.Enabled = false;
                     stock3Long15Percent.Enabled = false;
+                    stock3Long2Percent.Enabled = false;
+                    stock3Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_THREE, 10, TickType.ASK, sellStopPrice, 1.5, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Long05Percent.Enabled = true;
+                    stock3Long1Percent.Enabled = true;
+                    stock3Long125percent.Enabled = true;
                     stock3Long15Percent.Enabled = true;
+                    stock3Long2Percent.Enabled = true;
+                    stock3Long25Percent.Enabled = true;
                 }
             }
         }
@@ -1621,11 +1863,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Long05Percent.Enabled = false;
+                    stock3Long1Percent.Enabled = false;
+                    stock3Long125percent.Enabled = false;
+                    stock3Long15Percent.Enabled = false;
                     stock3Long2Percent.Enabled = false;
+                    stock3Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_THREE, 10, TickType.ASK, sellStopPrice, 2.0, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Long05Percent.Enabled = true;
+                    stock3Long1Percent.Enabled = true;
+                    stock3Long125percent.Enabled = true;
+                    stock3Long15Percent.Enabled = true;
                     stock3Long2Percent.Enabled = true;
+                    stock3Long25Percent.Enabled = true;
                 }
             }
         }
@@ -1639,10 +1891,20 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Long05Percent.Enabled = false;
+                    stock3Long1Percent.Enabled = false;
+                    stock3Long125percent.Enabled = false;
+                    stock3Long15Percent.Enabled = false;
+                    stock3Long2Percent.Enabled = false;
                     stock3Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_THREE, 10, TickType.ASK, sellStopPrice, 2.5, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Long05Percent.Enabled = true;
+                    stock3Long1Percent.Enabled = true;
+                    stock3Long125percent.Enabled = true;
+                    stock3Long15Percent.Enabled = true;
+                    stock3Long2Percent.Enabled = true;
                     stock3Long25Percent.Enabled = true;
                 }
             }
@@ -1659,10 +1921,18 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
                     stock3Short05Percent.Enabled = false;
+                    stock3Short1Percent.Enabled = false;
+                    stock3Short125Percent.Enabled = false;
+                    stock3Short15Percent.Enabled = false;
+                    stock3Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_THREE, 10, TickType.BID, buyStopPrice, 0.5, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock3Short05Percent.Enabled = true;
+                    stock3Short1Percent.Enabled = true;
+                    stock3Short125Percent.Enabled = true;
+                    stock3Short15Percent.Enabled = true;
+                    stock3Short2Percent.Enabled = true;
                 }
             }
         }
@@ -1677,11 +1947,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Short05Percent.Enabled = false;
                     stock3Short1Percent.Enabled = false;
+                    stock3Short125Percent.Enabled = false;
+                    stock3Short15Percent.Enabled = false;
+                    stock3Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_THREE, 10, TickType.BID, buyStopPrice, 1.0, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Short05Percent.Enabled = true;
                     stock3Short1Percent.Enabled = true;
+                    stock3Short125Percent.Enabled = true;
+                    stock3Short15Percent.Enabled = true;
+                    stock3Short2Percent.Enabled = true;
                 }
             }
         }
@@ -1696,11 +1974,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Short05Percent.Enabled = false;
+                    stock3Short1Percent.Enabled = false;
                     stock3Short125Percent.Enabled = false;
+                    stock3Short15Percent.Enabled = false;
+                    stock3Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_THREE, 10, TickType.BID, buyStopPrice, 1.25, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Short05Percent.Enabled = true;
+                    stock3Short1Percent.Enabled = true;
                     stock3Short125Percent.Enabled = true;
+                    stock3Short15Percent.Enabled = true;
+                    stock3Short2Percent.Enabled = true;
                 }
             }
 
@@ -1716,11 +2002,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Short05Percent.Enabled = false;
+                    stock3Short1Percent.Enabled = false;
+                    stock3Short125Percent.Enabled = false;
                     stock3Short15Percent.Enabled = false;
+                    stock3Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_THREE, 10, TickType.BID, buyStopPrice, 1.5, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Short05Percent.Enabled = true;
+                    stock3Short1Percent.Enabled = true;
+                    stock3Short125Percent.Enabled = true;
                     stock3Short15Percent.Enabled = true;
+                    stock3Short2Percent.Enabled = true;
                 }
             }
         }
@@ -1735,10 +2029,18 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_THREE, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_THREE, controller.service, COMMON_TICKS))
                 {
+                    stock3Short05Percent.Enabled = false;
+                    stock3Short1Percent.Enabled = false;
+                    stock3Short125Percent.Enabled = false;
+                    stock3Short15Percent.Enabled = false;
                     stock3Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_THREE, 10, TickType.BID, buyStopPrice, 2.0, stock3OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock3Short05Percent.Enabled = true;
+                    stock3Short1Percent.Enabled = true;
+                    stock3Short125Percent.Enabled = true;
+                    stock3Short15Percent.Enabled = true;
                     stock3Short2Percent.Enabled = true;
                 }
             }
@@ -2301,10 +2603,20 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
                     stock4Long05Percent.Enabled = false;
+                    stock4Long1Percent.Enabled = false;
+                    stock4Long125percent.Enabled = false;
+                    stock4Long15Percent.Enabled = false;
+                    stock4Long2Percent.Enabled = false;
+                    stock4Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_FOUR, 10, TickType.ASK, sellStopPrice, 0.5, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock4Long05Percent.Enabled = true;
+                    stock4Long1Percent.Enabled = true;
+                    stock4Long125percent.Enabled = true;
+                    stock4Long15Percent.Enabled = true;
+                    stock4Long2Percent.Enabled = true;
+                    stock4Long25Percent.Enabled = true;
                 }
             }
         }
@@ -2318,11 +2630,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Long05Percent.Enabled = false;
                     stock4Long1Percent.Enabled = false;
+                    stock4Long125percent.Enabled = false;
+                    stock4Long15Percent.Enabled = false;
+                    stock4Long2Percent.Enabled = false;
+                    stock4Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_FOUR, 10, TickType.ASK, sellStopPrice, 1.0, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Long05Percent.Enabled = true;
                     stock4Long1Percent.Enabled = true;
+                    stock4Long125percent.Enabled = true;
+                    stock4Long15Percent.Enabled = true;
+                    stock4Long2Percent.Enabled = true;
+                    stock4Long25Percent.Enabled = true;
                 }
             }
         }
@@ -2336,11 +2658,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Long05Percent.Enabled = false;
+                    stock4Long1Percent.Enabled = false;
                     stock4Long125percent.Enabled = false;
+                    stock4Long15Percent.Enabled = false;
+                    stock4Long2Percent.Enabled = false;
+                    stock4Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_FOUR, 10, TickType.ASK, sellStopPrice, 1.25, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Long05Percent.Enabled = true;
+                    stock4Long1Percent.Enabled = true;
                     stock4Long125percent.Enabled = true;
+                    stock4Long15Percent.Enabled = true;
+                    stock4Long2Percent.Enabled = true;
+                    stock4Long25Percent.Enabled = true;
                 }
             }
         }
@@ -2354,11 +2686,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Long05Percent.Enabled = false;
+                    stock4Long1Percent.Enabled = false;
+                    stock4Long125percent.Enabled = false;
                     stock4Long15Percent.Enabled = false;
+                    stock4Long2Percent.Enabled = false;
+                    stock4Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_FOUR, 10, TickType.ASK, sellStopPrice, 1.5, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Long05Percent.Enabled = true;
+                    stock4Long1Percent.Enabled = true;
+                    stock4Long125percent.Enabled = true;
                     stock4Long15Percent.Enabled = true;
+                    stock4Long2Percent.Enabled = true;
+                    stock4Long25Percent.Enabled = true;
                 }
             }
         }
@@ -2372,11 +2714,21 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Long05Percent.Enabled = false;
+                    stock4Long1Percent.Enabled = false;
+                    stock4Long125percent.Enabled = false;
+                    stock4Long15Percent.Enabled = false;
                     stock4Long2Percent.Enabled = false;
+                    stock4Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_FOUR, 10, TickType.ASK, sellStopPrice, 2.0, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Long05Percent.Enabled = true;
+                    stock4Long1Percent.Enabled = true;
+                    stock4Long125percent.Enabled = true;
+                    stock4Long15Percent.Enabled = true;
                     stock4Long2Percent.Enabled = true;
+                    stock4Long25Percent.Enabled = true;
                 }
             }
         }
@@ -2390,10 +2742,20 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Long05Percent.Enabled = false;
+                    stock4Long1Percent.Enabled = false;
+                    stock4Long125percent.Enabled = false;
+                    stock4Long15Percent.Enabled = false;
+                    stock4Long2Percent.Enabled = false;
                     stock4Long25Percent.Enabled = false;
                     controller.service.PlaceBuyLimitOrder(STOCK_FOUR, 10, TickType.ASK, sellStopPrice, 2.5, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Long05Percent.Enabled = true;
+                    stock4Long1Percent.Enabled = true;
+                    stock4Long125percent.Enabled = true;
+                    stock4Long15Percent.Enabled = true;
+                    stock4Long2Percent.Enabled = true;
                     stock4Long25Percent.Enabled = true;
                 }
             }
@@ -2410,10 +2772,18 @@ namespace TradeBot.WinGui
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
                     stock4Short05Percent.Enabled = false;
+                    stock4Short1Percent.Enabled = false;
+                    stock4Short125Percent.Enabled = false;
+                    stock4Short15Percent.Enabled = false;
+                    stock4Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_FOUR, 10, TickType.BID, buyStopPrice, 0.5, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
                     stock4Short05Percent.Enabled = true;
+                    stock4Short1Percent.Enabled = true;
+                    stock4Short125Percent.Enabled = true;
+                    stock4Short15Percent.Enabled = true;
+                    stock4Short2Percent.Enabled = true;
                 }
             }
         }
@@ -2428,11 +2798,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Short05Percent.Enabled = false;
                     stock4Short1Percent.Enabled = false;
+                    stock4Short125Percent.Enabled = false;
+                    stock4Short15Percent.Enabled = false;
+                    stock4Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_FOUR, 10, TickType.BID, buyStopPrice, 1.0, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Short05Percent.Enabled = true;
                     stock4Short1Percent.Enabled = true;
+                    stock4Short125Percent.Enabled = true;
+                    stock4Short15Percent.Enabled = true;
+                    stock4Short2Percent.Enabled = true;
                 }
             }
         }
@@ -2447,11 +2825,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Short05Percent.Enabled = false;
+                    stock4Short1Percent.Enabled = false;
                     stock4Short125Percent.Enabled = false;
+                    stock4Short15Percent.Enabled = false;
+                    stock4Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_FOUR, 10, TickType.BID, buyStopPrice, 1.25, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Short05Percent.Enabled = true;
+                    stock4Short1Percent.Enabled = true;
                     stock4Short125Percent.Enabled = true;
+                    stock4Short15Percent.Enabled = true;
+                    stock4Short2Percent.Enabled = true;
                 }
             }
 
@@ -2467,11 +2853,19 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Short05Percent.Enabled = false;
+                    stock4Short1Percent.Enabled = false;
+                    stock4Short125Percent.Enabled = false;
                     stock4Short15Percent.Enabled = false;
+                    stock4Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_FOUR, 10, TickType.BID, buyStopPrice, 1.5, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Short05Percent.Enabled = true;
+                    stock4Short1Percent.Enabled = true;
+                    stock4Short125Percent.Enabled = true;
                     stock4Short15Percent.Enabled = true;
+                    stock4Short2Percent.Enabled = true;
                 }
             }
         }
@@ -2486,10 +2880,18 @@ namespace TradeBot.WinGui
                     && Validation.TickerSetGUI(STOCK_FOUR, controller.service)
                     && Validation.TickDataAvailableGUI(STOCK_FOUR, controller.service, COMMON_TICKS))
                 {
+                    stock4Short05Percent.Enabled = false;
+                    stock4Short1Percent.Enabled = false;
+                    stock4Short125Percent.Enabled = false;
+                    stock4Short15Percent.Enabled = false;
                     stock4Short2Percent.Enabled = false;
                     controller.service.PlaceSellLimitOrder(STOCK_FOUR, 10, TickType.BID, buyStopPrice, 2.0, stock4OutsideRTHCheckbox.Checked);
                     soundPlayer.Play();
                     await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
+                    stock4Short05Percent.Enabled = true;
+                    stock4Short1Percent.Enabled = true;
+                    stock4Short125Percent.Enabled = true;
+                    stock4Short15Percent.Enabled = true;
                     stock4Short2Percent.Enabled = true;
                 }
             }
