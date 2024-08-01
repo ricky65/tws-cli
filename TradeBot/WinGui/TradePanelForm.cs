@@ -24,7 +24,7 @@ namespace TradeBot.WinGui
         private SoundPlayer soundPlayer;
         private string buttonSoundWavFileName;
 
-        private const double buttonDelayInSeconds = 3.0;
+        private const double buttonDelayInSeconds = 5.0;
 
         public TradePanelForm()
         {
