@@ -562,7 +562,7 @@ namespace TradeBot.WinGui
                 //&& Validation.SharesSet(Shares)
                 && Validation.TickDataAvailableGUI(STOCK_ONE, controller.service, COMMON_TICKS))
             {
-                stock1SellStop1Percent.Enabled = false; 
+                stock1SellStop1Percent.Enabled = false;
                 controller.service.PlaceSellStopLimitOrder(STOCK_ONE, 10, TickType.BID, sellStopPrice, buyStopPrice, 1.0, stock1OutsideRTHCheckbox.Checked);
                 soundPlayer.Play();
                 await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
@@ -861,7 +861,7 @@ namespace TradeBot.WinGui
         }
 
         private void stock1ButtonReset_Click(object sender, EventArgs e)
-        {            
+        {
             //Cancel Market Data
             controller.service.CancelMarketData(STOCK_ONE);
 
@@ -1519,7 +1519,7 @@ namespace TradeBot.WinGui
 
         private async void stock2Close50Percent_Click(object sender, EventArgs e)
         {
-            stock2Close50Percent.Enabled = false; 
+            stock2Close50Percent.Enabled = false;
             await controller.ScalePositionAsync(STOCK_TWO, controller.service.Stock2TickerSymbol, -0.5, stock2OutsideRTHCheckbox.Checked);
             soundPlayer.Play();
             await Task.Delay(TimeSpan.FromSeconds(buttonDelayInSeconds));
@@ -3442,5 +3442,18 @@ namespace TradeBot.WinGui
             GlobalOutputTextBox.AppendText("Stock 4 OutsideRTH: " + stock4OutsideRTHCheckbox.Checked + "\r\n");
         }
 
+        private async void stock1CancelAllOrdersClick(object sender, EventArgs e)
+        {
+            if (Validation.TickerSetGUI(STOCK_ONE, controller.service))
+            {
+                var stock1OpenOrders = await controller.service.RequestOpenOrdersForContractAsync(STOCK_ONE);
+
+                foreach (var openOrders in stock1OpenOrders)
+                {
+                    controller.service.CancelOrder(openOrders.OrderId);
+                }
+            }
+
+        }
     }
 }

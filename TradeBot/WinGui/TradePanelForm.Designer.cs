@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             stock1GroupBox = new GroupBox();
+            stock1CancelAllOrdersButton = new Button();
             stock1BidAskLabel = new Label();
             stock1BidAskOutput = new Label();
             stock1BidAskSizeLabel = new Label();
@@ -261,6 +262,7 @@
             // 
             // stock1GroupBox
             // 
+            stock1GroupBox.Controls.Add(stock1CancelAllOrdersButton);
             stock1GroupBox.Controls.Add(stock1BidAskLabel);
             stock1GroupBox.Controls.Add(stock1BidAskOutput);
             stock1GroupBox.Controls.Add(stock1BidAskSizeLabel);
@@ -323,6 +325,17 @@
             stock1GroupBox.TabIndex = 1;
             stock1GroupBox.TabStop = false;
             stock1GroupBox.Text = "Stock 1";
+            // 
+            // stock1CancelAllOrdersButton
+            // 
+            stock1CancelAllOrdersButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            stock1CancelAllOrdersButton.Location = new Point(626, 32);
+            stock1CancelAllOrdersButton.Name = "stock1CancelAllOrdersButton";
+            stock1CancelAllOrdersButton.Size = new Size(73, 40);
+            stock1CancelAllOrdersButton.TabIndex = 72;
+            stock1CancelAllOrdersButton.Text = "Cncl All";
+            stock1CancelAllOrdersButton.UseVisualStyleBackColor = true;
+            stock1CancelAllOrdersButton.Click += stock1CancelAllOrdersClick;
             // 
             // stock1BidAskLabel
             // 
@@ -3292,5 +3305,6 @@
         private TextBox stock4TakeProfitLimitPriceTextBox;
         private TextBox stock4TickerInput;
         private Label stock4TickerLabel;
+        private Button stock1CancelAllOrdersButton;
     }
 }

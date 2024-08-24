@@ -1,5 +1,6 @@
 using IBApi;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -20,8 +21,8 @@ namespace TradeBot
         private Portfolio portfolio;
         private TaskCompletionSource<string> accountDownloadEndTCS;
 
-        private List<OpenOrder> openOrders;
-        private TaskCompletionSource openOrdersEndTCS;
+        private List<OpenOrder> openOrders = new List<OpenOrder>();
+        private TaskCompletionSource openOrdersEndTCS = new TaskCompletionSource();
 
         //Stock 1
         private int stock1StockReqContractDetailsId;
@@ -1147,7 +1148,10 @@ namespace TradeBot
             //Find account with highest Net Liquidation Value and use that as our Total Equity
             var largestAcc = accountNetLiquidationValue.Aggregate((l, r) => l.Value > r.Value ? l : r);
             totalEquity = largestAcc.Value;
-            MaxAvailableFundsAccount = largestAcc.Key;            
+            MaxAvailableFundsAccount = largestAcc.Key;
+
+            //Causes future orders placed from TWS to be 'bound', i.e. assigned an order ID such that they can be accessed by the cancelOrder or placeOrder (for modification) functions by client ID 0 (this client)
+            clientSocket.reqAutoOpenOrders(true);
         }
 
         public void OnContractDetails(int reqId, ContractDetails contractDetails)
@@ -1350,19 +1354,33 @@ namespace TradeBot
             //IO.ShowMessage("OnOpenOrderEnd");
         }
 
-        public async Task<IEnumerable<OpenOrder>> RequestOpenOrdersForContractAsync(int contractId)
+        public async Task<IEnumerable<OpenOrder>> RequestOpenOrdersForContractAsync(int stockNum)
         {
             openOrders = new List<OpenOrder>();
+            openOrdersEndTCS = new TaskCompletionSource();            
+
+            clientSocket.reqAllOpenOrders();
 
             var newOpenOrders = await RequestOpenOrdersAsync();
 
-            return openOrders
-                .Where(o => o.Contract.ConId == contractId);
+            Contract contract = GetContract(stockNum);
+
+            List<OpenOrder> filteredOpenOrders = new List<OpenOrder>();
+
+            foreach (var openOrder_l in newOpenOrders)
+            {
+                if (openOrder_l.Contract.ConId == contract.ConId)
+                {
+                    filteredOpenOrders.Add(openOrder_l);
+                }
+            }
+
+            return filteredOpenOrders;
         }
 
         public async Task<List<OpenOrder>> RequestOpenOrdersAsync()
         {
-            await accountDownloadEndTCS.Task;
+            await openOrdersEndTCS.Task;
             return openOrders;
         }
 
