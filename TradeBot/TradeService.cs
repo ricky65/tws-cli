@@ -20,6 +20,9 @@ namespace TradeBot
         private Portfolio portfolio;
         private TaskCompletionSource<string> accountDownloadEndTCS;
 
+        private List<OpenOrder> openOrders;
+        private TaskCompletionSource openOrdersEndTCS;
+
         //Stock 1
         private int stock1StockReqContractDetailsId;
         private int stock1CFDReqContractDetailsId;
@@ -137,6 +140,8 @@ namespace TradeBot
             AccountSummaryEnd += OnAccountSummaryEnd;//Rick
             ContractDetails += OnContractDetails;//rick
             ContractDetailsEnd += OnContractDetailsEnd;//rick
+            OpenOrder += OnOpenOrder;
+            OpenOrderEnd += OnOpenOrderEnd;
         }
 
         #region Events
@@ -643,7 +648,7 @@ namespace TradeBot
            CancelOrder(--nextValidOrderId);
             ++canceledOrderCount;
         }
-
+        
         public void CancelOrder(int orderId)
         {
             clientSocket.cancelOrder(orderId);
@@ -1330,6 +1335,35 @@ namespace TradeBot
         public void OnContractDetailsEnd(int reqId)
         {
             //IO.ShowMessage("OnContractDetailsEnd. Req Id: " + reqId);
+        }
+
+        public void OnOpenOrder(int orderId, Contract contract, Order order, OrderState orderState)
+        {
+            var openOrder = new OpenOrder(orderId, contract, order, orderState);
+            openOrders.Add(openOrder);
+            //PositionUpdated?.Invoke(position);
+        }
+
+        public void OnOpenOrderEnd()
+        {
+            openOrdersEndTCS.TrySetResult();
+            //IO.ShowMessage("OnOpenOrderEnd");
+        }
+
+        public async Task<IEnumerable<OpenOrder>> RequestOpenOrdersForContractAsync(int contractId)
+        {
+            openOrders = new List<OpenOrder>();
+
+            var newOpenOrders = await RequestOpenOrdersAsync();
+
+            return openOrders
+                .Where(o => o.Contract.ConId == contractId);
+        }
+
+        public async Task<List<OpenOrder>> RequestOpenOrdersAsync()
+        {
+            await accountDownloadEndTCS.Task;
+            return openOrders;
         }
 
         #endregion
