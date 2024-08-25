@@ -3453,7 +3453,45 @@ namespace TradeBot.WinGui
                     controller.service.CancelOrder(openOrders.OrderId);
                 }
             }
+        }
 
+        private async void stock2CancelAllOrdersClick(object sender, EventArgs e)
+        {
+            if (Validation.TickerSetGUI(STOCK_TWO, controller.service))
+            {
+                var stock2OpenOrders = await controller.service.RequestOpenOrdersForContractAsync(STOCK_TWO);
+
+                foreach (var openOrders in stock2OpenOrders)
+                {
+                    controller.service.CancelOrder(openOrders.OrderId);
+                }
+            }
+        }
+
+        private async void stock3CancelAllOrdersClick(object sender, EventArgs e)
+        {
+            if (Validation.TickerSetGUI(STOCK_THREE, controller.service))
+            {
+                var stock3OpenOrders = await controller.service.RequestOpenOrdersForContractAsync(STOCK_THREE);
+
+                foreach (var openOrders in stock3OpenOrders)
+                {
+                    controller.service.CancelOrder(openOrders.OrderId);
+                }
+            }
+        }
+
+        private async void stock4CancelAllOrdersClick(object sender, EventArgs e)
+        {
+            if (Validation.TickerSetGUI(STOCK_FOUR, controller.service))
+            {
+                var stock4OpenOrders = await controller.service.RequestOpenOrdersForContractAsync(STOCK_FOUR);
+
+                foreach (var openOrders in stock4OpenOrders)
+                {
+                    controller.service.CancelOrder(openOrders.OrderId);
+                }
+            }
         }
     }
 }

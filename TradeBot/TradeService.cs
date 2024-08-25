@@ -1361,18 +1361,19 @@ namespace TradeBot
 
             clientSocket.reqAllOpenOrders();
 
-            var newOpenOrders = await RequestOpenOrdersAsync();
+            var newOpenOrders = await RequestOpenOrdersAsync();            
 
+            List<OpenOrder> filteredOpenOrders = new List<OpenOrder>();            
             Contract contract = GetContract(stockNum);
-
-            List<OpenOrder> filteredOpenOrders = new List<OpenOrder>();
-
-            foreach (var openOrder_l in newOpenOrders)
+            if (contract is not null)
             {
-                if (openOrder_l.Contract.ConId == contract.ConId)
+                foreach (var openOrder_l in newOpenOrders)
                 {
-                    filteredOpenOrders.Add(openOrder_l);
-                }
+                    if (openOrder_l.Contract.ConId == contract.ConId)
+                    {
+                        filteredOpenOrders.Add(openOrder_l);
+                    }
+                } 
             }
 
             return filteredOpenOrders;
